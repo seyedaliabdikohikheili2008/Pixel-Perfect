@@ -100,8 +100,16 @@
   --border-radius-32:32px;
   --border-radius-40:40px;
   --border-radius-full:9999px;
+  /* shadow */
+    --shadow-md: 0 4px 12px -3px rgb(0 0 0 / 0.1), 0 2px 8px -4px rgb(0 0 0 / 0.1);
+    --shadow-xs: 0 1px 2px 0px rgb(0 0 0 / 0.05);
+    --shadow-lg: 0 10px 40px -10px rgba(0, 0, 0, 0.12);
+    --shadow-xl: 0 25px 60px -15px rgba(0, 0, 0, 0.15);
+    --shadow-2xl: 0 35px 70px -20px rgba(0, 0, 0, 0.2);
+    --shadow-sm: 0 1px 3px 0px rgba(0, 0, 0, 0.07), 0 1px 2px 0px rgba(0, 0, 0, 0.06);
 
-
+  /* gap */
+  
 }
 
 :root {

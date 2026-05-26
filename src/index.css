@@ -121,6 +121,29 @@
   --spacing-10:2.5rem;
   --spacing-12:3rem;
   --spacing-16:4rem;
+  /* component */
+  --component-2: 2px;
+  --component-4: 4px;
+  --component-8: 8px;
+  --component-12: 12px;
+  --component-16: 16px;
+  --component-20: 20px;
+  --component-24: 24px;
+  --component-32: 32px;
+  --component-36: 36px;
+  --component-40: 40px;
+
+  /* layout */
+  --layout-8: 8px;
+  --layout-16: 16px;
+  --layout-24: 24px;
+  --layout-32: 32px;
+  --layout-48: 48px;
+  --layout-64: 64px;
+  --layout-80: 80px;
+  --layout-96: 96px;
+  --layout-128: 128px;
+
 }
 
 :root {

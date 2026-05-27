@@ -1,13 +1,12 @@
 import '../assets/styles/App.css'
-import Button from '../components/atoms/Butoon/Button'
-import Input from '../components/atoms/Input/Input'
-import Logo from '../components/atoms/Logo/Logo'
+import DarkModeButton from '../components/atoms/DarkModeButton/DarkModeButton'
+
 
 function App() {
 
   return (
     <>
-      <Input />
+      
     </>
   )
 }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import sun from "/images/icons/dark-mode/btn-icon"
-import moon from "/images/icons/dark-mode/Property 1=lghit"
+import sun from "../../../assets/images/icons/dark-mode/btn-icon.png"
+import moon from "../../../assets/images//icons/dark-mode/Property 1=lghit.png"
 const DarkModeButton=({ initialMode = 'light' })=> {
   const [mode, setMode] = useState(initialMode);
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-
-function DarkModeToggleButton({ initialMode = 'light' }) {
+import sun from "/images/icons/dark-mode/btn-icon"
+import moon from "/images/icons/dark-mode/Property 1=lghit"
+const DarkModeButton=({ initialMode = 'light' })=> {
   const [mode, setMode] = useState(initialMode);
 
   useEffect(() => {
@@ -18,12 +19,12 @@ function DarkModeToggleButton({ initialMode = 'light' }) {
       aria-label={`Switch to ${mode === 'light' ? 'dark' : 'light'} mode`}
     >
       {mode === 'light' ? (
-        <img src="/images/icons/Property 1=lghit.png" alt="Moon Icon"  />
+        <img src={moon} alt="Moon Icon"  />
       ) : (
-        <img src="/images/icons/btn-icon.png" alt="Sun Icon"  />
+        <img src={sun} alt="Sun Icon"  />
       )}
     </button>
   );
 }
 
-export default DarkModeToggleButton;
+export default DarkModeButton;

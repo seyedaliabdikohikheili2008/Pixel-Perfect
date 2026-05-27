@@ -1,10 +1,11 @@
 import '../assets/styles/App.css'
+import Logo from '../components/atoms/Logo/Logo'
 
 function App() {
 
   return (
     <>
-      <div className='font-sans font-black text-'>سلام</div>
+      
     </>
   )
 }

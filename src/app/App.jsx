@@ -1,12 +1,13 @@
 import '../assets/styles/App.css'
-import DarkModeButton from '../components/atoms/DarkModeButton/DarkModeButton'
+import Footer from '../components/organisms/Footer/Footer'
+
 
 
 function App() {
 
   return (
     <>
-      
+      <Footer/>
     </>
   )
 }

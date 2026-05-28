@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Logo from "../../atoms/Logo/Logo";
-import UnderMenu from "./UnderMenu";
+import UnderMenu from "../../molecules/header/UnderMenu";
 import DarkModeButton from "../../atoms/DarkModeButton/DarkModeButton";
 import Button from "../../atoms/Butoon/Button";
 import umenu from "../../../assets/images/icons/header/umenuIcon.png";
@@ -9,7 +9,7 @@ const Header = ({ variant }) => {
     const [UMenuFlag, setUMenuFlag] = useState(false);
   return (
     <>
-      <div className="relative w-11/12 h-23.5 rounded-2xl shadow-[0px_50px_100px_0px_#48484829] flex items-center justify-between px-5 mt-5">
+      <div className="relative w-11/12 h-23.5 mx-auto rounded-2xl shadow-[0px_50px_100px_0px_#48484829] flex items-center justify-between px-5 mt-5">
         <div>
           <Logo variant={variant} />
         </div>

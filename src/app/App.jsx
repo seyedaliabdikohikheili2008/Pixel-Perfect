@@ -1,15 +1,16 @@
 import '../assets/styles/App.css'
-import DarkModeButton from '../components/atoms/DarkModeButton/DarkModeButton'
-import Header from '../components/molecules/header/Header'
+import Footer from '../components/organisms/Footer/Footer'
+import Header from '../components/organisms/header/Header'
+
+
 
 
 function App() {
 
   return (
     <>
-      <div className='flex justify-center'>
-        <Header variant={"linear"} />
-      </div>
+      <Header variant={"linear"} />
+      <Footer/>
     </>
   )
 }

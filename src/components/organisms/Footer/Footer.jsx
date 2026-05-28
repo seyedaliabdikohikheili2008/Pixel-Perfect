@@ -2,10 +2,12 @@ import React from "react";
 import Logo from "../../atoms/Logo/Logo";
 import samandehi from "../../../assets/images/icons/samandehi-logo/samandehi.png";
 import Copyright from "../../molecules/footer/CopyrightFooter";
+import ScrollToTopButton from "../../atoms/ScrollToTopButton/ScrollToTopButton";
 const Footer = () => {
   return (
     <>
-      <div className="h-183.5 flex flex-col w-full md:h-117  bg-neutral-50 dark:bg-dark-bg-2 rounded-tl-[40px] rounded-tr-[40px]">
+      <div className="after:content-[''] after:w-29 after:h-27 after:bg-white after:absolute after:-top-4 after:rounded-2xl after:left-21.5 relative   flex flex-col w-full bg-neutral-50 dark:bg-dark-bg-2 rounded-tl-[40px] rounded-tr-[40px]">
+        <ScrollToTopButton />
         <div className="w-11/12 h-71.25 mt-20 mb-10 m-auto flex-col flex items-center gap-10 md:justify-between md:flex-row">
           <div className="flex flex-col items-center gap-6.25 h-53.75">
             <Logo variant={"linear"} className={""} responsive="true" />

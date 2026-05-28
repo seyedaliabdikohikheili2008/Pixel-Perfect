@@ -1,4 +1,5 @@
 import React from "react";
+import icontop from "../../../assets/images/icons/scroll-to-top-button/arrow-right-02-round.png"
 
 const ScrollToTopButton=()=> {
   const scrollToTop = () => {
@@ -12,9 +13,9 @@ const ScrollToTopButton=()=> {
     <button
       onClick={scrollToTop}
       aria-label="Go to top"
-      className="flex items-center justify-center w-22 h-21  bg-primary-300 dark:bg-primary-700 rounded-lg"
+      className="flex absolute -top-2 left-25 items-center z-10 justify-center w-22 h-21  bg-primary-300 dark:bg-primary-700 rounded-2xl"
     >
-      <img src="../../../assets/images/icons/scroll-to-top-button/arrow-right-02-round.png" alt="arrow" className="w-12.5 h-12.5 rotate-90" />
+      <img src={icontop} alt="arrow" className="w-12.5 h-12.5" />
     </button>
   );
 }

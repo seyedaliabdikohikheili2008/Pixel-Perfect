@@ -3,6 +3,8 @@ import '../assets/styles/App.css'
 import Footer from '../components/organisms/Footer/Footer'
 import Header from '../components/organisms/header/Header'
 import { useSelector } from 'react-redux'
+import { RouterProvider } from 'react-router-dom'
+import router from './router/router'
 
 
 
@@ -19,8 +21,7 @@ function App() {
 
   return (
     <>
-      <Header variant={"linear"} />
-      <Footer/>
+      <RouterProvider router={router} />
     </>
   )
 }

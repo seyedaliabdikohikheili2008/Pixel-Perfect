@@ -4,12 +4,16 @@ import UnderMenu from "../../molecules/header/UnderMenu";
 import DarkModeButton from "../../atoms/DarkModeButton/DarkModeButton";
 import Button from "../../atoms/Butoon/Button";
 import umenu from "../../../assets/images/icons/header/umenuIcon.png";
+import umenuDark from "../../../assets/images/icons/header/umenuIconDark.png";
+import { useSelector } from "react-redux";
 
 const Header = ({ variant }) => {
-    const [UMenuFlag, setUMenuFlag] = useState(false);
+  const [UMenuFlag, setUMenuFlag] = useState(false);
+
+  const mode = useSelector((state) => state.DarkFlag.value);
   return (
     <>
-      <div className="relative w-11/12 h-23.5 mx-auto rounded-2xl shadow-[0px_50px_100px_0px_#48484829] flex items-center justify-between px-5 mt-5">
+      <div className="relative w-11/12 h-23.5 z-50 bg-background mx-auto rounded-2xl shadow-[0px_50px_100px_0px_#48484829] flex items-center justify-between px-5 mt-5">
         <div>
           <Logo variant={variant} />
         </div>
@@ -19,7 +23,14 @@ const Header = ({ variant }) => {
         <div className="flex items-center gap-3">
           <DarkModeButton />
           <Button children={"ورود یا ثبت نام"} />
-          <img className="w-10 h-10 md:hidden" src={umenu} alt="" onClick={()=>{setUMenuFlag((prev)=>!prev)}} />
+          <img
+            className="w-10 h-10 md:hidden"
+            src={mode === "light" ? umenu : umenuDark}
+            alt=""
+            onClick={() => {
+              setUMenuFlag((prev) => !prev);
+            }}
+          />
         </div>
       </div>
     </>

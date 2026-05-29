@@ -6,12 +6,12 @@ import ScrollToTopButton from "../../atoms/ScrollToTopButton/ScrollToTopButton";
 const Footer = () => {
   return (
     <>
-      <div className="after:content-[''] after:w-29 after:h-27 after:bg-white after:absolute after:-top-4 after:rounded-2xl after:left-21.5 relative   flex flex-col w-full bg-neutral-50 dark:bg-dark-bg-2 rounded-tl-[40px] rounded-tr-[40px]">
+      <div className="after:content-[''] after:w-29 after:h-27 after:bg-rootBg after:absolute after:-top-4 after:rounded-2xl after:left-21.5 relative   flex flex-col w-full bg-neutral-50 dark:bg-dark-bg-2 rounded-tl-[40px] rounded-tr-[40px]">
         <ScrollToTopButton />
         <div className="w-11/12 h-71.25 mt-20 mb-10 m-auto flex-col flex items-center gap-10 md:justify-between md:flex-row">
           <div className="flex flex-col items-center gap-6.25 h-53.75">
             <Logo variant={"linear"} className={""} responsive="true" />
-            <p className="font-sans font-normal text-xs leading-normal text-right">
+            <p className="font-sans font-normal text-neutral-600 text-xs leading-normal text-right">
               گروه بازرگانی آهن یک با بیش از یک دهه سابقه ، با نگاهی متفاوت
               پاسخگوی نیاز تمامی مشتریان در زمینه تامین و توزیع انواع مقاطع و
               ورق فولادی ، اتصالات ، شیرآلات صنعتی و سایر تجهیزات در صنایع نفت و
@@ -23,7 +23,7 @@ const Footer = () => {
           </div>
           <div className="hidden min-w-2/4 lg:flex gap-8">
             <div className=" hidden md:h-71.25 text-neutral-600 md:flex flex-col gap-2 ">
-              <h1 className="font-sans font-semibold text-textC text-right leading-5 dark:text-white">
+              <h1 className="font-sans font-semibold text-textC text-right leading-5">
                 لینک های مفید
               </h1>
               <div className="w-7.5 h-1 bg-primary-500"></div>

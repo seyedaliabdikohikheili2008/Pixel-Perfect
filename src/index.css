@@ -70,6 +70,7 @@
   /* neutral color */
   --color-neutral-50: #f4f4f4;
   --color-neutral-600: #838383;
+  --color-neutral-800: #4f4f4f;
 }
 
 body.dark {
@@ -96,7 +97,7 @@ body.dark {
   /* neutral color */
   --color-neutral-50: #2e2e2e;
   --color-neutral-600: #cccccc;
-  
+  --color-neutral-800: #ffffff;
 }
 
 body {
@@ -138,15 +139,15 @@ body {
   --color-primary-900: var(--color-primary-900);
 
   /* neutral color */
-  --color-neutral-50: #f4f4f4;
+  --color-neutral-50: var(--color-neutral-50);
   --color-neutral-100: #dddddd;
   --color-neutral-200: #cccccc;
   --color-neutral-300: #b5b5b5;
   --color-neutral-400: #a6a6a6;
   --color-neutral-500: #909090;
-  --color-neutral-600: #838383;
+  --color-neutral-600: var(--color-neutral-600);
   --color-neutral-700: #666666;
-  --color-neutral-800: #4f4f4f;
+  --color-neutral-800: var(--color-neutral-800);
   --color-neutral-900: #3c3c3c;
 
   /* saccess color */
@@ -197,7 +198,6 @@ body {
   --color-dark-800: #12121f;
   --color-dark-900: #0e0e18;
 
-
   /* text */
   --color-textC: var(--color-textC);
 
@@ -217,8 +217,7 @@ body {
   --border-radius-xl: 12px;
   --border-radius-2xl: 16px;
   --border-radius-3xl: 24px;
-  --border-radius-32: 32px;
-  --border-radius-40: 40px;
+  --border-radius-4xl: 32px;
   --border-radius-full: 9999px;
   /* shadow */
   --shadow-md:

@@ -136,9 +136,11 @@
   /* dark bg color */
   --color-dark-bg: #212121;
   --color-dark-bg-2: #2e2e2e;
+  --color-dark-bg-3:#4f4f4f;
 
   /* text */
   --color-textC: #272727;
+  --color-textb:#0CBDE2
 
   /* border weight */
   --border-width-1: 1px;
@@ -255,6 +257,7 @@ body {
 
 #root {
   width: 100%;
+  width: screen;
   max-width: 100%;
   margin: 0 auto;
   text-align: center;

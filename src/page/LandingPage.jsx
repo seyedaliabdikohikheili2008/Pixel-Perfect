@@ -4,6 +4,7 @@ import Footer from '../components/organisms/Footer/Footer'
 import LandingHeroSection from '../components/templates/landing/LandingHeroSection'
 import NewCourse from '../components/templates/landing/NewCourse'
 import LandingBestTeacher from '../components/templates/landing/LandingBestTeacher'
+import LandingAboutMe from '../components/templates/landing/LandingAboutMe'
 
 const LandingPage = () => {
   return (
@@ -12,6 +13,7 @@ const LandingPage = () => {
         <LandingHeroSection />
         <NewCourse />
         <LandingBestTeacher />
+        <LandingAboutMe />
         
         <Footer />
     </>

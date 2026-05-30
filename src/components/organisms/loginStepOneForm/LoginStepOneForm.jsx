@@ -5,7 +5,12 @@ import Button from "../../atoms/Butoon/Button";
 import Input from "../../atoms/Input/Input";
 import user from "../../../assets/images/icons/login-signup-form/user.png";
 import password from "../../../assets/images/icons/login-signup-form/password.png";
+import * as Yup from "yup";
 const LoginStepOneForm = () => {
+const validationSchema=Yup.object({
+  email: Yup.string().required("ایمیل الزامی است"),
+  password: Yup.string().required("رمز اجباری است")
+})
   return (
     <div className="w-full border border-solid border-red-900">
       <div className=" w-full bg-white md:w-1/3 mx-auto flex flex-col items-center gap-6 py-8 dark:bg-dark-bg-2 border border-solid border-red-900">
@@ -24,13 +29,17 @@ const LoginStepOneForm = () => {
           onSubmit={(values) => {
             console.log("Submit:", values);
           }}
+          validationSchema={validationSchema}
         >
-          {({ values, handleChange, handleSubmit }) => (
+          {({ values, handleChange, handleSubmit,handleBlur,errors={}, touched }) => (
             <Form
               className="w-full flex flex-col items-center gap-6"
               onSubmit={handleSubmit}
             >
-              <div className="w-8/10 bg-neutral-50 dark:bg-dark-bg-3 rounded-xl">
+                <div className="w-8/10 flex flex-col justify-end">
+              <div className={` focus:ring-indigo-500 w-full bg-neutral-50 dark:bg-dark-bg-3 rounded-xl flex flex-col justify-end focus:border-indigo-500  ${
+                errors.email && touched.email ? ' border border-red-500' : ''
+              }`}>
                 <Input
                   icon={user}
                   placeholder={"ایمیل یا شماره تماس"}
@@ -38,10 +47,15 @@ const LoginStepOneForm = () => {
                   name="email"
                   value={values.email}
                   onChange={handleChange}
+                  handleBlur={handleBlur}
                 />
-                
               </div>
-              <div className="w-8/10 bg-neutral-50 dark:bg-dark-bg-3 rounded-xl">
+              <ErrorMessage className="text-danger-500 text-right" name="email" component={"span"}/>
+              </div>
+              <div className="w-8/10 flex flex-col justify-end">
+              <div className={` focus:ring-indigo-500 w-full bg-neutral-50 dark:bg-dark-bg-3 rounded-xl flex flex-col justify-end focus:border-indigo-500  ${
+                errors.password && touched.password ? ' border border-red-500' : ''
+              }`} >
                 <Input
                   icon={password}
                   placeholder={"ایمیل یا شماره تماس"}
@@ -50,6 +64,8 @@ const LoginStepOneForm = () => {
                   value={values.password}
                   onChange={handleChange}
                 />
+              </div>
+              <ErrorMessage className="text-danger-500 text-right" name="password" component={"span"}/>
               </div>
               <div className="w-8/10 flex justify-between items-center">
                 <div className="flex items-center w-2/5 text-nowrap gap-2 text-textC dark:text-white">

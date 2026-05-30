@@ -14,7 +14,7 @@ function App() {
       <div className='flex justify-center flex-col '>
         <Header variant={"linear"} />
         {/* <LoginStepOne/> */}
-        
+        <LoginStepOneForm/>
         <Footer/>
       </div>
 

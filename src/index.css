@@ -69,8 +69,13 @@
 
   /* neutral color */
   --color-neutral-50: #f4f4f4;
+  --color-neutral-400: #a6a6a6;
   --color-neutral-600: #838383;
   --color-neutral-800: #4f4f4f;
+
+  /* sacces color */
+  --color-saccess-100: #c1feb0;
+  --color-saccess-700: #28b200;
 }
 
 body.dark {
@@ -96,8 +101,13 @@ body.dark {
 
   /* neutral color */
   --color-neutral-50: #2e2e2e;
+  --color-neutral-400: #ffffff;
   --color-neutral-600: #cccccc;
   --color-neutral-800: #ffffff;
+
+  /* sacces color */
+  --color-saccess-100: #a3fd8a;
+  --color-saccess-700: #186900;
 }
 
 body {
@@ -143,7 +153,7 @@ body {
   --color-neutral-100: #dddddd;
   --color-neutral-200: #cccccc;
   --color-neutral-300: #b5b5b5;
-  --color-neutral-400: #a6a6a6;
+  --color-neutral-400: var(--color-neutral-400);
   --color-neutral-500: #909090;
   --color-neutral-600: var(--color-neutral-600);
   --color-neutral-700: #666666;
@@ -152,13 +162,13 @@ body {
 
   /* saccess color */
   --color-saccess-50: #ebffe6;
-  --color-saccess-100: #c1feb0;
+  --color-saccess-100: var(--color-saccess-100);
   --color-saccess-200: #a3fd8a;
   --color-saccess-300: #7afc54;
   --color-saccess-400: #60fc33;
   --color-saccess-500: #38fb00;
   --color-saccess-600: #33e400;
-  --color-saccess-700: #28b200;
+  --color-saccess-700: var(--color-saccess-700);
   --color-saccess-800: #1f8a00;
   --color-saccess-900: #186900;
 

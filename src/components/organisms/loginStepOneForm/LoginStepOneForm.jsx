@@ -39,6 +39,7 @@ const LoginStepOneForm = () => {
                   value={values.email}
                   onChange={handleChange}
                 />
+                
               </div>
               <div className="w-8/10 bg-neutral-50 dark:bg-dark-bg-3 rounded-xl">
                 <Input

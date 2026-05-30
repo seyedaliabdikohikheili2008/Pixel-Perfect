@@ -5,7 +5,7 @@ import LandingAboutMeLeft from '../../organisms/landing/about me/LandingAboutMeL
 const LandingAboutMe = () => {
   return (
     <>
-        <div className='w-11/12 mb-24 flex gap-5 mx-auto'>
+        <div className='w-11/12 mb-24 lg:flex gap-5 hidden mx-auto'>
             <LandingAboutMeRight />
             <LandingAboutMeLeft />
         </div>

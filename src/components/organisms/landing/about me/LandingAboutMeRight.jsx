@@ -3,7 +3,7 @@ import image from "../../../../assets/images/landing/about-me/d6388bfbaf47c0d088
 const LandingAboutMeRight = () => {
   return (
     <>
-      <div className="w-2/5 hidden lg:block relative">
+      <div className="w-2/5 relative">
         <img
           className="object-cover h-194 rounded-[40px] overflow-hidden"
           src={image}

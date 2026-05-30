@@ -2,7 +2,7 @@ import '../assets/styles/App.css'
 import Header from '../components/molecules/header/Header'
 import Footer from '../components/organisms/Footer/Footer'
 import LoginStepOneForm from '../components/organisms/loginStepOneForm/LoginStepOneForm'
-import RegisterStepOne from "../components/organisms/RegisterStepOne/RegisterStepOne"
+import RegisterStepTwo from "../components/organisms/RegisterStepTwo/RegisterStepTwo"
 
 
 
@@ -14,7 +14,7 @@ function App() {
       <div className='flex justify-center flex-col '>
         <Header variant={"linear"} />
         {/* <LoginStepOne/> */}
-        <RegisterStepOne/>
+        <RegisterStepTwo/>
         <Footer/>
       </div>
 

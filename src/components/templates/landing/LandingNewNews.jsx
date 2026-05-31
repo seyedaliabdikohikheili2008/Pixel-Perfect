@@ -5,7 +5,7 @@ import NewsCard from "../../organisms/news/news-card/NewsCard";
 const LandingNewNews = () => {
   return (
     <>
-      <div className="w-11/12 flex flex-col items-center gap-10 mb-24">
+      <div className="w-11/12 mx-auto flex flex-col items-center gap-10 mb-24">
         <h2 className="w-90 py-3.5 text-3xl font-bold bg-[url('/text-line/line-6.png')] text-textC bg-no-repeat bg-bottom-right bg-auto">
           جدیترین اخبار
         </h2>

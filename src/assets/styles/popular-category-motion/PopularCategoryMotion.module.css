@@ -1,0 +1,10 @@
+.move{
+    animation: move 10s linear infinite;
+}
+@keyframes move {
+  0% { transform: translateX(0); }
+  25%{transform: translateX(-25%);}
+  50%{transform: translateX(0);}
+  75%{transform: translateX(25%);}
+  100% { transform: translateX(0); }
+}

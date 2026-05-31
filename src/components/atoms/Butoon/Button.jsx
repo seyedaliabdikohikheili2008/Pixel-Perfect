@@ -4,9 +4,12 @@ const Button = ({
   children,
   onClick,
   iconSrc,
+  iconSrc2,
   iconAlt = "icon",
+  iconAlt2 = "icon",
   buttonClassName = "",
   iconClassName = "",
+  iconClassName2 = "",
 }) => {
   const hasIcon = iconSrc ? true : false;
 
@@ -22,6 +25,9 @@ const Button = ({
     >
       {iconSrc && <img src={iconSrc} alt={iconAlt} className={iconClassName} />}
       {children}
+      {iconSrc2 && (
+        <img src={iconSrc2} alt={iconAlt2} className={iconClassName2} />
+      )}
     </button>
   );
 };

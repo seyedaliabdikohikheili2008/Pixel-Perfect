@@ -1,15 +1,17 @@
 import React from "react";
 import NewCourseSlider from "../../organisms/landing/new-course-slider/NewCourseSlider";
+import TitleDesc from "../../molecules/title-desc/TitleDesc";
 const NewCourse = () => {
   return (
     <>
       <div className="w-11/12 hidden mb-24 mx-auto lg:flex flex-col gap-5 items-center">
-        <h1 className="w-82 py-3.5 text-3xl font-bold bg-[url('/text-line/line-6.png')] text-textC bg-no-repeat bg-bottom-right bg-auto">
-          جدیترین دوره های انلاین
-        </h1>
-        <h5 className="text-neutral-400 text-base font-medium">محبوب ترین دوره های آموزشی نویسندگان متخصص ما را بررسی کنید.</h5>
+        <TitleDesc
+          width="w-82"
+          desc={" محبوب ترین دوره های آموزشی نویسندگان متخصص ما را بررسی کنید"}
+          title={"جدیترین دوره های انلاین"}
+        />
         <div>
-            <NewCourseSlider />
+          <NewCourseSlider />
         </div>
       </div>
     </>

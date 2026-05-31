@@ -1,16 +1,16 @@
 import React from "react";
 import PopularCategoryTag from "../../organisms/landing/popular-category/PopularCategoryTag";
+import TitleDesc from "../../molecules/title-desc/TitleDesc";
 
 const PopularCtegory = () => {
   return (
     <>
       <div className="w-full overflow-hidden pb-5 flex flex-col gap-5 mb-24 items-center">
-        <h2 className="w-90 py-3.5 text-3xl font-bold bg-[url('/text-line/line-6.png')] text-textC bg-no-repeat bg-bottom-right bg-auto">
-          محبوب ترین دسته بندی ها
-        </h2>
-        <h5 className="text-neutral-400 text-base font-medium">
-          محبوب ترین دوره های آموزشی نویسندگان متخصص ما را بررسی کنید.{" "}
-        </h5>
+        <TitleDesc
+          width="w-90"
+          desc={" محبوب ترین دوره های آموزشی نویسندگان متخصص ما را بررسی کنید"}
+          title={"محبوب ترین دسته بندی ها"}
+        />
         <PopularCategoryTag />
       </div>
     </>

@@ -8,6 +8,7 @@ import LandingAboutMe from '../components/templates/landing/LandingAboutMe'
 import Roadmap from '../components/templates/landing/RoadMap'
 import LandingBestCourse from '../components/templates/landing/LandingBestCourse'
 import PopularCtegory from '../components/templates/landing/PopularCtegory'
+import LandingNewNews from '../components/templates/landing/LandingNewNews'
 
 const LandingPage = () => {
   return (
@@ -20,7 +21,8 @@ const LandingPage = () => {
         <Roadmap />
         <LandingBestCourse />
         <PopularCtegory />
-        
+
+        <LandingNewNews />
         <Footer />
     </>
   )

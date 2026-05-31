@@ -6,7 +6,7 @@ import Input from "../../atoms/Input/Input";
 import email from "../../../assets/images/icons/login-signup-form/email.png";
 import password from "../../../assets/images/icons/login-signup-form/password.png";
 import * as Yup from "yup";
-const RegisterStepOneForm = () => {
+const RegisterStepTwoForm = () => {
 const validationSchema=Yup.object({
   email: Yup.string().required("ایمیل الزامی است"),
   password: Yup.string().required("رمز اجباری است"),
@@ -102,4 +102,4 @@ const validationSchema=Yup.object({
   );
 };
 
-export default RegisterStepOneForm;
+export default RegisterStepTwoForm;

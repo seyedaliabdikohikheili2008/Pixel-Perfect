@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@heroui/react": "^3.1.0",
     "@tailwindcss/vite": "^4.3.0",
     "formik": "^2.4.9",
     "react": "^19.2.6",

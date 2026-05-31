@@ -69,6 +69,7 @@
 
   /* neutral color */
   --color-neutral-50: #f4f4f4;
+  --color-neutral-100: #dddddd;
   --color-neutral-400: #a6a6a6;
   --color-neutral-600: #838383;
   --color-neutral-800: #4f4f4f;
@@ -101,6 +102,7 @@ body.dark {
 
   /* neutral color */
   --color-neutral-50: #2e2e2e;
+  --color-neutral-100: #3c3c3c;
   --color-neutral-400: #ffffff;
   --color-neutral-600: #cccccc;
   --color-neutral-800: #ffffff;
@@ -112,6 +114,7 @@ body.dark {
 
 body {
   margin: 0;
+  padding: 0;
 }
 
 @theme {
@@ -150,7 +153,7 @@ body {
 
   /* neutral color */
   --color-neutral-50: var(--color-neutral-50);
-  --color-neutral-100: #dddddd;
+  --color-neutral-100: var(--color-neutral-100);
   --color-neutral-200: #cccccc;
   --color-neutral-300: #b5b5b5;
   --color-neutral-400: var(--color-neutral-400);
@@ -279,7 +282,8 @@ body {
 #root {
   width: screen;
   max-width: 100%;
-  margin: 0 auto;
+  margin: 0 0;
+  padding: 0;
   text-align: center;
   border-inline: 1px solid var(--border);
   min-height: 100svh;

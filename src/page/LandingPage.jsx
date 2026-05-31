@@ -6,6 +6,7 @@ import NewCourse from '../components/templates/landing/NewCourse'
 import LandingBestTeacher from '../components/templates/landing/LandingBestTeacher'
 import LandingAboutMe from '../components/templates/landing/LandingAboutMe'
 import Roadmap from '../components/templates/landing/RoadMap'
+import LandingBestCourse from '../components/templates/landing/LandingBestCourse'
 
 const LandingPage = () => {
   return (
@@ -16,6 +17,7 @@ const LandingPage = () => {
         <LandingBestTeacher />
         <LandingAboutMe />
         <Roadmap />
+        <LandingBestCourse />
         
         <Footer />
     </>

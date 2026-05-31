@@ -8,16 +8,15 @@ const Button = ({
   buttonClassName = "",
   iconClassName = "",
 }) => {
-    
   const hasIcon = iconSrc ? true : false;
 
   return (
     <button
       onClick={onClick}
       className={`
+        ${buttonClassName}
         flex items-center justify-center 
         px-5 py-3 text-white focus:outline-none rounded-2xl bg-primary-500 dark:bg-primary-800
-        ${buttonClassName}
         ${hasIcon ? "gap-1.5" : ""}
       `}
     >

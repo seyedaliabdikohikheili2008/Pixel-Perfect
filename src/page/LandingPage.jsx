@@ -7,6 +7,7 @@ import LandingBestTeacher from '../components/templates/landing/LandingBestTeach
 import LandingAboutMe from '../components/templates/landing/LandingAboutMe'
 import Roadmap from '../components/templates/landing/RoadMap'
 import LandingBestCourse from '../components/templates/landing/LandingBestCourse'
+import PopularCtegory from '../components/templates/landing/PopularCtegory'
 
 const LandingPage = () => {
   return (
@@ -18,6 +19,7 @@ const LandingPage = () => {
         <LandingAboutMe />
         <Roadmap />
         <LandingBestCourse />
+        <PopularCtegory />
         
         <Footer />
     </>

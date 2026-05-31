@@ -10,7 +10,7 @@ const RoadMapSvg = () => {
     <div className="relative flex justify-center h-300 md:h-auto items-center min-h-78 w-full mx-auto">
       <svg
         width="100%"
-        height="auto"
+        
         viewBox="0 0 1177 311"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import LandingPage from "../../page/LandingPage";
 import NotFoundPage from "../../page/NotFoundPage";
+import CourseListPage from "../../page/CourseListPage";
 import RegisterStepOne from "../../page/RegisterStepOne";
 import LoginStepOne from "../../page/LoginStepOne"
 import LoginStepTwo from "../../page/LoginStepTwo"
@@ -14,6 +15,7 @@ const router = createBrowserRouter([
     path: "",
     element: <LandingPage />,
   },
+  { path: "/courses", element: <CourseListPage /> },
   { path: "*", element: <NotFoundPage /> },
    
     {path: "/login",

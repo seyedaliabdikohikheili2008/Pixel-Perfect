@@ -4,6 +4,7 @@ import ImgBgDark from "../../../assets/images/landing/landing-best-course/UnionD
 import { useSelector } from "react-redux";
 import LBestCourseCard from "../../organisms/landing/best-course/LBestCourseCard";
 import Button from "../../atoms/Butoon/Button";
+import TitleDesc from "../../molecules/title-desc/TitleDesc";
 const LandingBestCourse = () => {
   const mode = useSelector((state) => state.DarkFlag.value);
 
@@ -15,18 +16,19 @@ const LandingBestCourse = () => {
           src={mode == "light" ? ImgBg : ImgBgDark}
           alt=""
         />
-        <h2 className="w-75 z-10 py-3.5 text-3xl font-bold bg-[url('/text-line/line-6.png')] text-textC bg-no-repeat bg-bottom-right bg-auto">
-          برترین دوره ها
-        </h2>
+        <TitleDesc titleclassName="z-10" width="w-75" title={" برترین دوره ها"} />
         <div className="z-10 w-11/12 justify-between flex flex-wrap ">
-            <LBestCourseCard />
-            <LBestCourseCard />
-            <LBestCourseCard />
-            <LBestCourseCard />
-            <LBestCourseCard />
-            <LBestCourseCard />
+          <LBestCourseCard />
+          <LBestCourseCard />
+          <LBestCourseCard />
+          <LBestCourseCard />
+          <LBestCourseCard />
+          <LBestCourseCard />
         </div>
-        <Button children={"دوست داری ببیشتر ببینی"} buttonClassName="rounded-full z-10 translate-x-60" />
+        <Button
+          children={"دوست داری ببیشتر ببینی"}
+          buttonClassName="rounded-full z-10 translate-x-60"
+        />
       </div>
     </>
   );

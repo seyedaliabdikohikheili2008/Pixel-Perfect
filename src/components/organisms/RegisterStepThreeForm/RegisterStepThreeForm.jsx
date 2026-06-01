@@ -9,14 +9,18 @@ import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 const RegisterStepTwoForm = () => {
 const validationSchema=Yup.object({
-  email: Yup.string().required("ایمیل الزامی است"),
+  email: Yup.string().required("ایمیل الزامی است").email("فرمت ایمیل صحیح نیست"),
   password: Yup.string().required("رمز اجباری است"),
-  password2: Yup.string().required("تکرار رمز اجباری است")
+  password2: Yup.string().required("تکرار رمز اجباری است").oneOf([Yup.ref("password")],"رمز عبور و تکرار آن یکسان نیستند")
 })
+const sumbitHandeler=(values)=>{
+  console.log(values);
+  navigate("/")
+}
 const navigate = useNavigate();
   return (
     <div className="w-full ">
-      <div className="relative right-15 w-full bg-background md:w-1/3 mx-auto flex flex-col items-center gap-6 py-8 rounded-xl shadow-2xl">
+      <div className="w-full bg-background md:w-1/2 lg:w-[40%] xl:w-1/3 mx-auto flex flex-col items-center gap-6 py-8 rounded-xl shadow-2xl">
         <Logo variant={"vertical"} className={"h-52.25"} />
         <h1 className="font-bold font-sans text-textC  text-3xl">
           ایجاد حساب کاربری
@@ -30,15 +34,12 @@ const navigate = useNavigate();
             password: "",
             password2:""
           }}
-          onSubmit={(values) => {
-            console.log("Submit:", values);
-          }}
+          onSubmit={sumbitHandeler}
           validationSchema={validationSchema}
         >
-          {({ values, handleChange, handleSubmit,handleBlur,errors={}, touched }) => (
+          {({ values, handleChange,handleBlur,errors={}, touched }) => (
             <Form
               className="w-full flex flex-col items-center gap-6"
-              onSubmit={handleSubmit}
             >
                 <div className="w-8/10 flex flex-col justify-end">
               <div className={` focus:ring-indigo-500 w-full bg-neutral-50 dark:bg-dark-bg-3 rounded-xl flex flex-col justify-end focus:border-indigo-500  ${

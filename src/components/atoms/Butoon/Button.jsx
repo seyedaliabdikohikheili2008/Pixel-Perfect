@@ -11,7 +11,7 @@ const Button = ({
   buttonClassName = "",
   iconClassName = "",
   iconClassName2 = "",
-  type="button",
+  type
   
 }) => {
   const hasIcon = iconSrc ? true : false;

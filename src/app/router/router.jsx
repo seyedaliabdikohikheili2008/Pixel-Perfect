@@ -26,7 +26,7 @@ const router = createBrowserRouter([
         element: <LoginStepOne />,
       },
       {
-        path: "verify", 
+        path: "verifying", 
         element: <LoginStepTwo />,
       },
       

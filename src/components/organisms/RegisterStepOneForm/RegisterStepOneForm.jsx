@@ -6,14 +6,18 @@ import Input from "../../atoms/Input/Input";
 import phone from "../../../assets/images/icons/login-signup-form/phone.png";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
-const registerStepOneForm = () => {
+const RegisterStepOneForm = () => {
 const validationSchema=Yup.object({
-  email: Yup.string().required("ایمیل الزامی است"),
+  email: Yup.string().required("ایمیل الزامی است").email("فرمت ایمیل صحیح نیست"),
 })
 const navigate = useNavigate();
+const sumbitHandeler=(values)=>{
+  console.log(values);
+  navigate("verify")
+}
   return (
     <div className="w-full">
-      <div className="relative right-15 w-full rounded-xl bg-background md:w-1/3 mx-auto flex flex-col items-center gap-6 py-8 shadow-2xl">
+      <div className="w-full bg-background md:w-1/2 lg:w-[40%] xl:w-1/3 mx-auto flex flex-col items-center gap-6 py-8 rounded-xl shadow-2xl">
         <Logo variant={"vertical"} className={"h-52.25"} />
         <h1 className="font-bold font-sans text-textC  text-3xl">
           ایجاد حساب کاربری
@@ -25,15 +29,12 @@ const navigate = useNavigate();
           initialValues={{
             email: ""
           }}
-          onSubmit={(values) => {
-            console.log("Submit:", values);
-          }}
           validationSchema={validationSchema}
+          onSubmit={sumbitHandeler}
         >
-          {({ values, handleChange, handleSubmit,handleBlur,errors={}, touched }) => (
+          {({ values, handleChange,handleBlur,errors, touched }) => (
             <Form
               className="w-full flex flex-col items-center gap-6"
-              onSubmit={handleSubmit}
             >
                 <div className="w-8/10 flex flex-col justify-end">
               <div className={` focus:ring-indigo-500 w-full bg-neutral-50  rounded-xl flex flex-col justify-end focus:border-indigo-500  ${
@@ -56,7 +57,6 @@ const navigate = useNavigate();
                 children={"ارسال کد یکبار مصرف"}
                 buttonClassName="w-8/10 font-[18px]"
                 type="submit"
-                onClick={() => navigate("verify")}
               />
             </Form>
           )}
@@ -71,4 +71,4 @@ const navigate = useNavigate();
   );
 };
 
-export default registerStepOneForm;
+export default RegisterStepOneForm;

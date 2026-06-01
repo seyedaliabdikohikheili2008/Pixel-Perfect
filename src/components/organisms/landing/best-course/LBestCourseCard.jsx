@@ -32,7 +32,7 @@ const LBestCourseCard = () => {
               22
             </div>
             <div className="flex text-xs font-bold gap-2">
-              <span className="text-danger-300 before:w-full before:absolute relative before:-rotate-12 before:top-2 before:h-0.5 before:bg-danger-300">
+              <span className="text-danger-300 before:w-full before:absolute relative before:-rotate-12 before:top-2 before:h-px before:bg-danger-300">
                 500.000 تومان
               </span>
               <span className="text-saccess-500">400.000 تومان</span>

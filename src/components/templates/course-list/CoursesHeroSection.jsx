@@ -6,7 +6,7 @@ import icon from "../../../assets/images/icons/courses/command-line.png";
 const CoursesHeroSection = () => {
   return (
     <>
-      <div className="flex gap-3 w-5/6 mb-12 mx-auto">
+      <div className="flex gap-3 w-5/6 my-12 mx-auto">
         <div className="w-1/2">
           <TitleDesc
             width="w-110"

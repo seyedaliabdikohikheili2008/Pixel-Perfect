@@ -8,7 +8,7 @@ const router = createBrowserRouter([
     path: "",
     element: <LandingPage />,
   },
-  {path:"/courses",element:<CourseListPage />},
+  { path: "/courses", element: <CourseListPage /> },
   { path: "*", element: <NotFoundPage /> },
 ]);
 

@@ -21,6 +21,7 @@ const Footer = () => {
               است.
             </p>
           </div>
+
           <div className="hidden min-w-2/4 lg:flex gap-8">
             <div className=" hidden md:h-71.25 text-neutral-600 md:flex flex-col gap-2 ">
               <h1 className="font-sans font-semibold text-textC text-right leading-5">
@@ -46,7 +47,9 @@ const Footer = () => {
                 Quizlet Plus
               </p>
             </div>
+
             <div className=" hidden md:h-71.25 text-neutral-600 md:flex flex-col gap-2 ">
+
               <h1 className="font-sans font-semibold text-textC text-right leading-5 dark:text-white">
                 شرکت ما
               </h1>
@@ -68,6 +71,7 @@ const Footer = () => {
               </p>
             </div>
             <div className="h-31.75 text-neutral-600 flex flex-col gap-2 ">
+
               <h1 className="font-sans font-semibold text-textC text-right leading-5 dark:text-white">
                 در تماس باشید
               </h1>

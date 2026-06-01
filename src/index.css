@@ -101,7 +101,7 @@ body.dark {
   --color-primary-900: #054f5f;
 
   /* neutral color */
-  --color-neutral-50: #2e2e2e;
+  --color-neutral-50: #393939;
   --color-neutral-100: #3c3c3c;
   --color-neutral-400: #ffffff;
   --color-neutral-600: #cccccc;
@@ -211,8 +211,18 @@ body {
   --color-dark-800: #12121f;
   --color-dark-900: #0e0e18;
 
+
   /* text */
   --color-textC: var(--color-textC);
+
+  /* dark bg color */
+  --color-dark-bg: #212121;
+  --color-dark-bg-2: #2e2e2e;
+  --color-dark-bg-3:#4f4f4f;
+
+  /* text */
+  --color-textC: #272727;
+  --color-textb:#0CBDE2;
 
   /* border weight */
   --border-width-1: 1px;

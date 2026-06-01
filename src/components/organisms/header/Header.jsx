@@ -6,10 +6,11 @@ import Button from "../../atoms/Butoon/Button";
 import umenu from "../../../assets/images/icons/header/umenuIcon.png";
 import umenuDark from "../../../assets/images/icons/header/umenuIconDark.png";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Header = ({ variant }) => {
   const [UMenuFlag, setUMenuFlag] = useState(false);
-
+  const navigate = useNavigate();
   const [showHeader, setShowHeader] = useState(true);
 
   useEffect(() => {
@@ -45,7 +46,7 @@ const Header = ({ variant }) => {
         </div>
         <div className="flex items-center gap-3">
           <DarkModeButton />
-          <Button children={"ورود یا ثبت نام"} />
+          <Button children={"ورود یا ثبت نام"} onClick={() => navigate("/login")} />
           <img
             className="w-10 h-10 md:hidden"
             src={mode === "light" ? umenu : umenuDark}

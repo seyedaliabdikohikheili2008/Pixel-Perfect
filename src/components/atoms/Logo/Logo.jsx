@@ -12,7 +12,7 @@ const Logo = ({ variant, className , Exception = false }) => {
     if (variant == "vertical") return vertical;
   };
 
-  const sizeClass = variant == "linear" && isMobile && !Exception ? "w-11" : "w-34 xl:w-59";
+  const sizeClass = variant == "linear" && isMobile && !Exception ? "w-11" : "w-34 xl:w-46.85";
 
   useEffect(() => {
     const handleResize = () => {

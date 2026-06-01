@@ -1,5 +1,6 @@
 import React from "react";
 
+
 const Button = ({
   children,
   onClick,
@@ -10,11 +11,14 @@ const Button = ({
   buttonClassName = "",
   iconClassName = "",
   iconClassName2 = "",
+  type="button",
+  
 }) => {
   const hasIcon = iconSrc ? true : false;
 
   return (
     <button
+    type={type}
       onClick={onClick}
       className={`
         ${buttonClassName}

@@ -1,8 +1,8 @@
 import React from 'react'
-import Header from "../components/molecules/header/Header"
 import RegisterStepTwoForm from "../components/organisms/RegisterStepTwoForm/RegisterStepTwoForm"
 import Footer from "../components/organisms/Footer/Footer"
 import Banner from "../assets/images/login-background/Banner.png"
+import Header from '../components/organisms/header/Header'
 const RegisterStepTwo = () => {
   return (
     <>

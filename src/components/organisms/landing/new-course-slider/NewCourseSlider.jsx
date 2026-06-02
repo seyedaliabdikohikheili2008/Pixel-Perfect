@@ -27,8 +27,7 @@ const NewCourseSlider = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center">
-        {/* {courseList ? console.log("courses ", newCourses) : ""} */}
+      <div className="flex flex-col w-full items-center">
         <NewCourseCard detail={newCourses?.[sliderStep]} />
         <div className="flex gap-2.5">
           <div

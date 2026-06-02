@@ -7,7 +7,7 @@ const ApiClient = axios.create({
 });
 
 ApiClient.interceptors.response.use((res) => {
-  return res.data;
+  return res;
 });
 
 export default ApiClient;

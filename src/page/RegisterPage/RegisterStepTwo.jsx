@@ -1,17 +1,11 @@
-import React from 'react'
-import RegisterStepTwoForm from "../../components/organisms/RegisterStepTwoForm/RegisterStepTwoForm"
-import Banner from "../../assets/images/login-background/Banner.png"
+import React from "react";
+import RegisterStepTwoForm from "../../components/organisms/RegisterStepTwoForm/RegisterStepTwoForm";
 const RegisterStepTwo = () => {
   return (
     <>
-    <div className='bg-repeat-x bg-center h-screen ' style={{
-        backgroundImage: `url('${Banner}')`,}}>
-          <div className='pt-11 '>
-            <RegisterStepTwoForm />
-          </div>
-      </div>
+      <RegisterStepTwoForm />
     </>
-  )
-}
+  );
+};
 
-export default RegisterStepTwo
+export default RegisterStepTwo;

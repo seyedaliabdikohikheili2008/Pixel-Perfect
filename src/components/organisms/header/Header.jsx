@@ -46,7 +46,7 @@ const Header = ({ variant }) => {
         </div>
         <div className="flex items-center gap-3">
           <DarkModeButton />
-          <Button children={"ورود یا ثبت نام"} onClick={() => navigate("/login")} />
+          <Button children={"ورود یا ثبت نام"} onClick={() => navigate("/auth/login")} />
           <img
             className="w-10 h-10 md:hidden"
             src={mode === "light" ? umenu : umenuDark}

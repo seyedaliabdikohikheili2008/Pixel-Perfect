@@ -1,5 +1,4 @@
 import React from "react";
-import Logo from "../../atoms/Logo/Logo";
 import { Form, Formik, ErrorMessage } from "formik";
 import Button from "../../atoms/Butoon/Button";
 import Input from "../../atoms/Input/Input";
@@ -18,9 +17,7 @@ const sumbitHandeler=(values)=>{
   navigate("verifying")
 }
   return (
-    <div className="w-full ">
-      <div className="w-full bg-background md:w-1/2 lg:w-[40%] xl:w-1/3 mx-auto flex flex-col items-center gap-6 py-8 rounded-xl shadow-2xl">
-        <Logo variant={"vertical"} className={"h-52.25"} />
+ <>
         <h1 className="font-bold font-sans text-textC  text-3xl rounded-xl">
           ورود به حساب کاربری
         </h1>
@@ -82,7 +79,7 @@ const sumbitHandeler=(values)=>{
                   <label>مرا بخاطر بسپار</label>
                 </div>
                 <div>
-                  <p className="font-normal text-[16px] text-textC ">فراموشی رمز عبور</p>
+                  <p className="font-normal text-[16px] text-textC " onClick={() => navigate("/auth/reset")}>فراموشی رمز عبور</p>
                 </div>
               </div>
               <Button
@@ -97,10 +94,9 @@ const sumbitHandeler=(values)=>{
 
         <div className="flex items-center gap-1">
           <p className="text-textC ">حساب کاربری ندارید؟</p>
-          <p className="text-textb " onClick={() => navigate("/register")}>ثبت نام</p>
+          <p className="text-textb " onClick={() => navigate("/auth/register")}>ثبت نام</p>
         </div>
-      </div>
-    </div>
+</>
   );
 };
 

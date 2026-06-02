@@ -5,12 +5,12 @@ import CourseListPage from "../../page/CourseListPage";
 import RegisterStepOne from "../../page/RegisterPage/RegisterStepOne";
 import LoginStepOne from "../../page/LoginPage/LoginStepOne";
 import LoginStepTwo from "../../page/LoginPage/LoginStepTwo";
-import LoginLayout from "../../app/layout/loginLayout/LoginLayout";
-import RegisterLayout from "../../app/layout/RegisterLayout/RegisterLayout";
 import RegisterStepTwo from "../../page/RegisterPage/RegisterStepTwo";
 import RegisterStepThree from "../../page/RegisterPage/RegisterStepThree";
-import RegisterVerifyLayout from "../../app/layout/RegisterVerifyLayout/RegisterVerifyLayout";
 import MainLyout from "../layout/mainLayout/MainLyout";
+import AuthLayout from "../layout/AuthLayout/AuthLayout";
+import ResetPasswordStepOnePage from "../../page/ResetPasswordPage/ResetPasswordStepOnePage";
+import ResetPasswordStepTwoPage from "../../page/ResetPasswordPage/ResetPasswordStepTwoPage"
 const router = createBrowserRouter([
   {
     path: "/",
@@ -21,41 +21,54 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/login",
-    element: <LoginLayout />,
+    path: "/auth",
+    element: <AuthLayout />,
     children: [
       {
-        index: true,
-        element: <LoginStepOne />,
-      },
-      {
-        path: "verifying",
-        element: <LoginStepTwo />,
-      },
-    ],
-  },
-  {
-    path: "/register",
-    element: <RegisterLayout />,
-    children: [
-      {
-        index: true,
-        element: <RegisterStepOne />,
-      },
-      {
-        path: "verify",
-        element: <RegisterVerifyLayout />,
+        path: "login",
         children: [
           {
             index: true,
-            element: <RegisterStepTwo />,
+            element: <LoginStepOne />,
+          },
+          { path: "verifying", element: <LoginStepTwo /> },
+        ],
+      },
+      {
+        path: "register",
+        children: [
+          {
+            index: true,
+            element: <RegisterStepOne />,
           },
           {
-            path: "complete",
-            element: <RegisterStepThree />,
+            path: "verify",
+            
+            children: [
+              {
+                index:true,
+element: <RegisterStepTwo />,
+              },
+              {
+                path: "complete",
+                element: <RegisterStepThree />,
+              }
+            ],
           },
         ],
       },
+      {
+        path:"reset",children:[
+          {
+            index:true,
+            element:<ResetPasswordStepOnePage/>,
+          }
+          ,{
+            path:"new-password",
+            element:<ResetPasswordStepTwoPage/>
+          }
+        ]
+      }
     ],
   },
   { path: "*", element: <NotFoundPage /> },

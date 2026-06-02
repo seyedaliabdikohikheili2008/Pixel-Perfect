@@ -19,7 +19,7 @@ const location=useLocation();
 
  const sumbitHandeler=(values)=>{
   console.log(values);
-  if(location.pathname==="/login/verifying"){
+  if(location.pathname==="/auth/login/verifying"){
     navigate("/")
   }else{
 navigate("complete")

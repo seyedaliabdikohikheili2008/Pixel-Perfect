@@ -5,22 +5,22 @@ import Input from "../../atoms/Input/Input";
 import phone from "../../../assets/images/icons/login-signup-form/phone.png";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
-const RegisterStepOneForm = () => {
+const ResetPAsswordStepOneForm = () => {
 const validationSchema=Yup.object({
   email: Yup.string().required("ایمیل الزامی است").email("فرمت ایمیل صحیح نیست"),
 })
 const navigate = useNavigate();
 const sumbitHandeler=(values)=>{
   console.log(values);
-  navigate("verify")
+  navigate("new-password")
 }
   return (
-<>
+    <>
         <h1 className="font-bold font-sans text-textC  text-3xl">
-          ایجاد حساب کاربری
+          فراموشی رمز عبور
         </h1>
         <p className="font-normal text-xl text-textC">
-          لطفا شماره موبایل یا ایمیل خود را وارد کنید
+          ایمیل خود را برای تغییر رمز درخواست وارد کنید
         </p>
         <Formik
           initialValues={{
@@ -67,4 +67,4 @@ const sumbitHandeler=(values)=>{
   );
 };
 
-export default RegisterStepOneForm;
+export default ResetPAsswordStepOneForm;

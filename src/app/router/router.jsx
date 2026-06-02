@@ -3,58 +3,62 @@ import LandingPage from "../../page/LandingPage";
 import NotFoundPage from "../../page/NotFoundPage";
 import CourseListPage from "../../page/CourseListPage";
 import RegisterStepOne from "../../page/RegisterStepOne";
-import LoginStepOne from "../../page/LoginStepOne"
-import LoginStepTwo from "../../page/LoginStepTwo"
-import LoginLayout from "../../components/layout/loginLayout/LoginLayout"
-import RegisterLayout from "../../components/layout/RegisterLayout/RegisterLayout"
+import LoginStepOne from "../../page/LoginStepOne";
+import LoginStepTwo from "../../page/LoginStepTwo";
+import LoginLayout from "../../app/layout/loginLayout/LoginLayout";
+import RegisterLayout from "../../app/layout/RegisterLayout/RegisterLayout";
 import RegisterStepTwo from "../../page/RegisterStepTwo";
 import RegisterStepThree from "../../page/RegisterStepThree";
-import RegisterVerifyLayout from "../../components/layout/RegisterVerifyLayout/RegisterVerifyLayout";
+import RegisterVerifyLayout from "../../app/layout/RegisterVerifyLayout/RegisterVerifyLayout";
+import MainLyout from "../layout/mainLayout/MainLyout";
 const router = createBrowserRouter([
   {
-    path: "",
-    element: <LandingPage />,
+    path: "/",
+    element: <MainLyout />,
+    children: [
+      { index: true, element: <LandingPage /> },
+      { path: "courses", element: <CourseListPage /> },
+    ],
   },
-  { path: "/courses", element: <CourseListPage /> },
-  { path: "*", element: <NotFoundPage /> },
-   
-    {path: "/login",
+  {
+    path: "/login",
     element: <LoginLayout />,
     children: [
       {
-        index: true, 
+        index: true,
         element: <LoginStepOne />,
       },
       {
-        path: "verifying", 
+        path: "verifying",
         element: <LoginStepTwo />,
       },
-      
-    ]},
-   {
+    ],
+  },
+  {
     path: "/register",
     element: <RegisterLayout />,
     children: [
       {
-        index: true, 
+        index: true,
         element: <RegisterStepOne />,
       },
       {
         path: "verify",
         element: <RegisterVerifyLayout />,
-        children:[
+        children: [
           {
-            index:true,
-            element:<RegisterStepTwo/>
+            index: true,
+            element: <RegisterStepTwo />,
           },
           {
-        path: "complete", 
-        element: <RegisterStepThree />,
+            path: "complete",
+            element: <RegisterStepThree />,
+          },
+        ],
       },
-        ]
-      },
-    ]}
-
+    ],
+  },
+  { path: "*", element: <NotFoundPage /> },
 ]);
 
 export default router;

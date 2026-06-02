@@ -2,9 +2,10 @@ import React from "react";
 import Button from "../../../atoms/Butoon/Button";
 import cardimg from "../../../../assets/images/landing/new-course-slider/Vector.png";
 
-const NewCourseCard = () => {
+const NewCourseCard = ({detail}) => {
   return (
     <>
+    {console.log(detail)}
       <div className="flex w-3/4 gap-5">
         <img src={cardimg} alt="" />
         <div className="flex flex-col items-end gap-5">

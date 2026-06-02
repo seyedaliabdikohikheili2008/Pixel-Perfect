@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import sun from "../../../assets/images/icons/dark-mode/btn-icon.png";
 import moon from "../../../assets/images//icons/dark-mode/Property 1=lghit.png";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,6 +7,10 @@ const DarkModeButton = () => {
 
   const dispatch = useDispatch();
   const mode = useSelector((state) => state.DarkFlag.value);
+  useEffect(() => {
+    localStorage.setItem("theme", mode);
+    document.body.classList.toggle("dark", mode === "dark");
+  }, [mode]);
 
   return (
     <button

@@ -7,11 +7,9 @@ import CourseListContent from "../components/templates/course-list/course-list-c
 const CourseListPage = () => {
   return (
     <>
-      <Header variant={"linear"} />
       <CoursesHeroSection />
       <CourseListContent />
 
-      <Footer />
     </>
   );
 };

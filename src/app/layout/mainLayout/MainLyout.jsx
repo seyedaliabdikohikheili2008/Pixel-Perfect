@@ -6,7 +6,7 @@ import { Outlet } from "react-router-dom";
 const MainLyout = () => {
   return (
     <>
-      <Header />
+      <Header variant={"linear"} />
       <Outlet />
       <Footer />
     </>

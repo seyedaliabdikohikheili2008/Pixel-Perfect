@@ -13,7 +13,6 @@ import LandingNewNews from '../components/templates/landing/LandingNewNews'
 const LandingPage = () => {
   return (
     <>
-        <Header variant={"linear"}/> 
         <LandingHeroSection />
         <NewCourse />
         <LandingBestTeacher />
@@ -23,7 +22,6 @@ const LandingPage = () => {
         <PopularCtegory />
 
         <LandingNewNews />
-        <Footer />
     </>
   )
 }

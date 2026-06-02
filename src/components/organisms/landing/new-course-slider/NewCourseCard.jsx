@@ -1,21 +1,22 @@
 import React from "react";
 import Button from "../../../atoms/Butoon/Button";
 import cardimg from "../../../../assets/images/landing/new-course-slider/Vector.png";
+import credit from "../../../../assets/images/icons/courses/credit-card.png"
 
 const NewCourseCard = ({detail}) => {
   return (
     <>
-    {console.log(detail)}
-      <div className="flex w-3/4 gap-5">
+      <div className="flex justify-between w-full gap-5 ">
         <img src={cardimg} alt="" />
-        <div className="flex flex-col items-end gap-5">
-          <div className="text-right flex flex-col gap-5">
-            <h3 className="text-xl font-bold text-textC">آموزش Node.js</h3>
-            <p className="text-sm text-textC font-bold">
-              Node.js یک پلتفرم قدرتمند برای توسعهٔ برنامههای سرور با استفاده از
+        <div className="flex w-2/3 flex-col items-end gap-5">
+          <div className="text-right w-full flex flex-col gap-5">
+            <h3 className="text-xl font-bold text-textC">{detail.googleTitle}</h3>
+            <p className="text-sm text-textC font-bold line-clamp-2">
+              {/* Node.js یک پلتفرم قدرتمند برای توسعهٔ برنامههای سرور با استفاده از
               جاوااسکریپت است. با استفاده از Node.js، میتوانید اپلیکیشنهای سریع
               و مقیاسپذیر بسازید. یادگیری آن آسان است، بهخصوص اگر با جاوااسکریپت
-              آشنا باشید.
+              آشنا باشید. */}
+              {detail.miniDescribe}
             </p>
             <div className="flex gap-13">
               <div className="relative">
@@ -27,7 +28,7 @@ const NewCourseCard = ({detail}) => {
               </div>
             </div>
           </div>
-          <Button children={"شروع یاد گیری"} buttonClassName="rounded-full w-42" />
+          <Button children={"شروع یاد گیری"} iconSrc={credit} buttonClassName="rounded-full w-42" />
         </div>
       </div>
     </>

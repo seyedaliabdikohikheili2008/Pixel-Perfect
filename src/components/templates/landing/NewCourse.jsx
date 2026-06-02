@@ -10,7 +10,7 @@ const NewCourse = () => {
           desc={" محبوب ترین دوره های آموزشی نویسندگان متخصص ما را بررسی کنید"}
           title={"جدیترین دوره های انلاین"}
         />
-        <div>
+        <div className="w-3/4">
           <NewCourseSlider />
         </div>
       </div>

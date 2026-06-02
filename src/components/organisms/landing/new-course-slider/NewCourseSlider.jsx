@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import NewCourseCard from "./NewCourseCard";
-import { useQuery } from "@tanstack/react-query";
 import { getAllCourse } from "../../../../core/services/landing/getAllCourse";
+import { useAllCourses } from "../../../../core/hooks/queries/courses/useAllCoures";
 
 const NewCourseSlider = () => {
   const [sliderStep, setsliderStep] = useState(1);
@@ -15,10 +15,7 @@ const NewCourseSlider = () => {
     data: courseList = [],
     isError: courseListErr,
     isLoading: courseListLoading,
-  } = useQuery({
-    queryKey: ["courseList", params],
-    queryFn: () => getAllCourse(params),
-  });
+  } = useAllCourses(params);
 
   return (
     <>

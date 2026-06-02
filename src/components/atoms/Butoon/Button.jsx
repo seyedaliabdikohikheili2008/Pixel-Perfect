@@ -22,7 +22,7 @@ const Button = ({
       onClick={onClick}
       className={`
         ${buttonClassName}
-        flex items-center justify-center 
+        flex items-center justify-center cursor-pointer
         px-5 py-3 text-white focus:outline-none rounded-2xl bg-primary-500 dark:bg-primary-800
         ${hasIcon ? "gap-1.5" : ""}
       `}

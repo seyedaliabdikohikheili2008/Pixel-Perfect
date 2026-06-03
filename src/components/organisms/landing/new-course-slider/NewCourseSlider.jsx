@@ -30,12 +30,10 @@ const NewCourseSlider = () => {
   const swiperRef = useRef(null);
 
   useEffect(() => {
-    if(swiperRef.current){
-      swiperRef.current.slideTo(sliderStep)
+    if (swiperRef.current) {
+      swiperRef.current.slideTo(sliderStep);
     }
-  
-  }, [sliderStep])
-  
+  }, [sliderStep]);
 
   return (
     <>
@@ -44,12 +42,14 @@ const NewCourseSlider = () => {
           className="w-full"
           slidesPerView={1}
           onSwiper={(swiper) => (swiperRef.current = swiper)}
-          
         >
-          {newCourses?.map(() => {
+          {newCourses?.map((item, index) => {
             return (
-              <SwiperSlide>
-                <NewCourseCard detail={newCourses?.[sliderStep]} />
+              <SwiperSlide key={item.courseId + item.title}>
+                <NewCourseCard
+                  key={item.courseId + item.title}
+                  detail={item}
+                />
               </SwiperSlide>
             );
           })}

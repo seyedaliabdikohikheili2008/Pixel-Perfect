@@ -2,6 +2,8 @@ import React, { useMemo, useState } from "react";
 import NewCourseCard from "./NewCourseCard";
 import { getAllCourse } from "../../../../core/services/landing/getAllCourse";
 import { useAllCourses } from "../../../../core/hooks/queries/courses/useAllCoures";
+import "swiper/css";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 const NewCourseSlider = () => {
   const [sliderStep, setsliderStep] = useState(0);
@@ -28,7 +30,16 @@ const NewCourseSlider = () => {
   return (
     <>
       <div className="flex flex-col w-full items-center">
-        <NewCourseCard detail={newCourses?.[sliderStep]} />
+        <Swiper className="w-full" slidesPerView={1} onSlideChange={(swiper)=>{set}}>
+          {newCourses?.map(() => {
+            return (
+              <SwiperSlide>
+                <NewCourseCard detail={newCourses?.[sliderStep]} />
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
+        {/* <NewCourseCard detail={newCourses?.[sliderStep]} /> */}
         <div className="flex gap-2.5">
           <div
             className={`${sliderStep == 0 ? "w-8 bg-primary-500" : "w-3 bg-neutral-300"} h-3 transition-[color,width] duration-500 rounded-full`}

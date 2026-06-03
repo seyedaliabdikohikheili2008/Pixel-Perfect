@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import NewCourseCard from "./NewCourseCard";
-import { getAllCourse } from "../../../../core/services/landing/getAllCourse";
+import { getAllCourse } from "../../../../core/services/course/getAllCourse";
 import { useAllCourses } from "../../../../core/hooks/queries/courses/useAllCoures";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -46,10 +46,7 @@ const NewCourseSlider = () => {
           {newCourses?.map((item, index) => {
             return (
               <SwiperSlide key={item.courseId + item.title}>
-                <NewCourseCard
-                  key={item.courseId + item.title}
-                  detail={item}
-                />
+                <NewCourseCard key={item.courseId + item.title} detail={item} />
               </SwiperSlide>
             );
           })}

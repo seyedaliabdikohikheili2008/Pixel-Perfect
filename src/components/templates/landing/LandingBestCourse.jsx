@@ -30,6 +30,7 @@ const LandingBestCourse = () => {
   return (
     <>
       <div className="flex gap-10 w-full pt-50 pb-25 [@media(max-width:840px)]:hidden flex-col items-center mb-24 relative">
+        {console.log(bestCourse)}
         <img
           className="w-full h-full absolute right-0 top-0 z-0"
           src={mode == "light" ? ImgBg : ImgBgDark}

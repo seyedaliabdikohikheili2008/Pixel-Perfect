@@ -41,11 +41,15 @@ const NewCourseSlider = () => {
         <Swiper
           className="w-full"
           slidesPerView={1}
+          spaceBetween={10}
+          onSlideChange={(swiper) => {
+            setsliderStep(swiper.activeIndex);
+          }}
           onSwiper={(swiper) => (swiperRef.current = swiper)}
         >
           {newCourses?.map((item, index) => {
             return (
-              <SwiperSlide key={item.courseId + item.title}>
+              <SwiperSlide className="w-full" key={item.courseId + item.title}>
                 <NewCourseCard key={item.courseId + item.title} detail={item} />
               </SwiperSlide>
             );

@@ -105,7 +105,7 @@ const LoginStepOneForm = () => {
               >
                 <Input
                   icon={password}
-                  placeholder={"ایمیل یا شماره تماس"}
+                  placeholder={"رمز عبور را وارد کنید"}
                   iconClassname={"mx-3.5"}
                   name="password"
                   value={values.password}

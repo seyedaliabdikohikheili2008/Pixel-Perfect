@@ -23,7 +23,7 @@ const PopularCategoryTag = () => {
       <div className={`${motion.move} flex justify-center gap-3 -rotate-3`}>
         {repeatedItems?.map((tag, index) => (
           <div
-            key={tag.id}
+            key={tag.id + index}
             className="shrink-0 w-44 h-14 rounded-full bg-neutral-50 text-textC border border-neutral-100 text-base font-bold flex gap-3 items-center justify-center"
           >
             {tag.techName}
@@ -34,7 +34,7 @@ const PopularCategoryTag = () => {
       <div className={`${motion.move} flex justify-center gap-3 -rotate-3`}>
         {repeatedItems?.map((tag, index) => (
           <div
-            key={tag.id}
+            key={tag.id + index}
             className="shrink-0 w-44 h-14 rounded-full bg-neutral-50 text-textC border border-neutral-100 text-base font-bold flex gap-3 items-center justify-center"
           >
             {tag.techName}

@@ -5,32 +5,22 @@ import { useSelector } from "react-redux";
 import LBestCourseCard from "../../organisms/landing/best-course/LBestCourseCard";
 import Button from "../../atoms/Butoon/Button";
 import TitleDesc from "../../molecules/title-desc/TitleDesc";
-import { useAllCourses } from "../../../core/hooks/queries/courses/useAllCoures";
+import { useCourseTop } from "../../../core/hooks/queries/courses/useCourseTop";
 const LandingBestCourse = () => {
   const mode = useSelector((state) => state.DarkFlag.value);
 
   const [params, setparams] = useState({
-    PageNumber: 1,
-    RowsOfPage: 9,
+    Count: 6,
   });
   const {
-    data: courseList = undefined,
-    isError: courseListErr,
-    isLoading: courseListLoading,
-  } = useAllCourses(params);
-
-  const bestCourse = useMemo(() => {
-    if (courseList) {
-      return [...courseList.data.courseFilterDtos]
-        .sort((a, b) => b.courseRate.avg - a.courseRate.avg)
-        .slice(0, 6);
-    }
-  }, [courseList]);
+    data: CourseTopList = undefined,
+    isError: CourseTopListErr,
+    isLoading: CourseTopListLoading,
+  } = useCourseTop(params);
 
   return (
     <>
       <div className="flex gap-10 w-full pt-50 pb-25 [@media(max-width:840px)]:hidden flex-col items-center mb-24 relative">
-        {console.log(bestCourse)}
         <img
           className="w-full h-full absolute right-0 top-0 z-0"
           src={mode == "light" ? ImgBg : ImgBgDark}
@@ -42,17 +32,14 @@ const LandingBestCourse = () => {
           title={" برترین دوره ها"}
         />
         <div className="z-10 w-11/12 justify-between flex flex-wrap ">
-          {bestCourse?.map((item, index) => {
+          {CourseTopList?.data.map((item, index) => {
             return (
-              <LBestCourseCard key={item.courseId + item.title} detail={item} />
+              <LBestCourseCard
+                key={item.courseId + item.title + index}
+                detail={item}
+              />
             );
           })}
-          {/* <LBestCourseCard />
-          <LBestCourseCard />
-          <LBestCourseCard />
-          <LBestCourseCard />
-          <LBestCourseCard />
-          <LBestCourseCard /> */}
         </div>
         <Button
           children={"دوست داری ببیشتر ببینی"}

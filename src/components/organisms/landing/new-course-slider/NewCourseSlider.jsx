@@ -10,7 +10,7 @@ const NewCourseSlider = () => {
 
   const [params, setparams] = useState({
     PageNumber: 1,
-    RowsOfPage: 9,
+    RowsOfPage: 100,
   });
 
   const {
@@ -38,6 +38,7 @@ const NewCourseSlider = () => {
   return (
     <>
       <div className="flex flex-col w-full items-center">
+        {console.log("courses  ", courseList)}
         <Swiper
           className="w-full"
           slidesPerView={1}

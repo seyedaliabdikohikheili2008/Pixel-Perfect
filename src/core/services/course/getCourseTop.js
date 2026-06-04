@@ -1,8 +1,8 @@
 import ApiClient from "../../api/interceptors";
 
-export const getAllCourse = async (params) => {
+export const getCourseTop = async (params) => {
   try {
-    const result = await ApiClient.get(`Home/GetCoursesWithPagination`,{params});
+    const result = await ApiClient.get(`Home/GetCoursesTop`,{params});
     return {
     data: result.data,
     status: result.status,

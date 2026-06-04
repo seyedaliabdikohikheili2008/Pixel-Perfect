@@ -2,7 +2,6 @@ import ApiClient from "../../api/interceptors";
 
 export const getAllTechnologies = async () => {
   try {
-    console.log("Fetching started...");
     const result = await ApiClient.get(`Home/GetTechnologies`);
     return {
     data: result.data,

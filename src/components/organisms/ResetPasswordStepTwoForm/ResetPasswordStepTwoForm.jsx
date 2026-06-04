@@ -6,77 +6,102 @@ import email from "../../../assets/images/icons/login-signup-form/email.png";
 import password from "../../../assets/images/icons/login-signup-form/password.png";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
+import ResetPasswordStepTwo from "../../../core/api/auth/ResetPassword/StepTwo/StepTwo";
+import { useMutation } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 const ResetPasswordStepTwoForm = () => {
-const validationSchema=Yup.object({
-  password: Yup.string().required("رمز اجباری است"),
-  password2: Yup.string().required("تکرار رمز اجباری است").oneOf([Yup.ref("password")],"رمز عبور و تکرار آن یکسان نیستند")
-})
-const sumbitHandeler=(values)=>{
-  console.log(values);
-  navigate("/")
-}
-const navigate = useNavigate();
+  const navigate = useNavigate();
+  const savedEmail = localStorage.getItem("registration_email");
+  const { mutate, isPending } = useMutation({
+    mutationFn: ResetPasswordStepTwo,
+    onSuccess: (data) => {
+      console.log(" موفقیت:", data);
+      navigate("/auth/login");
+    },
+    onError: (error) => {
+      console.error(" خطا:", error);
+      const status = error.response?.status;
+
+      const serverMessage = error.response?.data?.message;
+
+      if (status === 404 && serverMessage === "کاربر یافت نشد") {
+        toast.error("کاربر با این ایمیل یافت نشد لطفا ثبت نام کنید");
+      } else {
+        toast.error("خطایی در اتصال به سرور رخ داد. لطفاً دوباره تلاش کنید.");
+      }
+
+      console.error("جزئیات خطا:", error.response?.data);
+    },
+  });
+
+  const postData = (values) => {
+    mutate({ gmail: savedEmail, email: savedEmail, newPassword: values.newPassword, resetValue: values.resetValue, baseUrl: "/" });
+  };
+  const validationSchema = Yup.object({
+    newPassword: Yup.string().required("رمز اجباری است"),
+    resetValue: Yup.string().required("تکرار رمز اجباری است")
+  })
+
+
   return (
     <>
-        <h1 className="font-bold font-sans text-textC  text-3xl">
-          فراموشی رمز عبور
-        </h1>
-        <p className="font-normal text-xl text-textC">
-          رمز عبور جدید برای خود تعیین کنید
-        </p>
-        <Formik
-          initialValues={{
-            password: "",
-            password2:""
-          }}
-          onSubmit={sumbitHandeler}
-          validationSchema={validationSchema}
-        >
-          {({ values, handleChange,errors={}, touched }) => (
-            <Form
-              className="w-full flex flex-col items-center gap-6"
-            >
-              <div className="w-8/10 flex flex-col justify-end">
-              <div className={` focus:ring-indigo-500 w-full bg-neutral-50  rounded-xl flex flex-col justify-end focus:border-indigo-500  ${
-                errors.password && touched.password ? ' border border-red-500' : ''
-              }`} >
+      <h1 className="font-bold font-sans text-textC  text-3xl">
+        فراموشی رمز عبور
+      </h1>
+      <p className="font-normal text-xl text-textC">
+        رمز عبور جدید برای خود تعیین کنید
+      </p>
+      <Formik
+        initialValues={{
+          newPassword: "",
+          resetValue: ""
+        }}
+        onSubmit={postData}
+        validationSchema={validationSchema}
+      >
+        {({ values, handleChange, errors = {}, touched }) => (
+          <Form
+            className="w-full flex flex-col items-center gap-6"
+          >
+            <div className="w-8/10 flex flex-col justify-end">
+              <div className={` focus:ring-indigo-500 w-full bg-neutral-50  rounded-xl flex flex-col justify-end focus:border-indigo-500  ${errors.newPassword && touched.newPassword ? ' border border-red-500' : ''
+                }`} >
                 <Input
                   icon={password}
                   placeholder={"رمز عبور خود را وارد کنید"}
                   iconClassname={"mx-3.5"}
-                  name="password"
-                  value={values.password}
+                  name="newPassword"
+                  value={values.newPassword}
                   onChange={handleChange}
                 />
               </div>
-              <ErrorMessage className="text-danger-500 text-right" name="password" component={"span"}/>
-              </div>
-               <div className="w-8/10 flex flex-col justify-end">
-              <div className={` focus:ring-indigo-500 w-full bg-neutral-50  rounded-xl flex flex-col justify-end focus:border-indigo-500  ${
-                errors.password2 && touched.password2 ? ' border border-red-500' : ''
-              }`} >
+              <ErrorMessage className="text-danger-500 text-right" name="newPassword" component={"span"} />
+            </div>
+            <div className="w-8/10 flex flex-col justify-end">
+              <div className={` focus:ring-indigo-500 w-full bg-neutral-50  rounded-xl flex flex-col justify-end focus:border-indigo-500  ${errors.resetValue && touched.resetValue ? ' border border-red-500' : ''
+                }`} >
                 <Input
                   icon={password}
                   placeholder={"تکرار رمز عبور"}
                   iconClassname={"mx-3.5"}
-                  name="password2"
-                  value={values.password2}
+                  name="resetValue"
+                  value={values.resetValue}
                   onChange={handleChange}
                 />
               </div>
-              <ErrorMessage className="text-danger-500 text-right" name="password2" component={"span"}/>
-              </div>
-              <Button
-                children={"ثبت رمز عبور جدید"}
-                buttonClassName="w-8/10 font-lg font-bold"
-                type="submit"
-              />
-            </Form>
-          )}
-        </Formik>
+              <ErrorMessage className="text-danger-500 text-right" name="resetValue" component={"span"} />
+            </div>
+            <Button
+              children={"ثبت رمز عبور جدید"}
+              buttonClassName="w-8/10 font-lg font-bold"
+              type="submit"
+            />
+          </Form>
+        )}
+      </Formik>
 
-        
-      </>
+
+    </>
   );
 };
 

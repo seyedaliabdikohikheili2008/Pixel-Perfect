@@ -5,18 +5,44 @@ import Input from "../../atoms/Input/Input";
 import email from "../../../assets/images/icons/login-signup-form/email.png";
 import password from "../../../assets/images/icons/login-signup-form/password.png";
 import * as Yup from "yup";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import RegisterStepThree from "../../../core/api/auth/Register/StepThree/StepThree";
+import { useMutation } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 const RegisterStepThreeForm = () => {
+    const navigate = useNavigate();
+const location=useLocation();
 const validationSchema=Yup.object({
   email: Yup.string().required("ایمیل الزامی است").email("فرمت ایمیل صحیح نیست"),
   password: Yup.string().required("رمز اجباری است"),
   password2: Yup.string().required("تکرار رمز اجباری است").oneOf([Yup.ref("password")],"رمز عبور و تکرار آن یکسان نیستند")
 })
-const sumbitHandeler=(values)=>{
-  console.log(values);
-  navigate("/")
-}
-const navigate = useNavigate();
+  const savedEmail = localStorage.getItem("registration_email");
+  const { mutate, isPending } = useMutation({
+  mutationFn: RegisterStepThree, 
+  onSuccess: (data) => {
+    console.log(" موفقیت:", data);
+    navigate("/auth/login")
+    toast.success("ثبت نام شما با موفقیت انجام شد");
+  },
+  onError: (error) => {
+    console.error(" خطا:", error);
+    const status = error.response?.status;
+    
+    const serverMessage = error.response?.data?.message;
+
+     if (status === 401 && serverMessage==="کد اشتباه است") {
+      toast.error("رمز شما اشتباه است");
+    } 
+    else{
+      toast.error("خطایی در اتصال به سرور رخ داد. لطفاً دوباره تلاش کنید.");
+    }
+  }
+});
+
+const postData = (formData) => {
+  mutate({ password:formData.password ,gmail:savedEmail,phoneNumber:savedEmail}); 
+};
   return (
     <>
         <h1 className="font-bold font-sans text-textC  text-3xl">
@@ -27,11 +53,11 @@ const navigate = useNavigate();
         </p>
         <Formik
           initialValues={{
-            email: "",
+            gmail: "",
             password: "",
             password2:""
           }}
-          onSubmit={sumbitHandeler}
+          onSubmit={postData}
           validationSchema={validationSchema}
         >
           {({ values, handleChange,handleBlur,errors={}, touched }) => (

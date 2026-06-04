@@ -5,15 +5,43 @@ import Input from "../../atoms/Input/Input";
 import phone from "../../../assets/images/icons/login-signup-form/phone.png";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import  RegisterStepOne from "../../../core/api/auth/Register/stepOne/StepOne"
+import toast, { Toaster } from "react-hot-toast";
 const RegisterStepOneForm = () => {
+const { mutate, isPending } = useMutation({
+  mutationFn: RegisterStepOne, 
+  onSuccess: (data) => {
+    console.log(" موفقیت:", data);
+navigate("verify")
+  },
+  onError: (error) => {
+    console.error(" خطا:", error);
+    const status = error.response?.status;
+    
+    const serverMessage = error.response?.data?.message;
+
+     if (status === 400 && serverMessage==="شما از قبل ثبت نام کرده اید") {
+      toast.error("شما قبلا ثبت نام کرده اید");
+    } 
+    else {
+      toast.error("خطایی در اتصال به سرور رخ داد. لطفاً دوباره تلاش کنید.");
+    }
+    
+    console.error("جزئیات خطا:", error.response?.data);
+  }
+});
+
+const postData = (formData) => {
+  localStorage.setItem("registration_email",formData.gmail)
+  mutate({ gmail: formData.gmail }); 
+  
+};
+
 const validationSchema=Yup.object({
-  email: Yup.string().required("ایمیل الزامی است").email("فرمت ایمیل صحیح نیست"),
+  gmail: Yup.string().required("ایمیل الزامی است").email("فرمت ایمیل صحیح نیست"),
 })
 const navigate = useNavigate();
-const sumbitHandeler=(values)=>{
-  console.log(values);
-  navigate("verify")
-}
   return (
 <>
         <h1 className="font-bold font-sans text-textC  text-3xl">
@@ -24,10 +52,11 @@ const sumbitHandeler=(values)=>{
         </p>
         <Formik
           initialValues={{
-            email: ""
+            gmail: ""
           }}
           validationSchema={validationSchema}
-          onSubmit={sumbitHandeler}
+          onSubmit={postData}
+
         >
           {({ values, handleChange,handleBlur,errors, touched }) => (
             <Form
@@ -35,22 +64,22 @@ const sumbitHandeler=(values)=>{
             >
                 <div className="w-8/10 flex flex-col justify-end">
               <div className={` focus:ring-indigo-500 w-full bg-neutral-50  rounded-xl flex flex-col justify-end focus:border-indigo-500  ${
-                errors.email && touched.email ? ' border border-red-500' : ''
+                errors.gmail && touched.gmail ? ' border border-red-500' : ''
               }`}>
                 <Input
                   icon={phone}
                   placeholder={"ایمیل یا شماره تماس"}
                   iconClassname={"mx-3.5"}
-                  name="email"
-                  value={values.email}
+                  name="gmail"
+                  value={values.gmail}
                   onChange={handleChange}
                   handleBlur={handleBlur}
                 />
               </div>
-              <ErrorMessage className="text-danger-500 text-right" name="email" component={"span"}/>
+              <ErrorMessage className="text-danger-500 text-right" name="gmail" component={"span"}/>
               </div>
               
-              <Button
+              <Button disabled={isPending}
                 children={"ارسال کد یکبار مصرف"}
                 buttonClassName="w-8/10 font-[18px]"
                 type="submit"
@@ -58,7 +87,7 @@ const sumbitHandeler=(values)=>{
             </Form>
           )}
         </Formik>
-
+<Toaster />
         <div className="flex items-center gap-1">
           <p className="text-textC">حساب کاربری دارید؟</p>
           <p className="text-textb " onClick={() => navigate("/auth/login")}>وارد شوید</p>

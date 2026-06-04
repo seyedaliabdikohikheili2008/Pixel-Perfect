@@ -5,32 +5,54 @@ import { InputOTP } from "@heroui/react";
 import Button from "../../atoms/Butoon/Button";
 import Timer from "../../atoms/Timer/Timer";
 import { useNavigate,useLocation } from "react-router-dom";
-
+import { useMutation } from "@tanstack/react-query";
+import RegisterStepTwo from "../../../core/api/auth/Register/StepTwo/StepTwo";
+import toast, { Toaster } from "react-hot-toast";
 const InputOtp = () => {
+  const savedEmail = localStorage.getItem("registration_email");
+  const { mutate, isPending } = useMutation({
+  mutationFn: RegisterStepTwo, 
+  onSuccess: (data) => {
+    console.log(" موفقیت:", data);
+  },
+  onError: (error) => {
+    console.error(" خطا:", error);
+    const status = error.response?.status;
+    
+    const serverMessage = error.response?.data?.message;
+
+     if (status === 401 && serverMessage==="کد اشتباه است") {
+      toast.error("رمز شما اشتباه است");
+    } else{
+      toast.error("خطایی در اتصال به سرور رخ داد. لطفاً دوباره تلاش کنید.");
+    }
+  }
+});
   const navigate = useNavigate();
 const location=useLocation();
-  const initialValues = { otpCode: "" };
-
-  const validationSchema = Yup.object({
-    otpCode: Yup.string()
-      .length(6, "کد تایید باید ۶ رقم باشد")
-      .required("وارد کردن کد تایید الزامی است"),
-  });
-
- const sumbitHandeler=(values)=>{
-  console.log(values);
+const postData = (formData) => {
+  mutate({ verifyCode: formData.verifyCode ,gmail:savedEmail}); 
   if(location.pathname==="/auth/login/verifying"){
     navigate("/")
   }else{
 navigate("complete")
   }
-  
-}
+};
+
+
+  const initialValues = { verifyCode: "" ,gmail:savedEmail};
+  const validationSchema = Yup.object({
+    verifyCode: Yup.string()
+      .length(6, "کد تایید باید ۶ رقم باشد")
+      .required("وارد کردن کد تایید الزامی است"),
+  });
+
   return (
+    
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={sumbitHandeler}
+      onSubmit={postData}
     >
       {({ values, setFieldValue, errors, touched }) => (
         <Form className="flex flex-col items-center gap-6 w-full">
@@ -38,9 +60,9 @@ navigate("complete")
           <div className="w-full flex justify-center overflow-hidden">
             <InputOTP
               maxLength={6}
-              value={values.otpCode}
-              onChange={(value) => setFieldValue("otpCode", value)}
-              isInvalid={!!errors.otpCode && touched.otpCode}
+              value={values.verifyCode}
+              onChange={(value) => setFieldValue("verifyCode", value)}
+              isInvalid={!!errors.verifyCode && touched.verifyCode}
               aria-label="کد تایید ۶ رقمی"
             >
               <InputOTP.Group dir="ltr" className="flex md:gap-0.5 gap-2 lg:gap-2 flex-wrap justify-center">
@@ -67,15 +89,16 @@ navigate("complete")
               </InputOTP.Group>
             </InputOTP>
           </div>
-<ErrorMessage name="otpCode" className="text-danger-500 text-right" component={"span"} />
+<ErrorMessage name="verifyCode" className="text-danger-500 text-right" component={"span"} />
           
           <Button
+          disabled={isPending}
             buttonClassName="w-8/10 font-lg font-bold"
             type="submit"
           >
             تایید رمز یکبار مصرف
           </Button>
-
+<Toaster/>
           <Timer className="dark:text-white text-textC" />
         </Form>
       )}

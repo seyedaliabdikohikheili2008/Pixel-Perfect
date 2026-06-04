@@ -9,10 +9,12 @@ import Roadmap from '../components/templates/landing/RoadMap'
 import LandingBestCourse from '../components/templates/landing/LandingBestCourse'
 import PopularCtegory from '../components/templates/landing/PopularCtegory'
 import LandingNewNews from '../components/templates/landing/LandingNewNews'
+import { Toaster } from 'react-hot-toast'
 
 const LandingPage = () => {
   return (
     <>
+    <Toaster/>
         <LandingHeroSection />
         <NewCourse />
         <LandingBestTeacher />

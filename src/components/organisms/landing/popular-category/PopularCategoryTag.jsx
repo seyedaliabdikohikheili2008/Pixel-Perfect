@@ -1,35 +1,43 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import icon from "../../../../assets/images/icons/landing/elements.png";
-import motion from "../../../../assets/styles/popular-category-motion/PopularCategoryMotion.module.css"
+import motion from "../../../../assets/styles/popular-category-motion/PopularCategoryMotion.module.css";
+import { useAllTechnologies } from "../../../../core/hooks/queries/technologies/useAllTechnologies";
 const PopularCategoryTag = () => {
-  const tags = ["برنامه نویسی"];
+  const {
+    data: TechnologyList = undefined,
+    isError: TechnologyListErr,
+    isLoading: TechnologyListLoading,
+  } = useAllTechnologies();
 
-  const repeatedItems = Array.from(
-    { length: 50 },
-    (item, index) => tags[index % tags.length],
-  );
+  const repeatedItems = useMemo(() => {
+    if (!TechnologyList?.data.length) return [];
+
+    return Array.from(
+      { length: 50 },
+      (_, index) => TechnologyList.data[index % TechnologyList.data.length],
+    );
+  }, [TechnologyList]);
 
   return (
     <div className="w-full my-5 flex flex-col gap-5">
-      <div className={`${motion.move} hover:[animation:none] flex justify-center gap-3 -rotate-3`}>
-        {repeatedItems.map((tag, index) => (
+      <div className={`${motion.move} flex justify-center gap-3 -rotate-3`}>
+        {repeatedItems?.map((tag, index) => (
           <div
-            key={index}
+            key={tag.id + index}
             className="shrink-0 w-44 h-14 rounded-full bg-neutral-50 text-textC border border-neutral-100 text-base font-bold flex gap-3 items-center justify-center"
-            id={index}
           >
-            {tag}
+            {tag.techName}
             <img className="w-5 h-5" src={icon} alt="" />
           </div>
         ))}
       </div>
       <div className={`${motion.move} flex justify-center gap-3 -rotate-3`}>
-        {repeatedItems.map((tag, index) => (
+        {repeatedItems?.map((tag, index) => (
           <div
-            key={index}
+            key={tag.id + index}
             className="shrink-0 w-44 h-14 rounded-full bg-neutral-50 text-textC border border-neutral-100 text-base font-bold flex gap-3 items-center justify-center"
           >
-            {tag}
+            {tag.techName}
             <img className="w-5 h-5" src={icon} alt="" />
           </div>
         ))}

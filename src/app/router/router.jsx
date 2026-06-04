@@ -1,7 +1,4 @@
 import { createBrowserRouter } from "react-router-dom";
-import LandingPage from "../../page/LandingPage";
-import NotFoundPage from "../../page/NotFoundPage";
-import CourseListPage from "../../page/CourseListPage";
 import RegisterStepOne from "../../page/RegisterPage/RegisterStepOne";
 import LoginStepOne from "../../page/LoginPage/LoginStepOne";
 import LoginStepTwo from "../../page/LoginPage/LoginStepTwo";
@@ -10,7 +7,10 @@ import RegisterStepThree from "../../page/RegisterPage/RegisterStepThree";
 import MainLyout from "../layout/mainLayout/MainLyout";
 import AuthLayout from "../layout/AuthLayout/AuthLayout";
 import ResetPasswordStepOnePage from "../../page/ResetPasswordPage/ResetPasswordStepOnePage";
-import ResetPasswordStepTwoPage from "../../page/ResetPasswordPage/ResetPasswordStepTwoPage"
+import ResetPasswordStepTwoPage from "../../page/ResetPasswordPage/ResetPasswordStepTwoPage";
+import LandingPage from "../../page/Landing/LandingPage";
+import CourseListPage from "../../page/course-list/CourseListPage";
+import NotFoundPage from "../../page/not-found/NotFoundPage";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -43,32 +43,33 @@ const router = createBrowserRouter([
           },
           {
             path: "verify",
-            
+
             children: [
               {
-                index:true,
-element: <RegisterStepTwo />,
+                index: true,
+                element: <RegisterStepTwo />,
               },
               {
                 path: "complete",
                 element: <RegisterStepThree />,
-              }
+              },
             ],
           },
         ],
       },
       {
-        path:"reset",children:[
+        path: "reset",
+        children: [
           {
-            index:true,
-            element:<ResetPasswordStepOnePage/>,
-          }
-          ,{
-            path:"new-password",
-            element:<ResetPasswordStepTwoPage/>
-          }
-        ]
-      }
+            index: true,
+            element: <ResetPasswordStepOnePage />,
+          },
+          {
+            path: "new-password",
+            element: <ResetPasswordStepTwoPage />,
+          },
+        ],
+      },
     ],
   },
   { path: "*", element: <NotFoundPage /> },

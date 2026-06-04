@@ -10,13 +10,13 @@ const NewCourseCard = ({detail}) => {
         <img src={cardimg} alt="" />
         <div className="flex w-2/3 flex-col items-end gap-5">
           <div className="text-right w-full flex flex-col gap-5">
-            <h3 className="text-xl font-bold text-textC">{detail?.googleTitle}</h3>
+            <h3 className="text-xl font-bold text-textC">{detail?.title}</h3>
             <p className="text-sm text-textC font-bold line-clamp-2">
               {/* Node.js یک پلتفرم قدرتمند برای توسعهٔ برنامههای سرور با استفاده از
               جاوااسکریپت است. با استفاده از Node.js، میتوانید اپلیکیشنهای سریع
               و مقیاسپذیر بسازید. یادگیری آن آسان است، بهخصوص اگر با جاوااسکریپت
               آشنا باشید. */}
-              {detail?.miniDescribe}
+              {detail?.describe}
             </p>
             <div className="flex gap-13">
               <div className="relative">

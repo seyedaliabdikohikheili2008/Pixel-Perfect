@@ -5,7 +5,7 @@ import Button from "../../../atoms/Butoon/Button";
 import teacher from "../../../../assets/images/icons/landing/teaching.png";
 import student from "../../../../assets/images/icons/landing/student-card.png";
 
-const LBestCourseCard = () => {
+const LBestCourseCard = ({ detail }) => {
   return (
     <>
       <div className="w-90 relative flex flex-col items-center">
@@ -15,8 +15,8 @@ const LBestCourseCard = () => {
           alt=""
         />
         <div className="w-11/12 -translate-y-15 flex p-4 flex-col gap-5 bg-rootBg rounded-2xl">
-          <h2 className="text-right text-xl text-textC font-bold">
-            آموزش Node.js
+          <h2 className="h-14 line-clamp-2 text-right text-xl text-textC font-bold">
+           {detail?.title}
           </h2>
           <div className="flex justify-between items-center pb-3 border-b-1-5 border-neutral-100">
             <div>
@@ -29,7 +29,7 @@ const LBestCourseCard = () => {
           <div className="flex justify-between items-center">
             <div className="flex p-2 rounded-lg gap-2 bg-neutral-100 text-primary-400">
               <img src={student} alt="" />
-              22
+              {detail?.currentRegistrants}
             </div>
             <div className="flex text-xs font-bold gap-2">
               <span className="text-danger-300 before:w-full before:absolute relative before:-rotate-12 before:top-2 before:h-px before:bg-danger-300">

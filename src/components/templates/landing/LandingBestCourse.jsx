@@ -1,12 +1,22 @@
-import React from "react";
+import React, { useMemo, useState } from "react";
 import ImgBg from "../../../assets/images/landing/landing-best-course/Union.png";
 import ImgBgDark from "../../../assets/images/landing/landing-best-course/UnionDark.png";
 import { useSelector } from "react-redux";
 import LBestCourseCard from "../../organisms/landing/best-course/LBestCourseCard";
 import Button from "../../atoms/Butoon/Button";
 import TitleDesc from "../../molecules/title-desc/TitleDesc";
+import { useCourseTop } from "../../../core/hooks/queries/courses/useCourseTop";
 const LandingBestCourse = () => {
   const mode = useSelector((state) => state.DarkFlag.value);
+
+  const [params, setparams] = useState({
+    Count: 6,
+  });
+  const {
+    data: CourseTopList = undefined,
+    isError: CourseTopListErr,
+    isLoading: CourseTopListLoading,
+  } = useCourseTop(params);
 
   return (
     <>
@@ -16,14 +26,20 @@ const LandingBestCourse = () => {
           src={mode == "light" ? ImgBg : ImgBgDark}
           alt=""
         />
-        <TitleDesc titleclassName="z-10" width="w-75" title={" برترین دوره ها"} />
+        <TitleDesc
+          titleclassName="z-10"
+          width="w-75"
+          title={" برترین دوره ها"}
+        />
         <div className="z-10 w-11/12 justify-between flex flex-wrap ">
-          <LBestCourseCard />
-          <LBestCourseCard />
-          <LBestCourseCard />
-          <LBestCourseCard />
-          <LBestCourseCard />
-          <LBestCourseCard />
+          {CourseTopList?.data.map((item, index) => {
+            return (
+              <LBestCourseCard
+                key={item.courseId + item.title + index}
+                detail={item}
+              />
+            );
+          })}
         </div>
         <Button
           children={"دوست داری ببیشتر ببینی"}

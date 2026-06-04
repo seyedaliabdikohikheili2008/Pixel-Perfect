@@ -1,9 +1,8 @@
 import ApiClient from "../../api/interceptors";
 
-export const getAllCourse = async (params) => {
+export const getAllNews = async (params) => {
   try {
-    console.log("Fetching started...");
-    const result = await ApiClient.get(`Home/GetCoursesWithPagination`,{params});
+    const result = await ApiClient.get(`News`,{params});
     return {
     data: result.data,
     status: result.status,

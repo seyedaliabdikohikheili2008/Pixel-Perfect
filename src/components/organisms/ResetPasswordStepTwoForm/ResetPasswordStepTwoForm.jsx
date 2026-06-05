@@ -2,7 +2,7 @@ import React from "react";
 import { Form, Formik, ErrorMessage } from "formik";
 import Button from "../../atoms/Butoon/Button";
 import Input from "../../atoms/Input/Input";
-import email from "../../../assets/images/icons/login-signup-form/email.png";
+
 import password from "../../../assets/images/icons/login-signup-form/password.png";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
@@ -35,13 +35,18 @@ const ResetPasswordStepTwoForm = () => {
   });
 
   const postData = (values) => {
-    mutate({ gmail: savedEmail, email: savedEmail, newPassword: values.newPassword, resetValue: values.resetValue, baseUrl: "/" });
+    mutate({
+      gmail: savedEmail,
+      email: savedEmail,
+      newPassword: values.newPassword,
+      resetValue: "000000",
+      baseUrl: "/",
+    });
   };
   const validationSchema = Yup.object({
-    newPassword: Yup.string().required("رمز اجباری است"),
-    resetValue: Yup.string().required("تکرار رمز اجباری است")
-  })
-
+    newPassword: Yup.string().required("رمز اجباری است").min(6, "لطفا از 6 کاراکتر بیشتر وارد کنید!"),
+    confrimPassword: Yup.string().required("تکرار رمز اجباری است").oneOf([Yup.ref("newPassword")], "رمزها یکسان نیستند"),
+  });
 
   return (
     <>
@@ -54,18 +59,22 @@ const ResetPasswordStepTwoForm = () => {
       <Formik
         initialValues={{
           newPassword: "",
-          resetValue: ""
+          resetValue: "",
+          confrimPassword:""
         }}
         onSubmit={postData}
         validationSchema={validationSchema}
       >
         {({ values, handleChange, errors = {}, touched }) => (
-          <Form
-            className="w-full flex flex-col items-center gap-6"
-          >
+          <Form className="w-full flex flex-col items-center gap-6">
             <div className="w-8/10 flex flex-col justify-end">
-              <div className={` focus:ring-indigo-500 w-full bg-neutral-50  rounded-xl flex flex-col justify-end focus:border-indigo-500  ${errors.newPassword && touched.newPassword ? ' border border-red-500' : ''
-                }`} >
+              <div
+                className={` focus:ring-indigo-500 w-full bg-neutral-50  rounded-xl flex flex-col justify-end focus:border-indigo-500  ${
+                  errors.newPassword && touched.newPassword
+                    ? " border border-red-500"
+                    : ""
+                }`}
+              >
                 <Input
                   icon={password}
                   placeholder={"رمز عبور خود را وارد کنید"}
@@ -75,21 +84,34 @@ const ResetPasswordStepTwoForm = () => {
                   onChange={handleChange}
                 />
               </div>
-              <ErrorMessage className="text-danger-500 text-right" name="newPassword" component={"span"} />
+              <ErrorMessage
+                className="text-danger-500 text-right"
+                name="newPassword"
+                component={"span"}
+              />
             </div>
             <div className="w-8/10 flex flex-col justify-end">
-              <div className={` focus:ring-indigo-500 w-full bg-neutral-50  rounded-xl flex flex-col justify-end focus:border-indigo-500  ${errors.resetValue && touched.resetValue ? ' border border-red-500' : ''
-                }`} >
+              <div
+                className={` focus:ring-indigo-500 w-full bg-neutral-50  rounded-xl flex flex-col justify-end focus:border-indigo-500  ${
+                  errors.confrimPassword && touched.confrimPassword
+                    ? " border border-red-500"
+                    : ""
+                }`}
+              >
                 <Input
                   icon={password}
                   placeholder={"تکرار رمز عبور"}
                   iconClassname={"mx-3.5"}
-                  name="resetValue"
-                  value={values.resetValue}
+                  name="confrimPassword"
+                  value={values.confrimPassword}
                   onChange={handleChange}
                 />
               </div>
-              <ErrorMessage className="text-danger-500 text-right" name="resetValue" component={"span"} />
+              <ErrorMessage
+                className="text-danger-500 text-right"
+                name="confrimPassword"
+                component={"span"}
+              />
             </div>
             <Button
               children={"ثبت رمز عبور جدید"}
@@ -99,8 +121,6 @@ const ResetPasswordStepTwoForm = () => {
           </Form>
         )}
       </Formik>
-
-
     </>
   );
 };

@@ -16,18 +16,16 @@ const LoginStepOneForm = () => {
     onSuccess: (data) => {
       toast.success("خوش اومدی💛");
       navigate("/");
-          
     },
     onError: (error) => {
       const status = error.response?.status;
       const serverMessage = error.response?.data?.message;
 
-      if (status === 401 && serverMessage==="رمز عبور اشتباه است" ) {
+      if (status === 401 && serverMessage === "رمز عبور اشتباه است") {
         toast.error("رمز عبور اشتباه است");
-      } 
-       else if (status === 401 && serverMessage==="کاربر یافت نشد" ) {
+      } else if (status === 401 && serverMessage === "کاربر یافت نشد") {
         toast.error("کاربری با این مشخصات یافت نشد لطفا ثبت نام کنید");
-      }else if (status === 400) {
+      } else if (status === 400) {
         toast.error("درخواست نامعتبر است. لطفاً فیلدها را بررسی کنید.");
       } else {
         toast.error("خطایی در اتصال به سرور رخ داد. لطفاً دوباره تلاش کنید.");
@@ -81,7 +79,7 @@ const LoginStepOneForm = () => {
               >
                 <Input
                   icon={user}
-                  placeholder={"ایمیل یا شماره تماس"}
+                  placeholder={"ایمیل خود را وارد کنید"}
                   iconClassname={"mx-3.5"}
                   name="phoneOrGmail"
                   value={values.phoneOrGmail}
@@ -104,6 +102,7 @@ const LoginStepOneForm = () => {
                 }`}
               >
                 <Input
+                  type="password"
                   icon={password}
                   placeholder={"رمز عبور را وارد کنید"}
                   iconClassname={"mx-3.5"}
@@ -127,11 +126,11 @@ const LoginStepOneForm = () => {
                   checked={values.rememberMe}
                   onChange={handleChange}
                 />
-                <label>مرا بخاطر بسپار</label>
+                <label className="cursor-pointer">مرا بخاطر بسپار</label>
               </div>
               <div>
                 <p
-                  className="font-normal text-[16px] text-textC "
+                  className="font-normal text-[16px] cursor-pointer text-textC "
                   onClick={() => navigate("/auth/reset")}
                 >
                   فراموشی رمز عبور
@@ -149,8 +148,8 @@ const LoginStepOneForm = () => {
       </Formik>
       <Toaster />
       <div className="flex items-center gap-1">
-        <p className="text-textC ">حساب کاربری ندارید؟</p>
-        <p className="text-textb " onClick={() => navigate("/auth/register")}>
+        <p className="text-textC cursor-pointer ">حساب کاربری ندارید؟</p>
+        <p className="text-textb cursor-pointer" onClick={() => navigate("/auth/register")}>
           ثبت نام
         </p>
       </div>

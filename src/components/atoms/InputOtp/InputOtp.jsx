@@ -13,7 +13,16 @@ const InputOtp = () => {
   const { mutate, isPending } = useMutation({
   mutationFn: RegisterStepTwo, 
   onSuccess: (data) => {
+      if (data.message === "کد اشتباه است") {
+    toast.error("رمز شما اشتباه است");
+    return; // از ادامه اجرای منطق موفقیت جلوگیری کن
+  }
     console.log(" موفقیت:", data);
+     if(location.pathname==="/auth/login/verifying" ){
+    navigate("/")
+  }else{
+navigate("complete")
+  }
   },
   onError: (error) => {
     console.error(" خطا:", error);
@@ -21,7 +30,7 @@ const InputOtp = () => {
     
     const serverMessage = error.response?.data?.message;
 
-     if (status === 401 && serverMessage==="کد اشتباه است") {
+     if (status === 200 && serverMessage==="کد اشتباه است") {
       toast.error("رمز شما اشتباه است");
     } else{
       toast.error("خطایی در اتصال به سرور رخ داد. لطفاً دوباره تلاش کنید.");
@@ -32,11 +41,7 @@ const InputOtp = () => {
 const location=useLocation();
 const postData = (formData) => {
   mutate({ verifyCode: formData.verifyCode ,gmail:savedEmail}); 
-  if(location.pathname==="/auth/login/verifying"){
-    navigate("/")
-  }else{
-navigate("complete")
-  }
+ 
 };
 
 

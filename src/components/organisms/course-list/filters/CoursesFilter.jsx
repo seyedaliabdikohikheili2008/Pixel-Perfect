@@ -19,9 +19,9 @@ const CoursesFilter = () => {
 
   return (
     <>
-      <div className={`${MenuStatus ? "block w-11/12 md:w-75" : "hidden w-75"} absolute top-15 left-1/2 -translate-x-1/2 md:translate-x-0 md:top-0 z-10 md:left-0 md:relative md:block  shrink-0 h-150 bg-background rounded-2xl shadow-[0px_50px_100px_0px_#48484829]`}>
+      <div className={`${MenuStatus ? "block w-11/12 md:w-75" : "hidden w-75"} absolute top-15 left-1/2 -translate-x-1/2 md:translate-x-0 md:top-0 z-10 md:left-0 md:relative md:block  shrink-0 h-fit overflow-hidden bg-background rounded-2xl shadow-[0px_50px_100px_0px_#48484829]`}>
         {console.log(MenuStatus)}
-        <div className="w-11/12 flex flex-col items-center mx-auto my-2">
+        <div className="w-11/12 flex flex-col gap-2 items-center mx-auto my-2">
           <Input
             boxClassname={"w-full flex items-center gap-2"}
             icon={filter}

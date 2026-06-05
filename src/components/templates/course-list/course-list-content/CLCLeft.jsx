@@ -10,7 +10,7 @@ const CLCLeft = () => {
       <div className="max-w-4/5 w-4/5 flex flex-col gap-10">
         <CourseListToping cardView2={cardView2} setcardView2={setcardView2} />
         <div
-          className={`w-full flex ${cardView2 ? "flex-col gap-10" : "flex-row justify-between flex-wrap"}`}
+          className={`w-full flex ${cardView2 ? "flex-col gap-10" : "flex-row justify-between gap-3 flex-wrap"}`}
         >
           <CourseCard cardView2={cardView2} />
           <CourseCard cardView2={cardView2} />

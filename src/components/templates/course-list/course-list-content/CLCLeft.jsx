@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import CourseListToping from "./CourseListToping";
 import CourseCard from "../../../organisms/course-list/course-card/CourseCard";
+import CourseListPagination from "../../../organisms/course-list/pagination/CourseListPagination";
 
 const CLCLeft = () => {
   const [cardView2, setcardView2] = useState(false);
@@ -19,6 +20,7 @@ const CLCLeft = () => {
           <CourseCard cardView2={cardView2} />
           <CourseCard cardView2={cardView2} />
         </div>
+        <CourseListPagination />
       </div>
     </>
   );

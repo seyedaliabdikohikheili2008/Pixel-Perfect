@@ -13,13 +13,22 @@ import {
 import { isFulfilled } from "@reduxjs/toolkit";
 import { FaChevronDown } from "react-icons/fa";
 import { useSelector } from "react-redux";
+import { useAllTechnologies } from "../../../../core/hooks/queries/technologies/useAllTechnologies";
 
 const CoursesFilter = () => {
   const MenuStatus = useSelector((state) => state.CourseFilterMenu.value);
 
+  const {
+    data: TechnologyList = undefined,
+    isError: TechnologyListErr,
+    isLoading: TechnologyListLoading,
+  } = useAllTechnologies();
+
   return (
     <>
-      <div className={`${MenuStatus ? "block w-11/12 md:w-75" : "hidden w-75"} absolute top-15 left-1/2 -translate-x-1/2 md:translate-x-0 md:top-0 z-10 md:left-0 md:relative md:block  shrink-0 h-fit overflow-hidden bg-background rounded-2xl shadow-[0px_50px_100px_0px_#48484829]`}>
+      <div
+        className={`${MenuStatus ? "block w-11/12 md:w-75" : "hidden w-75"} absolute top-15 left-1/2 -translate-x-1/2 md:translate-x-0 md:top-0 z-10 md:left-0 md:relative md:block  shrink-0 h-fit overflow-hidden bg-background rounded-2xl shadow-[0px_50px_100px_0px_#48484829]`}
+      >
         {console.log(MenuStatus)}
         <div className="w-11/12 flex flex-col gap-2 items-center mx-auto my-2">
           <Input
@@ -44,14 +53,24 @@ const CoursesFilter = () => {
               <Accordion.Panel>
                 <Accordion.Body>
                   <CheckboxGroup>
-                    <Checkbox className={"flex items-center gap-2"} value="css">
-                      <Checkbox.Control className="w-5 h-5 bg-primary-50 border-1 border-neutral-400 rounded-md p-1">
-                        <Checkbox.Indicator className="text-primary-400" />
-                      </Checkbox.Control>
-                      <Checkbox.Content>
-                        <Label className="text-textC">css</Label>
-                      </Checkbox.Content>
-                    </Checkbox>
+                    {TechnologyList?.data.map((tech, index) => {
+                      return (
+                        <Checkbox
+                          className={"flex items-center gap-2"}
+                          value={tech.techName}
+                          key={tech.id}
+                        >
+                          <Checkbox.Control className="w-5 h-5 bg-primary-50 border-1 border-neutral-400 rounded-md p-1">
+                            <Checkbox.Indicator className="text-primary-400" />
+                          </Checkbox.Control>
+                          <Checkbox.Content>
+                            <Label className="text-textC">
+                              {tech.techName}
+                            </Label>
+                          </Checkbox.Content>
+                        </Checkbox>
+                      );
+                    })}
                   </CheckboxGroup>
                 </Accordion.Body>
               </Accordion.Panel>
@@ -193,12 +212,12 @@ const CoursesFilter = () => {
               <Accordion.Panel>
                 <Accordion.Body>
                   <CheckboxGroup>
-                    <Checkbox className={"flex items-center gap-2"} value="css">
+                    <Checkbox className={"flex items-center gap-2"} value="bahr">
                       <Checkbox.Control className="w-5 h-5 bg-primary-50 border-1 border-neutral-400 rounded-md p-1">
                         <Checkbox.Indicator className="text-primary-400" />
                       </Checkbox.Control>
                       <Checkbox.Content>
-                        <Label className="text-textC">css</Label>
+                        <Label className="text-textC">بحرالعلوم</Label>
                       </Checkbox.Content>
                     </Checkbox>
                   </CheckboxGroup>

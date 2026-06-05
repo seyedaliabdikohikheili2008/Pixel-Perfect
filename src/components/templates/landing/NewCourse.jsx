@@ -1,6 +1,6 @@
 import React from "react";
 import NewCourseSlider from "../../organisms/landing/new-course-slider/NewCourseSlider";
-import TitleDesc from "../../molecules/title-desc/TitleDesc";
+import TitleDesc from "../../molecules/section-title/SectionTitle";
 const NewCourse = () => {
   return (
     <>

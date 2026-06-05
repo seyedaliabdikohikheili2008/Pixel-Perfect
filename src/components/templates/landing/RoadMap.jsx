@@ -1,7 +1,7 @@
 import React from "react";
 import RoadMapSvg from "../../organisms/landing/road-map/RoadMapSvg";
 import Stepdesc from "../../organisms/landing/road-map/Stepdesc";
-import TitleDesc from "../../molecules/title-desc/TitleDesc";
+import TitleDesc from "../../molecules/section-title/SectionTitle";
 
 const RoadMap = () => {
   return (

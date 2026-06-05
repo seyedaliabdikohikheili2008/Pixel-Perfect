@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import Button from "../../atoms/Butoon/Button";
 import NewsCard from "../../organisms/news/news-card/NewsCard";
-import TitleDesc from "../../molecules/title-desc/TitleDesc";
+import TitleDesc from "../../molecules/section-title/SectionTitle";
 import { useAllNews } from "../../../core/hooks/queries/news/useAllNews";
 
 const LandingNewNews = () => {
@@ -29,7 +29,7 @@ const LandingNewNews = () => {
         />
         <div className="flex gap-5 justify-center flex-wrap">
           {NewNews?.map((news, index) => {
-            return <NewsCard key={news.title + index} detail={news} />
+            return <NewsCard key={news.title + index} detail={news} />;
           })}
 
           {/* <NewsCard />

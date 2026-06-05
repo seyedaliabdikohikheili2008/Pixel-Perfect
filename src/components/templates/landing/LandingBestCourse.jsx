@@ -4,7 +4,7 @@ import ImgBgDark from "../../../assets/images/landing/landing-best-course/UnionD
 import { useSelector } from "react-redux";
 import LBestCourseCard from "../../organisms/landing/best-course/LBestCourseCard";
 import Button from "../../atoms/Butoon/Button";
-import TitleDesc from "../../molecules/title-desc/TitleDesc";
+import TitleDesc from "../../molecules/section-title/SectionTitle";
 import { useCourseTop } from "../../../core/hooks/queries/courses/useCourseTop";
 const LandingBestCourse = () => {
   const mode = useSelector((state) => state.DarkFlag.value);

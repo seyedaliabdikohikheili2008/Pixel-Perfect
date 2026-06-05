@@ -1,6 +1,6 @@
 import React from "react";
 import PopularCategoryTag from "../../organisms/landing/popular-category/PopularCategoryTag";
-import TitleDesc from "../../molecules/title-desc/TitleDesc";
+import TitleDesc from "../../molecules/section-title/SectionTitle";
 
 const PopularCtegory = () => {
   return (

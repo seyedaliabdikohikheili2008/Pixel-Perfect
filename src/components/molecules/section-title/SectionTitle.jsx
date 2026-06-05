@@ -1,6 +1,6 @@
 import React from "react";
 
-const TitleDesc = ({
+const SectionTitle = ({
   title,
   desc,
   width = "w-90",
@@ -25,4 +25,4 @@ const TitleDesc = ({
   );
 };
 
-export default TitleDesc;
+export default SectionTitle;

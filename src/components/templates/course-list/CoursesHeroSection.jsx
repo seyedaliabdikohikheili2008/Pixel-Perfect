@@ -1,5 +1,5 @@
 import React from "react";
-import TitleDesc from "../../molecules/title-desc/TitleDesc";
+import SectionTitle from "../../molecules/section-title/SectionTitle";
 import heroImg from "../../../assets/images/courses/hero-section/c19ee31dd14b93b01aac9ea5fd5518ca382a41fb.png";
 import icon from "../../../assets/images/icons/courses/command-line.png";
 
@@ -8,7 +8,7 @@ const CoursesHeroSection = () => {
     <>
       <div className="flex lg:flex-row flex-col-reverse items-center gap-3 w-5/6 my-12 mx-auto">
         <div className="w-11/12 lg:w-1/2">
-          <TitleDesc
+          <SectionTitle
             width="w-110"
             desc={
               "آموزش برنامه نویسی یکی از دوره‌های محبوب در حوزه فناوری اطلاعات است. برنامه نویسی مهارتی است که به افراد امکان می‌دهد تا نرم‌افزارهای کامپیوتری را ایجاد و توسعه دهند. "

@@ -1,7 +1,7 @@
 import React from "react";
 import BestTeacherCard from "../../organisms/landing/best-teacher/BestTeacherCard";
 import Button from "../../atoms/Butoon/Button";
-import TitleDesc from "../../molecules/title-desc/TitleDesc";
+import TitleDesc from "../../molecules/section-title/SectionTitle";
 
 const LandingBestTeacher = () => {
   return (

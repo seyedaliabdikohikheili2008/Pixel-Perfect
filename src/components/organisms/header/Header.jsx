@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const Header = ({ variant }) => {
+  
   const [UMenuFlag, setUMenuFlag] = useState(false);
   const navigate = useNavigate();
   const [showHeader, setShowHeader] = useState(true);

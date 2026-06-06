@@ -5,6 +5,7 @@ import App from "./app/App.jsx";
 import { Provider } from "react-redux";
 import { store } from "./core/store/Store.js";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import "./core/i18n/i18n.js"
 
 const queryClient = new QueryClient();
 

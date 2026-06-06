@@ -11,7 +11,7 @@ const SectionTitle = ({
     <>
       <div className="flex flex-col items-center gap-5">
         <h2
-          className={`${width} py-3.5 text-3xl font-bold bg-[url('/text-line/line-6.png')] text-textC bg-no-repeat bg-bottom-right bg-auto ${titleclassName}`}
+          className={`${width} text-nowrap py-3.5 text-3xl font-bold bg-[url('/text-line/line-6.png')] text-textC bg-no-repeat bg-bottom-right bg-auto ${titleclassName}`}
         >
           {title}
         </h2>

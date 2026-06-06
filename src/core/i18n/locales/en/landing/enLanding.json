@@ -13,5 +13,40 @@
         "title":"Latest Online Courses",
         "describe":"Explore the most popular courses from our expert instructors.",
         "button":"Start Learning"
+    },
+    "BestTeachers":{
+        "title":"Top Instructors",
+        "describe":"Master classes are taught by industry leaders who are excited to share their tools, techniques, and professional journeys with you.",
+        "button":"Want to see more"
+    },
+    "AboutMe":{
+        "titleOne":"?Why do we need a lifelong learning community",
+        "describeOne":"Because programming is not just a technical skill; it is a way to strengthen logical thinking, problem-solving, and build a brighter future. With the support of an active and supportive community, you can overcome challenges and grow with more confidence.",
+        "titleTwo":"Be an effective leader of the future",
+        "describeTwo":"Our programming classes are designed so that you can gain real and practical skills at any level. You will learn how to master your ideas, build projects, and gradually transform your career path step by step.",
+        "titleThree":"A clear and measurable path of progress",
+        "describeThree":"At every stage, you can see your progress, develop your projects, and achieve real results. Our goal is for you to gain not only programming skills but also the mindset of a builder and creator.",
+        "card":"Learn more about our journey",
+        "button":"Years of teaching experience at BarnamehNevisan"
+    },
+    "RoadMap":{
+        "title":"Your Roadmap",
+        "describe":"We are here to help you find your path.",
+        "figmaDescribe":"To get started, you should begin with markup languages and then move on to styling."
+    },
+    "BestCourse":{
+        "title":"Top Courses",
+        "button":"?Want to see more"
+    },
+    "PopularCtegory":{
+        "title":"Most Popular Categories",
+        "describe":"Explore the most popular courses from our expert instructors."
+    },
+    "NewNews":{
+        "title":"Latest News",
+        "describe":"Read the latest updates and articles from our expert instructors.",
+        "button":"Want to see more?",
+        "view":"Views",
+        "lessons":"Lessons"
     }
 }

@@ -6,7 +6,10 @@ import LBestCourseCard from "../../organisms/landing/best-course/LBestCourseCard
 import Button from "../../atoms/Butoon/Button";
 import TitleDesc from "../../molecules/section-title/SectionTitle";
 import { useCourseTop } from "../../../core/hooks/queries/courses/useCourseTop";
+import { useTranslation } from "react-i18next";
 const LandingBestCourse = () => {
+  const { t } = useTranslation("landing");
+
   const mode = useSelector((state) => state.DarkFlag.value);
 
   const [params, setparams] = useState({
@@ -29,7 +32,7 @@ const LandingBestCourse = () => {
         <TitleDesc
           titleclassName="z-10"
           width="w-75"
-          title={" برترین دوره ها"}
+          title={t("BestCourse.title")}
         />
         <div className="z-10 w-11/12 justify-between flex flex-wrap ">
           {CourseTopList?.data.map((item, index) => {
@@ -42,7 +45,7 @@ const LandingBestCourse = () => {
           })}
         </div>
         <Button
-          children={"دوست داری ببیشتر ببینی"}
+          children={t("BestCourse.button")}
           buttonClassName="rounded-full z-10 translate-x-60"
         />
       </div>

@@ -7,9 +7,11 @@ import umenu from "../../../assets/images/icons/header/umenuIcon.png";
 import umenuDark from "../../../assets/images/icons/header/umenuIconDark.png";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Header = ({ variant }) => {
-  
+  const { t } = useTranslation("header");
+
   const [UMenuFlag, setUMenuFlag] = useState(false);
   const navigate = useNavigate();
   const [showHeader, setShowHeader] = useState(true);
@@ -19,9 +21,9 @@ const Header = ({ variant }) => {
 
     const handleScroll = () => {
       if (window.scrollY > lastScrollY) {
-        setShowHeader(false); 
+        setShowHeader(false);
       } else {
-        setShowHeader(true); 
+        setShowHeader(true);
       }
 
       lastScrollY = window.scrollY;
@@ -38,7 +40,9 @@ const Header = ({ variant }) => {
   return (
     <>
       <div className="relative w-11/12 h-23.5 z-50 bg-rootBg mx-auto rounded-2xl flex items-center justify-between px-5 mt-5"></div>
-      <div className={`${showHeader ? "translate-y-0" : "translate-y-[-125%]"} transition-[translate] duration-300 fixed top-0 right-0 left-0 w-11/12 h-23.5 z-50 bg-background mx-auto rounded-2xl shadow-[0px_50px_100px_0px_#48484829] flex items-center justify-between px-5 mt-5`}>
+      <div
+        className={`${showHeader ? "translate-y-0" : "translate-y-[-125%]"} transition-[translate] duration-300 fixed top-0 right-0 left-0 w-11/12 h-23.5 z-50 bg-background mx-auto rounded-2xl shadow-[0px_50px_100px_0px_#48484829] flex items-center justify-between px-5 mt-5`}
+      >
         <div>
           <Logo variant={variant} />
         </div>
@@ -47,9 +51,12 @@ const Header = ({ variant }) => {
         </div>
         <div className="flex items-center gap-3">
           <DarkModeButton />
-          <Button children={"ورود یا ثبت نام"} onClick={() => navigate("/auth/login")} />
+          <Button
+            children={t("loginOrRegister")}
+            onClick={() => navigate("/auth/login")}
+          />
           <img
-            className="w-10 h-10 md:hidden"
+            className="w-10 h-10 lg:hidden"
             src={mode === "light" ? umenu : umenuDark}
             alt=""
             onClick={() => {

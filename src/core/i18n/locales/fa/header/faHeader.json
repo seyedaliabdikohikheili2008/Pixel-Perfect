@@ -1,3 +1,13 @@
 {
-    "home":"خانه"
+    "home":"خانه",
+    "courses":"دوره ها",
+    "instructors": "اساتید",
+    "contactUs": "ارتباط با ما",
+    "newsAndArticles": "اخبار و مقالات",
+    "loginOrRegister": "ورود یا ثبت نام",
+    "homepage": "صفحه اصلی",
+    "ourCourses": "دوره های ما",
+    "topInstructors": "اساتید برتر ما",
+    "getInTouch": "با ما در ارتباط بشید"
+
 }

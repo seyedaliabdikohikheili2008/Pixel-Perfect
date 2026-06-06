@@ -1,0 +1,17 @@
+{
+    "HeroSection":{
+    "titlePart1":"Learn",
+    "titleBgPrimary":"Programming",
+    "titlePart2":"Online Made Easy",
+    "title2":"Fast, always with you",
+    "describe": "On our website, you can find courses and classes that help you learn new skills, grow, and stay active on your personal and professional development journey.",
+    "button":"Let’s start learning",
+    "cardOneTitle":"Active Students and Professionals Worldwide",
+    "cardTwoTitle":"Years of Teaching Experience in Programming"
+},
+    "NewCourseSection":{
+        "title":"Latest Online Courses",
+        "describe":"Explore the most popular courses from our expert instructors.",
+        "button":"Start Learning"
+    }
+}

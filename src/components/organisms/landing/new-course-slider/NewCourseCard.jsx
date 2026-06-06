@@ -1,9 +1,11 @@
 import React from "react";
 import Button from "../../../atoms/Butoon/Button";
 import cardimg from "../../../../assets/images/landing/new-course-slider/Vector.png";
-import credit from "../../../../assets/images/icons/courses/credit-card.png"
+import credit from "../../../../assets/images/icons/courses/credit-card.png";
+import { useTranslation } from "react-i18next";
 
-const NewCourseCard = ({detail}) => {
+const NewCourseCard = ({ detail }) => {
+  const { t } = useTranslation("landing");
   return (
     <>
       <div className="flex justify-between w-full gap-5 ">
@@ -20,15 +22,23 @@ const NewCourseCard = ({detail}) => {
             </p>
             <div className="flex gap-13">
               <div className="relative">
-                <div className="bg-danger-100 flex items-center justify-center text-danger-600 line-through text-base font-bold w-32 h-10 rounded-r-full">50000 تومان</div>
-                <div className="absolute flex justify-center items-center text-xl font-bold text-danger-500 -top-1 -left-10 w-13 h-13 rounded-full bg-white border border-primary-900">10%</div>
+                <div className="bg-danger-100 flex items-center justify-center text-danger-600 line-through text-base font-bold w-32 h-10 rounded-r-full">
+                  50000 تومان
+                </div>
+                <div className="absolute flex justify-center items-center text-xl font-bold text-danger-500 -top-1 -left-10 w-13 h-13 rounded-full bg-white border border-primary-900">
+                  10%
+                </div>
               </div>
               <div className="bg-saccess-100 flex items-center justify-center text-saccess-700 text-base font-bold w-32 h-10 rounded-full">
                 40.000 تومان
               </div>
             </div>
           </div>
-          <Button children={"شروع یاد گیری"} iconSrc={credit} buttonClassName="rounded-full w-42" />
+          <Button
+            children={t("NewCourseSection.button")}
+            iconSrc={credit}
+            buttonClassName="rounded-full w-42 text-nowrap"
+          />
         </div>
       </div>
     </>

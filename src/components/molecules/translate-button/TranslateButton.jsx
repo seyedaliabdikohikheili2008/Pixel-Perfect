@@ -11,7 +11,7 @@ const TranslateButton = () => {
             ? i18next.changeLanguage("en")
             : i18next.changeLanguage("fa");
         }}
-        className="w-12 h-12 rounded-full z-50 fixed bottom-8 right-5 shadow-[0px_50px_100px_0px_#484848] flex items-center justify-center cursor-pointer bg-neutral-100 group"
+        className="w-12 h-12 rounded-full z-50 fixed bottom-8 right-5 shadow-[0px_50px_100px_0px_#484848] flex items-center justify-center cursor-pointer bg-primary-500 group"
       >
         <MdGTranslate className="text-textC text-2xl" />
         <div

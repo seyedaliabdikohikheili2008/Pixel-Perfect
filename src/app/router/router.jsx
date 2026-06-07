@@ -11,6 +11,7 @@ import ResetPasswordStepTwoPage from "../../page/ResetPasswordPage/ResetPassword
 import LandingPage from "../../page/Landing/LandingPage";
 import CourseListPage from "../../page/course-list/CourseListPage";
 import NotFoundPage from "../../page/not-found/NotFoundPage";
+import CourseDetail from "../../components/templates/course-detail/CourseDetail";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -18,6 +19,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <LandingPage /> },
       { path: "courses", element: <CourseListPage /> },
+      {path:"course-detail", element:<CourseDetail/>}
     ],
   },
   {

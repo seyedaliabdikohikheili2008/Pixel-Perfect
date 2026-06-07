@@ -42,7 +42,7 @@ const CourseCard = ({ cardView2 }) => {
           <div className="flex items-center justify-between gap-0.5">
             <div className="flex gap-0.5">{renderStars(5)}</div>
             <Button
-              children={"دکتر بحرالعلو"}
+              children={"دکتر بحرالعلوم"}
               iconSrc={teaching}
               buttonClassName="h-8 rounded-lg"
             />

@@ -1,29 +1,42 @@
 import { Label, Radio, RadioGroup } from "@heroui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
-const FilterSection = ({ data }) => {
-  const [selectedId, setselectedId] = useState("");
+const FilterSection = ({ data, param }) => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const selectedId = searchParams.get(param) || "";
+
+  const handleChange = (id) => {
+    setSearchParams((prev) => {
+      const newParams = new URLSearchParams(prev);
+      if (newParams.get(param) == id) {
+        newParams.delete(param);
+      } else {
+        newParams.set(param, id);
+      }
+      return newParams;
+    });
+  };
 
   return (
     <>
       <RadioGroup
+        aria-label="radioFilter"
         value={selectedId}
-        name="free-or-money"
+        name="radioFilter"
         className={"flex flex-col w-full justify-between flex-wrap"}
       >
-        {data.map((item, index) => {
+        {data?.map((item, index) => {
+          const id = String(item.id || item.teacherId);
           return (
             <Radio
               className={"flex items-center gap-2"}
-              value={item.id || item.teacherId}
-              key={item.id || item.teacherId}
-              id={item.id || item.teacherId}
+              value={id}
+              key={id}
+              id={id}
               onClick={() => {
-                setselectedId(
-                  selectedId == item.id || selectedId == item.teacherId
-                    ? ""
-                    : item.id || item.teacherId,
-                );
+                handleChange(id);
               }}
             >
               <Radio.Control className="w-5 h-5 bg-primary-50 flex items-center justify-center border border-neutral-400 rounded-md">

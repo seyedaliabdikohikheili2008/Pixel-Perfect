@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import view1 from "../../../../assets/images/icons/courses/view1.png";
 import view2 from "../../../../assets/images/icons/courses/view2.png";
 import view1dark from "../../../../assets/images/icons/courses/view1Dark.png";
@@ -10,10 +10,37 @@ import sortIcon from "../../../../assets/images/icons/courses/listsort.png";
 import sortIcondark from "../../../../assets/images/icons/courses/listsortdark.png";
 import Button from "../../../atoms/Butoon/Button";
 import { ToggleCourseFilter } from "../../../../core/feature/courses/CoursesFilterMenu";
+import { useSearchParams } from "react-router-dom";
 
-const CourseListToping = ({ cardView2, setcardView2 }) => {
+const CourseListToping = ({ cardView2, setcardView2, updateQuery }) => {
   const mode = useSelector((state) => state.DarkFlag.value);
   const dispatch = useDispatch();
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const sortType = searchParams.get("SortType") || "asc";
+  const handleSortType = (e) => {
+    setSearchParams((prev) => {
+      const newParams = new URLSearchParams(prev);
+      newParams.set("SortType", e.target.value);
+      return newParams;
+    });
+  };
+
+  const timeOutRef = useRef(null);
+  const handleChange = (e) => {
+    const value = e.target.value;
+
+    clearTimeout(timeOutRef.current);
+
+    timeOutRef.current = setTimeout(() => {
+      setSearchParams((prev) => {
+        const newParams = new URLSearchParams(prev);
+        newParams.set("Query", value);
+        return newParams;
+      });
+    }, 1500);
+  };
 
   return (
     <>
@@ -38,6 +65,7 @@ const CourseListToping = ({ cardView2, setcardView2 }) => {
         </div>
         <Input
           icon={search}
+          onChange={handleChange}
           placeholder={"جستوجو دوره ها"}
           iconClassname={"pr-2"}
           boxClassname={"w-1/2 flex-1 gap-2"}
@@ -50,13 +78,14 @@ const CourseListToping = ({ cardView2, setcardView2 }) => {
           />
           <select
             className="w-full text-center outline-0 text-textC text-lg"
-            defaultValue={"popular"}
+            value={sortType}
+            onChange={handleSortType}
           >
-            <option value="cheapest" className="bg-background">
-             ارزان ترین
+            <option value="asc" className="bg-background">
+              ارزان ترین
             </option>
-            <option value="mostExpensive" className="bg-background">
-             گران ترین
+            <option value="desc" className="bg-background">
+              گران ترین
             </option>
           </select>
         </div>

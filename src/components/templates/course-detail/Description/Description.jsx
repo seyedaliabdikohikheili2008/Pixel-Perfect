@@ -4,10 +4,10 @@ import like from "../../../../assets/images/icons/course-detail/like.png";
 import dislike from "../../../../assets/images/icons/course-detail/dislike.png";
 import Comment from "../Comment/Comment";
 import Button from "../../../atoms/Butoon/Button";
-import comment from "../../../../assets/images/icons/course-detail/comment.svg"
+import comment from "../../../../assets/images/icons/course-detail/comment.svg";
 const Description = () => {
   return (
-    <div className="w-full bg-rootBg flex flex-col gap-10 md:w-2/3">
+    <div className="w-full bg-rootBg flex flex-col gap-10 md:w-3/4 m-auto xl:w-2/3">
       <div className="w-full flex flex-col relative mb-10 ">
         <img src={js} alt={js} className="w-full rounded-xl " />
         <div className="w-42 px-2 mt-2 h-12 flex justify-between bg-rootBg gap-2 items-center flex-row-reverse absolute bottom-0 left-0 rounded-xl">
@@ -33,20 +33,29 @@ const Description = () => {
           کدنویسی پیشرفته و تمیز.
         </p>
       </div>
-      <div className="flex flex-col gap-3 " >
-        <h1 className="text-2xl md:text-3xl font-bold text-textC text-right px-3">توضیحات</h1>
+      <div className="flex flex-col gap-3 ">
+        <h1 className="text-2xl md:text-3xl font-bold text-textC text-right px-3">
+          توضیحات
+        </h1>
         <div className="text-[#7B7B7B] text-right rounded-2xl shadow-[0_1px_2px_0_rgba(0,0,0,0.25)] bg-background h-50">
-            <p className="px-3">توضیحات</p>
+          <p className="px-3">توضیحات</p>
         </div>
       </div>
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-4">
         <div className="flex justify-between items-center">
-        <h1 className="text-2xl md:text-3xl font-bold text-textC text-right px-2">نظرات</h1>
-<Button iconSrc={comment} children={"ارسال دیدگاه جدید"}/>
+          <h1 className="text-2xl md:text-3xl font-bold text-textC text-right px-2">
+            نظرات
+          </h1>
+          <Button iconSrc={comment} children={"ارسال دیدگاه جدید"} />
         </div>
-<Comment/>
+        <Comment />
+        <button
+          className=" w-1/2 m-auto md:w-1/5 flex items-center justify-center cursor-pointer 
+        px-4 py-2 focus:outline-none rounded-xl text-nowrap dark:text-primary-500 text-primary-800 border border-solid dark:border-primary-500 border-primary-800 ltr"
+        >
+          مشاهده بیشتر
+        </button>
       </div>
-      
     </div>
   );
 };

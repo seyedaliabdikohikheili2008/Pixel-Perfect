@@ -13,13 +13,12 @@ const AuthLayout = () => {
           backgroundImage: `url('${Banner}')`,
         }}
       >
-        <div className="pt-11 ">
-          <div className="absolute top-6 left-6 z-50">
-            <DarkModeButton />
-          </div>
-
+        <div className="pt-11">
           <div className="w-full">
             <div className="relative w-full md:w-1/2 lg:w-[44%] xl:w-1/3 mx-auto bg-background flex flex-col items-center gap-6 py-8 rounded-xl shadow-2xl">
+              <div className="absolute top-6 left-6 z-50">
+                <DarkModeButton />
+              </div>
               <div
                 onClick={() => {
                   navigate("/");

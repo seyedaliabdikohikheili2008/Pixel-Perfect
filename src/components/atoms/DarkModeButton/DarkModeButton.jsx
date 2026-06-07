@@ -15,7 +15,7 @@ const DarkModeButton = () => {
   return (
     <button
       onClick={() => dispatch(reverseDarkValue())}
-      className="flex items-center justify-center w-10 h-10 rounded-full focus:outline-none "
+      className="flex z-40 items-center justify-center w-10 h-10 rounded-full focus:outline-none "
       aria-label={`Switch to ${mode === "light" ? "dark" : "light"} mode`}
     >
       {mode === "light" ? (

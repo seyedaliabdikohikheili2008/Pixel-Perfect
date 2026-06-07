@@ -10,7 +10,7 @@ const Description = () => {
     <div className="w-full bg-rootBg flex flex-col gap-10 md:w-3/4 m-auto xl:w-2/3">
       <div className="w-full flex flex-col relative mb-10 ">
         <img src={js} alt={js} className="w-full rounded-xl " />
-        <div className="w-42 px-2 mt-2 h-12 flex justify-between bg-rootBg gap-2 items-center flex-row-reverse absolute bottom-0 left-0 rounded-xl">
+        <div className="w-42 px-2 mt-2 h-12 flex justify-between bg-rootBg gap-2 items-center flex-row-reverse absolute -bottom-1 -left-1 rounded-xl">
           <div className="w-19.25 flex justify-between items-center">
             <img src={like} alt="" />
             <p className="text-xl font-bold text-textC">22</p>

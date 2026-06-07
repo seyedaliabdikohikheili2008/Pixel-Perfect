@@ -14,14 +14,16 @@ const RegisterStepThreeForm = () => {
   const validationSchema = Yup.object({
     email: Yup.string()
       .required("ایمیل الزامی است")
-      .email("فرمت ایمیل صحیح نیست")  .test(
+      .email("فرمت ایمیل صحیح نیست")
+      .test(
         "is-same-email",
         "ایمیل وارد شده با ایمیل مرحله قبل مطابقت ندارد",
-        (value) => value === savedEmail
+        (value) => value === savedEmail,
       ),
     password: Yup.string()
       .required("رمز اجباری است")
-      .min(6, "لطفا از 6 کاراکتر بیشتر وارد کنید!"),
+      .min(6, "لطفا از 6 کاراکتر بیشتر وارد کنید!")
+      .max(20, "رمز عبور نباید بیشتر از 20 کاراکتر باشد"),
     password2: Yup.string()
       .required("تکرار رمز اجباری است")
       .oneOf([Yup.ref("password")], "رمز عبور و تکرار آن یکسان نیستند"),

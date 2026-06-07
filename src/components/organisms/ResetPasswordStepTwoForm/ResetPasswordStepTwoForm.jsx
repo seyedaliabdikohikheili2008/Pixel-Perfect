@@ -44,8 +44,13 @@ const ResetPasswordStepTwoForm = () => {
     });
   };
   const validationSchema = Yup.object({
-    newPassword: Yup.string().required("رمز اجباری است").min(6, "لطفا از 6 کاراکتر بیشتر وارد کنید!"),
-    confrimPassword: Yup.string().required("تکرار رمز اجباری است").oneOf([Yup.ref("newPassword")], "رمزها یکسان نیستند"),
+    newPassword: Yup.string()
+      .required("رمز اجباری است")
+      .min(6, "لطفا از 6 کاراکتر بیشتر وارد کنید!")
+      .max(20, "رمز عبور نباید بیشتر از 20 کاراکتر باشد"),
+    confrimPassword: Yup.string()
+      .required("تکرار رمز اجباری است")
+      .oneOf([Yup.ref("newPassword")], "رمزها یکسان نیستند"),
   });
 
   return (
@@ -60,7 +65,7 @@ const ResetPasswordStepTwoForm = () => {
         initialValues={{
           newPassword: "",
           resetValue: "",
-          confrimPassword:""
+          confrimPassword: "",
         }}
         onSubmit={postData}
         validationSchema={validationSchema}

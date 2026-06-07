@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import LoginStepOne from "../../../core/api/auth/login/StepOne/StepOne";
 import toast, { Toaster } from "react-hot-toast";
+import { useAuth } from "../../../context/AuthContext/AuthContext";
 
 const LoginStepOneForm = () => {
   const { mutate, isPending } = useMutation({
@@ -34,7 +35,15 @@ const LoginStepOneForm = () => {
       console.error("جزئیات خطا:", error.response?.data);
     },
   });
+  const { login } = useAuth(); // ۲. این رو گرفتید؟
 
+  const handleLogin = async () => {
+    // فرض کنیم اینجا درخواست API زدیم و توکن گرفتیم
+    const token = "some_token_from_api"; 
+    
+    // ۳. حتماً باید این تابع صدا زده بشه!
+    login(token); 
+  };
   const postData = (values) => {
     mutate({
       phoneOrGmail: values.phoneOrGmail,
@@ -142,6 +151,7 @@ const LoginStepOneForm = () => {
               buttonClassName="w-8/10 font-[18px]"
               type="submit"
               disabled={isPending}
+              onClick={handleLogin}
             />
           </Form>
         )}

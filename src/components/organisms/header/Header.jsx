@@ -8,10 +8,11 @@ import umenuDark from "../../../assets/images/icons/header/umenuIconDark.png";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-
+import { useAuth } from "../../../context/AuthContext/AuthContext";
+import user from "../../../assets/images/course-dtail/user.png";
 const Header = ({ variant }) => {
   const { t } = useTranslation("header");
-
+  const { isAuthenticated, logout } = useAuth();
   const [UMenuFlag, setUMenuFlag] = useState(false);
   const navigate = useNavigate();
   const [showHeader, setShowHeader] = useState(true);
@@ -51,10 +52,15 @@ const Header = ({ variant }) => {
         </div>
         <div className="flex items-center gap-3">
           <DarkModeButton />
-          <Button
-            children={t("loginOrRegister")}
-            onClick={() => navigate("/auth/login")}
-          />
+          {isAuthenticated ? (
+            <img src={user} alt="پروفایل" />
+          ) : (
+            <Button
+              children={t("loginOrRegister")}
+              onClick={() => navigate("/auth/login")}
+            />
+          )}
+
           <img
             className="w-10 h-10 lg:hidden"
             src={mode === "light" ? umenu : umenuDark}

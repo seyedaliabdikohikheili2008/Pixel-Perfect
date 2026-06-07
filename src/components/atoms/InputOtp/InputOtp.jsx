@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Formik, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { InputOTP } from "@heroui/react";
@@ -8,17 +8,20 @@ import { useNavigate,useLocation } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import RegisterStepTwo from "../../../core/api/auth/Register/StepTwo/StepTwo";
 import toast, { Toaster } from "react-hot-toast";
+import { AuthContext } from "../../../context/AuthContext/AuthContext";
 const InputOtp = () => {
   const savedEmail = localStorage.getItem("registration_email");
+    const { setRegStep } = useContext(AuthContext);
   const { mutate, isPending } = useMutation({
   mutationFn: RegisterStepTwo, 
   onSuccess: (data) => {
       if (data.message === "کد اشتباه است") {
     toast.error("رمز شما اشتباه است");
-    return; // از ادامه اجرای منطق موفقیت جلوگیری کن
+    return; 
   }
+  setRegStep(3);
     console.log(" موفقیت:", data);
-     if(location.pathname==="/auth/login/verifying" ){
+    if(location.pathname==="/auth/login/verifying" ){
     navigate("/")
   }else{
 navigate("complete")

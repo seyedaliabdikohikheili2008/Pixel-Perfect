@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Form, Formik, ErrorMessage } from "formik";
 import Button from "../../atoms/Butoon/Button";
 import Input from "../../atoms/Input/Input";
@@ -8,11 +8,14 @@ import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import RegisterStepOne from "../../../core/api/auth/Register/stepOne/StepOne";
 import toast, { Toaster } from "react-hot-toast";
+import { AuthContext } from "../../../context/AuthContext/AuthContext";
 const RegisterStepOneForm = () => {
+  const { setRegStep } = useContext(AuthContext);
   const { mutate, isPending } = useMutation({
     mutationFn: RegisterStepOne,
     onSuccess: (data) => {
       console.log(" موفقیت:", data);
+      setRegStep(2);
       navigate("verify");
     },
     onError: (error) => {
@@ -94,7 +97,10 @@ const RegisterStepOneForm = () => {
       <Toaster />
       <div className="flex items-center gap-1">
         <p className="text-textC cursor-pointer">حساب کاربری دارید؟</p>
-        <p className="text-textb cursor-pointer " onClick={() => navigate("/auth/login")}>
+        <p
+          className="text-textb cursor-pointer "
+          onClick={() => navigate("/auth/login")}
+        >
           وارد شوید
         </p>
       </div>

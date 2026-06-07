@@ -25,7 +25,6 @@ const LandingNewNews = () => {
   return (
     <>
       <div className="w-11/12 mx-auto flex flex-col items-center gap-10 mb-24">
-        {console.log("News ", NewNews)}
         <TitleDesc title={t("NewNews.title")} desc={t("NewNews.describe")} />
         <div className="flex gap-5 justify-center flex-wrap">
           {NewNews?.map((news, index) => {

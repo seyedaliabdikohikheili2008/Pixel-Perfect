@@ -1,15 +1,35 @@
 import i18next from "i18next";
-import React from "react";
+import React, { useEffect } from "react";
 import { MdGTranslate } from "react-icons/md";
 
 const TranslateButton = () => {
+  useEffect(() => {
+    if (localStorage.getItem("language") == "en") {
+      i18next.changeLanguage("en");
+      document.body.style.direction = "ltr";
+    } else {
+      i18next.changeLanguage("fa");
+      document.body.style.direction = "rtl";
+    }
+  }, []);
+
+  const setLanguage = () => {
+    if (i18next.language == "fa") {
+      i18next.changeLanguage("en");
+      localStorage.setItem("language", "en");
+      document.body.style.direction = "ltr";
+    } else {
+      i18next.changeLanguage("fa");
+      localStorage.setItem("language", "fa");
+      document.body.style.direction = "rtl";
+    }
+  };
+
   return (
     <>
       <div
         onClick={() => {
-          i18next.language == "fa"
-            ? i18next.changeLanguage("en")
-            : i18next.changeLanguage("fa");
+          setLanguage();
         }}
         className="w-12 h-12 rounded-full z-50 fixed bottom-8 right-5 shadow-[0px_50px_100px_0px_#484848] flex items-center justify-center cursor-pointer bg-primary-500 group"
       >

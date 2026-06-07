@@ -4,6 +4,8 @@ import { getAllCourse } from "../../../../core/services/course/getAllCourse";
 import { useAllCourses } from "../../../../core/hooks/queries/courses/useAllCoures";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
+import i18next from "i18next";
+import { useTranslation } from "react-i18next";
 
 const NewCourseSlider = () => {
   const [sliderStep, setsliderStep] = useState(0);
@@ -35,11 +37,22 @@ const NewCourseSlider = () => {
     }
   }, [sliderStep]);
 
+  const [swiperKey, setswiperKey] = useState("rtl");
+  const { i18n } = useTranslation();
+
+  useEffect(() => {
+    if (i18n.language == "en") {
+      setswiperKey("ltr");
+    } else {
+      setswiperKey("rtl");
+    }
+  }, [i18n.language]);
+
   return (
     <>
       <div className="flex flex-col w-full items-center">
-        {console.log("courses  ", courseList)}
         <Swiper
+          key={swiperKey}
           className="w-full"
           slidesPerView={1}
           spaceBetween={10}

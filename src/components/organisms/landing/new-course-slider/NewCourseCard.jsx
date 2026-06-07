@@ -8,7 +8,7 @@ const NewCourseCard = ({ detail }) => {
   const { t } = useTranslation("landing");
   return (
     <>
-      <div className="flex justify-between w-full gap-5 ">
+      <div className="flex justify-between w-full gap-10 ">
         <img src={cardimg} alt="" />
         <div className="flex w-2/3 flex-col items-end gap-5">
           <div className="text-right w-full flex flex-col gap-5">

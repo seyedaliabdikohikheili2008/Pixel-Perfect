@@ -14,6 +14,8 @@ import { isFulfilled } from "@reduxjs/toolkit";
 import { FaChevronDown } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { useAllTechnologies } from "../../../../core/hooks/queries/technologies/useAllTechnologies";
+import { useAllTeacher } from "../../../../core/hooks/queries/teacher/useAllTeacher";
+import FilterSection from "../../../molecules/filter-section/FilterSection";
 
 const CoursesFilter = () => {
   const MenuStatus = useSelector((state) => state.CourseFilterMenu.value);
@@ -23,6 +25,12 @@ const CoursesFilter = () => {
     isError: TechnologyListErr,
     isLoading: TechnologyListLoading,
   } = useAllTechnologies();
+
+  const {
+    data: TeacherList = undefined,
+    isError: TeacherListErr,
+    isLoading: TeacherListLoading,
+  } = useAllTeacher();
 
   return (
     <>
@@ -36,9 +44,11 @@ const CoursesFilter = () => {
             placeholder={"جستوجوی تکنولوژی"}
             iconClassname={"pr-2"}
           />
+
           <Accordion
             className={"w-full border-b-1 border-neutral-50 text-right"}
             variant="surface"
+            aria-label="Category"
           >
             <Accordion.Item>
               <Accordion.Heading className="h-10 flex items-center">
@@ -51,26 +61,11 @@ const CoursesFilter = () => {
               </Accordion.Heading>
               <Accordion.Panel>
                 <Accordion.Body>
-                  <CheckboxGroup>
-                    {TechnologyList?.data.map((tech, index) => {
-                      return (
-                        <Checkbox
-                          className={"flex items-center gap-2"}
-                          value={tech.techName}
-                          key={tech.id}
-                        >
-                          <Checkbox.Control className="w-5 h-5 bg-primary-50 border-1 border-neutral-400 rounded-md p-1">
-                            <Checkbox.Indicator className="text-primary-400" />
-                          </Checkbox.Control>
-                          <Checkbox.Content>
-                            <Label className="text-textC">
-                              {tech.techName}
-                            </Label>
-                          </Checkbox.Content>
-                        </Checkbox>
-                      );
-                    })}
-                  </CheckboxGroup>
+                  {TechnologyList ? (
+                    <FilterSection data={TechnologyList.data} />
+                  ) : (
+                    ""
+                  )}
                 </Accordion.Body>
               </Accordion.Panel>
             </Accordion.Item>
@@ -92,6 +87,7 @@ const CoursesFilter = () => {
               <Accordion.Panel>
                 <Accordion.Body>
                   <Slider
+                    aria-label="price-range"
                     formatOptions={{ useGrouping: true, style: "decimal" }}
                     defaultValue={[0, 10000000]}
                     minValue={0}
@@ -210,16 +206,7 @@ const CoursesFilter = () => {
               </Accordion.Heading>
               <Accordion.Panel>
                 <Accordion.Body>
-                  <CheckboxGroup>
-                    <Checkbox className={"flex items-center gap-2"} value="bahr">
-                      <Checkbox.Control className="w-5 h-5 bg-primary-50 border-1 border-neutral-400 rounded-md p-1">
-                        <Checkbox.Indicator className="text-primary-400" />
-                      </Checkbox.Control>
-                      <Checkbox.Content>
-                        <Label className="text-textC">بحرالعلوم</Label>
-                      </Checkbox.Content>
-                    </Checkbox>
-                  </CheckboxGroup>
+                  {TeacherList ? <FilterSection data={TeacherList.data} /> : ""}
                 </Accordion.Body>
               </Accordion.Panel>
             </Accordion.Item>

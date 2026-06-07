@@ -52,11 +52,11 @@ const CourseListToping = ({ cardView2, setcardView2 }) => {
             className="w-full text-center outline-0 text-textC text-lg"
             defaultValue={"popular"}
           >
-            <option value="popular" className="bg-background">
-              محبوب ترین
+            <option value="cheapest" className="bg-background">
+             ارزان ترین
             </option>
-            <option value="best" className="bg-background">
-              بهترین
+            <option value="mostExpensive" className="bg-background">
+             گران ترین
             </option>
           </select>
         </div>

@@ -9,6 +9,8 @@ import { useAllTechnologies } from "../../../../core/hooks/queries/technologies/
 import { useAllTeacher } from "../../../../core/hooks/queries/teacher/useAllTeacher";
 import FilterSection from "../../../molecules/filter-section/FilterSection";
 import { useSearchParams } from "react-router-dom";
+import { useAllCoursesType } from "../../../../core/hooks/queries/courses/useAllCourseType";
+import { useAllCoursesLevel } from "../../../../core/hooks/queries/courses/useAllCourseLevel";
 
 const CoursesFilter = () => {
   const MenuStatus = useSelector((state) => state.CourseFilterMenu.value);
@@ -23,6 +25,18 @@ const CoursesFilter = () => {
     isError: TeacherListErr,
     isLoading: TeacherListLoading,
   } = useAllTeacher();
+
+  const {
+    data: CourseTypeList = undefined,
+    isError: CourseTypeListErr,
+    isLoading: CourseTypeListLoading,
+  } = useAllCoursesType();
+
+  const {
+    data: CourseLevelList = undefined,
+    isError: CourseLevelListErr,
+    isLoading: CourseLevelListLoading,
+  } = useAllCoursesLevel();
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -261,6 +275,62 @@ const CoursesFilter = () => {
                     <FilterSection
                       param={"TeacherId"}
                       data={TeacherList.data}
+                    />
+                  ) : (
+                    ""
+                  )}
+                </Accordion.Body>
+              </Accordion.Panel>
+            </Accordion.Item>
+          </Accordion>
+
+          <Accordion
+            className={"w-full border-b-1 border-neutral-50 text-right"}
+            variant="surface"
+          >
+            <Accordion.Item>
+              <Accordion.Heading className="h-10 flex items-center">
+                <Accordion.Trigger
+                  className={"flex justify-between w-full text-textC"}
+                >
+                  نحوه برگزاری
+                  <FaChevronDown />
+                </Accordion.Trigger>
+              </Accordion.Heading>
+              <Accordion.Panel>
+                <Accordion.Body>
+                  {CourseTypeList ? (
+                    <FilterSection
+                      param={"CourseTypeId"}
+                      data={CourseTypeList.data}
+                    />
+                  ) : (
+                    ""
+                  )}
+                </Accordion.Body>
+              </Accordion.Panel>
+            </Accordion.Item>
+          </Accordion>
+
+          <Accordion
+            className={"w-full border-b-1 border-neutral-50 text-right"}
+            variant="surface"
+          >
+            <Accordion.Item>
+              <Accordion.Heading className="h-10 flex items-center">
+                <Accordion.Trigger
+                  className={"flex justify-between w-full text-textC"}
+                >
+                  سطح دوره
+                  <FaChevronDown />
+                </Accordion.Trigger>
+              </Accordion.Heading>
+              <Accordion.Panel>
+                <Accordion.Body>
+                  {CourseLevelList ? (
+                    <FilterSection
+                      param={"courseLevelId"}
+                      data={CourseLevelList.data}
                     />
                   ) : (
                     ""

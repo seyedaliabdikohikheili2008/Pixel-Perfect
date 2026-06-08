@@ -11,6 +11,7 @@ import sortIcondark from "../../../../assets/images/icons/courses/listsortdark.p
 import Button from "../../../atoms/Butoon/Button";
 import { ToggleCourseFilter } from "../../../../core/feature/courses/CoursesFilterMenu";
 import { useSearchParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const CourseListToping = ({
   cardView2,
@@ -18,6 +19,8 @@ const CourseListToping = ({
   updateQuery,
   news = false,
 }) => {
+  const { t } = useTranslation("courses");
+
   const mode = useSelector((state) => state.DarkFlag.value);
   const dispatch = useDispatch();
 
@@ -71,13 +74,13 @@ const CourseListToping = ({
         <Input
           icon={search}
           onChange={handleChange}
-          placeholder={"جستوجو دوره ها"}
+          placeholder={t("Toping.search")}
           iconClassname={"pr-2"}
           boxClassname={"w-1/2 flex-1 gap-2"}
         />
         <div className="[@media(max-width:1280px)]:hidden flex relative items-center gap-2 w-45 bg-neutral-50 rounded-2xl justify-evenly p-2">
           <img
-            className="absolute w-5 h-5 right-2"
+            className="w-5 h-5"
             src={mode == "light" ? sortIcon : sortIcondark}
             alt=""
           />
@@ -87,15 +90,15 @@ const CourseListToping = ({
             onChange={handleSortType}
           >
             <option value="asc" className="bg-background">
-              {!news ? "ارزان ترین" : "کمترین بازدید"}
+              {!news ? t("Toping.sortOne") : t("Toping.sortOneNews")}
             </option>
             <option value="desc" className="bg-background">
-              {!news ? "گران ترین" : "بیشترین بازدید"}
+              {!news ? t("Toping.sortTwo") : t("Toping.sortTwoNews")}
             </option>
           </select>
         </div>
         <Button
-          children={"ترتیب و فیلتر"}
+          children={t("Toping.FilterButton")}
           buttonClassName="flex md:hidden"
           onClick={() => {
             dispatch(ToggleCourseFilter());

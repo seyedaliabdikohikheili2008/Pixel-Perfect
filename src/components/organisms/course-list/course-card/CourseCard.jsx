@@ -5,7 +5,10 @@ import Button from "../../../atoms/Butoon/Button";
 import teaching from "../../../../assets/images/icons/courses/teaching.png";
 import student from "../../../../assets/images/icons/landing/student-card.png";
 import { FaRegStar, FaStar } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 const CourseCard = ({ cardView2, detail }) => {
+  const { t } = useTranslation("courses");
+
   const renderStars = (count) => {
     const arr = Array.from({ length: 5 });
     arr.map((_, index) => {
@@ -27,7 +30,7 @@ const CourseCard = ({ cardView2, detail }) => {
       >
         <img
           className={`${cardView2 ? "w-2/5 h-5/6 rounded-[100px]" : "w-full h-60 rounded-t-[20px]"}  overflow-hidden object-cover object-center`}
-          src={Img}
+          src={detail?.imageAddress || Img}
           alt=""
         />
         <div
@@ -62,7 +65,9 @@ const CourseCard = ({ cardView2, detail }) => {
               {/* <span className="text-danger-300 before:w-full before:absolute relative before:-rotate-12 before:top-2 before:h-px before:bg-danger-300">
                 500.000 تومان
               </span> */}
-              <span className="text-saccess-500">{detail?.cost} تومان</span>
+              <span className="text-saccess-500">
+                {detail?.cost} {t("price")}
+              </span>
             </div>
           </div>
         </div>

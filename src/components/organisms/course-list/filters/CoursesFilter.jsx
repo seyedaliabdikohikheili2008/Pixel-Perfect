@@ -11,6 +11,7 @@ import FilterSection from "../../../molecules/filter-section/FilterSection";
 import { useSearchParams } from "react-router-dom";
 import { useAllCoursesType } from "../../../../core/hooks/queries/courses/useAllCourseType";
 import { useAllCoursesLevel } from "../../../../core/hooks/queries/courses/useAllCourseLevel";
+import { useTranslation } from "react-i18next";
 
 const CoursesFilter = () => {
   const MenuStatus = useSelector((state) => state.CourseFilterMenu.value);
@@ -79,6 +80,8 @@ const CoursesFilter = () => {
     });
   };
 
+  const { t } = useTranslation("courses");
+
   return (
     <>
       <div
@@ -88,7 +91,7 @@ const CoursesFilter = () => {
           <Input
             boxClassname={"w-full flex items-center gap-2"}
             icon={filter}
-            placeholder={"جستوجوی تکنولوژی"}
+            placeholder={t("Filter.search")}
             iconClassname={"pr-2"}
           />
 
@@ -102,7 +105,7 @@ const CoursesFilter = () => {
                 <Accordion.Trigger
                   className={"flex justify-between w-full text-textC"}
                 >
-                  دسته بندی ها
+                  {t("Filter.Category")}
                   <FaChevronDown />
                 </Accordion.Trigger>
               </Accordion.Heading>
@@ -130,7 +133,7 @@ const CoursesFilter = () => {
                 <Accordion.Trigger
                   className={"flex justify-between w-full text-textC"}
                 >
-                  قیمت
+                  {t("Filter.price")}
                   <FaChevronDown />
                 </Accordion.Trigger>
               </Accordion.Heading>
@@ -201,7 +204,7 @@ const CoursesFilter = () => {
                         </Radio.Indicator>
                       </Radio.Control>
                       <Radio.Content>
-                        <Label>فقط رایگان</Label>
+                        <Label>{t("Filter.free")}</Label>
                       </Radio.Content>
                     </Radio>
                     <Radio
@@ -224,7 +227,7 @@ const CoursesFilter = () => {
                         </Radio.Indicator>
                       </Radio.Control>
                       <Radio.Content>
-                        <Label>فقط پولی</Label>
+                        <Label>{t("Filter.money")}</Label>
                       </Radio.Content>
                     </Radio>
                     <Radio
@@ -247,7 +250,7 @@ const CoursesFilter = () => {
                         </Radio.Indicator>
                       </Radio.Control>
                       <Radio.Content>
-                        <Label>همه</Label>
+                        <Label>{t("Filter.all")}</Label>
                       </Radio.Content>
                     </Radio>
                   </RadioGroup>
@@ -265,7 +268,7 @@ const CoursesFilter = () => {
                 <Accordion.Trigger
                   className={"flex justify-between w-full text-textC"}
                 >
-                  اساتید
+                  {t("Filter.teacher")}
                   <FaChevronDown />
                 </Accordion.Trigger>
               </Accordion.Heading>
@@ -293,7 +296,7 @@ const CoursesFilter = () => {
                 <Accordion.Trigger
                   className={"flex justify-between w-full text-textC"}
                 >
-                  نحوه برگزاری
+                  {t("Filter.format")}
                   <FaChevronDown />
                 </Accordion.Trigger>
               </Accordion.Heading>
@@ -321,7 +324,7 @@ const CoursesFilter = () => {
                 <Accordion.Trigger
                   className={"flex justify-between w-full text-textC"}
                 >
-                  سطح دوره
+                  {t("Filter.level")}
                   <FaChevronDown />
                 </Accordion.Trigger>
               </Accordion.Heading>

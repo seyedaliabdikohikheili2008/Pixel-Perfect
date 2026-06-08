@@ -7,8 +7,11 @@ import { FaChevronDown } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import FilterSection from "../../../../molecules/filter-section/FilterSection";
 import { useAllNewsCategory } from "../../../../../core/hooks/queries/news/useAllNewsCategory";
+import { useTranslation } from "react-i18next";
 const NewsListFilter = () => {
   const MenuStatus = useSelector((state) => state.CourseFilterMenu.value);
+
+  const { t } = useTranslation("courses");
 
   const {
     data: NewsCategoryList = undefined,
@@ -25,7 +28,7 @@ const NewsListFilter = () => {
           <Input
             boxClassname={"w-full flex items-center gap-2"}
             icon={filter}
-            placeholder={"جستوجوی تکنولوژی"}
+            placeholder={t("Filter.search")}
             iconClassname={"pr-2"}
           />
 
@@ -39,7 +42,7 @@ const NewsListFilter = () => {
                 <Accordion.Trigger
                   className={"flex justify-between w-full text-textC"}
                 >
-                  دسته بندی ها
+                  {t("Filter.Category")}
                   <FaChevronDown />
                 </Accordion.Trigger>
               </Accordion.Heading>

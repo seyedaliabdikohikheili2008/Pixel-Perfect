@@ -8,7 +8,20 @@
         "price":"Price",
         "teacher":"Instructors",
         "format":"Course Format",
-        "level":"Course Level"
-    }
+        "level":"Course Level",
+        "search":"Search Technologies",
+        "all":"All",
+        "money":"Paid Only",
+        "free":"Free Only"
+    },
+    "Toping":{
+        "search":"Search Courses",
+        "sortOne":"Lowest Price",
+        "sortOneNews":"Least Viewed",
+        "sortTwo":"Highest Price",
+        "sortTwoNews":"Most Viewed",
+        "FilterButton":"Sort & Filter"
+    },
+    "price":"Toman"
 
 }

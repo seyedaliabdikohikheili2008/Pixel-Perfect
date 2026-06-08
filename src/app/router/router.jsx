@@ -12,7 +12,8 @@ import LandingPage from "../../page/Landing/LandingPage";
 import CourseListPage from "../../page/course-list/CourseListPage";
 import NotFoundPage from "../../page/not-found/NotFoundPage";
 import CourseDetail from "../../page/course-detail/CourseDetail";
-import  RegistrationGuard  from "../../components/RegistrationGuard/RegistrationGuard";
+import RegistrationGuard from "../../components/RegistrationGuard/RegistrationGuard";
+import NewsListPage from "../../page/news-list/NewsListPage";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
       { index: true, element: <LandingPage /> },
       { path: "courses", element: <CourseListPage /> },
       { path: "course-detail", element: <CourseDetail /> },
+      { path: "news-list", element: <NewsListPage /> },
     ],
   },
   {
@@ -46,7 +48,7 @@ const router = createBrowserRouter([
                 path: "verify",
                 children: [
                   { index: true, element: <RegisterStepTwo /> },
-  
+
                   {
                     element: <RegistrationGuard minStep={3} />,
                     children: [

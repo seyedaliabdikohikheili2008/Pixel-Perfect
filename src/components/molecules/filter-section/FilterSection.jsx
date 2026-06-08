@@ -29,7 +29,6 @@ const FilterSection = ({ data, param }) => {
       >
         {data?.map((item, index) => {
           const id = String(item.id || item.teacherId);
-          console.log(item);
           return (
             <Radio
               className={"flex items-center gap-2"}
@@ -56,7 +55,8 @@ const FilterSection = ({ data, param }) => {
                   {item.techName ||
                     item.fullName ||
                     item.typeName ||
-                    item.levelName}
+                    item.levelName ||
+                    item.categoryName}
                 </Label>
               </Radio.Content>
             </Radio>

@@ -35,13 +35,11 @@ const LoginStepOneForm = () => {
       console.error("جزئیات خطا:", error.response?.data);
     },
   });
-  const { login } = useAuth(); // ۲. این رو گرفتید؟
+  const { login } = useAuth(); 
 
   const handleLogin = async () => {
-    // فرض کنیم اینجا درخواست API زدیم و توکن گرفتیم
     const token = "some_token_from_api"; 
     
-    // ۳. حتماً باید این تابع صدا زده بشه!
     login(token); 
   };
   const postData = (values) => {

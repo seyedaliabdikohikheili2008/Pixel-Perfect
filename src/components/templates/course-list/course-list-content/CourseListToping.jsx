@@ -12,13 +12,18 @@ import Button from "../../../atoms/Butoon/Button";
 import { ToggleCourseFilter } from "../../../../core/feature/courses/CoursesFilterMenu";
 import { useSearchParams } from "react-router-dom";
 
-const CourseListToping = ({ cardView2, setcardView2, updateQuery }) => {
+const CourseListToping = ({
+  cardView2,
+  setcardView2,
+  updateQuery,
+  news = false,
+}) => {
   const mode = useSelector((state) => state.DarkFlag.value);
   const dispatch = useDispatch();
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const sortType = searchParams.get("SortType") || "asc";
+  const sortType = searchParams.get("SortType") || "desc";
   const handleSortType = (e) => {
     setSearchParams((prev) => {
       const newParams = new URLSearchParams(prev);
@@ -82,10 +87,10 @@ const CourseListToping = ({ cardView2, setcardView2, updateQuery }) => {
             onChange={handleSortType}
           >
             <option value="asc" className="bg-background">
-              ارزان ترین
+              {!news ? "ارزان ترین" : "کمترین بازدید"}
             </option>
             <option value="desc" className="bg-background">
-              گران ترین
+              {!news ? "گران ترین" : "بیشترین بازدید"}
             </option>
           </select>
         </div>

@@ -1,0 +1,14 @@
+{
+    "HeroSection":{
+        "title":"Learn Programming with the Best",
+        "describe":"Programming is one of the most popular fields in Information Technology. It is a valuable skill that enables individuals to create, develop, and maintain software applications and digital solutions."
+    },
+    "Filter":{
+        "Category":"Categories",
+        "price":"Price",
+        "teacher":"Instructors",
+        "format":"Course Format",
+        "level":"Course Level"
+    }
+
+}

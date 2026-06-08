@@ -4,11 +4,11 @@ import user from "../../../../assets/images/icons/news/news-card/user.png";
 import book from "../../../../assets/images/icons/news/news-card/book.png";
 import { useTranslation } from "react-i18next";
 
-const NewsCard = ({ detail }) => {
+const NewsCard = ({ detail , cardView2 = false }) => {
   const { t } = useTranslation("landing");
   return (
     <>
-      <div className="w-79 h-120 relative rounded-4xl overflow-hidden">
+      <div className={`${cardView2 ? "w-full h-100" : "h-120 w-79"} relative rounded-4xl overflow-hidden`}>
         <img
           className="z-0 object-cover w-full h-full object-center"
           src={img}
@@ -22,7 +22,7 @@ const NewsCard = ({ detail }) => {
           <p className="text-white line-clamp-3 text-right text-base font-bold">
             {detail?.miniDescribe}
           </p>
-          <div className="flex gap-5">
+          <div className="w-79 flex gap-5">
             <div className="flex gap-2">
               <img className="w-4.5" src={user} alt="" />
               <p className="text-white text-base font-bold">

@@ -9,7 +9,7 @@ const NewCourseCard = ({ detail }) => {
   return (
     <>
       <div className="flex justify-between w-full gap-10 ">
-        <img src={cardimg} alt="" />
+        <img className="w-1/3 rounded-full overflow-hidden" src={detail?.imageAddress || cardimg} alt="course-Image" />
         <div className="flex w-2/3 flex-col items-end gap-5">
           <div className="text-right w-full flex flex-col gap-5">
             <h3 className="text-xl font-bold text-textC">{detail?.title}</h3>
@@ -21,16 +21,16 @@ const NewCourseCard = ({ detail }) => {
               {detail?.describe}
             </p>
             <div className="flex gap-13">
-              <div className="relative">
+              {/* <div className="relative">
                 <div className="bg-danger-100 flex items-center justify-center text-danger-600 line-through text-base font-bold w-32 h-10 rounded-r-full">
-                  50000 تومان
+                  50000 {t("price")}
                 </div>
                 <div className="absolute flex justify-center items-center text-xl font-bold text-danger-500 -top-1 -left-10 w-13 h-13 rounded-full bg-white border border-primary-900">
                   10%
                 </div>
-              </div>
+              </div> */}
               <div className="bg-saccess-100 flex items-center justify-center text-saccess-700 text-base font-bold w-32 h-10 rounded-full">
-                40.000 تومان
+                {detail?.cost} {t("price")}
               </div>
             </div>
           </div>

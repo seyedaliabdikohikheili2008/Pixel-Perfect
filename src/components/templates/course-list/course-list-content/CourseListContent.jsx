@@ -1,7 +1,6 @@
 import React from "react";
 import CoursesFilter from "../../../organisms/course-list/filters/CoursesFilter";
 import CourseList from "./CourseList";
-import { useSearchParams } from "react-router-dom";
 
 const CourseListContent = () => {
   

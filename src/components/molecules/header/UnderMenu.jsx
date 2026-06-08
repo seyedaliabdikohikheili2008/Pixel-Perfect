@@ -47,7 +47,12 @@ const UnderMenu = ({ flag }) => {
               {t("topInstructors")}
             </h3>
           </li>
-          <li className="w-full cursor-pointer lg:w-auto flex justify-between">
+          <li
+            onClick={() => {
+              navigate("news-list");
+            }}
+            className="w-full cursor-pointer lg:w-auto flex justify-between"
+          >
             <h3 className="font-normal text-xl lg:text-base lg:font-bold text-textC text-nowrap">
               {t("newsAndArticles")}
             </h3>

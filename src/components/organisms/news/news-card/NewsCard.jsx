@@ -4,14 +4,16 @@ import user from "../../../../assets/images/icons/news/news-card/user.png";
 import book from "../../../../assets/images/icons/news/news-card/book.png";
 import { useTranslation } from "react-i18next";
 
-const NewsCard = ({ detail , cardView2 = false }) => {
+const NewsCard = ({ detail, cardView2 = false }) => {
   const { t } = useTranslation("landing");
   return (
     <>
-      <div className={`${cardView2 ? "w-full h-100" : "h-120 w-79"} relative rounded-4xl overflow-hidden`}>
+      <div
+        className={`${cardView2 ? "w-full h-100" : "h-120 w-79"} relative rounded-4xl overflow-hidden`}
+      >
         <img
           className="z-0 object-cover w-full h-full object-center"
-          src={img}
+          src={detail?.currentImageAddress || img}
           alt=""
         />
         <div className="w-full h-full absolute shadow-[inset_0px_-100px_120px_0px_#202020] top-0 right-0 z-10"></div>

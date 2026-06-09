@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import CourseListToping from "./CourseListToping";
 import CourseCard from "../../../organisms/course-list/course-card/CourseCard";
 import CourseListPagination from "../../../organisms/course-list/pagination/CourseListPagination";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAllCourses } from "../../../../core/hooks/queries/courses/useAllCoures";
 import NotFound from "../../../atoms/not-found/NotFound";
 import Loading from "../../../atoms/loading/Loading";
@@ -21,7 +21,6 @@ const CourseList = () => {
     };
 
     window.addEventListener("resize", handleResize);
-
     return () => {
       window.removeEventListener("resize", handleResize);
     };

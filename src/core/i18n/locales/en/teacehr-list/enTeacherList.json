@@ -1,0 +1,14 @@
+{
+    "HeroSection":{
+        "title":"Our Instructors and Leaders",
+        "describe":"Our masterclasses are taught by industry leaders who are passionate about sharing their tools, techniques, and professional experiences with you."
+    },
+    "Toping":{
+        "title":"Our Leadership",
+        "describe":"Our leaders inspire and guide us to achieve great things every day. With extensive experience across various industries, the breadth and depth of their expertise empower us to solve complex challenges, realize our vision, and better serve our clients and one another."
+    },
+    "Card":{
+        "number":"Number of Courses:",
+        "course":"Courses"
+    }
+}

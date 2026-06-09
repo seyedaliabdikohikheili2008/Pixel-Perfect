@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 
 const LandingBestTeacher = () => {
   const { t } = useTranslation("landing");
+  
 
   return (
     <>

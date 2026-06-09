@@ -39,7 +39,12 @@ const UnderMenu = ({ flag }) => {
               {t("ourCourses")}
             </h3>
           </li>
-          <li className="w-full cursor-pointer lg:w-auto flex justify-between">
+          <li
+            onClick={() => {
+              navigate("Instructors");
+            }}
+            className="w-full cursor-pointer lg:w-auto flex justify-between"
+          >
             <h3 className="font-normal text-xl lg:text-base lg:font-bold text-textC">
               {t("instructors")}
             </h3>

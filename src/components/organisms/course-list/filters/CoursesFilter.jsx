@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import Input from "../../../atoms/Input/Input";
 import filter from "../../../../assets/images/icons/courses/filter.png";
 import { Accordion, Label, Radio, RadioGroup, Slider } from "@heroui/react";
@@ -12,6 +12,9 @@ import { useSearchParams } from "react-router-dom";
 import { useAllCoursesType } from "../../../../core/hooks/queries/courses/useAllCourseType";
 import { useAllCoursesLevel } from "../../../../core/hooks/queries/courses/useAllCourseLevel";
 import { useTranslation } from "react-i18next";
+import search from "../../../../assets/images/icons/courses/search.png";
+import Search from "../../../../core/utils/search/Search";
+import NotFound from "../../../atoms/not-found/NotFound";
 
 const CoursesFilter = () => {
   const MenuStatus = useSelector((state) => state.CourseFilterMenu.value);
@@ -80,19 +83,51 @@ const CoursesFilter = () => {
     });
   };
 
+  const [teacherName, setteacherName] = useState("");
+
+  const timeOutRef = useRef(null);
+  const handleChange = (e) => {
+    const value = e.target.value;
+
+    clearTimeout(timeOutRef.current);
+
+    timeOutRef.current = setTimeout(() => {
+      setteacherName(value);
+    }, 1500);
+  };
+  const searchTeacher = TeacherList?.data
+    ? Search(TeacherList.data, teacherName, "fullName")
+    : [];
+
+  const [techName, settechName] = useState("");
+
+  const techTimeOutRef = useRef(null);
+  const handleTechChange = (e) => {
+    const value = e.target.value;
+
+    clearTimeout(techTimeOutRef.current);
+
+    techTimeOutRef.current = setTimeout(() => {
+      settechName(value);
+    }, 1500);
+  };
+  const searchTech = TechnologyList?.data
+    ? Search(TechnologyList.data, techName, "techName")
+    : [];
+
   const { t } = useTranslation("courses");
 
   return (
     <>
       <div
-        className={`${MenuStatus ? "block w-11/12 md:w-75" : "hidden w-75"} absolute top-15 left-1/2 -translate-x-1/2 md:translate-x-0 md:top-0 z-10 md:left-0 md:relative md:block  shrink-0 h-fit overflow-hidden bg-background rounded-2xl shadow-[0px_50px_100px_0px_#48484829]`}
+        className={`${MenuStatus ? "block w-11/12 md:w-75" : "hidden w-75"} absolute top-15 left-1/2 -translate-x-1/2 md:translate-x-0 md:top-0 z-20 md:left-0 md:relative md:block  shrink-0 h-fit overflow-hidden bg-background rounded-2xl shadow-[0px_50px_100px_0px_#48484829]`}
       >
         <div className="w-11/12 flex flex-col gap-2 items-center mx-auto my-2">
           <Input
-            boxClassname={"w-full flex items-center gap-2"}
+            onChange={handleTechChange}
+            boxClassname={"w-full flex items-center p-2 gap-2"}
             icon={filter}
             placeholder={t("Filter.search")}
-            iconClassname={"pr-2"}
           />
 
           <Accordion
@@ -111,14 +146,14 @@ const CoursesFilter = () => {
               </Accordion.Heading>
               <Accordion.Panel>
                 <Accordion.Body>
-                  {TechnologyList ? (
-                    <FilterSection
-                      param={"ListTech"}
-                      data={TechnologyList?.data}
-                    />
-                  ) : (
-                    ""
-                  )}
+                  <div className="max-h-42.5 overflow-y-auto">
+                    {TechnologyList ? (
+                      <FilterSection param={"ListTech"} data={searchTech} />
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                  {searchTech.length == 0 ? <NotFound size={"text-sm"} /> : ""}
                 </Accordion.Body>
               </Accordion.Panel>
             </Accordion.Item>
@@ -274,14 +309,20 @@ const CoursesFilter = () => {
               </Accordion.Heading>
               <Accordion.Panel>
                 <Accordion.Body>
-                  {TeacherList ? (
-                    <FilterSection
-                      param={"TeacherId"}
-                      data={TeacherList.data}
-                    />
-                  ) : (
-                    ""
-                  )}
+                  <Input
+                    onChange={handleChange}
+                    icon={search}
+                    placeholder={"جستوجو استاد"}
+                    boxClassname={"flex gap-3 px-2 mb-2"}
+                  />
+                  <div className="w-full max-h-42.5 overflow-y-auto">
+                    {TeacherList ? (
+                      <FilterSection param={"TeacherId"} data={searchTeacher} />
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                  {searchTeacher.length == 0 ? <NotFound size={"text-sm"} /> : ""}
                 </Accordion.Body>
               </Accordion.Panel>
             </Accordion.Item>

@@ -4,6 +4,9 @@ import CourseListToping from "../../../course-list/course-list-content/CourseLis
 import CourseListPagination from "../../../../organisms/course-list/pagination/CourseListPagination";
 import { useSearchParams } from "react-router-dom";
 import { useAllNews } from "../../../../../core/hooks/queries/news/useAllNews";
+import NotFound from "../../../../atoms/not-found/NotFound";
+import Loading from "../../../../atoms/loading/Loading";
+import { connect } from "formik";
 
 const NewsListContent = () => {
   const [cardView2, setcardView2] = useState(false);
@@ -66,6 +69,8 @@ const NewsListContent = () => {
         <div
           className={`w-full [@media(max-width:1340px)]:justify-evenly flex ${cardView2 ? "flex-col gap-10" : "flex-row justify-between gap-3 flex-wrap"}`}
         >
+          {NewsListLoading ? <Loading /> : ""}
+          {NewsList?.data.totalCount == 0 ? <NotFound /> : ""}
           {NewsList?.data?.news.map((item, index) => {
             return <NewsCard cardView2={cardView2} detail={item} key={index} />;
           })}

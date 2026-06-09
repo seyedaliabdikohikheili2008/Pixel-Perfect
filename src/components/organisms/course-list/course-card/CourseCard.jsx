@@ -5,6 +5,7 @@ import Button from "../../../atoms/Butoon/Button";
 import teaching from "../../../../assets/images/icons/courses/teaching.png";
 import student from "../../../../assets/images/icons/landing/student-card.png";
 import { FaRegStar, FaStar } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 const CourseCard = ({ cardView2, detail }) => {
   const renderStars = (count) => {
     const arr = Array.from({ length: 5 });
@@ -19,11 +20,12 @@ const CourseCard = ({ cardView2, detail }) => {
     });
     return arr;
   };
+const navigate =useNavigate();
 
   return (
     <>
       <div
-        className={`${cardView2 ? "w-full flex-row items-center p-4 gap-5 shadow-2xl h-75 bg-background rounded-4xl" : "w-70 flex-col"}  flex `}
+        className={`${cardView2 ? "w-full  flex-row items-center p-4 gap-5 shadow-2xl h-75 bg-background rounded-4xl" : "w-70 flex-col "} mx-auto flex `} key={detail?.CourseId} onClick={()=>navigate (`/course-detail/${detail?.courseId}`)}
       >
         <img
           className={`${cardView2 ? "w-2/5 h-5/6 rounded-[100px]" : "w-full h-60 rounded-t-[20px]"}  overflow-hidden object-cover object-center`}

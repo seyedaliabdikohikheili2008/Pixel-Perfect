@@ -1,0 +1,72 @@
+import React from "react";
+import DashboardHeader from "../../../components/organisms/dashboard/header/DashboardHeader";
+import logo from "../../../assets/images/LogoImages/linear.png";
+import { RxDashboard } from "react-icons/rx";
+import { LuBookText } from "react-icons/lu";
+import { TbClockHour10 } from "react-icons/tb";
+import { LuBookMarked } from "react-icons/lu";
+import { MdOutlineBook } from "react-icons/md";
+import { LiaUserEditSolid } from "react-icons/lia";
+import { useLocation } from "react-router-dom";
+import { IoLogOutOutline } from "react-icons/io5";
+
+const UserPanelLayout = () => {
+  const location = useLocation();
+  console.log(location);
+  return (
+    <>
+      <div className="w-full h-screen overflow-hidden bg-dashboardBg flex items-center gap-5 p-5">
+        <div className="w-73 relative bg-background flex flex-col gap-20 items-center h-11/12 py-6 rounded-3xl shadow-[0px_50px_100px_0px_#48484829]">
+          <img className="w-60" src={logo} alt="" />
+          <ul className="w-11/12 h-90">
+            <li
+              className={`flex items-center gap-4 p-4 ${location.pathname == "/dashboard" ? "bg-primary-500 text-white" : "text-textC"} rounded-[38px]`}
+            >
+              <RxDashboard size={24} />
+              <h3 className="text-lg">داشبورد</h3>
+            </li>
+            <li
+              className={`flex items-center gap-4 p-4 ${location.pathname == "/my-course" ? "bg-primary-500 text-white" : "text-textC"} rounded-[38px]`}
+            >
+              <LuBookText size={24} />
+              <h3 className="text-lg">دوره من</h3>
+            </li>
+            <li
+              className={`flex items-center gap-4 p-4 ${location.pathname == "/my-reservation" ? "bg-primary-500 text-white" : "text-textC"} rounded-[38px]`}
+            >
+              <TbClockHour10 size={24} />
+              <h3 className="text-lg">رزرو من</h3>
+            </li>
+            <li
+              className={`flex items-center gap-4 p-4 ${location.pathname == "/favorite-course" ? "bg-primary-500 text-white" : "text-textC"} rounded-[38px]`}
+            >
+              <LuBookMarked size={24} />
+              <h3 className="text-lg">علاقه‌مندی دوره</h3>
+            </li>
+            <li
+              className={`flex items-center gap-4 p-4 ${location.pathname == "/favorite-news" ? "bg-primary-500 text-white" : "text-textC"} rounded-[38px]`}
+            >
+              <MdOutlineBook size={24} />
+              <h3 className="text-lg">علاقه‌مندی مقالات</h3>
+            </li>
+            <li
+              className={`flex items-center gap-4 p-4 ${location.pathname == "/profile" ? "bg-primary-500 text-white" : "text-textC"} rounded-[38px]`}
+            >
+              <LiaUserEditSolid size={24} />
+              <h3 className="text-lg">پروفایل</h3>
+            </li>
+          </ul>
+          <div className="absolute bottom-5 gap-4 text-danger-500 text-lg rounded-[38px] items-center justify-center w-50 py-3 flex border border-neutral-200">
+            <IoLogOutOutline size={24} />
+            <h3>خروج از حساب</h3>
+          </div>
+        </div>
+        <div className="flex-1 h-11/12 flex flex-col justify-start">
+          <DashboardHeader />
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default UserPanelLayout;

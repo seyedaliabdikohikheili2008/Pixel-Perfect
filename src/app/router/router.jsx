@@ -12,9 +12,11 @@ import LandingPage from "../../page/Landing/LandingPage";
 import CourseListPage from "../../page/course-list/CourseListPage";
 import NotFoundPage from "../../page/not-found/NotFoundPage";
 import CourseDetail from "../../page/course-detail/CourseDetail";
-import RegistrationGuard from "../../components/RegistrationGuard/RegistrationGuard";
+import RegistrationGuard from "../../components/guard/RegistrationGuard/RegistrationGuard";
 import NewsListPage from "../../page/news-list/NewsListPage";
 import TeacherListPage from "../../page/teacher-list/TeacherListPage";
+import PriveteRoute from "../../components/guard/privete-route/PriveteRoute";
+import UserPanelLayout from "../layout/user-panel-layout/UserPanelLayout";
 
 const router = createBrowserRouter([
   {
@@ -26,7 +28,6 @@ const router = createBrowserRouter([
       { path: "course-detail/:id", element: <CourseDetail /> },
       { path: "news-list", element: <NewsListPage /> },
       { path: "Instructors", element: <TeacherListPage /> },
-
     ],
   },
   {
@@ -72,6 +73,10 @@ const router = createBrowserRouter([
         ],
       },
     ],
+  },
+  {
+    element: <PriveteRoute />,
+    children: [{ path: "dashboard", element: <UserPanelLayout /> }],
   },
   { path: "*", element: <NotFoundPage /> },
 ]);

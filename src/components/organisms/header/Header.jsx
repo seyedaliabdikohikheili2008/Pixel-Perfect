@@ -53,7 +53,13 @@ const Header = ({ variant }) => {
         <div className="flex items-center gap-3">
           <DarkModeButton />
           {isAuthenticated() ? (
-            <img src={user} alt="پروفایل" />
+            <img
+              onClick={() => {
+                navigate("/user-panel");
+              }}
+              src={user}
+              alt="پروفایل"
+            />
           ) : (
             <Button
               children={t("loginOrRegister")}

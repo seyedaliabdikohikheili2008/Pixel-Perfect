@@ -39,7 +39,7 @@ ApiClient.interceptors.response.use(
 
         setTimeout(() => {
           isShowingToast = false;
-        }, 3000);
+        }, 2000);
       }
       localStorage.removeItem("token");
       store.dispatch(logout());

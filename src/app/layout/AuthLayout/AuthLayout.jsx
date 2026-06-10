@@ -11,6 +11,7 @@ const AuthLayout = () => {
   const dispatch = useDispatch();
   return (
     <>
+    
       <div
         className=" bg-repeat-x bg-center h-screen"
         style={{

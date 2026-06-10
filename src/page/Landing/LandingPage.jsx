@@ -21,7 +21,6 @@ const LandingPage = () => {
       <Roadmap />
       <LandingBestCourse />
       <PopularCtegory />
-
       <LandingNewNews />
     </>
   );

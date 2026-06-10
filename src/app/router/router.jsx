@@ -18,6 +18,7 @@ import PriveteRoute from "../../components/guard/privete-route/PriveteRoute";
 import UserPanelLayout from "../layout/user-panel-layout/UserPanelLayout";
 import RegistrationGuard from "../../components/guard/RegistrationGuard/RegistrationGuard";
 import ResetPasswordGuard from "../../components/guard/reset-password/ResetPasswordGuard";
+import Dashboard from "../../components/templates/user-panel/dashboard/Dashboard";
 
 const router = createBrowserRouter([
   {
@@ -84,7 +85,13 @@ const router = createBrowserRouter([
   },
   {
     element: <PriveteRoute />,
-    children: [{ path: "dashboard", element: <UserPanelLayout /> }],
+    children: [
+      {
+        path: "user-panel",
+        element: <UserPanelLayout />,
+        children: [{ index: true, element: <Dashboard /> }],
+      },
+    ],
   },
   { path: "*", element: <NotFoundPage /> },
 ]);

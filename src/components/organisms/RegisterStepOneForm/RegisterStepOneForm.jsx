@@ -8,18 +8,17 @@ import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import RegisterStepOne from "../../../core/api/auth/Register/stepOne/StepOne";
 import toast, { Toaster } from "react-hot-toast";
-import { AuthContext } from "../../../context/AuthContext/AuthContext";
+import { useDispatch } from "react-redux";
+import { stepIncrement } from "../../../core/feature/auth/RegisterStepSlice";
 const RegisterStepOneForm = () => {
-  const { setRegStep } = useContext(AuthContext);
+  const dispatch = useDispatch();
   const { mutate, isPending } = useMutation({
     mutationFn: RegisterStepOne,
     onSuccess: (data) => {
-      console.log(" موفقیت:", data);
-      setRegStep(2);
-      navigate("verify");
+      dispatch(stepIncrement());
+      navigate("/auth/register/step-2");
     },
     onError: (error) => {
-      console.error(" خطا:", error);
       const status = error.response?.status;
 
       const serverMessage = error.response?.data?.message;
@@ -29,8 +28,6 @@ const RegisterStepOneForm = () => {
       } else {
         toast.error("خطایی در اتصال به سرور رخ داد. لطفاً دوباره تلاش کنید.");
       }
-
-      console.error("جزئیات خطا:", error.response?.data);
     },
   });
 

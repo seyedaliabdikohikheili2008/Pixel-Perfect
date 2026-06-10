@@ -12,7 +12,6 @@ import { IoLogOutOutline } from "react-icons/io5";
 
 const UserPanelLayout = () => {
   const location = useLocation();
-  console.log(location);
   return (
     <>
       <div className="w-full h-screen overflow-hidden bg-dashboardBg flex items-center gap-5 p-5">

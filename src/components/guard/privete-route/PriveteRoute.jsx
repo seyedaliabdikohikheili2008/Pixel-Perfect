@@ -1,8 +1,12 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
+import { isAuthenticated } from "../../../core/utils/auth/IsAuthenticated";
 
 const PriveteRoute = () => {
-  return <Outlet />;
+  if (isAuthenticated()) {
+    return <Outlet />;
+  }
+  return <Navigate to={"/"} />;
 };
 
 export default PriveteRoute;

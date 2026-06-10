@@ -5,8 +5,6 @@ const RegisterStepTwo = async (data) => {
         gmail:data.gmail
     };
 
-    console.log(" ارسال داده به سرور:", payload); 
-
     const response = await ApiClient.post(`/Sign/VerifyMessage`, payload);
     return response.data;
 };

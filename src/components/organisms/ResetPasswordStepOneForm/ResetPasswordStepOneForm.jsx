@@ -8,26 +8,27 @@ import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import ResetPasswordStepOne from "../../../core/api/auth/ResetPassword/StepOne/StepOne";
 import toast, { Toaster } from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { resetStepIncrement } from "../../../core/feature/auth/ResetPasswordStepSlice";
 const ResetPAsswordStepOneForm = () => {
+  const dispatch = useDispatch();
+
   const { mutate, isPending } = useMutation({
     mutationFn: ResetPasswordStepOne,
     onSuccess: (data) => {
-      console.log(" موفقیت:", data);
-      navigate("new-password");
+      dispatch(resetStepIncrement());
+      navigate("/auth/reset/step-2");
     },
     onError: (error) => {
-      console.error(" خطا:", error);
       const status = error.response?.status;
 
       const serverMessage = error.response?.data?.message;
 
-      if (status === 404 && serverMessage==="کاربر یافت نشد") {
+      if (status === 404 && serverMessage === "کاربر یافت نشد") {
         toast.error("کاربر با این ایمیل یافت نشد لطفا ثبت نام کنید");
       } else {
         toast.error("خطایی در اتصال به سرور رخ داد. لطفاً دوباره تلاش کنید.");
       }
-
-      console.error("جزئیات خطا:", error.response?.data);
     },
   });
   const validationSchema = Yup.object({
@@ -37,13 +38,12 @@ const ResetPAsswordStepOneForm = () => {
   });
   const navigate = useNavigate();
   const postData = (values) => {
-    localStorage.setItem("registration_email",values.email)
-    mutate({ email: values.email ,baseUrl:"new-password"});
-    
+    localStorage.setItem("registration_email", values.email);
+    mutate({ email: values.email, baseUrl: "new-password" });
   };
   return (
     <>
-    <Toaster/>
+      <Toaster />
       <h1 className="font-bold font-sans text-textC  text-3xl">
         فراموشی رمز عبور
       </h1>

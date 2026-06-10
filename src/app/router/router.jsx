@@ -12,11 +12,12 @@ import LandingPage from "../../page/Landing/LandingPage";
 import CourseListPage from "../../page/course-list/CourseListPage";
 import NotFoundPage from "../../page/not-found/NotFoundPage";
 import CourseDetail from "../../page/course-detail/CourseDetail";
-import RegistrationGuard from "../../components/guard/RegistrationGuard/RegistrationGuard";
 import NewsListPage from "../../page/news-list/NewsListPage";
 import TeacherListPage from "../../page/teacher-list/TeacherListPage";
 import PriveteRoute from "../../components/guard/privete-route/PriveteRoute";
 import UserPanelLayout from "../layout/user-panel-layout/UserPanelLayout";
+import RegistrationGuard from "../../components/guard/RegistrationGuard/RegistrationGuard";
+import ResetPasswordGuard from "../../components/guard/reset-password/ResetPasswordGuard";
 
 const router = createBrowserRouter([
   {
@@ -38,38 +39,45 @@ const router = createBrowserRouter([
         path: "login",
         children: [
           { index: true, element: <LoginStepOne /> },
-          { path: "verifying", element: <LoginStepTwo /> },
+          // { path: "verifying", element: <LoginStepTwo /> },
         ],
       },
       {
-        path: "register",
-        children: [
-          { index: true, element: <RegisterStepOne /> },
-          {
-            element: <RegistrationGuard minStep={2} />,
-            children: [
-              {
-                path: "verify",
-                children: [
-                  { index: true, element: <RegisterStepTwo /> },
+        path: "register/step-1",
+        element: <RegisterStepOne />,
+      },
 
-                  {
-                    element: <RegistrationGuard minStep={3} />,
-                    children: [
-                      { path: "complete", element: <RegisterStepThree /> },
-                    ],
-                  },
-                ],
-              },
-            ],
+      {
+        element: <RegistrationGuard requiredStep={2} />,
+        children: [
+          {
+            path: "register/step-2",
+            element: <RegisterStepTwo />,
+          },
+        ],
+      },
+
+      {
+        element: <RegistrationGuard requiredStep={3} />,
+        children: [
+          {
+            path: "register/step-3",
+            element: <RegisterStepThree />,
           },
         ],
       },
       {
-        path: "reset",
+        path: "reset/step-1",
+        element: <ResetPasswordStepOnePage />,
+      },
+
+      {
+        element: <ResetPasswordGuard requiredStep={2} />,
         children: [
-          { index: true, element: <ResetPasswordStepOnePage /> },
-          { path: "new-password", element: <ResetPasswordStepTwoPage /> },
+          {
+            path: "reset/step-2",
+            element: <ResetPasswordStepTwoPage />,
+          },
         ],
       },
     ],

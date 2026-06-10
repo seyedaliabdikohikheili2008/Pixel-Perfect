@@ -1,13 +1,14 @@
-import { useContext } from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { AuthContext } from "../../../context/AuthContext/AuthContext";
+import { useSelector } from "react-redux";
 
-const RegistrationGuard = ({ minStep }) => {
-  const { regStep } = useContext(AuthContext);
-  if (regStep < minStep) {
-    return <Navigate to="/auth/register" replace />;
+const RegistrationGuard = ({ requiredStep }) => {
+  const currentStep = useSelector((state) => state.RegisterStep.step);
+
+  if (currentStep < requiredStep) {
+    return <Navigate to={`/auth/register/step-${currentStep}`} replace />;
   }
 
   return <Outlet />;
 };
+
 export default RegistrationGuard;

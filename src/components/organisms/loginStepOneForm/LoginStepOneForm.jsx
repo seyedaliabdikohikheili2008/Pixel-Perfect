@@ -11,6 +11,7 @@ import LoginStepOne from "../../../core/api/auth/login/StepOne/StepOne";
 import toast, { Toaster } from "react-hot-toast";
 import Loading from "../../atoms/loading/Loading";
 import { useDispatch } from "react-redux";
+import { login } from "../../../core/feature/auth/IsAuthSlice";
 
 const LoginStepOneForm = () => {
   const timeOutRef = useRef(null);
@@ -41,6 +42,7 @@ const LoginStepOneForm = () => {
       } else if (status === 400) {
         toast.error("درخواست نامعتبر است. لطفاً فیلدها را بررسی کنید.");
       } else {
+        console.log(error);
         toast.error("خطایی در اتصال به سرور رخ داد. لطفاً دوباره تلاش کنید.");
       }
     },

@@ -2,14 +2,19 @@ import React from "react";
 import DarkModeButton from "../../../atoms/DarkModeButton/DarkModeButton";
 import profile from "../../../../assets/images/course-dtail/user.png";
 import { useProfileInfo } from "../../../../core/hooks/queries/user-panel/dashboard/useProfileInfo";
+import menuIcon from "../../../../assets/images/icons/header/umenuIcon.png";
+import menuIconDark from "../../../../assets/images/icons/header/umenuIconDark.png";
+import { useSelector } from "react-redux";
 
-const DashboardHeader = () => {
+const DashboardHeader = ({ setmenuFlag }) => {
   const {
     data: ProfileInfo = undefined,
     isError: ProfileInfoErr,
     isLoading: ProfileInfoLoading,
   } = useProfileInfo();
+  console.log(ProfileInfo);
 
+  const mode = useSelector((state) => state.DarkFlag.value);
 
   return (
     <>
@@ -29,7 +34,17 @@ const DashboardHeader = () => {
             </h5>
           </div>
         </div>
-        <DarkModeButton />
+        <div className="flex gap-3">
+          <img
+            className="w-10 h-10 lg:hidden"
+            src={mode === "light" ? menuIcon : menuIconDark}
+            alt=""
+            onClick={() => {
+              setmenuFlag((prev) => !prev);
+            }}
+          />
+          <DarkModeButton />
+        </div>
       </div>
     </>
   );

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import DashboardHeader from "../../../components/organisms/dashboard/header/DashboardHeader";
 import logo from "../../../assets/images/LogoImages/linear.png";
 import { RxDashboard } from "react-icons/rx";
@@ -14,12 +14,23 @@ import { Toaster } from "react-hot-toast";
 const UserPanelLayout = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const [menuFlag, setmenuFlag] = useState(true);
+
   return (
     <>
       <Toaster />
       <div className="w-full h-screen overflow-hidden bg-dashboardBg flex items-center gap-5 p-5">
-        <div className="w-73 relative bg-background flex flex-col gap-20 items-center h-11/12 py-6 rounded-3xl shadow-[0px_50px_100px_0px_#48484829]">
-          <img className="w-60" src={logo} alt="" />
+        <div
+          className={`lg:w-73 w-11/12 absolute ${menuFlag ? "flex" : "hidden"} top-33 lg:top-0 left-1/2 lg:left-0 -translate-x-1/2 lg:translate-x-0 lg:relative bg-background lg:flex flex-col gap-10 items-center lg:h-11/12 py-6 rounded-3xl shadow-[0px_50px_100px_0px_#48484829]`}
+        >
+          <img
+            onClick={() => {
+              navigate("/");
+            }}
+            className="w-60"
+            src={logo}
+            alt=""
+          />
           <ul className="w-11/12 h-90">
             <li
               onClick={() => {
@@ -61,13 +72,13 @@ const UserPanelLayout = () => {
               <h3 className="text-lg">پروفایل</h3>
             </li>
           </ul>
-          <div className="absolute cursor-pointer bottom-5 gap-4 text-danger-500 text-lg rounded-[38px] items-center justify-center w-50 py-3 flex border border-neutral-200">
+          <div className="lg:absolute cursor-pointer lg:bottom-5 gap-4 text-danger-500 text-lg rounded-[38px] items-center justify-center w-50 py-3 flex border border-neutral-200">
             <IoLogOutOutline size={24} />
             <h3>خروج از حساب</h3>
           </div>
         </div>
         <div className="flex-1 h-11/12 flex flex-col gap-5 justify-start">
-          <DashboardHeader />
+          <DashboardHeader setmenuFlag={setmenuFlag} />
           <Outlet />
         </div>
       </div>

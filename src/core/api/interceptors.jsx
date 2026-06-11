@@ -41,8 +41,13 @@ ApiClient.interceptors.response.use(
           isShowingToast = false;
         }, 2000);
       }
-      localStorage.removeItem("token");
-      store.dispatch(logout());
+      if (
+        err.response?.data.message !=
+        "شما به این روت دسترسی ندارید درصورت ریکوست مجدد بن میشوید"
+      ) {
+        localStorage.removeItem("token");
+        store.dispatch(logout());
+      }
     }
     return Promise.reject(err);
   },

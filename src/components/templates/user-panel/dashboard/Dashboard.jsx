@@ -25,43 +25,64 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className="w-full flex flex-col items-center sm:flex-row gap-4">
-        <div className="w-full flex-1 flex flex-col gap-4 items-center py-5 bg-background rounded-3xl">
-          <h5 className="w-11/12 flex justify-start text-xl text-textC font-bold">
-            جدید ترین اخبار و مقالات
-          </h5>
-          <div className="w-11/12 flex flex-col flex-1 gap-2 justify-between divide-dashed divide-y-2 divide-neutral-300">
-            {latestNewsListLoading ? <Loading /> : ""}
-            {latestNewsList
-              ? latestNewsList?.data.news.map((item, index) => {
-                  return (
-                    <div
-                      className="w-full flex justify-between gap-2 pb-2"
-                      key={index}
-                    >
-                      <h5 className="text-neutral-800 text-sm line-clamp-1">
-                        {item?.title}
-                      </h5>
-                      <h5 className="text-sm text-neutral-600">
-                        {item.insertDate
-                          ? new Date(item.insertDate).toLocaleDateString(
-                              "fa-IR",
-                            )
-                          : ""}
-                      </h5>
-                    </div>
-                  );
-                })
-              : ""}
+      <div className="w-full flex flex-col items-center gap-7 pb-7">
+        <div className="w-full justify-between flex flex-col gap-7 md:gap-0 md:flex-row items-center">
+          <h1 className="text-textC text-3xl font-bold">سلام، روز بخیر</h1>
+          <div className="flex gap-3">
+            <div className="bg-background p-5 rounded-xl flex gap-3">
+              <div className="w-16 h-16 bg-[#03DE82] rounded-xl"></div>
+              <div className="flex flex-col gap-1">
+                <h4 className="text-xl text-neutral-400">دوره های من</h4>
+                <h5 className="text-primary-400 text-3xl">128</h5>
+              </div>
+            </div>
+            <div className="bg-background p-5 rounded-xl flex gap-3">
+              <div className="w-16 h-16 bg-[#FFCC3E] rounded-xl"></div>
+              <div className="flex flex-col gap-1">
+                <h4 className="text-xl text-neutral-400">رزرو شده</h4>
+                <h5 className="text-primary-400 text-3xl">21</h5>
+              </div>
+            </div>
           </div>
         </div>
-        <div className="w-63 min-h-63 flex flex-col items-center justify-center gap-3 bg-background rounded-3xl">
-          <h5 className="text-xl text-textC">پروفایل تکمیل شده</h5>
-          <CircularProgress
-            percentage={
-              Number(ProfileInfo?.data?.profileCompletionPercentage) || 0
-            }
-          />
+        <div className="w-full flex flex-col items-center sm:flex-row flex-wrap gap-4">
+          <div className="w-full flex-1 flex flex-col gap-4 items-center py-5 bg-background rounded-3xl">
+            <h5 className="w-11/12 flex justify-start text-xl text-textC font-bold">
+              جدید ترین اخبار و مقالات
+            </h5>
+            <div className="w-11/12 flex flex-col flex-1 gap-2 justify-between divide-dashed divide-y-2 divide-neutral-300">
+              {latestNewsListLoading ? <Loading /> : ""}
+              {latestNewsList
+                ? latestNewsList?.data.news.map((item, index) => {
+                    return (
+                      <div
+                        className="w-full flex justify-between gap-2 pb-2"
+                        key={index}
+                      >
+                        <h5 className="text-neutral-800 text-sm line-clamp-1">
+                          {item?.title}
+                        </h5>
+                        <h5 className="text-sm text-neutral-600">
+                          {item.insertDate
+                            ? new Date(item.insertDate).toLocaleDateString(
+                                "fa-IR",
+                              )
+                            : ""}
+                        </h5>
+                      </div>
+                    );
+                  })
+                : ""}
+            </div>
+          </div>
+          <div className="w-63 min-h-63 flex flex-col items-center justify-center gap-3 bg-background rounded-3xl">
+            <h5 className="text-xl text-textC">پروفایل تکمیل شده</h5>
+            <CircularProgress
+              percentage={
+                Number(ProfileInfo?.data?.profileCompletionPercentage) || 0
+              }
+            />
+          </div>
         </div>
       </div>
     </>

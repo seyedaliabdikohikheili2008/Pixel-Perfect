@@ -19,6 +19,7 @@ import UserPanelLayout from "../layout/user-panel-layout/UserPanelLayout";
 import RegistrationGuard from "../../components/guard/RegistrationGuard/RegistrationGuard";
 import ResetPasswordGuard from "../../components/guard/reset-password/ResetPasswordGuard";
 import Dashboard from "../../components/templates/user-panel/dashboard/Dashboard";
+import MyCourse from "../../components/templates/user-panel/my-course/MyCourse";
 
 const router = createBrowserRouter([
   {
@@ -89,7 +90,10 @@ const router = createBrowserRouter([
       {
         path: "user-panel",
         element: <UserPanelLayout />,
-        children: [{ index: true, element: <Dashboard /> }],
+        children: [
+          { index: true, element: <Dashboard /> },
+          { path: "my-course", element: <MyCourse /> },
+        ],
       },
     ],
   },

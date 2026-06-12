@@ -14,7 +14,7 @@ import { Toaster } from "react-hot-toast";
 const UserPanelLayout = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [menuFlag, setmenuFlag] = useState(true);
+  const [menuFlag, setmenuFlag] = useState(false);
 
   return (
     <>

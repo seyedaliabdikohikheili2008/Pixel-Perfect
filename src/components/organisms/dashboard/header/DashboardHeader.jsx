@@ -12,7 +12,6 @@ const DashboardHeader = ({ setmenuFlag }) => {
     isError: ProfileInfoErr,
     isLoading: ProfileInfoLoading,
   } = useProfileInfo();
-  console.log(ProfileInfo);
 
   const mode = useSelector((state) => state.DarkFlag.value);
 

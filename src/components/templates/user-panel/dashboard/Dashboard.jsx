@@ -3,6 +3,8 @@ import CircularProgress from "../../../molecules/circular-progress/CircularProgr
 import { useAllNews } from "../../../../core/hooks/queries/news/useAllNews";
 import Loading from "../../../atoms/loading/Loading";
 import { useProfileInfo } from "../../../../core/hooks/queries/user-panel/dashboard/useProfileInfo";
+import { useMyCourse } from "../../../../core/hooks/queries/user-panel/dashboard/useMyCourse";
+import { useMyCourseReserve } from "../../../../core/hooks/queries/user-panel/dashboard/useMyCourseReserve";
 
 const Dashboard = () => {
   const params = {
@@ -23,6 +25,22 @@ const Dashboard = () => {
     isLoading: ProfileInfoLoading,
   } = useProfileInfo();
 
+  const myCourseParams = {
+    PageNumber: 1,
+    RowsOfPage: 10,
+  };
+  const {
+    data: MyCourse = undefined,
+    isError: MyCourseErr,
+    isLoading: MyCourseLoading,
+  } = useMyCourse(myCourseParams);
+
+  const {
+    data: MyCourseReserve = undefined,
+    isError: MyCourseReserveErr,
+    isLoading: MyCourseReserveLoading,
+  } = useMyCourseReserve();
+
   return (
     <>
       <div className="w-full flex flex-col items-center gap-7 pb-7">
@@ -33,14 +51,18 @@ const Dashboard = () => {
               <div className="w-16 h-16 bg-[#03DE82] rounded-xl"></div>
               <div className="flex flex-col gap-1">
                 <h4 className="text-xl text-neutral-400">دوره های من</h4>
-                <h5 className="text-primary-400 text-3xl">128</h5>
+                <h5 className="text-primary-400 text-3xl">
+                  {MyCourse?.data?.totalCount}
+                </h5>
               </div>
             </div>
             <div className="bg-background p-5 rounded-xl flex gap-3">
               <div className="w-16 h-16 bg-[#FFCC3E] rounded-xl"></div>
               <div className="flex flex-col gap-1">
                 <h4 className="text-xl text-neutral-400">رزرو شده</h4>
-                <h5 className="text-primary-400 text-3xl">21</h5>
+                <h5 className="text-primary-400 text-3xl">
+                  {MyCourseReserve ? MyCourseReserve.data?.length : 0}
+                </h5>
               </div>
             </div>
           </div>

@@ -7,7 +7,6 @@ const MyCourse = () => {
         <div className='bg-background w-full h-full flex flex-col items-start'>
             <h2 className='text-3xl text-textC font-bold'>دوره های من</h2>
             <div></div>
-            <TeacherListPagination />
         </div>
     </>
   )

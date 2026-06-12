@@ -20,6 +20,7 @@ import RegistrationGuard from "../../components/guard/RegistrationGuard/Registra
 import ResetPasswordGuard from "../../components/guard/reset-password/ResetPasswordGuard";
 import Dashboard from "../../components/templates/user-panel/dashboard/Dashboard";
 import MyCourse from "../../components/templates/user-panel/my-course/MyCourse";
+import MyCourseReserve from "../../components/templates/user-panel/my-course-reserve/MyCourseReserve";
 
 const router = createBrowserRouter([
   {
@@ -93,6 +94,7 @@ const router = createBrowserRouter([
         children: [
           { index: true, element: <Dashboard /> },
           { path: "my-course", element: <MyCourse /> },
+          { path: "my-reservation", element: <MyCourseReserve /> },
         ],
       },
     ],

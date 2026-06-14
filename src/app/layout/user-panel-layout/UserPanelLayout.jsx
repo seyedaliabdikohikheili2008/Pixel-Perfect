@@ -60,7 +60,10 @@ const UserPanelLayout = () => {
               <h3 className="text-lg">رزرو من</h3>
             </li>
             <li
-              className={`flex cursor-pointer items-center gap-4 p-4 ${location.pathname == "/favorite-course" ? "bg-primary-500 text-white" : "text-textC"} rounded-[38px]`}
+              onClick={() => {
+                navigate("/user-panel/my-favorite-course");
+              }}
+              className={`flex cursor-pointer items-center gap-4 p-4 ${location.pathname == "/user-panel/my-favorite-course" ? "bg-primary-500 text-white" : "text-textC"} rounded-[38px]`}
             >
               <LuBookMarked size={24} />
               <h3 className="text-lg">علاقه‌مندی دوره</h3>

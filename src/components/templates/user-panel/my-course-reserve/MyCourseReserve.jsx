@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {  useMemo, useRef, useState } from "react";
 import Input from "../../../atoms/Input/Input";
 import { LiaSearchSolid } from "react-icons/lia";
 import Button from "../../../atoms/Butoon/Button";
@@ -17,7 +17,6 @@ const MyCourseReserve = () => {
     isError: MyCourseReserveErr,
     isLoading: MyCourseReserveLoading,
   } = useMyCourseReserve();
-  console.log(MyCourseReserve);
 
   const [courseName, setcourseName] = useState("");
 
@@ -37,7 +36,6 @@ const MyCourseReserve = () => {
     : [];
 
   const [page, setpage] = useState(1);
-  const [data, setdata] = useState([]);
 
   const getItemsByPage = (array = [], page, itemsPerPage = 4) => {
     const start = (page - 1) * itemsPerPage;
@@ -45,10 +43,11 @@ const MyCourseReserve = () => {
 
     return array.slice(start, end);
   };
+  const data = useMemo(() => {
+  return getItemsByPage(searchCourse, page);
+}, [searchCourse, page]);
 
-  useEffect(() => {
-    setdata(getItemsByPage(searchCourse, page));
-  }, [page, searchCourse]);
+  
 
   return (
     <>
@@ -70,7 +69,7 @@ const MyCourseReserve = () => {
           </div>
           <div className="w-full flex-1 overflow-y-auto flex flex-col md:divide-none divide-dashed divide-neutral-400 divide-y-1 gap-7">
             {MyCourseReserve
-              ? searchCourse.map((item, index) => {
+              ? data.map((item, index) => {
                   let start = new Date(item?.startDate);
                   start = start.toLocaleString("fa-IR");
                   let end = new Date(item?.endDate);

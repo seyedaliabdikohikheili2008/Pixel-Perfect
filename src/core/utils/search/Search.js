@@ -1,6 +1,16 @@
-const Search = (arr=[] , text , key)=>{
-    const result = arr.filter((item)=>item[key]?.toLowerCase().includes(text.toLowerCase()))
-    return result
-}
+const Search = (arr = [], text = "", key) => {
+  if (!text.trim()) return arr;
 
-export default Search;
+  return arr.filter((item) => {
+    const value = key
+      .split(".")
+      .reduce((obj, currentKey) => obj?.[currentKey], item);
+
+    return value
+      ?.toString()
+      .toLowerCase()
+      .includes(text.toLowerCase());
+  });
+};
+
+export default Search

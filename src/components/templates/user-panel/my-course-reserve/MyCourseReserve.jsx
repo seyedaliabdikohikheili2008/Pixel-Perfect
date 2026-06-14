@@ -54,7 +54,7 @@ const MyCourseReserve = () => {
     <>
       <div className="w-full max-h-full flex-1 flex flex-col items-start gap-5">
         <h2 className="text-textC text-3xl font-bold">رزرو من</h2>
-        <div className="w-full h-full p-5 flex flex-col gap-4 shadow-[0px_50px_100px_0px_#48484829] rounded-3xl bg-background">
+        <div className="w-full h-130.25 p-5 flex flex-col gap-4 shadow-[0px_50px_100px_0px_#48484829] rounded-3xl bg-background">
           <div className="flex gap-3">
             <div className="flex flex-col gap-2">
               <h5 className="text-base text-textC flex gap-2 items-center">
@@ -68,7 +68,7 @@ const MyCourseReserve = () => {
               />
             </div>
           </div>
-          <div className="w-full flex-1 flex flex-col md:divide-none divide-dashed divide-neutral-400 divide-y-1 gap-7">
+          <div className="w-full flex-1 overflow-y-auto flex flex-col md:divide-none divide-dashed divide-neutral-400 divide-y-1 gap-7">
             {MyCourseReserve
               ? searchCourse.map((item, index) => {
                   let start = new Date(item?.startDate);
@@ -81,21 +81,29 @@ const MyCourseReserve = () => {
                       className="w-full flex flex-wrap pb-3 md:flex-nowrap justify-between gap-7 md:gap-3 items-center"
                     >
                       <img
-                        className="w-25 h-15 rounded-2xl overflow-hidden object-cover"
+                        className="sm:w-25 w-40 h-30 sm:h-15 rounded-2xl overflow-hidden object-cover"
                         src={item?.image || img}
                         alt=""
                       />
-                      <h3 className="text-text text-base">
+                      <h3 className="text-text text-base w-40 line-clamp-1">
                         {item?.courseName}
                       </h3>
-                      <p className="text-textC text-sm">{start}</p>
-                      <p className="text-textC text-sm">{end}</p>
-                      <Button
-                        children={"شروع یاد گیری"}
-                        buttonClassName="h-10 text-sm text-nowrap"
-                      />
-                      <div className="flex p-2 border border-neutral-300 rounded-full">
-                        <RxCross1 color="#FF5454" size={20} />
+                      <div className="flex flex-col sm:flex-row gap-5">
+                        <p className="text-textC w-30 sm:w-auto text-sm">
+                          {start}
+                        </p>
+                        <p className="text-textC w-30 sm:w-auto text-sm">
+                          {end}
+                        </p>
+                      </div>
+                      <div className="flex gap-5">
+                        <Button
+                          children={"شروع یاد گیری"}
+                          buttonClassName="h-10 text-sm text-nowrap"
+                        />
+                        <div className="flex p-2 border border-neutral-300 rounded-full">
+                          <RxCross1 color="#FF5454" size={20} />
+                        </div>
                       </div>
                     </div>
                   );

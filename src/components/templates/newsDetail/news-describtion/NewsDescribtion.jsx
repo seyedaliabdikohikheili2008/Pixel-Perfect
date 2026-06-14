@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import like from "../../../../assets/images/icons/course-detail/like.png";
 import dislike from "../../../../assets/images/icons/course-detail/dislike.png";
 import Comment from "../../../templates/course-detail/Comment/Comment";
@@ -8,14 +8,23 @@ import ApiClient from "../../../../core/api/interceptors";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getComments } from "../../../../core/services/news-detail/Comments/Comments";
+import { AddComment } from "../../../../core/services/news-detail/Comments/AddComment/AddComment";
 const NewsDescription = ({ news }) => {
-  const {newsId} = useParams();
+  const { NewsId } = useParams();
+  const { newsId } = useParams();
+  const idToSend = newsId;
+  const userId = Number(localStorage.getItem("userId"));
+  const [comments, setComments] = useState([]);
+  console.log(idToSend);
   if (!news) return <div>در حال بارگذاری اطلاعات...</div>;
   const [likes, setLikes] = useState(news.likeCount || 0);
   const [dislikes, setDislikes] = useState(news.disLikeCount || 0);
 
   const [userLiked, setUserLiked] = useState(news.userIsLiked || false);
   const [userDisliked, setUserDisliked] = useState(news.userIsDisLike || false);
+  const [isCommentBoxOpen, setIsCommentBoxOpen] = useState(false);
+  const [commentText, setCommentText] = useState("");
+  const commentTextRef = useRef(null);
 
   const handleLike = async () => {
     if (userLiked) return;
@@ -26,8 +35,8 @@ const NewsDescription = ({ news }) => {
     setLikes((prev) => prev + 1);
     setUserLiked(true);
     try {
-      const response = await ApiClient.post(`Course/AddCourseLike`, {
-        CourseId: news.courseId,
+      const response = await ApiClient.post(`News/NewsLike/${idToSend}`, {
+        NewsId: parseInt(idToSend),
       });
       console.log("لایک با موفقیت ثبت شد:", response);
     } catch (error) {
@@ -46,8 +55,8 @@ const NewsDescription = ({ news }) => {
     setUserDisliked(true);
 
     try {
-      const response = await ApiClient.post(`Course/AddCourseDissLike`, {
-        CourseId: news.courseId,
+      const response = await ApiClient.post(`News/NewsDissLike/${idToSend}`, {
+        NewsId: parseInt(idToSend),
       });
       console.log("دیسلایک با موفقیت ثبت شد:", response);
     } catch (error) {
@@ -56,13 +65,30 @@ const NewsDescription = ({ news }) => {
       setUserDisliked(false);
     }
   };
+
+  useEffect(() => {
+    if (news) {
+      setLikes(news.currentLikeCount || 0);
+      setDislikes(news.currentDissLikeCount || 0);
+      setUserLiked(news.currentUserIsLike || false);
+      setUserDisliked(news.currentUserIsDissLike || false);
+      console.log("وضعیت لایک از سرور:", news.currentUserIsLike);
+    }
+  }, [news]);
+
+  useEffect(() => {
+    if (isCommentBoxOpen) {
+      commentTextRef.current?.focus();
+    }
+  }, [isCommentBoxOpen]);
+
   const [visibleCount, setVisibleCount] = useState(2);
 
   const { data: commentData, isLoading: isCommentLoading } = useQuery({
-    queryKey: ["news-comment", newsId],
-    queryFn: () => getComments(newsId),
+    queryKey: ["news-comment", NewsId],
+    queryFn: () => getComments(NewsId),
   });
- 
+
   return (
     <div className="w-full bg-rootBg flex flex-col gap-10 md:w-3/4 m-auto xl:w-2/3">
       <div className="w-full flex flex-col relative mb-10 ">
@@ -101,29 +127,76 @@ const NewsDescription = ({ news }) => {
           <h1 className="text-2xl md:text-3xl font-bold text-textC text-right px-2">
             نظرات
           </h1>
-          <Button iconSrc={comment} children={"ارسال دیدگاه جدید"} />
+          <Button
+            iconSrc={comment}
+            children={"ارسال دیدگاه جدید"}
+            onClick={() => setIsCommentBoxOpen(true)}
+          />
         </div>
-       {isCommentLoading ? (
-  <p>در حال بارگذاری...</p>
-) : (
-  <div className="flex flex-col gap-4">
-        { commentData?.data?.slice(0, visibleCount).map((item) => (
-            <Comment key={item.newsId} item={item} />
-          ))
-        }
-    {commentData?.data?.length > visibleCount && (
-       <button
-          className=" w-1/2 m-auto md:w-1/5 flex items-center justify-center cursor-pointer 
-        px-4 py-2 focus:outline-none rounded-xl text-nowrap dark:text-primary-500 text-primary-800 border border-solid dark:border-primary-500 border-primary-800 ltr"
-        onClick={() => setVisibleCount(prev => prev + 10)}
-        >
-          مشاهده بیشتر
-        </button>
-    )}
-  </div>
-)}
 
-       
+        {isCommentBoxOpen && (
+          <div className="w-full p-4 bg-background rounded-xl shadow flex flex-col gap-3">
+            <textarea
+              ref={commentTextRef}
+              className="w-full min-h-32  text-textC p-3 rounded-lg border border-gray-300 text-right outline-none"
+              placeholder="نظر خود را بنویسید..."
+              value={commentText}
+              onChange={(e) => setCommentText(e.target.value)}
+            />
+
+            <div className="flex justify-end gap-2">
+              <button
+                className="px-4 py-2 rounded-lg bg-gray-200"
+                onClick={() => {
+                  setIsCommentBoxOpen(false);
+                  setCommentText("");
+                }}
+              >
+                انصراف
+              </button>
+
+              <Button
+                children={"ثبت نظر"}
+                onClick={async () => {
+                  try {
+                    const commentData = {
+                      newsId: idToSend,
+                      userIpAddress: "0.0.0.0",
+                      title: "s.th",
+                      describe: commentText,
+                      userId: userId,
+                    };
+                    await AddComment(commentData);
+                    setComments((prev) => [...prev, commentData]);
+                    setIsCommentBoxOpen(false);
+                    setCommentText("");
+                  } catch (error) {
+                    console.error("خطا در ثبت کامنت:", error);
+                  }
+                }}
+              />
+            </div>
+          </div>
+        )}
+
+        {isCommentLoading ? (
+          <p>در حال بارگذاری...</p>
+        ) : (
+          <div className="flex flex-col gap-4">
+            {commentData?.data?.slice(0, visibleCount).map((item) => (
+              <Comment key={item.newsId} item={item} />
+            ))}
+            {commentData?.data?.length > visibleCount && (
+              <button
+                className=" w-1/2 m-auto md:w-1/5 flex items-center justify-center cursor-pointer 
+        px-4 py-2 focus:outline-none rounded-xl text-nowrap dark:text-primary-500 text-primary-800 border border-solid dark:border-primary-500 border-primary-800 ltr"
+                onClick={() => setVisibleCount((prev) => prev + 10)}
+              >
+                مشاهده بیشتر
+              </button>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

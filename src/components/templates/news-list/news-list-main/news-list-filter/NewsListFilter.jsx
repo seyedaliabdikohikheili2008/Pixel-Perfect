@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import Input from "../../../../atoms/Input/Input";
 import filter from "../../../../../assets/images/icons/courses/filter.png";
 import { Accordion, Label, Radio, RadioGroup, Slider } from "@heroui/react";
@@ -8,6 +8,8 @@ import { useSelector } from "react-redux";
 import FilterSection from "../../../../molecules/filter-section/FilterSection";
 import { useAllNewsCategory } from "../../../../../core/hooks/queries/news/useAllNewsCategory";
 import { useTranslation } from "react-i18next";
+import NotFound from "../../../../atoms/not-found/NotFound";
+import Search from "../../../../../core/utils/search/Search";
 const NewsListFilter = () => {
   const MenuStatus = useSelector((state) => state.CourseFilterMenu.value);
 
@@ -19,6 +21,22 @@ const NewsListFilter = () => {
     isLoading: NewsCategoryListLoading,
   } = useAllNewsCategory();
 
+  const [CategoryName, setCategoryName] = useState("");
+
+  const timeOutRef = useRef(null);
+  const handleChange = (e) => {
+    const value = e.target.value;
+
+    clearTimeout(timeOutRef.current);
+
+    timeOutRef.current = setTimeout(() => {
+      setCategoryName(value);
+    }, 1500);
+  };
+  const searchCategory = NewsCategoryList?.data
+    ? Search(NewsCategoryList.data, CategoryName, "categoryName")
+    : [];
+
   return (
     <>
       <div
@@ -26,6 +44,7 @@ const NewsListFilter = () => {
       >
         <div className="w-11/12 flex flex-col gap-2 items-center mx-auto my-2">
           <Input
+            onChange={handleChange}
             boxClassname={"w-full flex items-center gap-2"}
             icon={filter}
             placeholder={t("Filter.search")}
@@ -48,11 +67,15 @@ const NewsListFilter = () => {
               </Accordion.Heading>
               <Accordion.Panel>
                 <Accordion.Body>
-                  {NewsCategoryList ? (
-                    <FilterSection
-                      param={"NewsCategoryId"}
-                      data={NewsCategoryList?.data}
-                    />
+                  <div className="max-h-42.5 overflow-y-auto">
+                    {NewsCategoryList ? (
+                      <FilterSection param={"ListTech"} data={searchCategory} />
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                  {searchCategory.length == 0 ? (
+                    <NotFound size={"text-sm"} />
                   ) : (
                     ""
                   )}

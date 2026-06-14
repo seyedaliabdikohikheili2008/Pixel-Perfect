@@ -28,7 +28,7 @@ const Logo = ({ variant, className , Exception = false }) => {
       <img
         src={logoSrc()}
         alt="Logo"
-        className={`${sizeClass} h-auto object-contain ${className}`}
+        className={` ${className} ${sizeClass} h-auto object-contain`}
       />
     </>
   );

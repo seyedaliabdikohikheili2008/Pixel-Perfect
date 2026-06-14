@@ -9,17 +9,19 @@ import { useNavigate } from "react-router-dom";
 import ResetPasswordStepTwo from "../../../core/api/auth/ResetPassword/StepTwo/StepTwo";
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { resetStepReset } from "../../../core/feature/auth/ResetPasswordStepSlice";
 const ResetPasswordStepTwoForm = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const savedEmail = localStorage.getItem("registration_email");
   const { mutate, isPending } = useMutation({
     mutationFn: ResetPasswordStepTwo,
     onSuccess: (data) => {
-      console.log(" موفقیت:", data);
+      dispatch(resetStepReset());
       navigate("/auth/login");
     },
     onError: (error) => {
-      console.error(" خطا:", error);
       const status = error.response?.status;
 
       const serverMessage = error.response?.data?.message;
@@ -29,8 +31,6 @@ const ResetPasswordStepTwoForm = () => {
       } else {
         toast.error("خطایی در اتصال به سرور رخ داد. لطفاً دوباره تلاش کنید.");
       }
-
-      console.error("جزئیات خطا:", error.response?.data);
     },
   });
 

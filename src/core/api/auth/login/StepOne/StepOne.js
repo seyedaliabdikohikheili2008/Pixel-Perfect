@@ -6,7 +6,6 @@ const LoginStepOne = async (data) => {
         rememberMe:data.rememberMe
     };
 
-    console.log(" ارسال داده به سرور:", payload); 
 
     const response = await ApiClient.post(`/Sign/Login`, payload);
     return response.data;

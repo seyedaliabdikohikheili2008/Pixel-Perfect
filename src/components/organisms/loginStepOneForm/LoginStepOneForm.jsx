@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Form, Formik, ErrorMessage } from "formik";
 import Button from "../../atoms/Butoon/Button";
 import Input from "../../atoms/Input/Input";
@@ -9,14 +9,27 @@ import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import LoginStepOne from "../../../core/api/auth/login/StepOne/StepOne";
 import toast, { Toaster } from "react-hot-toast";
-import { useAuth } from "../../../context/AuthContext/AuthContext";
+import Loading from "../../atoms/loading/Loading";
+import { useDispatch } from "react-redux";
+import { login } from "../../../core/feature/auth/IsAuthSlice";
 
 const LoginStepOneForm = () => {
+  const timeOutRef = useRef(null);
+
+  const dispatch = useDispatch();
+
   const { mutate, isPending } = useMutation({
     mutationFn: LoginStepOne,
     onSuccess: (data) => {
-      toast.success("خوش اومدی💛");
-      navigate("/");
+      if (data.success) {
+        localStorage.setItem("token", data.token);
+        dispatch(login());
+        toast.success("خوش اومدی💛");
+        clearTimeout(timeOutRef.current);
+        timeOutRef.current = setTimeout(() => {
+          navigate("/");
+        }, 1500);
+      }
     },
     onError: (error) => {
       const status = error.response?.status;
@@ -29,19 +42,12 @@ const LoginStepOneForm = () => {
       } else if (status === 400) {
         toast.error("درخواست نامعتبر است. لطفاً فیلدها را بررسی کنید.");
       } else {
+        console.log(error);
         toast.error("خطایی در اتصال به سرور رخ داد. لطفاً دوباره تلاش کنید.");
       }
-
-      console.error("جزئیات خطا:", error.response?.data);
     },
   });
-  const { login } = useAuth(); 
 
-  const handleLogin = async () => {
-    const token = "some_token_from_api"; 
-    
-    login(token); 
-  };
   const postData = (values) => {
     mutate({
       phoneOrGmail: values.phoneOrGmail,
@@ -138,18 +144,23 @@ const LoginStepOneForm = () => {
               <div>
                 <p
                   className="font-normal text-[16px] cursor-pointer text-textC "
-                  onClick={() => navigate("/auth/reset")}
+                  onClick={() => navigate("/auth/reset/step-1")}
                 >
                   فراموشی رمز عبور
                 </p>
               </div>
             </div>
             <Button
-              children={"ارسال کد یکبار مصرف"}
+              children={
+                isPending ? (
+                  <Loading size={"text-xl"} circleSize={8} />
+                ) : (
+                  "ارسال کد یکبار مصرف"
+                )
+              }
               buttonClassName="w-8/10 font-[18px]"
               type="submit"
               disabled={isPending}
-              onClick={handleLogin}
             />
           </Form>
         )}
@@ -157,7 +168,10 @@ const LoginStepOneForm = () => {
       <Toaster />
       <div className="flex items-center gap-1">
         <p className="text-textC cursor-pointer ">حساب کاربری ندارید؟</p>
-        <p className="text-textb cursor-pointer" onClick={() => navigate("/auth/register")}>
+        <p
+          className="text-textb cursor-pointer"
+          onClick={() => navigate("/auth/register/step-1")}
+        >
           ثبت نام
         </p>
       </div>

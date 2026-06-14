@@ -4,51 +4,53 @@ import * as Yup from "yup";
 import { InputOTP } from "@heroui/react";
 import Button from "../../atoms/Butoon/Button";
 import Timer from "../../atoms/Timer/Timer";
-import { useNavigate,useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import RegisterStepTwo from "../../../core/api/auth/Register/StepTwo/StepTwo";
 import toast, { Toaster } from "react-hot-toast";
-import { AuthContext } from "../../../context/AuthContext/AuthContext";
+import { useDispatch } from "react-redux";
+import { stepIncrement } from "../../../core/feature/auth/RegisterStepSlice";
+
 const InputOtp = () => {
   const savedEmail = localStorage.getItem("registration_email");
-    const { setRegStep } = useContext(AuthContext);
+  const dispatch = useDispatch();
   const { mutate, isPending } = useMutation({
-  mutationFn: RegisterStepTwo, 
-  onSuccess: (data) => {
-      if (data.message === "کد اشتباه است") {
-    toast.error("رمز شما اشتباه است");
-    return; 
-  }
-  setRegStep(3);
-    console.log(" موفقیت:", data);
-    if(location.pathname==="/auth/login/verifying" ){
-    navigate("/")
-  }else{
-navigate("complete")
-  }
-  },
-  onError: (error) => {
-    console.error(" خطا:", error);
-    const status = error.response?.status;
-    
-    const serverMessage = error.response?.data?.message;
+    mutationFn: RegisterStepTwo,
+    onSuccess: (data) => {
+      if (data.message === "کد اشتباه است" || !data.success) {
+        toast.error("رمز شما اشتباه است");
+        return;
+      }
+      // if (location.pathname === "/auth/login/verifying") {
+      //   navigate("/");
+      // }
+      else if (location.pathname == "/auth/register/step-2") {
+        dispatch(stepIncrement());
+        navigate("/atuh/register/step-3");
+      }
+    },
+    onError: (error) => {
+      const status = error.response?.status;
 
-     if (status === 200 && serverMessage==="کد اشتباه است") {
-      toast.error("رمز شما اشتباه است");
-    } else{
-      toast.error("خطایی در اتصال به سرور رخ داد. لطفاً دوباره تلاش کنید.");
-    }
-  }
-});
+      const serverMessage = error.response?.data?.message;
+
+      if (
+        (status === 200 && serverMessage === "کد اشتباه است") ||
+        !error.response?.data?.success
+      ) {
+        toast.error("رمز شما اشتباه است");
+      } else {
+        toast.error("خطایی در اتصال به سرور رخ داد. لطفاً دوباره تلاش کنید.");
+      }
+    },
+  });
   const navigate = useNavigate();
-const location=useLocation();
-const postData = (formData) => {
-  mutate({ verifyCode: formData.verifyCode ,gmail:savedEmail}); 
- 
-};
+  const location = useLocation();
+  const postData = (formData) => {
+    mutate({ verifyCode: formData.verifyCode, gmail: savedEmail });
+  };
 
-
-  const initialValues = { verifyCode: "" ,gmail:savedEmail};
+  const initialValues = { verifyCode: "", gmail: savedEmail };
   const validationSchema = Yup.object({
     verifyCode: Yup.string()
       .length(6, "کد تایید باید ۶ رقم باشد")
@@ -56,7 +58,6 @@ const postData = (formData) => {
   });
 
   return (
-    
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
@@ -64,7 +65,6 @@ const postData = (formData) => {
     >
       {({ values, setFieldValue, errors, touched }) => (
         <Form className="flex flex-col items-center gap-6 w-full">
-
           <div className="w-full flex justify-center overflow-hidden">
             <InputOTP
               maxLength={6}
@@ -73,8 +73,10 @@ const postData = (formData) => {
               isInvalid={!!errors.verifyCode && touched.verifyCode}
               aria-label="کد تایید ۶ رقمی"
             >
-              <InputOTP.Group dir="ltr" className="flex md:gap-0.5 gap-2 lg:gap-2 flex-wrap justify-center">
-
+              <InputOTP.Group
+                dir="ltr"
+                className="flex md:gap-0.5 gap-2 lg:gap-2 flex-wrap justify-center"
+              >
                 {Array.from({ length: 6 }).map((_, index) => (
                   <InputOTP.Slot
                     key={index}
@@ -93,20 +95,23 @@ const postData = (formData) => {
                     "
                   />
                 ))}
-
               </InputOTP.Group>
             </InputOTP>
           </div>
-<ErrorMessage name="verifyCode" className="text-danger-500 text-right" component={"span"} />
-          
+          <ErrorMessage
+            name="verifyCode"
+            className="text-danger-500 text-right"
+            component={"span"}
+          />
+
           <Button
-          disabled={isPending}
+            disabled={isPending}
             buttonClassName="w-8/10 font-lg font-bold"
             type="submit"
           >
             تایید رمز یکبار مصرف
           </Button>
-<Toaster/>
+          <Toaster />
           <Timer className="dark:text-white text-textC" />
         </Form>
       )}

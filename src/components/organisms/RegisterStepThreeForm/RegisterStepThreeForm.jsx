@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Form, Formik, ErrorMessage } from "formik";
 import Button from "../../atoms/Butoon/Button";
 import Input from "../../atoms/Input/Input";
@@ -9,6 +9,8 @@ import { useNavigate } from "react-router-dom";
 import RegisterStepThree from "../../../core/api/auth/Register/StepThree/StepThree";
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { resetStep } from "../../../core/feature/auth/RegisterStepSlice";
 const RegisterStepThreeForm = () => {
   const navigate = useNavigate();
   const validationSchema = Yup.object({
@@ -29,15 +31,19 @@ const RegisterStepThreeForm = () => {
       .oneOf([Yup.ref("password")], "رمز عبور و تکرار آن یکسان نیستند"),
   });
   const savedEmail = localStorage.getItem("registration_email");
+  const dispatch = useDispatch();
+  const timeOutRef = useRef(null);
   const { mutate, isPending } = useMutation({
     mutationFn: RegisterStepThree,
     onSuccess: (data) => {
-      console.log(" موفقیت:", data);
-      navigate("/auth/login");
+      dispatch(resetStep());
+      clearTimeout(timeOutRef.current);
+      timeOutRef.current = setTimeout(() => {
+        navigate("/auth/login");
+      }, 1500);
       toast.success("ثبت نام شما با موفقیت انجام شد");
     },
     onError: (error) => {
-      console.error(" خطا:", error);
       const status = error.response?.status;
 
       const serverMessage = error.response?.data?.message;
@@ -157,7 +163,12 @@ const RegisterStepThreeForm = () => {
 
       <div className="flex items-center gap-1 cursor-pointer">
         <p className="text-textC ">حساب کاربری دارید؟</p>
-        <p className="text-textb " onClick={() => navigate("/auth/login")}>
+        <p
+          className="text-textb "
+          onClick={() => {
+            (navigate("/auth/login"), dispatch(resetStep()));
+          }}
+        >
           وارد شوید
         </p>
       </div>

@@ -15,6 +15,8 @@ import CourseDetail from "../../page/course-detail/CourseDetail";
 import RegistrationGuard from "../../components/RegistrationGuard/RegistrationGuard";
 import NewsListPage from "../../page/news-list/NewsListPage";
 import TeacherListPage from "../../page/teacher-list/TeacherListPage";
+import NewsDetail from "../../page/news-detail/NewsDetail";
+import ContactUsPage from "../../page/ContactUs/ContactUsPage";
 
 const router = createBrowserRouter([
   {
@@ -26,7 +28,8 @@ const router = createBrowserRouter([
       { path: "course-detail/:id", element: <CourseDetail /> },
       { path: "news-list", element: <NewsListPage /> },
       { path: "Instructors", element: <TeacherListPage /> },
-
+      { path: "news-detail/:newsId", element: <NewsDetail /> },
+      {path:"contactUs",element:<ContactUsPage/>}
     ],
   },
   {

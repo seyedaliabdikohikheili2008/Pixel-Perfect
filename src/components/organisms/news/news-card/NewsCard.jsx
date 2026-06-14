@@ -3,13 +3,16 @@ import img from "../../../../assets/images/news/news-card/70f359fd3b854130662b1c
 import user from "../../../../assets/images/icons/news/news-card/user.png";
 import book from "../../../../assets/images/icons/news/news-card/book.png";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 const NewsCard = ({ detail, cardView2 = false }) => {
   const { t } = useTranslation("landing");
+  const navigate=useNavigate()
   return (
     <>
       <div
-        className={`${cardView2 ? "w-full h-100" : "h-120 w-79"} relative rounded-4xl overflow-hidden`}
+        className={`${cardView2 ? "w-full h-100" : "h-120 w-79"} relative rounded-4xl overflow-hidden m-auto`}
+        onClick={()=>navigate (`/news-detail/${detail?.id}`)}
       >
         <img
           className="z-0 object-cover w-full h-full object-center"

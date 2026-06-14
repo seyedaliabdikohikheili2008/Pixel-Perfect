@@ -19,7 +19,7 @@ const UserPanelLayout = () => {
   return (
     <>
       <Toaster />
-      <div className="w-full relative h-screen overflow-x-hidden bg-dashboardBg flex items-start gap-5 p-5">
+      <div className="w-full relative h-screen overflow-x-hidden bg-dashboardBg flex items-start gap-5 p-4">
         <div
           className={`lg:w-73 w-11/12 absolute ${menuFlag ? "flex" : "hidden"} top-24 lg:top-0 left-1/2 lg:left-0 -translate-x-1/2 lg:translate-x-0 lg:relative bg-background lg:flex flex-col gap-10 items-center h-170 py-6 rounded-3xl shadow-[0px_50px_100px_0px_#48484829]`}
         >
@@ -69,7 +69,10 @@ const UserPanelLayout = () => {
               <h3 className="text-lg">علاقه‌مندی دوره</h3>
             </li>
             <li
-              className={`flex cursor-pointer items-center gap-4 p-4 ${location.pathname == "/favorite-news" ? "bg-primary-500 text-white" : "text-textC"} rounded-[38px]`}
+              onClick={() => {
+                navigate("/user-panel/my-favorite-news");
+              }}
+              className={`flex cursor-pointer items-center gap-4 p-4 ${location.pathname == "/user-panel/my-favorite-news" ? "bg-primary-500 text-white" : "text-textC"} rounded-[38px]`}
             >
               <MdOutlineBook size={24} />
               <h3 className="text-lg">علاقه‌مندی مقالات</h3>

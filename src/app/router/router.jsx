@@ -22,6 +22,7 @@ import Dashboard from "../../components/templates/user-panel/dashboard/Dashboard
 import MyCourse from "../../components/templates/user-panel/my-course/MyCourse";
 import MyCourseReserve from "../../components/templates/user-panel/my-course-reserve/MyCourseReserve";
 import MyFavoriteCourses from "../../components/templates/user-panel/my-favorite-courses/MyFavoriteCourses";
+import MyFavoriteNews from "../../components/templates/user-panel/my-favorite-news/MyFavoriteNews";
 
 const router = createBrowserRouter([
   {
@@ -97,6 +98,7 @@ const router = createBrowserRouter([
           { path: "my-course", element: <MyCourse /> },
           { path: "my-reservation", element: <MyCourseReserve /> },
           { path: "my-favorite-course", element: <MyFavoriteCourses /> },
+          { path: "my-favorite-news", element: <MyFavoriteNews /> },
         ],
       },
     ],

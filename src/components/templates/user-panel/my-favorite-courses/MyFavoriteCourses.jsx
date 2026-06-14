@@ -15,7 +15,6 @@ const MyFavoriteCourses = () => {
     isError: MyFavoriteCourseErr,
     isLoading: MyFavoriteCourseLoading,
   } = useMyFavoriteCourse();
-  console.log(MyFavoriteCourse);
 
   const [courseName, setcourseName] = useState("");
 
@@ -85,7 +84,7 @@ const MyFavoriteCourses = () => {
                         src={item?.course.imageAddress || img}
                         alt=""
                       />
-                      <h3 className="text-text text-base w-40 line-clamp-1">
+                      <h3 className="text-text text-base w-40 line-clamp-1 text-textC">
                         {item?.course.title}
                       </h3>
                       <div className="flex flex-col sm:flex-row gap-5">

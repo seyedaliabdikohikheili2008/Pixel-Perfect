@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Input from "../../../atoms/Input/Input";
 import { LiaSearchSolid } from "react-icons/lia";
 import Button from "../../../atoms/Butoon/Button";
@@ -6,6 +6,10 @@ import img from "../../../../assets/images/user-panel/38bdd9e8afe89a72aeaf82a4cb
 import { RxCross1 } from "react-icons/rx";
 import { IoEyeOutline } from "react-icons/io5";
 import { useMyCourseReserve } from "../../../../core/hooks/queries/user-panel/dashboard/useMyCourseReserve";
+import Search from "../../../../core/utils/search/Search";
+import NotFound from "../../../atoms/not-found/NotFound";
+import Loading from "../../../atoms/loading/Loading";
+import TeacherListPagination from "../../teacher-list/teacher-list-content/TeacherListPagination";
 
 const MyCourseReserve = () => {
   const {
@@ -14,6 +18,37 @@ const MyCourseReserve = () => {
     isLoading: MyCourseReserveLoading,
   } = useMyCourseReserve();
   console.log(MyCourseReserve);
+
+  const [courseName, setcourseName] = useState("");
+
+  const techTimeOutRef = useRef(null);
+  const handleChange = (e) => {
+    const value = e.target.value;
+
+    clearTimeout(techTimeOutRef.current);
+
+    techTimeOutRef.current = setTimeout(() => {
+      setcourseName(value);
+    }, 1500);
+  };
+
+  const searchCourse = MyCourseReserve?.data
+    ? Search(MyCourseReserve.data, courseName, "courseName")
+    : [];
+
+  const [page, setpage] = useState(1);
+  const [data, setdata] = useState([]);
+
+  const getItemsByPage = (array = [], page, itemsPerPage = 4) => {
+    const start = (page - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+
+    return array.slice(start, end);
+  };
+
+  useEffect(() => {
+    setdata(getItemsByPage(searchCourse, page));
+  }, [page, searchCourse]);
 
   return (
     <>
@@ -26,84 +61,62 @@ const MyCourseReserve = () => {
                 <LiaSearchSolid size={22} />
                 جستوجو دوره
               </h5>
-              <Input boxClassname={"w-62"} placeholder={"جستوجو دوره"} />
-            </div>
-            <div className="flex flex-col gap-2">
-              <h5 className="text-base text-textC flex gap-2 items-center">
-                <LiaSearchSolid size={22} />
-                جستوجو اساتید
-              </h5>
-              <Input boxClassname={"w-62"} placeholder={"جستوجو اساتید"} />
+              <Input
+                onChange={handleChange}
+                boxClassname={"w-62"}
+                placeholder={"جستوجو دوره"}
+              />
             </div>
           </div>
-          <div className="w-full flex-1 flex flex-col gap-5">
-            {MyCourseReserve?.data?.map((item, index) => {
-              return (
-                <div className="w-full flex justify-between items-center">
-                  <img
-                    className="w-25 h-15 rounded-2xl overflow-hidden object-cover"
-                    src={img}
-                    alt=""
-                  />
-                  <h3 className="text-text text-lg">{item?.courseName}</h3>
-                  <p className="text-textC text-base w-30 line-clamp-1">
-                    محسن اسفندیاری ، مهدی اصغری
-                  </p>
-                  <h3 className="text-textC text-base">
-                    <span className="text-xl">1،800،000</span>تومان
-                  </h3>
-                  <Button children={"شروع یاد گیری"} buttonClassName="h-10" />
-                  <div className="flex p-2 border border-neutral-300 rounded-full">
-                    <RxCross1 color="#FF5454" size={20} />
-                  </div>
-                </div>
-              );
-            })}
-            {/* {MyCourseReserve?.data?.map((item, index) => {
-              return (
-                <div className="w-full flex justify-between items-center">
-                  <img
-                    className="w-25 h-15 rounded-2xl overflow-hidden object-cover"
-                    src={img}
-                    alt=""
-                  />
-                  <h3 className="text-text text-lg">{item?.courseName}</h3>
-                  <p className="text-textC text-base w-30 line-clamp-1">
-                    محسن اسفندیاری ، مهدی اصغری
-                  </p>
-                  <h3 className="text-textC text-base">
-                    <span className="text-xl">1،800،000</span>تومان
-                  </h3>
-                  <Button children={"شروع یاد گیری"} buttonClassName="h-10" />
-                  <div className="flex p-2 border border-neutral-300 rounded-full">
-                    <RxCross1 color="#FF5454" size={20} />
-                  </div>
-                </div>
-              );
-            })}
-            {MyCourseReserve?.data?.map((item, index) => {
-              return (
-                <div className="w-full flex justify-between items-center">
-                  <img
-                    className="w-25 h-15 rounded-2xl overflow-hidden object-cover"
-                    src={img}
-                    alt=""
-                  />
-                  <h3 className="text-text text-lg">{item?.courseName}</h3>
-                  <p className="text-textC text-base w-30 line-clamp-1">
-                    محسن اسفندیاری ، مهدی اصغری
-                  </p>
-                  <h3 className="text-textC text-base">
-                    <span className="text-xl">1،800،000</span>تومان
-                  </h3>
-                  <Button children={"شروع یاد گیری"} buttonClassName="h-10" />
-                  <div className="flex p-2 border border-neutral-300 rounded-full">
-                    <RxCross1 color="#FF5454" size={20} />
-                  </div>
-                </div>
-              );
-            })} */}
+          <div className="w-full flex-1 flex flex-col md:divide-none divide-dashed divide-neutral-400 divide-y-1 gap-7">
+            {MyCourseReserve
+              ? searchCourse.map((item, index) => {
+                  let start = new Date(item?.startDate);
+                  start = start.toLocaleString("fa-IR");
+                  let end = new Date(item?.endDate);
+                  end = end.toLocaleString("fa-IR");
+                  return (
+                    <div
+                      key={index}
+                      className="w-full flex flex-wrap pb-3 md:flex-nowrap justify-between gap-7 md:gap-3 items-center"
+                    >
+                      <img
+                        className="w-25 h-15 rounded-2xl overflow-hidden object-cover"
+                        src={item?.image || img}
+                        alt=""
+                      />
+                      <h3 className="text-text text-base">
+                        {item?.courseName}
+                      </h3>
+                      <p className="text-textC text-sm">{start}</p>
+                      <p className="text-textC text-sm">{end}</p>
+                      <Button
+                        children={"شروع یاد گیری"}
+                        buttonClassName="h-10 text-sm text-nowrap"
+                      />
+                      <div className="flex p-2 border border-neutral-300 rounded-full">
+                        <RxCross1 color="#FF5454" size={20} />
+                      </div>
+                    </div>
+                  );
+                })
+              : ""}
+
+            {MyCourseReserveLoading ? (
+              <Loading size={"text-3xl"} circleSize={"8"} />
+            ) : (
+              ""
+            )}
+            {searchCourse.length == 0 && !MyCourseReserveLoading ? (
+              <NotFound size={"text-xl"} />
+            ) : (
+              ""
+            )}
           </div>
+          <TeacherListPagination
+            totalCount={searchCourse?.length}
+            setPage={setpage}
+          />
         </div>
       </div>
     </>

@@ -21,6 +21,7 @@ import ResetPasswordGuard from "../../components/guard/reset-password/ResetPassw
 import Dashboard from "../../components/templates/user-panel/dashboard/Dashboard";
 import MyCourse from "../../components/templates/user-panel/my-course/MyCourse";
 import MyCourseReserve from "../../components/templates/user-panel/my-course-reserve/MyCourseReserve";
+import MyFavoriteCourses from "../../components/templates/user-panel/my-favorite-courses/MyFavoriteCourses";
 
 const router = createBrowserRouter([
   {
@@ -95,6 +96,7 @@ const router = createBrowserRouter([
           { index: true, element: <Dashboard /> },
           { path: "my-course", element: <MyCourse /> },
           { path: "my-reservation", element: <MyCourseReserve /> },
+          { path: "my-favorite-course", element: <MyFavoriteCourses /> },
         ],
       },
     ],

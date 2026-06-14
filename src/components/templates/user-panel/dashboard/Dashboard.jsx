@@ -75,7 +75,7 @@ const Dashboard = () => {
             <div className="w-11/12 flex flex-col flex-1 gap-2 justify-between divide-dashed divide-y-2 divide-neutral-300">
               {latestNewsListLoading ? <Loading /> : ""}
               {latestNewsList
-                ? latestNewsList?.data.news.map((item, index) => {
+                ? latestNewsList?.data?.news?.map((item, index) => {
                     return (
                       <div
                         className="w-full flex justify-between gap-2 pb-2"

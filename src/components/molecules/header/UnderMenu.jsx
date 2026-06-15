@@ -65,7 +65,10 @@ const UnderMenu = ({ flag }) => {
               {t("newsAndArticles")}
             </h3>
           </li>
-          <li className="w-full cursor-pointer lg:w-auto flex justify-between">
+          <li className="w-full cursor-pointer lg:w-auto flex justify-between"  onClick={() => {
+              navigate("/contactUs");
+            }}>
+            
             <h3 className="font-normal text-xl lg:text-base lg:font-bold text-textC  text-nowrap">
               {t("contactUs")}
             </h3>

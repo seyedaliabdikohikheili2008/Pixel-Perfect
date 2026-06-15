@@ -1,5 +1,5 @@
 import React from "react";
-import StarRating from "./starrating/StarRating"; // مسیر فایل StarRating را چک کن
+import StarRating from "./starrating/StarRating"; 
 
 const Acceptance = ({ courseData , data}) => {
  const rating = courseData?.courseRate || data?.newsRate?.avg || 0;

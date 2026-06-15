@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import js from "../../../../assets/images/course-dtail/js.jpg";
 import like from "../../../../assets/images/icons/course-detail/like.png";
 import dislike from "../../../../assets/images/icons/course-detail/dislike.png";
@@ -6,18 +6,21 @@ import Comment from "../Comment/Comment";
 import Button from "../../../atoms/Butoon/Button";
 import comment from "../../../../assets/images/icons/course-detail/comment.svg";
 import ApiClient from "../../../../core/api/interceptors";
+import { useParams } from "react-router-dom";
 const Description = ({ course }) => {
+  const{id}=useParams()
   if (!course) return <div>در حال بارگذاری اطلاعات...</div>;
   const [likes, setLikes] = useState(course.likeCount || 0);
   const [dislikes, setDislikes] = useState(course.disLikeCount || 0);
 
   const [userLiked, setUserLiked] = useState(course.userIsLiked || false);
-  const [userDisliked, setUserDisliked] = useState(
-    course.userIsDisLike || false,
-  );
-
+  const [userDisliked, setUserDisliked] = useState(course.userIsDisLike || false);
   const handleLike = async () => {
     if (userLiked) return;
+    const prevLikes = likes;
+    const prevDislikes = dislikes;
+    const prevUserLiked = userLiked;
+    const prevUserDisliked = userDisliked;
     if (userDisliked) {
       setDislikes((prev) => prev - 1);
       setUserDisliked(false);
@@ -25,12 +28,21 @@ const Description = ({ course }) => {
     setLikes((prev) => prev + 1);
     setUserLiked(true);
     try {
-      const response = await ApiClient.post(`Course/AddCourseLike`, {
-        CourseId: course.courseId,
+      const response = await ApiClient.post(`Course/AddCourseLike?CourseId=${id}`, {
+        CourseId:id,
       });
       console.log("لایک با موفقیت ثبت شد:", response);
     } catch (error) {
       console.error("خطا در ثبت لایک:", error);
+       if (error.response?.status === 400) {
+        console.log("لایک قبلاً در سرور ثبت شده بود");
+      } else {
+        setLikes(prevLikes);
+        setDislikes(prevDislikes);
+        setUserLiked(prevUserLiked);
+        setUserDisliked(prevUserDisliked);
+      }
+      
     }
   };
   const handleDislike = async () => {
@@ -45,17 +57,14 @@ const Description = ({ course }) => {
     setUserDisliked(true);
 
     try {
-      const response = await ApiClient.post(`Course/AddCourseDissLike`, {
-        CourseId: course.courseId,
+      const response = await ApiClient.post(`Course/AddCourseDissLike?CourseId=${id}`, {
+        CourseId:id
       });
       console.log("دیسلایک با موفقیت ثبت شد:", response);
     } catch (error) {
       console.error("خطا در ثبت دیسلایک:", error);
-      setDislikes((prev) => prev - 1);
-      setUserDisliked(false);
     }
   };
-
   return (
     <div className="w-full bg-rootBg flex flex-col gap-10 md:w-3/4 m-auto xl:w-2/3">
       <div className="w-full flex flex-col relative mb-10 ">
@@ -98,7 +107,7 @@ const Description = ({ course }) => {
           </h1>
           <Button iconSrc={comment} children={"ارسال دیدگاه جدید"} />
         </div>
-        <Comment />
+        {/* <Comment /> */}
         <button
           className=" w-1/2 m-auto md:w-1/5 flex items-center justify-center cursor-pointer 
         px-4 py-2 focus:outline-none rounded-xl text-nowrap dark:text-primary-500 text-primary-800 border border-solid dark:border-primary-500 border-primary-800 ltr"

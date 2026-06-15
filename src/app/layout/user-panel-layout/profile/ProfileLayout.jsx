@@ -1,6 +1,7 @@
 import React from "react";
 import profile from "../../../../assets/images/course-dtail/user.png";
 import { MdOutlineEmail } from "react-icons/md";
+import { Outlet } from "react-router-dom";
 
 const ProfileLayout = () => {
   return (
@@ -34,15 +35,18 @@ const ProfileLayout = () => {
           </p>
         </div>
       </div>
-      <div>
+      <div className="flex flex-col gap-6">
         <div className="bg-neutral-50 py-5 px-8 rounded-3xl">
           <ul className="text-neutral-500 flex items-center justify-start gap-6 text-sm font-medium">
-            <li className="bg-primary-300 rounded-full text-white p-2">اطلاعات شخصی</li>
+            <li className="bg-primary-300 rounded-full text-white p-2">
+              اطلاعات شخصی
+            </li>
             <li>عکس پروفایل</li>
             <li>آدرس سکونت</li>
             <li>لینک ها</li>
           </ul>
         </div>
+        <Outlet />
       </div>
     </>
   );

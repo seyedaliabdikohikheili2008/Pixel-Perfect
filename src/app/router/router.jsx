@@ -24,6 +24,7 @@ import MyCourseReserve from "../../components/templates/user-panel/my-course-res
 import MyFavoriteCourses from "../../components/templates/user-panel/my-favorite-courses/MyFavoriteCourses";
 import MyFavoriteNews from "../../components/templates/user-panel/my-favorite-news/MyFavoriteNews";
 import ProfileLayout from "../layout/user-panel-layout/profile/ProfileLayout";
+import PersonalInformation from "../../components/templates/user-panel/profile/personal-information/PersonalInformation";
 
 const router = createBrowserRouter([
   {
@@ -100,7 +101,11 @@ const router = createBrowserRouter([
           { path: "my-reservation", element: <MyCourseReserve /> },
           { path: "my-favorite-course", element: <MyFavoriteCourses /> },
           { path: "my-favorite-news", element: <MyFavoriteNews /> },
-          { path: "profile", element: <ProfileLayout /> },
+          {
+            path: "profile",
+            element: <ProfileLayout />,
+            children: [{ index: true, element: <PersonalInformation /> }],
+          },
         ],
       },
     ],

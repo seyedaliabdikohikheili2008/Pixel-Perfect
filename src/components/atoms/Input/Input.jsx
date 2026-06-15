@@ -14,7 +14,7 @@ const Input = ({
 }) => {
   return (
     <div
-      className={`bg-neutral-50 flex justify-center items-center rounded-xl h-12.5 ${boxClassname}`}
+      className={`${boxClassname} bg-neutral-50 flex justify-center items-center rounded-xl h-12.5`}
     >
       {icon ? <img src={icon} alt="icon" className={iconClassname} /> : ""}
       <input

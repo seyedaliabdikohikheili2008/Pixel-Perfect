@@ -22,6 +22,11 @@ import UserPanelLayout from "../layout/user-panel-layout/UserPanelLayout";
 import RegistrationGuard from "../../components/guard/RegistrationGuard/RegistrationGuard";
 import ResetPasswordGuard from "../../components/guard/reset-password/ResetPasswordGuard";
 import Dashboard from "../../components/templates/user-panel/dashboard/Dashboard";
+import MyCourse from "../../components/templates/user-panel/my-course/MyCourse";
+import MyCourseReserve from "../../components/templates/user-panel/my-course-reserve/MyCourseReserve";
+import MyFavoriteCourses from "../../components/templates/user-panel/my-favorite-courses/MyFavoriteCourses";
+import MyFavoriteNews from "../../components/templates/user-panel/my-favorite-news/MyFavoriteNews";
+import ProfileLayout from "../layout/user-panel-layout/profile/ProfileLayout";
 
 
 const router = createBrowserRouter([
@@ -97,7 +102,14 @@ const router = createBrowserRouter([
       {
         path: "user-panel",
         element: <UserPanelLayout />,
-        children: [{ index: true, element: <Dashboard /> }],
+        children: [
+          { index: true, element: <Dashboard /> },
+          { path: "my-course", element: <MyCourse /> },
+          { path: "my-reservation", element: <MyCourseReserve /> },
+          { path: "my-favorite-course", element: <MyFavoriteCourses /> },
+          { path: "my-favorite-news", element: <MyFavoriteNews /> },
+          { path: "profile", element: <ProfileLayout /> },
+        ],
       },
     ],
   },

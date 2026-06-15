@@ -59,6 +59,7 @@ const Header = ({ variant }) => {
               }}
               src={user}
               alt="پروفایل"
+              className="w-15 h-15 rounded-full overflow-hidden object-cover"
             />
           ) : (
             <Button

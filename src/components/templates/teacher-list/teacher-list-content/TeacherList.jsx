@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, { useMemo, useState } from "react";
 import BestTeacherCard from "../../../organisms/landing/best-teacher/BestTeacherCard";
 import { useAllTeacher } from "../../../../core/hooks/queries/teacher/useAllTeacher";
 import TeacherListPagination from "./TeacherListPagination";
@@ -22,7 +22,7 @@ const TeacherList = () => {
   };
 
   const data = useMemo(() => {
-    return getItemsByPage(searchCourse, page);
+    return getItemsByPage(TeacherList?.data, page);
   }, [TeacherList, page]);
 
   return (

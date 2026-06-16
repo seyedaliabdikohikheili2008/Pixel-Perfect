@@ -14,6 +14,9 @@ import NotFoundPage from "../../page/not-found/NotFoundPage";
 import CourseDetail from "../../page/course-detail/CourseDetail";
 import NewsListPage from "../../page/news-list/NewsListPage";
 import TeacherListPage from "../../page/teacher-list/TeacherListPage";
+import NewsDetail from "../../page/news-detail/NewsDetail";
+import ContactUsPage from "../../page/ContactUs/ContactUsPage";
+
 import PriveteRoute from "../../components/guard/privete-route/PriveteRoute";
 import UserPanelLayout from "../layout/user-panel-layout/UserPanelLayout";
 import RegistrationGuard from "../../components/guard/RegistrationGuard/RegistrationGuard";
@@ -26,6 +29,7 @@ import MyFavoriteNews from "../../components/templates/user-panel/my-favorite-ne
 import ProfileLayout from "../layout/user-panel-layout/profile/ProfileLayout";
 import PersonalInformation from "../../components/templates/user-panel/profile/personal-information/PersonalInformation";
 
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -36,6 +40,10 @@ const router = createBrowserRouter([
       { path: "course-detail/:id", element: <CourseDetail /> },
       { path: "news-list", element: <NewsListPage /> },
       { path: "Instructors", element: <TeacherListPage /> },
+
+      { path: "news-detail/:newsId", element: <NewsDetail /> },
+      {path:"contactUs",element:<ContactUsPage/>}
+
     ],
   },
   {

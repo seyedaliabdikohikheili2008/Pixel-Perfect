@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
 import user from "../../../../assets/images/course-dtail/user.png";
 import like from "../../../../assets/images/icons/course-detail/like.png";
 import dislike from "../../../../assets/images/icons/course-detail/dislike.png";
 import replyIcon from "../../../../assets/images/icons/course-detail/reply.png";
-import { getReplyComments } from "../../../../core/services/news-detail/Comments/ReplyComment/ReplyComment";
-import { AddReplyComment } from "../../../../core/services/news-detail/Comments/AddReplyComment/AddReplyComment";
+import { GetReplyComment } from "../../../../core/services/Course-detail/GetReplyComment/GetReplyComment";
+import { useQuery } from "@tanstack/react-query";
+import { ReplyComment } from "../../../../core/services/Course-detail/ReplyComment/ReplyComment";
 
-const Comment = ({ item }) => {
+const CourseComment = ({ comment, CourseId }) => {
+  console.log(comment);
+  console.log("courseId دریافتی در CourseComment:", CourseId);
   const [isReplyBoxOpen, setIsReplyBoxOpen] = useState(false);
   const [replyText, setReplyText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -17,25 +19,24 @@ const Comment = ({ item }) => {
     isLoading: isCommentReplyLoading,
     refetch,
   } = useQuery({
-    queryKey: ["news-comment-reply", item.id],
-    queryFn: () => getReplyComments(item.id),
-    enabled: !!item.id,
+    queryKey: ["course-comment-reply", comment.id],
+    queryFn: () => GetReplyComment(comment.id),
+    enabled: !!comment.id,
   });
 
   const handleSendReply = async () => {
+    if (!replyText.trim()) return;
 
     setIsLoading(true);
     try {
-      const replyData = {
-        newsId: item.newsId,
-        userIpAddress: "0.0.0.0",
-        title: "پاسخ به نظر",
-        describe: replyText,
-        userId: Number(localStorage.getItem("userId")) || 0,
-        parentId: item.id,
-      };
+      const formData = new FormData();
+    formData.append("CommentId", comment.id);
+    formData.append("CourseId", CourseId);
+    formData.append("Title", "پاسخ به نظر");
+    formData.append("Describe", replyText);
 
-      await AddReplyComment(replyData);
+    await ReplyComment(formData);
+
       setReplyText("");
       setIsReplyBoxOpen(false);
       await refetch();
@@ -50,37 +51,35 @@ const Comment = ({ item }) => {
     <div className="w-full rounded-xl shadow-[0_1px_2px_0_rgba(0,0,0,0.25)] bg-background py-5">
       <div className="flex flex-col gap-5">
         <div className="flex items-center w-9/10 m-auto gap-3 p-5 border-b border-solid border-neutral-100">
-          <img src={item.currentPictureAddress || user} alt="" />
+          <img src={comment.pictureAddress || user} alt="" />
           <div className="flex flex-col gap-2">
             <h1 className="font-bold text-xl text-right text-textC">
-              {item.userFullName}
+              {comment.author || "کاربر سایت"}
             </h1>
-            <p className="font-bold text-md text-right text-neutral-300">
-              {item.user?.gmail}
-            </p>
+            <p className="font-bold text-md text-right text-neutral-300"></p>
           </div>
         </div>
 
         <div className="px-5 text-right pb-5">
           <p className="font-normal text-sm text-neutral-500 px-5">
-            {item.describe}
+            {comment.describe}
           </p>
         </div>
 
         <div className="flex items-center justify-end gap-3 px-15 py-3">
           <div className="flex items-center justify-center gap-3">
             <img src={like} alt="" />
-            <p className="text-textC">{item.likeCount}</p>
+            <p className="text-textC">{comment.likeCount}</p>
           </div>
           <div className="flex items-center justify-center gap-3">
             <img src={dislike} alt="" />
-            <p className="text-textC">{item.dissLikeCount}</p>
+            <p className="text-textC">{comment.disslikeCount}</p>
           </div>
         </div>
 
         <p className="text-textC px-15 text-left">
-          {item?.inserDate
-            ? new Date(item.inserDate).toLocaleDateString("fa-IR")
+          {comment?.insertDate
+            ? new Date(comment.insertDate).toLocaleDateString("fa-IR")
             : "تاریخ نامشخص"}
         </p>
 
@@ -103,7 +102,7 @@ const Comment = ({ item }) => {
               <button
                 className={`bg-primary-300 text-white px-4 py-2 rounded-lg ${isLoading ? "opacity-50" : ""}`}
                 onClick={handleSendReply}
-                disabled={isLoading}
+                disabled={isLoading || !replyText.trim()}
               >
                 {isLoading ? "در حال ثبت..." : "ثبت پاسخ"}
               </button>
@@ -123,10 +122,10 @@ const Comment = ({ item }) => {
           {replyData.data.map((reply) => (
             <div className="border-b border-solid border-neutral-500 w-9/10 m-auto p-3">
               <div key={reply.id} className="flex items-center gap-3">
-                <img src={reply.userPictureAddress || user} alt="user" />
+                <img src={reply.pictureAddress || user} alt="user" />
                 <div className="flex flex-col">
                   <h2 className="font-bold text-textC text-right">
-                    {reply.userFullName || "کاربر سایت"}
+                    {reply.author || "کاربر سایت"}
                   </h2>
                   <p className="text-xs text-neutral-400 text-right">
                     {reply.gmail || ""}
@@ -142,4 +141,4 @@ const Comment = ({ item }) => {
   );
 };
 
-export default Comment;
+export default CourseComment;

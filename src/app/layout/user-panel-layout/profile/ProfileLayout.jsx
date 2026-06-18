@@ -1,9 +1,11 @@
 import React from "react";
 import profile from "../../../../assets/images/course-dtail/user.png";
 import { MdOutlineEmail } from "react-icons/md";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 const ProfileLayout = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   return (
     <>
       <div className="bg-primary-400 rounded-3xl w-full h-75 relative">
@@ -37,13 +39,25 @@ const ProfileLayout = () => {
       </div>
       <div className="flex flex-col gap-6">
         <div className="bg-neutral-50 py-5 px-8 rounded-3xl">
-          <ul className="text-neutral-500 flex items-center justify-start gap-6 text-sm font-medium">
-            <li className="bg-primary-300 rounded-full text-white p-2">
+          <ul className="text-neutral-500 flex items-center justify-start gap-6 text-xs md:text-sm font-medium">
+            <li
+              onClick={() => {
+                navigate("/user-panel/profile");
+              }}
+              className={`${location.pathname == "/user-panel/profile" ? "bg-primary-300 rounded-full text-white" : ""} p-2 cursor-pointer`}
+            >
               اطلاعات شخصی
             </li>
-            <li>عکس پروفایل</li>
-            <li>آدرس سکونت</li>
-            <li>لینک ها</li>
+            <li
+              onClick={() => {
+                navigate("/user-panel/profile/image");
+              }}
+              className={`${location.pathname == "/user-panel/profile/image" ? "bg-primary-300 rounded-full text-white" : ""} p-2 cursor-pointer`}
+            >
+              عکس پروفایل
+            </li>
+            <li className="cursor-pointer">آدرس سکونت</li>
+            <li className="cursor-pointer">لینک ها</li>
           </ul>
         </div>
         <Outlet />

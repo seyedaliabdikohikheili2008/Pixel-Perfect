@@ -5,5 +5,6 @@ export const useMyCourse = (params) => {
   return useQuery({
     queryKey: ["MyCourse",params],
     queryFn: () => getMyCourse(params),
+    retry:false,
   });
 };

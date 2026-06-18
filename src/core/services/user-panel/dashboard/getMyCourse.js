@@ -9,7 +9,6 @@ export const getMyCourse = async (params) => {
     headers: result.headers,
   };
   } catch (error) {
-    console.log(error);
-    return [];
+    throw error;
   }
 };

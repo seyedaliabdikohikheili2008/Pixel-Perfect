@@ -5,5 +5,6 @@ export const useMyCourseReserve = () => {
   return useQuery({
     queryKey: ["MyCourseReserve"],
     queryFn: () => getMyCoursesReserve(),
+    retry:false,
   });
 };

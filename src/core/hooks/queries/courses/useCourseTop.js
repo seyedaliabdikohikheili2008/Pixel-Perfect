@@ -5,5 +5,6 @@ export const useCourseTop = (params) => {
   return useQuery({
     queryKey: ["CourseTop",params],
     queryFn: () => getCourseTop(params),
+    retry:false,
   });
 };

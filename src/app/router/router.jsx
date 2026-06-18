@@ -28,7 +28,7 @@ import MyFavoriteCourses from "../../components/templates/user-panel/my-favorite
 import MyFavoriteNews from "../../components/templates/user-panel/my-favorite-news/MyFavoriteNews";
 import ProfileLayout from "../layout/user-panel-layout/profile/ProfileLayout";
 import PersonalInformation from "../../components/templates/user-panel/profile/personal-information/PersonalInformation";
-
+import ProfileImage from "../../components/templates/user-panel/profile/profile-image/ProfileImage";
 
 const router = createBrowserRouter([
   {
@@ -42,8 +42,7 @@ const router = createBrowserRouter([
       { path: "Instructors", element: <TeacherListPage /> },
 
       { path: "news-detail/:newsId", element: <NewsDetail /> },
-      {path:"contactUs",element:<ContactUsPage/>}
-
+      { path: "contactUs", element: <ContactUsPage /> },
     ],
   },
   {
@@ -112,7 +111,10 @@ const router = createBrowserRouter([
           {
             path: "profile",
             element: <ProfileLayout />,
-            children: [{ index: true, element: <PersonalInformation /> }],
+            children: [
+              { index: true, element: <PersonalInformation /> },
+              { path: "image", element: <ProfileImage /> },
+            ],
           },
         ],
       },

@@ -5,5 +5,6 @@ export const useAllCoursesType = () => {
   return useQuery({
     queryKey: ["AllCoursesType"],
     queryFn: () => getAllCourseType(),
+    retry:false,
   });
 };

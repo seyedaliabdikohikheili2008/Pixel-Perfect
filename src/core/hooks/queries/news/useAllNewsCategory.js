@@ -5,5 +5,6 @@ export const useAllNewsCategory = () => {
   return useQuery({
     queryKey: ["AllNewsCategory"],
     queryFn: () => getAllNewsCategory(),
+    retry:false,
   });
 };

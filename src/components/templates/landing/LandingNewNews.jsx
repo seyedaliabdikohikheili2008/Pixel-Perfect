@@ -4,6 +4,8 @@ import NewsCard from "../../organisms/news/news-card/NewsCard";
 import TitleDesc from "../../molecules/section-title/SectionTitle";
 import { useAllNews } from "../../../core/hooks/queries/news/useAllNews";
 import { useTranslation } from "react-i18next";
+import Loading from "../../atoms/loading/Loading";
+import Error from "../../atoms/error/Error";
 
 const LandingNewNews = () => {
   const { t } = useTranslation("landing");
@@ -15,11 +17,14 @@ const LandingNewNews = () => {
   } = useAllNews();
 
   const NewNews = useMemo(() => {
-    if (NewsList) {
-      return [...NewsList.data.news]
-        .sort((a, b) => new Date(b.insertDate) - new Date(a.insertDate))
-        .slice(0, 3);
+    const news = NewsList?.data?.news;
+
+    if (!Array.isArray(news)) {
+      return [];
     }
+    return [...news]
+      .sort((a, b) => new Date(b.insertDate) - new Date(a.insertDate))
+      .slice(0, 3);
   }, [NewsList]);
 
   return (
@@ -27,18 +32,13 @@ const LandingNewNews = () => {
       <div className="w-11/12 mx-auto flex flex-col items-center gap-10 mb-24">
         <TitleDesc title={t("NewNews.title")} desc={t("NewNews.describe")} />
         <div className="flex gap-5 justify-center flex-wrap">
+          {NewsListLoading ? <Loading circleSize={5} size={"text-2xl"} /> : ""}
+          {NewsListErr ? <Error size={"text-2xl"} /> : ""}
           {NewNews?.map((news, index) => {
             return <NewsCard key={news.title + index} detail={news} />;
           })}
-
-          {/* <NewsCard />
-          <NewsCard />
-          <NewsCard /> */}
         </div>
-        <Button
-          children={t("NewNews.button")}
-          buttonClassName="rounded-full"
-        />
+        <Button children={t("NewNews.button")} buttonClassName="rounded-full" />
       </div>
     </>
   );

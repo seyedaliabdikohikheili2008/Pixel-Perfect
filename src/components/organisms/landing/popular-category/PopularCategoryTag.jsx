@@ -2,6 +2,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import icon from "../../../../assets/images/icons/landing/elements.png";
 import motion from "../../../../assets/styles/popular-category-motion/PopularCategoryMotion.module.css";
 import { useAllTechnologies } from "../../../../core/hooks/queries/technologies/useAllTechnologies";
+import Loading from "../../../atoms/loading/Loading";
+import Error from "../../../atoms/error/Error";
 const PopularCategoryTag = () => {
   const {
     data: TechnologyList = undefined,
@@ -10,7 +12,7 @@ const PopularCategoryTag = () => {
   } = useAllTechnologies();
 
   const repeatedItems = useMemo(() => {
-    if (!TechnologyList?.data.length) return [];
+    if (!TechnologyList?.data?.length) return [];
 
     return Array.from(
       { length: 50 },
@@ -20,6 +22,12 @@ const PopularCategoryTag = () => {
 
   return (
     <div className="w-full my-5 flex flex-col gap-5">
+      {TechnologyListLoading ? (
+        <Loading circleSize={5} size={"text-2xl"} />
+      ) : (
+        ""
+      )}
+      {TechnologyListErr ? <Error size={"text-2xl"} /> : ""}
       <div className={`${motion.move} flex justify-center gap-3 -rotate-3`}>
         {repeatedItems?.map((tag, index) => (
           <div

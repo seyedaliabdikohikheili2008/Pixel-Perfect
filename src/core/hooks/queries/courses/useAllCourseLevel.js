@@ -5,5 +5,6 @@ export const useAllCoursesLevel = () => {
   return useQuery({
     queryKey: ["AllCoursesLevel"],
     queryFn: () => getAllCourseLevel(),
+    retry:false,
   });
 };

@@ -5,5 +5,6 @@ export const useMyFavoriteNews = () => {
   return useQuery({
     queryKey: ["MyCFavoriteNews"],
     queryFn: () => getMyFavoriteNews(),
+    retry:false,
   });
 };

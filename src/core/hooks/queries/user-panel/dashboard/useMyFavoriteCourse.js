@@ -5,5 +5,6 @@ export const useMyFavoriteCourse = () => {
   return useQuery({
     queryKey: ["MyCFavoriteCourse"],
     queryFn: () => getMyFavoriteCourse(),
+    retry:false,
   });
 };

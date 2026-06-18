@@ -5,5 +5,6 @@ export const useAllNews = (params) => {
   return useQuery({
     queryKey: ["AllNews",params],
     queryFn: () => getAllNews(params),
+    retry:false,
   });
 };

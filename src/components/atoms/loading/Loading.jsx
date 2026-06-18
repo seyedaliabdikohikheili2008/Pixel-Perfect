@@ -3,7 +3,7 @@ import React from "react";
 const Loading = ({ size, circleSize }) => {
   return (
     <div
-      className={`mx-auto flex gap-3 text-textC ${size ? size : "text-5xl"} font-bold`}
+      className={`mx-auto flex items-center gap-3 text-textC ${size ? size : "text-5xl"} font-bold`}
     >
       در حال بارگذاری...
       <div

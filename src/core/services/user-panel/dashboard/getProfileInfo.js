@@ -9,7 +9,6 @@ export const getProfileInfo = async () => {
     headers: result.headers,
   };
   } catch (error) {
-    console.log(error);
-    return [];
+    throw error;
   }
 };

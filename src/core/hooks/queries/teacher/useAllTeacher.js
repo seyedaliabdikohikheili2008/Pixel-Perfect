@@ -5,5 +5,6 @@ export const useAllTeacher = () => {
   return useQuery({
     queryKey: ["AllTeacher"],
     queryFn: () => getAllTeacher(),
+    retry:false,
   });
 };

@@ -7,6 +7,8 @@ import Button from "../../atoms/Butoon/Button";
 import TitleDesc from "../../molecules/section-title/SectionTitle";
 import { useCourseTop } from "../../../core/hooks/queries/courses/useCourseTop";
 import { useTranslation } from "react-i18next";
+import Loading from "../../atoms/loading/Loading";
+import Error from "../../atoms/error/Error";
 const LandingBestCourse = () => {
   const { t } = useTranslation("landing");
 
@@ -35,7 +37,13 @@ const LandingBestCourse = () => {
           title={t("BestCourse.title")}
         />
         <div className="z-10 w-11/12 justify-between flex flex-wrap ">
-          {CourseTopList?.data.map((item, index) => {
+          {CourseTopListLoading ? (
+            <Loading circleSize={5} size={"text-2xl"} />
+          ) : (
+            ""
+          )}
+          {CourseTopListErr ? <Error size={"text-2xl"} /> :""}
+          {CourseTopList?.data?.map((item, index) => {
             return (
               <LBestCourseCard
                 key={item.courseId + item.title + index}

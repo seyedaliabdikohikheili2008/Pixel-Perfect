@@ -5,5 +5,6 @@ export const useAllTechnologies = () => {
   return useQuery({
     queryKey: ["AllTechnologies"],
     queryFn: () => getAllTechnologies(),
+    retry:false,
   });
 };

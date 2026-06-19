@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import DashboardHeader from "../../../components/organisms/dashboard/header/DashboardHeader";
 import logo from "../../../assets/images/LogoImages/linear.png";
 import { RxDashboard } from "react-icons/rx";
-import { LuBookText } from "react-icons/lu";
+import { LuBookText, LuShield } from "react-icons/lu";
 import { TbClockHour10 } from "react-icons/tb";
 import { LuBookMarked } from "react-icons/lu";
 import { MdOutlineBook } from "react-icons/md";
@@ -76,6 +76,15 @@ const UserPanelLayout = () => {
             >
               <MdOutlineBook size={24} />
               <h3 className="text-lg">علاقه‌مندی مقالات</h3>
+            </li>
+            <li
+              onClick={() => {
+                navigate("/user-panel/Security");
+              }}
+              className={`flex cursor-pointer items-center gap-4 p-4 ${location.pathname == "/user-panel/Security" ? "bg-primary-500 text-white" : "text-textC"} rounded-[38px]`}
+            >
+              <LuShield size={24} />
+              <h3 className="text-lg">تنظیمات امنیتی</h3>
             </li>
             <li
               onClick={() => {

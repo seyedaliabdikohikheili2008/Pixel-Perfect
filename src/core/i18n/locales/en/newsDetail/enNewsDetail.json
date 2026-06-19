@@ -1,0 +1,16 @@
+{
+    "description":{
+        "explanation":"explanation",
+        "Comments":"Comments",
+        "button":"Register a new view",
+        "more":"View more",
+        "add":"Write your comment...",
+        "out":"opt out",
+        "send":"Register a comment"
+    },
+    "sidebar":{
+        "view":"view",
+        "date":"date"
+    },
+    "similar":"similar news"
+}

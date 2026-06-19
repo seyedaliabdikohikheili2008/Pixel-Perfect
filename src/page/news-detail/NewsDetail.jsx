@@ -7,8 +7,10 @@ import { getNewsDetail } from "../../core/services/news-detail/news-detail";
 import NewsDescription from "../../components/templates/newsDetail/news-describtion/NewsDescribtion";
 import { getTopNews } from "../../core/services/news-detail/topnews/Topnews";
 import NewsCard from "../../components/organisms/news/news-card/NewsCard";
+import { useTranslation } from "react-i18next";
 const NewsDetail = () => {
   const { newsId } = useParams();
+  const { t } = useTranslation("newsDetail");
   console.log("Value of ID from URL:", newsId);
 
   const { data, isLoading, error } = useQuery({
@@ -37,7 +39,7 @@ const NewsDetail = () => {
       </div>
 
       <div className="w-11/12 mx-auto py-10">
-        <SectionTitle width="w-75" title={"اخبار های مشابه"} />
+        <SectionTitle width="w-75" title={t("similar")} />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4  justify-between mt-8">
           {isTopLoading ? (
             <p className="text-textC">در حال بارگذاری دوره‌های برتر...</p>

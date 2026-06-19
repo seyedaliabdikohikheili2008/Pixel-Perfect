@@ -29,6 +29,7 @@ import MyFavoriteNews from "../../components/templates/user-panel/my-favorite-ne
 import ProfileLayout from "../layout/user-panel-layout/profile/ProfileLayout";
 import PersonalInformation from "../../components/templates/user-panel/profile/personal-information/PersonalInformation";
 import ProfileImage from "../../components/templates/user-panel/profile/profile-image/ProfileImage";
+import SecuritySetting from "../../components/templates/user-panel/securitysetting/SecuritySetting";
 
 const router = createBrowserRouter([
   {
@@ -108,6 +109,7 @@ const router = createBrowserRouter([
           { path: "my-reservation", element: <MyCourseReserve /> },
           { path: "my-favorite-course", element: <MyFavoriteCourses /> },
           { path: "my-favorite-news", element: <MyFavoriteNews /> },
+        {path:"Security",element:<SecuritySetting/>},
           {
             path: "profile",
             element: <ProfileLayout />,

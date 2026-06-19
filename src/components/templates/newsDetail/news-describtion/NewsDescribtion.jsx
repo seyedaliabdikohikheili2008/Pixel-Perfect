@@ -9,7 +9,9 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getComments } from "../../../../core/services/news-detail/Comments/Comments";
 import { AddComment } from "../../../../core/services/news-detail/Comments/AddComment/AddComment";
+import { useTranslation } from "react-i18next";
 const NewsDescription = ({ news }) => {
+  const { t } = useTranslation("newsDetail");
   const { NewsId } = useParams();
   const { newsId } = useParams();
   const idToSend = newsId;
@@ -116,7 +118,7 @@ const NewsDescription = ({ news }) => {
       </div>
       <div className="flex flex-col gap-3 ">
         <h1 className="text-2xl md:text-3xl font-bold text-textC text-right px-3">
-          توضیحات
+          {t("description.explanation")}
         </h1>
         <div className="text-[#7B7B7B] text-right rounded-2xl shadow-[0_1px_2px_0_rgba(0,0,0,0.25)] bg-background h-50">
           <p className="px-3">{news.describe}</p>
@@ -125,11 +127,11 @@ const NewsDescription = ({ news }) => {
       <div className="flex flex-col gap-4">
         <div className="flex justify-between items-center">
           <h1 className="text-2xl md:text-3xl font-bold text-textC text-right px-2">
-            نظرات
+            {t("description.Comments")}
           </h1>
           <Button
             iconSrc={comment}
-            children={"ارسال دیدگاه جدید"}
+            children={t("description.button")}
             onClick={() => setIsCommentBoxOpen(true)}
           />
         </div>
@@ -139,7 +141,7 @@ const NewsDescription = ({ news }) => {
             <textarea
               ref={commentTextRef}
               className="w-full min-h-32  text-textC p-3 rounded-lg border border-gray-300 text-right outline-none"
-              placeholder="نظر خود را بنویسید..."
+              placeholder={t("description.add")}
               value={commentText}
               onChange={(e) => setCommentText(e.target.value)}
             />
@@ -152,11 +154,11 @@ const NewsDescription = ({ news }) => {
                   setCommentText("");
                 }}
               >
-                انصراف
+                {t("description.out")}
               </button>
 
               <Button
-                children={"ثبت نظر"}
+                children={t("description.send")}
                 onClick={async () => {
                   try {
                     const commentData = {
@@ -192,7 +194,7 @@ const NewsDescription = ({ news }) => {
         px-4 py-2 focus:outline-none rounded-xl text-nowrap dark:text-primary-500 text-primary-800 border border-solid dark:border-primary-500 border-primary-800 ltr"
                 onClick={() => setVisibleCount((prev) => prev + 10)}
               >
-                مشاهده بیشتر
+                {t("description.more")}
               </button>
             )}
           </div>

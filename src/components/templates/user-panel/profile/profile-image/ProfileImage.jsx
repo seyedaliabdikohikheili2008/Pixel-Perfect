@@ -7,13 +7,16 @@ import { useAddProfileImage } from "../../../../../core/hooks/queries/user-panel
 import toast from "react-hot-toast";
 import { useProfileInfo } from "../../../../../core/hooks/queries/user-panel/dashboard/useProfileInfo";
 import { useDeleteProfileImage } from "../../../../../core/hooks/queries/user-panel/profile/useDeleteProfileImage";
+import { useSelectProfileImage } from "../../../../../core/hooks/queries/user-panel/profile/useSelectProfileImage";
 
 const ProfileImage = () => {
   const inputRef = useRef(null);
 
-  const { mutate: addImage, isPending } = useAddProfileImage();
-  const { mutate: deleteImage, isPending: deletePending } =
+  const { mutate: addImage, isPending: addImagePending } = useAddProfileImage();
+  const { mutate: deleteImage, isPending: deleteImagePending } =
     useDeleteProfileImage();
+  const { mutate: selectImage, isPending: selectImagePending } =
+    useSelectProfileImage();
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -39,6 +42,20 @@ const ProfileImage = () => {
     deleteImage(formData, {
       onSuccess: (res) => {
         toast.success("عکس با موفقیت پاک شد");
+        ProfileInfoRefetch();
+      },
+      onError: (err) => {
+        console.log(err?.response?.data);
+      },
+    });
+  };
+
+  const handleSelectImage = (id) => {
+    const formData = new FormData();
+    formData.append("ImageId", id);
+    selectImage(formData, {
+      onSuccess: (res) => {
+        toast.success("عکس با موفقیت انتخاب شد");
         ProfileInfoRefetch();
       },
       onError: (err) => {
@@ -78,7 +95,12 @@ const ProfileImage = () => {
                 >
                   <SlTrash size={20} />
                 </div>
-                <div className="p-1 cursor-pointer rounded-full bg-primary-500">
+                <div
+                  onClick={() => {
+                    handleSelectImage(item.id);
+                  }}
+                  className="p-1 cursor-pointer rounded-full bg-primary-500"
+                >
                   <IoCheckmark color="white" size={20} />
                 </div>
               </div>

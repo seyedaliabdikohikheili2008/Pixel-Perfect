@@ -29,7 +29,7 @@ const ProfileLayout = () => {
         <div className="flex flex-col gap-3">
           <div className="flex items-center gap-3">
             <h2 className="text-textC text-3xl font-bold">
-              {ProfileInfo?.data?.fName + ProfileInfo?.data?.lName ||
+              {ProfileInfo?.data?.fName + " " + ProfileInfo?.data?.lName ||
                 "بدون نام"}
             </h2>
             <p className="text-[#787878] text-base">( دانشجو )</p>

@@ -10,12 +10,20 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import user from "../../../assets/images/course-dtail/user.png";
 import { isAuthenticated } from "../../../core/utils/auth/IsAuthenticated";
+import { useProfileInfo } from "../../../core/hooks/queries/user-panel/dashboard/useProfileInfo";
 
 const Header = ({ variant }) => {
   const { t } = useTranslation("header");
   const [UMenuFlag, setUMenuFlag] = useState(false);
   const navigate = useNavigate();
   const [showHeader, setShowHeader] = useState(true);
+
+  const {
+    data: ProfileInfo = undefined,
+    isError: ProfileInfoErr,
+    isLoading: ProfileInfoLoading,
+    error: ProfileInfoError,
+  } = useProfileInfo();
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
@@ -57,7 +65,7 @@ const Header = ({ variant }) => {
               onClick={() => {
                 navigate("/user-panel");
               }}
-              src={user}
+              src={ProfileInfo?.data?.currentPictureAddress || user}
               alt="پروفایل"
               className="w-15 h-15 rounded-full overflow-hidden object-cover"
             />

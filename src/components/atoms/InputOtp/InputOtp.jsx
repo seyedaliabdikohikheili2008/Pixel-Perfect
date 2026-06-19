@@ -26,7 +26,7 @@ const InputOtp = () => {
       // }
       else if (location.pathname == "/auth/register/step-2") {
         dispatch(stepIncrement());
-        navigate("/atuh/register/step-3");
+        navigate("/auth/register/step-3");
       }
     },
     onError: (error) => {

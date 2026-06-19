@@ -6,6 +6,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAllCourses } from "../../../../core/hooks/queries/courses/useAllCoures";
 import NotFound from "../../../atoms/not-found/NotFound";
 import Loading from "../../../atoms/loading/Loading";
+import Error from "../../../atoms/error/Error";
 
 const CourseList = () => {
   const [cardView2, setcardView2] = useState(false);
@@ -63,7 +64,7 @@ const CourseList = () => {
     isError: CoursesListErr,
     isLoading: CoursesListLoading,
   } = useAllCourses(params);
-
+  console.log(CoursesList);
   return (
     <>
       <div className="w-11/12 md:w-4/5 flex flex-col items-center gap-10">
@@ -73,13 +74,18 @@ const CourseList = () => {
         >
           {CoursesListLoading ? <Loading /> : ""}
           {CoursesList?.data?.totalCount == 0 ? <NotFound /> : ""}
+          {CoursesListErr ? <Error /> : ""}
           {CoursesList?.data?.courseFilterDtos.map((item, index) => {
             return (
               <CourseCard cardView2={cardView2} detail={item} key={index} />
             );
           })}
         </div>
-        <CourseListPagination totalCount={CoursesList?.data?.totalCount} />
+        {!CoursesList || CoursesListLoading ? (
+          ""
+        ) : (
+          <CourseListPagination totalCount={CoursesList?.data?.totalCount} />
+        )}
       </div>
     </>
   );

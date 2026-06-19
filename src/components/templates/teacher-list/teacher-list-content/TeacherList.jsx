@@ -30,14 +30,19 @@ const TeacherList = () => {
       <div className="w-full flex flex-wrap gap-5 justify-center md:justify-evenly lg:justify-between mb-12">
         {TeacherListLoading ? <Loading /> : ""}
         {data?.length == 0 && !TeacherListLoading ? <NotFound /> : ""}
+        {TeacherListErr ? <Error /> : ""}
         {data?.map((item, index) => {
           return <BestTeacherCard detail={item} key={index} />;
         })}
       </div>
-      <TeacherListPagination
-        totalCount={TeacherList?.data.length}
-        setPage={setpage}
-      />
+      {!TeacherList || TeacherListLoading ? (
+        ""
+      ) : (
+        <TeacherListPagination
+          totalCount={TeacherList?.data.length}
+          setPage={setpage}
+        />
+      )}
     </>
   );
 };

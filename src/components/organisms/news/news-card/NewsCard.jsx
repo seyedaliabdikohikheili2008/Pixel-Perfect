@@ -11,13 +11,13 @@ const NewsCard = ({ detail, cardView2 = false }) => {
   return (
     <>
       <div
-        className={`${cardView2 ? "w-full h-100" : "h-120 w-79"} relative rounded-4xl overflow-hidden m-auto`}
+        className={`${cardView2 ? "w-full h-90" : "h-110 w-70"} relative rounded-4xl overflow-hidden m-auto`}
         onClick={()=>navigate (`/news-detail/${detail?.id}`)}
       >
         <img
           className="z-0 object-cover w-full h-full object-center"
           src={detail?.currentImageAddress || img}
-          alt=""
+          alt="news-image"
         />
         <div className="w-full h-full absolute shadow-[inset_0px_-100px_120px_0px_#202020] top-0 right-0 z-10"></div>
         <div className="w-10/12 flex flex-col gap-3 absolute z-10 bottom-5 left-1/2 -translate-x-1/2">

@@ -18,10 +18,10 @@ const CourseDetail = () => {
     staleTime: 0,
   });
 
- const { data: topCoursesData, isLoading: isTopLoading } = useQuery({
-  queryKey: ["top-courses", 4], 
-  queryFn: () => TopCourse(4), 
-});
+  const { data: topCoursesData, isLoading: isTopLoading } = useQuery({
+    queryKey: ["top-courses", 4],
+    queryFn: () => TopCourse(4),
+  });
 
   if (isLoading || isLoading) return <div>در حال بارگذاری اطلاعات دوره...</div>;
   if (error) return <div>خطایی رخ داده است.</div>;
@@ -34,19 +34,18 @@ const CourseDetail = () => {
         <CourseSideBar course={courseData} />
       </div>
 
-      
-        <div className="w-11/12 mx-auto py-10">
-          <SectionTitle width="w-75" title={"دوره های مشابه"} />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4  gap-6 mt-8">
-    {isTopLoading ? (
-      <p>در حال بارگذاری دوره‌های برتر...</p> 
-    ) : (
-      topCoursesData?.data?.map((detail) => (
-        <CourseCard key={detail.CourseId} detail={detail}/>
-      ))
-    )}
-  </div>
+      <div className="w-11/12 mx-auto py-10">
+        <SectionTitle width="w-75" title={"دوره های مشابه"} />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4  gap-6 mt-8">
+          {isTopLoading ? (
+            <p>در حال بارگذاری دوره‌های برتر...</p>
+          ) : (
+            topCoursesData?.data?.map((detail) => (
+              <CourseCard key={detail.CourseId} detail={detail} />
+            ))
+          )}
         </div>
+      </div>
     </>
   );
 };

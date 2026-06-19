@@ -5,7 +5,7 @@ import NewsListContent from "./news-list-content/NewsListContent";
 const NewsListMain = () => {
   return (
     <>
-      <div className="w-11/12 relative mx-auto flex justify-evenly gap-9 mb-24">
+      <div className="w-11/12 relative mx-auto flex justify-evenly gap-9 mb-34">
         <NewsListFilter />
         <NewsListContent />
       </div>

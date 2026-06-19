@@ -25,11 +25,13 @@ const LBestCourseCard = ({ detail }) => {
   return (
     <>
       <div className="w-90 relative flex flex-col items-center">
-        <img
-          className="rounded-2xl w-full max-h-50 overflow-hidden"
-          src={detail?.imageAddress || Img}
-          alt=""
-        />
+        <div className="w-full h-50">
+          <img
+            className="rounded-2xl w-full max-h-50 overflow-hidden"
+            src={detail?.imageAddress || Img}
+            alt="course-image"
+          />
+        </div>
         <div className="w-11/12 -translate-y-15 flex p-4 flex-col gap-5 bg-rootBg rounded-2xl">
           <h2 className="h-14 line-clamp-2 text-right text-xl text-textC font-bold">
             {detail?.title}

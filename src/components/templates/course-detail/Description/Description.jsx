@@ -151,6 +151,7 @@ const Description = ({ course }) => {
            {t("description.Comments")}
           </h1>
           <Button
+          iconSrc={comment}
             children={t("description.button")}
             onClick={() => setIsCommentBoxOpen(true)}
           />

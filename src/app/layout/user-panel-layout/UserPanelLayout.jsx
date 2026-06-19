@@ -21,7 +21,7 @@ const UserPanelLayout = () => {
       <Toaster />
       <div className="w-full relative overflow-x-hidden bg-dashboardBg flex items-start gap-5 p-4">
         <div
-          className={`lg:w-73 w-11/12 absolute ${menuFlag ? "flex" : "hidden"} top-24 lg:top-0 left-1/2 lg:left-0 -translate-x-1/2 lg:translate-x-0 lg:relative bg-background lg:flex flex-col gap-10 z-40 items-center h-158 py-6 rounded-3xl shadow-[0px_50px_100px_0px_#48484829]`}
+          className={`lg:w-73 w-11/12 absolute ${menuFlag ? "flex" : "hidden"} top-24 lg:top-0 left-1/2 lg:left-0 -translate-x-1/2 lg:translate-x-0 lg:relative bg-background lg:flex flex-col gap-10 z-40 items-center h-160 py-6 rounded-3xl shadow-[0px_50px_100px_0px_#48484829]`}
         >
           <img
             onClick={() => {

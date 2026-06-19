@@ -22,6 +22,7 @@ const Input = ({
         type={type}
         placeholder={placeholder}
         onChange={onChange}
+        value={value}
         onBlur={onBlur}
         name={name}
       />

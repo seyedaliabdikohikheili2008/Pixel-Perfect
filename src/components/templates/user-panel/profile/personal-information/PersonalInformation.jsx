@@ -1,8 +1,15 @@
 import React from "react";
 import CircularProgress from "../../../../molecules/circular-progress/CircularProgress";
 import PersonalInformationForm from "./PersonalInformationForm";
+import { useProfileInfo } from "../../../../../core/hooks/queries/user-panel/dashboard/useProfileInfo";
 
 const PersonalInformation = () => {
+  const {
+    data: ProfileInfo = undefined,
+    isError: ProfileInfoErr,
+    isLoading: ProfileInfoLoading,
+    error: ProfileInfoError,
+  } = useProfileInfo();
   return (
     <div className="text-textC flex gap-7">
       <div className="flex-1 py-5 bg-background rounded-4xl">
@@ -13,8 +20,7 @@ const PersonalInformation = () => {
           <h5 className="text-xl text-textC">پروفایل تکمیل شده</h5>
           <CircularProgress
             percentage={
-              //   Number(ProfileInfo?.data?.profileCompletionPercentage) || 0
-              50
+              Number(ProfileInfo?.data?.profileCompletionPercentage) || 0
             }
           />
         </div>

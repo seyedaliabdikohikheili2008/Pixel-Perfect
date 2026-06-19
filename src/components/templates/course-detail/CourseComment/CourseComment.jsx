@@ -4,15 +4,17 @@ import like from "../../../../assets/images/icons/course-detail/like.png";
 import dislike from "../../../../assets/images/icons/course-detail/dislike.png";
 import replyIcon from "../../../../assets/images/icons/course-detail/reply.png";
 import { GetReplyComment } from "../../../../core/services/Course-detail/GetReplyComment/GetReplyComment";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { ReplyComment } from "../../../../core/services/Course-detail/ReplyComment/ReplyComment";
+import { postCommentLike } from "../../../../core/services/Course-detail/addCommentLike/addCommentLike";
+import { postCommentDisLike } from "../../../../core/services/Course-detail/addCommentDislike/addCommentDislike";
+import { deleteCommentLike } from "../../../../core/services/Course-detail/removeCommentLike/removeCommentLike";
 
 const CourseComment = ({ comment, CourseId }) => {
-  console.log(comment);
-  console.log("courseId دریافتی در CourseComment:", CourseId);
   const [isReplyBoxOpen, setIsReplyBoxOpen] = useState(false);
   const [replyText, setReplyText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const queryClient = useQueryClient();
 
   const {
     data: replyData,
@@ -30,12 +32,12 @@ const CourseComment = ({ comment, CourseId }) => {
     setIsLoading(true);
     try {
       const formData = new FormData();
-    formData.append("CommentId", comment.id);
-    formData.append("CourseId", CourseId);
-    formData.append("Title", "پاسخ به نظر");
-    formData.append("Describe", replyText);
+      formData.append("CommentId", comment.id);
+      formData.append("CourseId", CourseId);
+      formData.append("Title", "پاسخ به نظر");
+      formData.append("Describe", replyText);
 
-    await ReplyComment(formData);
+      await ReplyComment(formData);
 
       setReplyText("");
       setIsReplyBoxOpen(false);
@@ -46,6 +48,39 @@ const CourseComment = ({ comment, CourseId }) => {
       setIsLoading(false);
     }
   };
+
+const handleLike = async () => {
+  try {
+    if (comment.currentUserLike) {
+      await deleteCommentLike(comment.id);
+    } else {
+      if (comment.currentUserDisLike) {
+        await postCommentDisLike(comment.id);
+      }
+      await postCommentLike(comment.id);
+    }
+    queryClient.invalidateQueries({ queryKey: ["courseComments", CourseId] });
+  } catch (error) {
+    console.error("خطا در لایک:", error);
+  }
+};
+
+const handleDisLike = async () => {
+  try {
+    if (comment.currentUserDisLike) {
+      await postCommentDisLike(comment.id);
+    } else {
+      if (comment.currentUserLike) {
+        await deleteCommentLike(comment.id);
+      }
+      await postCommentDisLike(comment.id);
+    }
+    queryClient.invalidateQueries({ queryKey: ["courseComments", CourseId] });
+  } catch (error) {
+    console.error("خطا در دیسلایک:", error);
+  }
+};
+
 
   return (
     <div className="w-full rounded-xl shadow-[0_1px_2px_0_rgba(0,0,0,0.25)] bg-background py-5">
@@ -68,11 +103,21 @@ const CourseComment = ({ comment, CourseId }) => {
 
         <div className="flex items-center justify-end gap-3 px-15 py-3">
           <div className="flex items-center justify-center gap-3">
-            <img src={like} alt="" />
+            <img 
+              src={like} 
+              alt="like" 
+              onClick={handleLike}
+              className={`cursor-pointer hover:opacity-70 ${comment.currentUserLike ? "opacity-100 scale-110" : "opacity-50"}`}
+            />
             <p className="text-textC">{comment.likeCount}</p>
           </div>
           <div className="flex items-center justify-center gap-3">
-            <img src={dislike} alt="" />
+            <img 
+              src={dislike} 
+              alt="dislike" 
+              onClick={handleDisLike}
+              className={`cursor-pointer hover:opacity-70 ${comment.currentUserDisLike ? "opacity-100 scale-110" : "opacity-50"}`}
+            />
             <p className="text-textC">{comment.disslikeCount}</p>
           </div>
         </div>

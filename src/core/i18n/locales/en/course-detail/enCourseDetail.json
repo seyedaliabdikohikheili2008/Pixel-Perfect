@@ -1,0 +1,22 @@
+{
+    "description":{
+        "explanation":"explanation",
+        "Comments":"Comments",
+        "button":"Register a new view",
+        "more":"View more",
+        "add":"Write your comment...",
+        "out":"opt out",
+        "send":"Register a comment"
+    },
+    "sidebar":{
+        "Students":"Students",
+        "status":"status",
+        "start":"start",
+        "end":"end",
+        "button":"Start learning",
+        "price":"toman",
+        "acceptance":"User satisfaction with the course",
+        "rate":"Score"
+    },
+    "similar":"Similar courses"
+}

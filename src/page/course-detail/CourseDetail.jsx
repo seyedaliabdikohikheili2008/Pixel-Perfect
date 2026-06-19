@@ -7,10 +7,11 @@ import CourseSideBar from "../../components/templates/course-detail/CourseSideBa
 import SectionTitle from "../../components/molecules/section-title/SectionTitle";
 import { TopCourse } from "../../core/services/Course-detail/SimilarCourse/SimilarCourse";
 import CourseCard from "../../components/organisms/course-list/course-card/CourseCard";
+import { useTranslation } from "react-i18next";
 
 const CourseDetail = () => {
   const { id } = useParams();
-
+const { t } = useTranslation("courseDetail");
   const { data, isLoading, error } = useQuery({
     queryKey: ["course-detail", id],
     queryFn: () => getCourseDetail(id),
@@ -36,7 +37,7 @@ const CourseDetail = () => {
 
       
         <div className="w-11/12 mx-auto py-10">
-          <SectionTitle width="w-75" title={"دوره های مشابه"} />
+          <SectionTitle width="w-75" title={t("similar")} />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4  gap-6 mt-8">
     {isTopLoading ? (
       <p>در حال بارگذاری دوره‌های برتر...</p> 

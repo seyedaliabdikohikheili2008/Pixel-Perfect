@@ -11,8 +11,10 @@ import CourseComment from "../CourseComment/CourseComment";
 import { getCourseComments } from "../../../../core/services/Course-detail/Comment/comment";
 import { useQuery } from "@tanstack/react-query";
 import { PostCourseComments } from "../../../../core/services/Course-detail/AddComment/AddComment";
+import { useTranslation } from "react-i18next";
 const Description = ({ course }) => {
   const { id } = useParams();
+  const { t } = useTranslation("courseDetail");
   const CourseId = id;
   if (!course) return <div>در حال بارگذاری اطلاعات...</div>;
   const [likes, setLikes] = useState(course.likeCount || 0);
@@ -137,7 +139,7 @@ const Description = ({ course }) => {
       </div>
       <div className="flex flex-col gap-3 ">
         <h1 className="text-2xl md:text-3xl font-bold text-textC text-right px-3">
-          توضیحات
+          {t("description.explanation")}
         </h1>
         <div className="text-[#7B7B7B] text-right rounded-2xl shadow-[0_1px_2px_0_rgba(0,0,0,0.25)] bg-background h-50">
           <p className="px-3">{course.describe}</p>
@@ -146,10 +148,10 @@ const Description = ({ course }) => {
       <div className="flex flex-col gap-4">
         <div className="flex justify-between items-center">
           <h1 className="text-2xl md:text-3xl font-bold text-textC text-right px-2">
-            نظرات
+           {t("description.Comments")}
           </h1>
           <Button
-            children={"ثبت دیدگاه جدید"}
+            children={t("description.button")}
             onClick={() => setIsCommentBoxOpen(true)}
           />
         </div>
@@ -159,7 +161,7 @@ const Description = ({ course }) => {
             <textarea
               ref={commentTextRef}
               className="w-full min-h-32 text-textC p-3 rounded-lg border border-gray-300 text-right outline-none"
-              placeholder="نظر خود را بنویسید..."
+              placeholder={t("description.add")}
               value={commentText}
               onChange={(e) => setCommentText(e.target.value)}
             />
@@ -172,11 +174,11 @@ const Description = ({ course }) => {
                   setCommentText("");
                 }}
               >
-                انصراف
+                {t("description.out")}
               </button>
 
               <Button
-                children={"ثبت نظر"}
+                children={t("description.send")}
                 onClick={async () => {
                   try {
                     const formData = new FormData();
@@ -219,7 +221,7 @@ const Description = ({ course }) => {
           className=" w-1/2 m-auto md:w-1/5 flex items-center justify-center cursor-pointer 
         px-4 py-2 focus:outline-none rounded-xl text-nowrap dark:text-primary-500 text-primary-800 border border-solid dark:border-primary-500 border-primary-800 ltr"
         >
-          مشاهده بیشتر
+          {t("description.more")}
         </button>
       </div>
     </div>

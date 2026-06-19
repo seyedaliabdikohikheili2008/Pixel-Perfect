@@ -5,6 +5,7 @@ import Loading from "../../../atoms/loading/Loading";
 import { useProfileInfo } from "../../../../core/hooks/queries/user-panel/dashboard/useProfileInfo";
 import { useMyCourse } from "../../../../core/hooks/queries/user-panel/dashboard/useMyCourse";
 import { useMyCourseReserve } from "../../../../core/hooks/queries/user-panel/dashboard/useMyCourseReserve";
+import toast, { Toaster } from "react-hot-toast";
 
 const Dashboard = () => {
   const params = {
@@ -17,12 +18,14 @@ const Dashboard = () => {
     data: latestNewsList = undefined,
     isError: latestNewsListErr,
     isLoading: latestNewsListLoading,
+    error: latestNewsListError,
   } = useAllNews(params);
 
   const {
     data: ProfileInfo = undefined,
     isError: ProfileInfoErr,
     isLoading: ProfileInfoLoading,
+    error: ProfileInfoError,
   } = useProfileInfo();
 
   const myCourseParams = {
@@ -33,16 +36,19 @@ const Dashboard = () => {
     data: MyCourse = undefined,
     isError: MyCourseErr,
     isLoading: MyCourseLoading,
+    error: MyCourseError,
   } = useMyCourse(myCourseParams);
 
   const {
     data: MyCourseReserve = undefined,
     isError: MyCourseReserveErr,
     isLoading: MyCourseReserveLoading,
+    error: MyCourseReserveError,
   } = useMyCourseReserve();
 
   return (
     <>
+      <Toaster />
       <div className="w-full flex flex-col items-center gap-7 pb-7">
         <div className="w-full justify-between flex flex-col gap-7 md:gap-0 md:flex-row items-center">
           <h1 className="text-textC text-3xl font-bold">سلام، روز بخیر</h1>
@@ -52,7 +58,7 @@ const Dashboard = () => {
               <div className="flex flex-col gap-1">
                 <h4 className="text-xl text-neutral-400">دوره های من</h4>
                 <h5 className="text-primary-400 text-3xl">
-                  {MyCourse?.data?.totalCount}
+                  {MyCourse ? MyCourse?.data?.totalCount : 0}
                 </h5>
               </div>
             </div>

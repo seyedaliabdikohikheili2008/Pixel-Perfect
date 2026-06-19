@@ -31,11 +31,15 @@ ApiClient.interceptors.response.use(
     return res;
   },
   (err) => {
-    if (err.response?.status === 401) {
+    if (
+      err.response?.status === 401 &&
+      err?.response?.data?.message ===
+        "شما به این روت دسترسی ندارید درصورت ریکوست مجدد بن میشوید"
+    ) {
       if (!isShowingToast) {
         isShowingToast = true;
 
-        toast.error("ابتدا لاگین کنید");
+        toast.error("ایتدا پروفایل خود را تکمیل کنید");
 
         setTimeout(() => {
           isShowingToast = false;

@@ -6,7 +6,7 @@ import dislike from "../../../../assets/images/icons/course-detail/dislike.png";
 import replyIcon from "../../../../assets/images/icons/course-detail/reply.png";
 import { getReplyComments } from "../../../../core/services/news-detail/Comments/ReplyComment/ReplyComment";
 import { AddReplyComment } from "../../../../core/services/news-detail/Comments/AddReplyComment/AddReplyComment";
-
+import { postNewsCommentLike } from "../../../../core/services/news-detail/addCommentLike/addCommentLike";
 const Comment = ({ item }) => {
   const [isReplyBoxOpen, setIsReplyBoxOpen] = useState(false);
   const [replyText, setReplyText] = useState("");
@@ -45,6 +45,26 @@ const Comment = ({ item }) => {
       setIsLoading(false);
     }
   };
+const handleLike = async () => {
+  try {
+    const response = await postNewsCommentLike(item.id);
+    if (response?.data?.likeCount !== undefined) {
+      item.likeCount = response.data.likeCount;
+    } else {
+      if (item.currentUserLike) {
+        item.likeCount -= 1;
+      } else {
+        item.likeCount += 1;
+      }
+    }
+    item.currentUserLike = !item.currentUserLike;
+    
+    refetch();
+    
+  } catch (error) {
+    console.error("خطا در لایک:", error);
+  }
+};
 
   return (
     <div className="w-full rounded-xl shadow-[0_1px_2px_0_rgba(0,0,0,0.25)] bg-background py-5">
@@ -69,12 +89,8 @@ const Comment = ({ item }) => {
 
         <div className="flex items-center justify-end gap-3 px-15 py-3">
           <div className="flex items-center justify-center gap-3">
-            <img src={like} alt="" />
+            <img src={like} alt="" onClick={handleLike}/>
             <p className="text-textC">{item.likeCount}</p>
-          </div>
-          <div className="flex items-center justify-center gap-3">
-            <img src={dislike} alt="" />
-            <p className="text-textC">{item.dissLikeCount}</p>
           </div>
         </div>
 

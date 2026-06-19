@@ -12,6 +12,8 @@ import { getCourseComments } from "../../../../core/services/Course-detail/Comme
 import { useQuery } from "@tanstack/react-query";
 import { PostCourseComments } from "../../../../core/services/Course-detail/AddComment/AddComment";
 import { useTranslation } from "react-i18next";
+import { addFavorite } from "../../../../core/services/Course-detail/addFavorite/addFavorite";
+
 const Description = ({ course }) => {
   const { id } = useParams();
   const { t } = useTranslation("courseDetail");
@@ -19,11 +21,11 @@ const Description = ({ course }) => {
   if (!course) return <div>در حال بارگذاری اطلاعات...</div>;
   const [likes, setLikes] = useState(course.likeCount || 0);
   const [dislikes, setDislikes] = useState(course.dissLikeCount || 0);
-
   const [userLiked, setUserLiked] = useState(course.userIsLiked || false);
   const [userDisliked, setUserDisliked] = useState(
     course.userIsDissLike || false,
   );
+  const [isFavorite, setIsFavorite] = useState(course.userIsFavorite || false);
 
   useEffect(() => {
     if (course) {
@@ -31,6 +33,7 @@ const Description = ({ course }) => {
       setDislikes(course.dissLikeCount || 0);
       setUserLiked(course.userIsLiked || false);
       setUserDisliked(course.userIsDissLike || false);
+      setIsFavorite(course.userIsFavorite || false);
     }
   }, [course]);
 
@@ -91,6 +94,17 @@ const Description = ({ course }) => {
       setUserDisliked(prevUserDisliked);
     }
   };
+
+  const handleFavorite = async () => {
+    console.log(id)
+    try {
+    await addFavorite({ courseId: id });
+    setIsFavorite(!isFavorite);
+  } catch (error) {
+    console.error("خطا در عملیات علاقمندی:", error);
+  }
+  };
+
   //برای کامنته
   const { data: commentsData } = useQuery({
     queryKey: ["courseComments", id],
@@ -118,14 +132,19 @@ const Description = ({ course }) => {
           alt={course.title}
           className="w-full rounded-xl "
         />
-        <div className="w-42 px-2 mt-2 h-12 flex justify-between bg-rootBg gap-2 items-center flex-row-reverse absolute -bottom-1 -left-1 rounded-xl">
+        <div className="w-60 px-2 mt-2 h-12 flex justify-between bg-rootBg gap-2 items-center flex-row-reverse absolute -bottom-1 -left-1 rounded-xl">
           <div className="w-19.25 flex justify-between items-center">
-            <img src={dislike} alt="" onClick={handleLike} />
+            <img src={dislike} alt="" onClick={handleDislike} className="cursor-pointer" />
+            <p className="text-xl font-bold text-textC">{dislikes}</p>
+          </div>
+          <div className="w-19.25 flex justify-between items-center">
+            <img src={like} alt="" onClick={handleLike} className="cursor-pointer" />
             <p className="text-xl font-bold text-textC">{likes}</p>
           </div>
           <div className="w-19.25 flex justify-between items-center">
-            <img src={like} alt="" onClick={handleDislike} />
-            <p className="text-xl font-bold text-textC">{dislikes}</p>
+            <button onClick={handleFavorite} className="cursor-pointer text-2xl">
+              {isFavorite ? "❤️" : "🤍"}
+            </button>
           </div>
         </div>
       </div>

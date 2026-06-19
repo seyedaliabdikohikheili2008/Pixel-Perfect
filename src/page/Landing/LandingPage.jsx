@@ -37,7 +37,6 @@ const LandingPage = () => {
     CourseTopListError?.message === "Network Error" &&
     courseListError?.message === "Network Error";
 
-  console.log(serverDown);
   return (
     <>
       {serverDown ? (

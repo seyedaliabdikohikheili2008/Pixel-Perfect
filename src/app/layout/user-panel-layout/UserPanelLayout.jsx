@@ -90,7 +90,7 @@ const UserPanelLayout = () => {
               onClick={() => {
                 navigate("/user-panel/profile");
               }}
-              className={`flex cursor-pointer items-center gap-4 p-4 ${location.pathname == "/user-panel/profile" ? "bg-primary-500 text-white" : "text-textC"} rounded-[38px]`}
+              className={`flex cursor-pointer items-center gap-4 p-4 ${location.pathname.startsWith("/user-panel/profile") ? "bg-primary-500 text-white" : "text-textC"} rounded-[38px]`}
             >
               <LiaUserEditSolid size={24} />
               <h3 className="text-lg">پروفایل</h3>

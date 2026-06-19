@@ -6,6 +6,8 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 const ProfileLayout = () => {
   const navigate = useNavigate();
   const location = useLocation();
+
+  
   return (
     <>
       <div className="bg-primary-400 rounded-3xl w-full h-75 relative">

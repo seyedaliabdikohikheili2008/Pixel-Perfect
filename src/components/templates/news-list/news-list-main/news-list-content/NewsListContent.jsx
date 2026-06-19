@@ -7,6 +7,7 @@ import { useAllNews } from "../../../../../core/hooks/queries/news/useAllNews";
 import NotFound from "../../../../atoms/not-found/NotFound";
 import Loading from "../../../../atoms/loading/Loading";
 import { connect } from "formik";
+import Error from "../../../../atoms/error/Error";
 
 const NewsListContent = () => {
   const [cardView2, setcardView2] = useState(false);
@@ -67,15 +68,20 @@ const NewsListContent = () => {
           setcardView2={setcardView2}
         />
         <div
-          className={`w-full [@media(max-width:1340px)]:justify-evenly flex ${cardView2 ? "flex-col gap-10" : "flex-row justify-between gap-3 flex-wrap"}`}
+          className={`w-full [@media(max-width:1340px)]:justify-evenly flex ${cardView2 ? "flex-col gap-10" : "flex-row justify-between gap-3 gap-y-5 flex-wrap"}`}
         >
           {NewsListLoading ? <Loading /> : ""}
           {NewsList?.data.totalCount == 0 ? <NotFound /> : ""}
+          {NewsListErr ? <Error /> : ""}
           {NewsList?.data?.news.map((item, index) => {
             return <NewsCard cardView2={cardView2} detail={item} key={index} />;
           })}
         </div>
-        <CourseListPagination totalCount={NewsList?.data?.totalCount} />
+        {!NewsList || NewsListLoading ? (
+          ""
+        ) : (
+          <CourseListPagination totalCount={NewsList?.data?.totalCount} />
+        )}
       </div>
     </>
   );

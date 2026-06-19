@@ -19,10 +19,10 @@ const { t } = useTranslation("courseDetail");
     staleTime: 0,
   });
 
- const { data: topCoursesData, isLoading: isTopLoading } = useQuery({
-  queryKey: ["top-courses", 4], 
-  queryFn: () => TopCourse(4), 
-});
+  const { data: topCoursesData, isLoading: isTopLoading } = useQuery({
+    queryKey: ["top-courses", 4],
+    queryFn: () => TopCourse(4),
+  });
 
   if (isLoading || isLoading) return <div>در حال بارگذاری اطلاعات دوره...</div>;
   if (error) return <div>خطایی رخ داده است.</div>;

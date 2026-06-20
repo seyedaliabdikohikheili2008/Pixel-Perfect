@@ -297,8 +297,8 @@ body {
 
 #root {
   width: screen;
-  max-width: 100%;
-  margin: 0 0;
+  max-width: 1800px;
+  margin: 0 auto;
   padding: 0;
   text-align: center;
   border-inline: 1px solid var(--border);

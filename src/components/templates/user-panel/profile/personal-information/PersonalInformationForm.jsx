@@ -56,7 +56,7 @@ const PersonalInformationForm = () => {
         }}
         className="w-full"
       >
-        {({ values, handleChange, handleBlur, isSubmitting }) => (
+        {({ values, handleChange, handleBlur }) => (
           <Form className="w-full flex flex-wrap gap-y-7">
             <div className="w-1/2 flex flex-col items-start gap-3 px-4">
               <h3 className="text-textC text-base">نام</h3>

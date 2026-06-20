@@ -79,7 +79,7 @@ const Dashboard = () => {
               جدید ترین اخبار و مقالات
             </h5>
             <div className="w-11/12 flex flex-col flex-1 gap-2 justify-between divide-dashed divide-y-2 divide-neutral-300">
-              {latestNewsListLoading ? <Loading /> : ""}
+              {latestNewsListLoading ? <Loading circleSize={8} size={"text-2xl"} /> : ""}
               {latestNewsList
                 ? latestNewsList?.data?.news?.map((item, index) => {
                     return (

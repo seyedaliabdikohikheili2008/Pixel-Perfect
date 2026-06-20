@@ -65,9 +65,9 @@ const HomeAddress = () => {
     }
     const formData = new FormData();
 
-    formData.append("FName", ProfileInfo.data.fName);
-    formData.append("LName", ProfileInfo.data.lName);
-    formData.append("BirthDay", ProfileInfo.data.birthDay);
+    formData.append("FName", ProfileInfo?.data?.fName);
+    formData.append("LName", ProfileInfo?.data?.lName);
+    formData.append("BirthDay", ProfileInfo?.data?.birthDay);
 
     formData.append("Latitude", String(location.latitude));
     formData.append("Longitude", String(location.longitude));

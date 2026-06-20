@@ -55,7 +55,7 @@ const ProfileLayout = () => {
               onClick={() => {
                 navigate("/user-panel/profile");
               }}
-              className={`${location.pathname == "/user-panel/profile" ? "bg-primary-300 rounded-full text-white" : ""} p-2 cursor-pointer`}
+              className={`${location.pathname == "/user-panel/profile" ? "bg-primary-300 rounded-full text-white" : ""} p-2 cursor-pointer text-nowrap`}
             >
               اطلاعات شخصی
             </li>
@@ -63,7 +63,7 @@ const ProfileLayout = () => {
               onClick={() => {
                 navigate("/user-panel/profile/image");
               }}
-              className={`${location.pathname == "/user-panel/profile/image" ? "bg-primary-300 rounded-full text-white" : ""} p-2 cursor-pointer`}
+              className={`${location.pathname == "/user-panel/profile/image" ? "bg-primary-300 rounded-full text-white" : ""} p-2 cursor-pointer text-nowrap`}
             >
               عکس پروفایل
             </li>
@@ -71,11 +71,18 @@ const ProfileLayout = () => {
               onClick={() => {
                 navigate("/user-panel/profile/home-address");
               }}
-              className={`${location.pathname == "/user-panel/profile/home-address" ? "bg-primary-300 rounded-full text-white" : ""} p-2 cursor-pointer`}
+              className={`${location.pathname == "/user-panel/profile/home-address" ? "bg-primary-300 rounded-full text-white" : ""} p-2 cursor-pointer text-nowrap`}
             >
               آدرس سکونت
             </li>
-            <li className="cursor-pointer">لینک ها</li>
+            <li
+              onClick={() => {
+                navigate("/user-panel/profile/link");
+              }}
+              className={`${location.pathname == "/user-panel/profile/link" ? "bg-primary-300 rounded-full text-white" : ""} p-2 cursor-pointer text-nowrap`}
+            >
+              لینک ها
+            </li>
           </ul>
         </div>
         <Outlet />

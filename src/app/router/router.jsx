@@ -31,6 +31,7 @@ import PersonalInformation from "../../components/templates/user-panel/profile/p
 import ProfileImage from "../../components/templates/user-panel/profile/profile-image/ProfileImage";
 import SecuritySetting from "../../components/templates/user-panel/securitysetting/SecuritySetting";
 import HomeAddress from "../../components/templates/user-panel/profile/home-address/HomeAddress";
+import EditLink from "../../components/templates/user-panel/profile/link/EditLink";
 
 const router = createBrowserRouter([
   {
@@ -117,6 +118,7 @@ const router = createBrowserRouter([
               { index: true, element: <PersonalInformation /> },
               { path: "image", element: <ProfileImage /> },
               { path: "home-address", element: <HomeAddress /> },
+              { path: "link", element: <EditLink /> },
             ],
           },
         ],

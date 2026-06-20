@@ -25,10 +25,10 @@ const ProfileLayout = () => {
           />
         </div>
       </div>
-      <div className="mt-10 flex flex-wrap justify-center lg:flex-nowrap gap-10 lg:justify-between px-7">
-        <div className="flex flex-col gap-3">
+      <div className="mt-10 flex flex-wrap gap-10 justify-between px-7">
+        <div className="flex flex-col items-start gap-3">
           <div className="flex items-center gap-3">
-            <h2 className="text-textC text-3xl font-bold">
+            <h2 className="text-textC text-nowrap text-3xl font-bold">
               {ProfileInfo?.data?.fName + " " + ProfileInfo?.data?.lName ||
                 "بدون نام"}
             </h2>

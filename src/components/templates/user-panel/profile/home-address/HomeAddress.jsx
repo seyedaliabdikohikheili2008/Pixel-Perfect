@@ -82,7 +82,6 @@ const HomeAddress = () => {
       },
     });
   };
-  console.log(location);
 
   return (
     <>

@@ -11,12 +11,12 @@ const PersonalInformation = () => {
     error: ProfileInfoError,
   } = useProfileInfo();
   return (
-    <div className="text-textC flex gap-7">
+    <div className="text-textC flex [@media(max-width:1200px)]:flex-col-reverse gap-7">
       <div className="flex-1 py-5 bg-background rounded-4xl">
         <PersonalInformationForm />
       </div>
       <div>
-        <div className="w-63 min-h-63 flex flex-col items-center justify-center gap-3 bg-background rounded-3xl">
+        <div className="[@media(max-width:1200px)]:w-full w-63 min-h-63 flex [@media(max-width:1200px)]:flex-row flex-col items-center justify-center gap-3 bg-background rounded-3xl">
           <h5 className="text-xl text-textC">پروفایل تکمیل شده</h5>
           <CircularProgress
             percentage={

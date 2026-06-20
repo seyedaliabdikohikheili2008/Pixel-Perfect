@@ -101,7 +101,7 @@ const UserPanelLayout = () => {
               localStorage.removeItem("token");
               navigate("/");
             }}
-            className="lg:absolute cursor-pointer lg:bottom-5 gap-4 text-danger-500 text-lg rounded-[38px] items-center justify-center w-50 py-3 flex border border-neutral-200"
+            className="absolute cursor-pointer bottom-5 gap-4 text-danger-500 text-lg rounded-[38px] items-center justify-center w-50 py-3 flex border border-neutral-200"
           >
             <IoLogOutOutline size={24} />
             <h3>خروج از حساب</h3>

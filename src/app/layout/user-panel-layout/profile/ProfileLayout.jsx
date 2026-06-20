@@ -67,7 +67,14 @@ const ProfileLayout = () => {
             >
               عکس پروفایل
             </li>
-            <li className="cursor-pointer">آدرس سکونت</li>
+            <li
+              onClick={() => {
+                navigate("/user-panel/profile/home-address");
+              }}
+              className={`${location.pathname == "/user-panel/profile/home-address" ? "bg-primary-300 rounded-full text-white" : ""} p-2 cursor-pointer`}
+            >
+              آدرس سکونت
+            </li>
             <li className="cursor-pointer">لینک ها</li>
           </ul>
         </div>

@@ -30,6 +30,7 @@ import ProfileLayout from "../layout/user-panel-layout/profile/ProfileLayout";
 import PersonalInformation from "../../components/templates/user-panel/profile/personal-information/PersonalInformation";
 import ProfileImage from "../../components/templates/user-panel/profile/profile-image/ProfileImage";
 import SecuritySetting from "../../components/templates/user-panel/securitysetting/SecuritySetting";
+import HomeAddress from "../../components/templates/user-panel/profile/home-address/HomeAddress";
 
 const router = createBrowserRouter([
   {
@@ -41,7 +42,6 @@ const router = createBrowserRouter([
       { path: "course-detail/:id", element: <CourseDetail /> },
       { path: "news-list", element: <NewsListPage /> },
       { path: "Instructors", element: <TeacherListPage /> },
-
       { path: "news-detail/:newsId", element: <NewsDetail /> },
       { path: "contactUs", element: <ContactUsPage /> },
     ],
@@ -109,13 +109,14 @@ const router = createBrowserRouter([
           { path: "my-reservation", element: <MyCourseReserve /> },
           { path: "my-favorite-course", element: <MyFavoriteCourses /> },
           { path: "my-favorite-news", element: <MyFavoriteNews /> },
-        {path:"Security",element:<SecuritySetting/>},
+          { path: "Security", element: <SecuritySetting /> },
           {
             path: "profile",
             element: <ProfileLayout />,
             children: [
               { index: true, element: <PersonalInformation /> },
               { path: "image", element: <ProfileImage /> },
+              { path: "home-address", element: <HomeAddress /> },
             ],
           },
         ],

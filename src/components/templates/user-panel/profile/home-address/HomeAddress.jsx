@@ -77,6 +77,7 @@ const HomeAddress = () => {
         toast.success("موقعیت مکانی آپدیت شد");
       },
       onError: (err) => {
+        toast.error("ابتدا تاریخ تولد خود را وارد کنید");
         console.log(err?.response?.data);
       },
     });

@@ -8,6 +8,7 @@ import NewsDescription from "../../components/templates/newsDetail/news-describt
 import { getTopNews } from "../../core/services/news-detail/topnews/Topnews";
 import NewsCard from "../../components/organisms/news/news-card/NewsCard";
 import { useTranslation } from "react-i18next";
+import Loading from "../../components/atoms/loading/Loading";
 const NewsDetail = () => {
   const { newsId } = useParams();
   const { t } = useTranslation("newsDetail");
@@ -26,7 +27,7 @@ const NewsDetail = () => {
   });
 
   if (isLoading || isLoading)
-    return <div className="text-textC">در حال بارگذاری اطلاعات دوره...</div>;
+    return <div className="h-300 m-auto flex justify-center items-center"><Loading/></div>;
   if (error) return <div className="text-danger-600">خطایی رخ داده است.</div>;
 
   const newsData = data?.data.detailsNewsDto;
@@ -42,7 +43,8 @@ const NewsDetail = () => {
         <SectionTitle width="w-75" title={t("similar")} />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4  justify-between mt-8">
           {isTopLoading ? (
-            <p className="text-textC">در حال بارگذاری دوره‌های برتر...</p>
+            <div className="m-auto pt-10"><Loading/></div>
+            
           ) : (
             topnewsData?.data?.map((detail) => (
               <NewsCard key={detail.newsId} detail={detail} />

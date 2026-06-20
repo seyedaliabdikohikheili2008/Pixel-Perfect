@@ -9,6 +9,7 @@ import { ReplyComment } from "../../../../core/services/Course-detail/ReplyComme
 import { postCommentLike } from "../../../../core/services/Course-detail/addCommentLike/addCommentLike";
 import { postCommentDisLike } from "../../../../core/services/Course-detail/addCommentDislike/addCommentDislike";
 import { deleteCommentLike } from "../../../../core/services/Course-detail/removeCommentLike/removeCommentLike";
+import Loading from "../../../atoms/loading/Loading";
 
 const CourseComment = ({ comment, CourseId }) => {
   const [isReplyBoxOpen, setIsReplyBoxOpen] = useState(false);
@@ -81,7 +82,7 @@ const handleDisLike = async () => {
   }
 };
 
-
+isCommentReplyLoading ? <Loading/> :""
   return (
     <div className="w-full rounded-xl shadow-[0_1px_2px_0_rgba(0,0,0,0.25)] bg-background py-5">
       <div className="flex flex-col gap-5">
@@ -149,7 +150,7 @@ const handleDisLike = async () => {
                 onClick={handleSendReply}
                 disabled={isLoading || !replyText.trim()}
               >
-                {isLoading ? "در حال ثبت..." : "ثبت پاسخ"}
+                {isLoading ? <Loading/> : "ثبت پاسخ"}
               </button>
               <button
                 className="bg-neutral-200 px-4 py-2 rounded-lg"

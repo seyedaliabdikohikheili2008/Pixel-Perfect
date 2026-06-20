@@ -8,6 +8,7 @@ import SectionTitle from "../../components/molecules/section-title/SectionTitle"
 import { TopCourse } from "../../core/services/Course-detail/SimilarCourse/SimilarCourse";
 import CourseCard from "../../components/organisms/course-list/course-card/CourseCard";
 import { useTranslation } from "react-i18next";
+import Loading from "../../components/atoms/loading/Loading";
 
 const CourseDetail = () => {
   const { id } = useParams();
@@ -24,7 +25,7 @@ const { t } = useTranslation("courseDetail");
     queryFn: () => TopCourse(4),
   });
 
-  if (isLoading || isLoading) return <div>در حال بارگذاری اطلاعات دوره...</div>;
+  if (isLoading || isLoading) return <div className="m-auto h-500 flex items-center"><Loading/></div>;
   if (error) return <div>خطایی رخ داده است.</div>;
 
   const courseData = data?.data;
@@ -40,7 +41,7 @@ const { t } = useTranslation("courseDetail");
           <SectionTitle width="w-75" title={t("similar")} />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4  gap-6 mt-8">
     {isTopLoading ? (
-      <p>در حال بارگذاری دوره‌های برتر...</p> 
+      <Loading/>
     ) : (
       topCoursesData?.data?.map((detail) => (
         <CourseCard key={detail.CourseId} detail={detail}/>

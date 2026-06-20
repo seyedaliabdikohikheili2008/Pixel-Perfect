@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 import { useProfileInfo } from "../../../../../core/hooks/queries/user-panel/dashboard/useProfileInfo";
 import { useDeleteProfileImage } from "../../../../../core/hooks/queries/user-panel/profile/useDeleteProfileImage";
 import { useSelectProfileImage } from "../../../../../core/hooks/queries/user-panel/profile/useSelectProfileImage";
+import { BsThreeDots } from "react-icons/bs";
 
 const ProfileImage = () => {
   const inputRef = useRef(null);
@@ -97,11 +98,17 @@ const ProfileImage = () => {
                 </div>
                 <div
                   onClick={() => {
-                    handleSelectImage(item.id);
+                    if (!selectImagePending) {
+                      handleSelectImage(item.id);
+                    }
                   }}
                   className="p-1 cursor-pointer rounded-full bg-primary-500"
                 >
-                  <IoCheckmark color="white" size={20} />
+                  {selectImagePending ? (
+                    <BsThreeDots color="white" size={20} />
+                  ) : (
+                    <IoCheckmark color="white" size={20} />
+                  )}
                 </div>
               </div>
             </div>

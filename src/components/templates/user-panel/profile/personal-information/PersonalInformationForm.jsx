@@ -56,7 +56,7 @@ const PersonalInformationForm = () => {
         }}
         className="w-full"
       >
-        {({ values, handleChange, handleBlur }) => (
+        {({ values, handleChange, handleBlur, isSubmitting }) => (
           <Form className="w-full flex flex-wrap gap-y-7">
             <div className="w-1/2 flex flex-col items-start gap-3 px-4">
               <h3 className="text-textC text-base">نام</h3>
@@ -91,16 +91,6 @@ const PersonalInformationForm = () => {
                 name="UserAbout"
               />
             </div>
-            {/* <div className="w-1/2 flex flex-col items-start gap-3 px-4">
-              <h3 className="text-textC text-base">شماره همراه</h3>
-              <Input
-                boxClassname={"w-full"}
-                placeholder={"شماره همراه خود را وارد کنید"}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                type="tel"
-              />
-            </div> */}
             <div className="w-1/2 flex flex-col items-start gap-3 px-4">
               <h3 className="text-textC text-base">کد ملی</h3>
               <Input
@@ -124,16 +114,6 @@ const PersonalInformationForm = () => {
                 name="BirthDay"
               />
             </div>
-            {/* <div className="w-1/2 flex flex-col items-start gap-3 px-4">
-              <h3 className="text-textC text-base">ایمیل</h3>
-              <Input
-                boxClassname={"w-full"}
-                placeholder={"ایمیل خود را وارد کنید"}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                type="email"
-              />
-            </div> */}
             <div className="w-full flex flex-col items-start gap-3 px-4">
               <h3 className="text-textC text-base">آدرس سکونت</h3>
               <textarea
@@ -179,7 +159,8 @@ const PersonalInformationForm = () => {
             <Button
               buttonClassName="mx-4"
               type={"submit"}
-              children={"اعمال تغییرات"}
+              children={`${isPending ? "در حال ارسال..." : "اعمال تغییرات"}`}
+              disabled={isPending}
             />
           </Form>
         )}

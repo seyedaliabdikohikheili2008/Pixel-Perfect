@@ -31,7 +31,9 @@ const SecuritySetting = () => {
             id="twoFactor"
             className="w-4 h-4"
           />
-          <label className="text-textC" htmlFor="twoFactor">مایل به ورود دو مرحله‌ای هستم</label>
+          <label className="text-textC" htmlFor="twoFactor">
+            مایل به ورود دو مرحله‌ای هستم
+          </label>
         </div>
       </div>
     </div>

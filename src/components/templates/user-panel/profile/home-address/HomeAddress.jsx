@@ -87,7 +87,7 @@ const HomeAddress = () => {
   return (
     <>
       <div className="w-full flex flex-col gap-6 items-start">
-        <h2 className="text-lg flex gap-5 items-center text-primary-500 font-bold">
+        <h2 className="text-lg flex flex-wrap gap-5 items-center text-primary-500 font-bold">
           داخل نقشه موقعیت مکانی محل سکونت خود را انتخاب کنید
           <Button
             onClick={() => {

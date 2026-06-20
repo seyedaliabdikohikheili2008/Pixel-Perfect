@@ -6,7 +6,6 @@ import web from "../../../../assets//images/contactUs/web.png";
 import { MapContainer, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 const Map = () => {
-
   return (
     <div className="w-11/12 p-5 m-auto flex flex-col md:flex-row gap-10 mb-10">
       <div className=" w-full xl:w-1/4 bg-primary-200 p-5 rounded-xl flex flex-col gap-5">
@@ -44,16 +43,14 @@ const Map = () => {
         </div>
       </div>
       <div className="xl:w-2/3 w-full h-85.5 rounded-xl">
-<MapContainer
-      center={[36.59729612973962,53.06460213556759]}
-      zoom={15}
-      style={{height:"100%",width:"100%", borderRadius:"20px"}}
-    >
-      <TileLayer
-        url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-    </MapContainer>
-
+        <MapContainer
+          className="z-10"
+          center={[36.59729612973962, 53.06460213556759]}
+          zoom={15}
+          style={{ height: "100%", width: "100%", borderRadius: "20px" }}
+        >
+          <TileLayer url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" />
+        </MapContainer>
       </div>
     </div>
   );

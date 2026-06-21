@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { LiaSearchSolid } from "react-icons/lia";
 import Input from "../../../atoms/Input/Input";
 import TeacherListPagination from "../../teacher-list/teacher-list-content/TeacherListPagination";
@@ -77,7 +77,11 @@ const MyFavorites = () => {
 
   const [page, setpage] = useState(1);
 
-  const getItemsByPage = (array = [], page, itemsPerPage = 4) => {
+  useEffect(() => {
+    setpage(1);
+  }, [favoriteFlag]);
+
+  const getItemsByPage = (array = [], page, itemsPerPage = 3) => {
     const start = (page - 1) * itemsPerPage;
     const end = start + itemsPerPage;
 
@@ -199,7 +203,7 @@ const MyFavorites = () => {
           <div className="w-full flex-1 overflow-y-auto flex flex-col md:divide-none divide-dashed divide-neutral-400 divide-y-1 gap-7">
             {favoriteFlag == "course"
               ? MyFavoriteCourse
-                ? searchFavorites.map((item, index) => {
+                ? data?.map((item, index) => {
                     let start = new Date(item?.course.startTime);
                     start = start.toLocaleString("fa-IR");
                     let end = new Date(item?.course.endTime);
@@ -247,7 +251,7 @@ const MyFavorites = () => {
                   })
                 : ""
               : MyFavoriteNews
-                ? searchFavorites.map((item, index) => {
+                ? data?.map((item, index) => {
                     let start = new Date(item?.news.insertDate);
                     start = start.toLocaleString("fa-IR");
                     return (
@@ -317,6 +321,8 @@ const MyFavorites = () => {
           <TeacherListPagination
             totalCount={searchFavorites?.length}
             setPage={setpage}
+            rows={3}
+            render={favoriteFlag}
           />
         </div>
       </div>

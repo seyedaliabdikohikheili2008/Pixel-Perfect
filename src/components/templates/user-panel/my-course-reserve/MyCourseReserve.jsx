@@ -40,8 +40,9 @@ const MyCourseReserve = () => {
     : [];
 
   const [page, setpage] = useState(1);
+  console.log(page);
 
-  const getItemsByPage = (array = [], page, itemsPerPage = 4) => {
+  const getItemsByPage = (array = [], page, itemsPerPage = 3) => {
     const start = (page - 1) * itemsPerPage;
     const end = start + itemsPerPage;
 
@@ -75,7 +76,7 @@ const MyCourseReserve = () => {
     <>
       <div className="w-full max-h-full flex-1 flex flex-col items-start gap-5">
         <h2 className="text-textC text-3xl font-bold">رزرو من</h2>
-        <div className="w-full h-130.25 p-5 flex flex-col gap-4 shadow-[0px_50px_100px_0px_#48484829] rounded-3xl bg-background">
+        <div className="w-full min-h-137 p-5 flex flex-col gap-4 shadow-[0px_50px_100px_0px_#48484829] rounded-3xl bg-background">
           <div className="flex gap-3">
             <div className="flex flex-col gap-2">
               <h5 className="text-base text-textC flex gap-2 items-center">
@@ -89,7 +90,7 @@ const MyCourseReserve = () => {
               />
             </div>
           </div>
-          <div className="w-full flex-1 overflow-y-auto flex flex-col md:divide-none divide-dashed divide-neutral-400 divide-y-1 gap-7">
+          <div className="w-full flex-1 flex flex-col md:divide-none divide-dashed divide-neutral-400 divide-y-1 gap-7">
             {MyCourseReserve
               ? data.map((item, index) => {
                   let start = new Date(item?.startDate);
@@ -150,10 +151,13 @@ const MyCourseReserve = () => {
               ""
             )}
           </div>
-          <TeacherListPagination
-            totalCount={searchCourse?.length}
-            setPage={setpage}
-          />
+          <div className="w-full flex items-center justify-center">
+            <TeacherListPagination
+              totalCount={searchCourse?.length}
+              setPage={setpage}
+              rows={3}
+            />
+          </div>
         </div>
       </div>
     </>

@@ -51,7 +51,6 @@ const CourseList = () => {
         ([_, v]) => v !== "" && v !== null && v !== undefined,
       ),
     );
-
     return cleaner;
   }, [searchParams]);
 
@@ -64,7 +63,6 @@ const CourseList = () => {
     isError: CoursesListErr,
     isLoading: CoursesListLoading,
   } = useAllCourses(params);
-  console.log(CoursesList);
   return (
     <>
       <div className="w-11/12 md:w-4/5 flex flex-col items-center gap-10">

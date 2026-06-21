@@ -97,7 +97,7 @@ const MyCourseReserve = () => {
                       </div>
                       <div className="flex gap-5">
                         <Button
-                          children={"شروع یاد گیری"}
+                          children={"شروع یادگیری"}
                           buttonClassName="h-10 text-sm text-nowrap"
                         />
                         <div className="flex p-2 border border-neutral-300 rounded-full">

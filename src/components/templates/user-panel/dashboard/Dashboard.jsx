@@ -6,6 +6,7 @@ import { useProfileInfo } from "../../../../core/hooks/queries/user-panel/dashbo
 import { useMyCourse } from "../../../../core/hooks/queries/user-panel/dashboard/useMyCourse";
 import { useMyCourseReserve } from "../../../../core/hooks/queries/user-panel/dashboard/useMyCourseReserve";
 import toast, { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const params = {
@@ -46,6 +47,8 @@ const Dashboard = () => {
     error: MyCourseReserveError,
   } = useMyCourseReserve();
 
+  const navigate = useNavigate();
+
   return (
     <>
       <Toaster />
@@ -79,12 +82,19 @@ const Dashboard = () => {
               جدید ترین اخبار و مقالات
             </h5>
             <div className="w-11/12 flex flex-col flex-1 gap-2 justify-between divide-dashed divide-y-2 divide-neutral-300">
-              {latestNewsListLoading ? <Loading circleSize={8} size={"text-2xl"} /> : ""}
+              {latestNewsListLoading ? (
+                <Loading circleSize={8} size={"text-2xl"} />
+              ) : (
+                ""
+              )}
               {latestNewsList
                 ? latestNewsList?.data?.news?.map((item, index) => {
                     return (
                       <div
-                        className="w-full flex justify-between gap-2 pb-2"
+                        onClick={() => {
+                          navigate(`/news-detail/${item.id}`);
+                        }}
+                        className="w-full cursor-pointer flex justify-between gap-2 pb-2"
                         key={index}
                       >
                         <h5 className="text-neutral-800 text-sm line-clamp-1">

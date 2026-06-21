@@ -17,6 +17,7 @@ import { addFavorite } from "../../../../core/services/Course-detail/addFavorite
 const Description = ({ course }) => {
   const { id } = useParams();
   const { t } = useTranslation("courseDetail");
+  const [visibleCount, setVisibleCount] = useState(2);
   const CourseId = id;
   if (!course) return <div>در حال بارگذاری اطلاعات...</div>;
   const [likes, setLikes] = useState(course.likeCount || 0);
@@ -96,13 +97,13 @@ const Description = ({ course }) => {
   };
 
   const handleFavorite = async () => {
-    console.log(id)
+    console.log(id);
     try {
-    await addFavorite({ courseId: id });
-    setIsFavorite(!isFavorite);
-  } catch (error) {
-    console.error("خطا در عملیات علاقمندی:", error);
-  }
+      await addFavorite({ courseId: id });
+      setIsFavorite(!isFavorite);
+    } catch (error) {
+      console.error("خطا در عملیات علاقمندی:", error);
+    }
   };
 
   //برای کامنته
@@ -134,15 +135,28 @@ const Description = ({ course }) => {
         />
         <div className="w-60 px-2 mt-2 h-12 flex justify-between bg-rootBg gap-2 items-center flex-row-reverse absolute -bottom-1 -left-1 rounded-xl">
           <div className="w-19.25 flex justify-between items-center">
-            <img src={dislike} alt="" onClick={handleDislike} className="cursor-pointer" />
+            <img
+              src={dislike}
+              alt=""
+              onClick={handleDislike}
+              className="cursor-pointer"
+            />
             <p className="text-xl font-bold text-textC">{dislikes}</p>
           </div>
           <div className="w-19.25 flex justify-between items-center">
-            <img src={like} alt="" onClick={handleLike} className="cursor-pointer" />
+            <img
+              src={like}
+              alt=""
+              onClick={handleLike}
+              className="cursor-pointer"
+            />
             <p className="text-xl font-bold text-textC">{likes}</p>
           </div>
           <div className="w-19.25 flex justify-between items-center">
-            <button onClick={handleFavorite} className="cursor-pointer text-2xl">
+            <button
+              onClick={handleFavorite}
+              className="cursor-pointer text-2xl"
+            >
               {isFavorite ? "❤️" : "🤍"}
             </button>
           </div>
@@ -167,10 +181,10 @@ const Description = ({ course }) => {
       <div className="flex flex-col gap-4">
         <div className="flex justify-between items-center">
           <h1 className="text-2xl md:text-3xl font-bold text-textC text-right px-2">
-           {t("description.Comments")}
+            {t("description.Comments")}
           </h1>
           <Button
-          iconSrc={comment}
+            iconSrc={comment}
             children={t("description.button")}
             onClick={() => setIsCommentBoxOpen(true)}
           />
@@ -229,7 +243,7 @@ const Description = ({ course }) => {
             هنوز نظری ثبت نشده
           </p>
         ) : (
-          comments.map((comment) => (
+          comments.slice(0, visibleCount).map((comment) => (
             <CourseComment
               key={comment.id}
               comment={comment}
@@ -237,12 +251,14 @@ const Description = ({ course }) => {
             />
           ))
         )}
-        <button
-          className=" w-1/2 m-auto md:w-1/5 flex items-center justify-center cursor-pointer 
-        px-4 py-2 focus:outline-none rounded-xl text-nowrap dark:text-primary-500 text-primary-800 border border-solid dark:border-primary-500 border-primary-800 ltr"
-        >
-          {t("description.more")}
-        </button>
+        {comments.length > 2 && (
+          <button  onClick={() => setVisibleCount((prev) => prev + 10)}
+            className=" w-1/2 m-auto md:w-1/5 flex items-center justify-center cursor-pointer 
+    px-4 py-2 focus:outline-none rounded-xl text-nowrap dark:text-primary-500 text-primary-800 border border-solid dark:border-primary-500 border-primary-800 ltr"
+          >
+            {t("description.more")}
+          </button>
+        )}
       </div>
     </div>
   );

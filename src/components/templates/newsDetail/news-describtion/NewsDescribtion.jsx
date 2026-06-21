@@ -32,7 +32,8 @@ const NewsDescription = ({ news }) => {
   const [isCommentBoxOpen, setIsCommentBoxOpen] = useState(false);
   const [commentText, setCommentText] = useState("");
   const commentTextRef = useRef(null);
-
+  const [visibleCount, setVisibleCount] = useState(2);
+  
   const handleLike = async () => {
     if (userLiked) return;
     if (userDisliked) {
@@ -103,8 +104,6 @@ const handleFavorite = async () => {
       commentTextRef.current?.focus();
     }
   }, [isCommentBoxOpen]);
-
-  const [visibleCount, setVisibleCount] = useState(2);
 
   const { data: commentData, isLoading: isCommentLoading } = useQuery({
     queryKey: ["news-comment", NewsId],

@@ -13,8 +13,10 @@ import NotFound from "../../../atoms/not-found/NotFound";
 import { useRemoveCourseFavorite } from "../../../../core/hooks/queries/user-panel/favorites/course/useRemoveCourseFavorite";
 import toast from "react-hot-toast";
 import { useRemoveNewsFavorite } from "../../../../core/hooks/queries/user-panel/favorites/news/useRemoveNewsFavorite";
+import { useNavigate } from "react-router-dom";
 
 const MyFavorites = () => {
+  const navigate = useNavigate();
   const [favoriteFlag, setfavoriteFlag] = useState("course");
 
   const handleRadio = (value) => {
@@ -225,7 +227,10 @@ const MyFavorites = () => {
                         </div>
                         <div className="flex gap-5">
                           <Button
-                            children={"شروع یاد گیری"}
+                            onClick={() => {
+                              navigate(`/course-detail/${item.courseId}`);
+                            }}
+                            children={"مشاهده دوره"}
                             buttonClassName="h-10 text-sm text-nowrap"
                           />
                           <div
@@ -265,6 +270,9 @@ const MyFavorites = () => {
                         </div>
                         <div className="flex gap-5">
                           <Button
+                            onClick={() => {
+                              navigate(`/news-detail/${item.newsId}`);
+                            }}
                             children={"مشاهده مقاله"}
                             buttonClassName="h-10 text-sm text-nowrap"
                           />

@@ -21,7 +21,7 @@ const NewsDescription = ({ news }) => {
   const idToSend = newsId;
   const userId = Number(localStorage.getItem("userId"));
   const [comments, setComments] = useState([]);
-
+console.log(idToSend)
   if (!news) return <div><Loading/></div>;
 
   const [likes, setLikes] = useState(news.likeCount || 0);
@@ -33,7 +33,7 @@ const NewsDescription = ({ news }) => {
   const [commentText, setCommentText] = useState("");
   const commentTextRef = useRef(null);
   const [visibleCount, setVisibleCount] = useState(2);
-  
+
   const handleLike = async () => {
     if (userLiked) return;
     if (userDisliked) {
@@ -106,8 +106,8 @@ const handleFavorite = async () => {
   }, [isCommentBoxOpen]);
 
   const { data: commentData, isLoading: isCommentLoading } = useQuery({
-    queryKey: ["news-comment", NewsId],
-    queryFn: () => getComments(NewsId),
+    queryKey: ["news-comment", newsId],
+    queryFn: () => getComments(newsId),
   });
 
   return (

@@ -24,14 +24,13 @@ import ResetPasswordGuard from "../../components/guard/reset-password/ResetPassw
 import Dashboard from "../../components/templates/user-panel/dashboard/Dashboard";
 import MyCourse from "../../components/templates/user-panel/my-course/MyCourse";
 import MyCourseReserve from "../../components/templates/user-panel/my-course-reserve/MyCourseReserve";
-import MyFavoriteCourses from "../../components/templates/user-panel/my-favorite-courses/MyFavoriteCourses";
-import MyFavoriteNews from "../../components/templates/user-panel/my-favorite-news/MyFavoriteNews";
 import ProfileLayout from "../layout/user-panel-layout/profile/ProfileLayout";
 import PersonalInformation from "../../components/templates/user-panel/profile/personal-information/PersonalInformation";
 import ProfileImage from "../../components/templates/user-panel/profile/profile-image/ProfileImage";
 import SecuritySetting from "../../components/templates/user-panel/securitysetting/SecuritySetting";
 import HomeAddress from "../../components/templates/user-panel/profile/home-address/HomeAddress";
 import EditLink from "../../components/templates/user-panel/profile/link/EditLink";
+import MyFavorites from "../../components/templates/user-panel/my-favorites/MyFavorites";
 
 const router = createBrowserRouter([
   {
@@ -108,8 +107,7 @@ const router = createBrowserRouter([
           { index: true, element: <Dashboard /> },
           { path: "my-course", element: <MyCourse /> },
           { path: "my-reservation", element: <MyCourseReserve /> },
-          { path: "my-favorite-course", element: <MyFavoriteCourses /> },
-          { path: "my-favorite-news", element: <MyFavoriteNews /> },
+          { path: "my-favorites", element: <MyFavorites /> },
           { path: "Security", element: <SecuritySetting /> },
           {
             path: "profile",

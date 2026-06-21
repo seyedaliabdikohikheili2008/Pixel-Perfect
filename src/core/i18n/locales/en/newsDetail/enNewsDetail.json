@@ -6,7 +6,8 @@
         "more":"View more",
         "add":"Write your comment...",
         "out":"opt out",
-        "send":"Register a comment"
+        "send":"Register a comment",
+        "noComments":"There are no comments."
     },
     "sidebar":{
         "view":"view",

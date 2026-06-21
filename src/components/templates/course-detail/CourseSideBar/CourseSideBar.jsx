@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import usermultipate from "../../../../assets/images/icons/course-detail/usermultipate.svg";
 import situation from "../../../../assets/images/icons/course-detail/situation .svg";
 import end from "../../../../assets/images/icons/course-detail/end.svg";
@@ -7,10 +7,32 @@ import Button from "../../../atoms/Butoon/Button";
 import Profile from "../../../atoms/profile/Profile";
 import Acceptance from "../../../atoms/acceptance/Acceptance";
 import { useTranslation } from "react-i18next";
+import { Reserve } from "../../../../core/services/Course-detail/reserve/reserve";
+import toast, { Toaster } from "react-hot-toast";
+
 const CourseSideBar = ({course}) => {
   const { t } = useTranslation("courseDetail");
+  const [isReserving, setIsReserving] = useState(false);
+
+  const handleReserveClick = async () => {
+    console.log("course.id:", course.courseId);
+    setIsReserving(true);
+    try {
+      const response = await Reserve(course.courseId);
+      toast.success("دوره با موفقیت رزرو شد!");
+      console.log(response);
+    } catch (error) {
+      const errorMessage = error?.response?.data?.message || "خطایی در رزرو رخ داد.";
+      toast.error(errorMessage);
+      console.error(error);
+    } finally {
+      setIsReserving(false);
+    }
+  };
+
   return (
     <div className=" w-full xl:w-3/10 md:w-3/4 mx-auto flex flex-col items-center gap-8">
+      <Toaster/>
       <div className="bg-background w-full p-8 rounded-2xl shadow-2xl">
         <h1 className="text-2xl md:text-3xl font-bold text-textC pb-8 ">
           {course.title}
@@ -50,7 +72,11 @@ const CourseSideBar = ({course}) => {
             </p>
           </div>
           <div className="flex justify-between items-center pt-5">
-            <Button children={t("sidebar.button")}/>
+            <Button 
+              onClick={handleReserveClick}
+              disabled={isReserving}
+              children={isReserving ? "در حال رزر" : t("sidebar.button")}
+            />
             <div className="flex items-center gap-2 justify-center">
                 <p className="font-bold text-xl md:text-2xl text-primary-300">{course.cost}</p>
                 <p className="text-xl md:text-2xl font-normal text-textC">{t("sidebar.price")}</p>

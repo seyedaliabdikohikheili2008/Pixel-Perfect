@@ -16,7 +16,7 @@ const NewsSideBar = ({ news }) => {
               <p className="text-md text-neutral-300">{t("sidebar.view")}</p>
             </div>
             <p className="font-bold text-[16px] text-textC">
-              {news.studentCount}
+              {news.currentView}
             </p>
           </div>
           <div className="flex justify-between items-center p-2.5 ">
@@ -25,7 +25,7 @@ const NewsSideBar = ({ news }) => {
               <p className="text-md text-neutral-300">{t("sidebar.date")}</p>
             </div>
             <p className="font-bold text-[16px] text-textC">
-              {news.studentCount}
+              {new Date(news.insertDate).toLocaleDateString('fa-IR')}
             </p>
           </div>
         </div>

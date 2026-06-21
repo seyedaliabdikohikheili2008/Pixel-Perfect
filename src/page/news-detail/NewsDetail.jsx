@@ -37,20 +37,16 @@ const NewsDetail = () => {
         <NewsDescription news={newsData} />
         <NewsSidebar news={newsData} />
       </div>
-
-      <div className="w-11/12 mx-auto py-10">
-        <SectionTitle width="w-75" title={t("similar")} />
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4  justify-between mt-8">
-          {isTopLoading ? (
-            <div className="m-auto pt-10"><Loading/></div>
-            
-          ) : (
-            topnewsData?.data?.map((detail) => (
-              <NewsCard key={detail.newsId} detail={detail} />
-            ))
-          )}
-        </div>
-      </div>
+      {topnewsData?.data?.length > 0 && (
+  <div className="w-11/12 mx-auto py-10">
+    <SectionTitle width="w-75" title={t("similar")} />
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 justify-between mt-8">
+      {topnewsData.data.map((detail) => (
+        <NewsCard key={detail.newsId} detail={detail} />
+      ))}
+    </div>
+  </div>
+)}
     </>
   );
 };

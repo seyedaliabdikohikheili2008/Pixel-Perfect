@@ -21,7 +21,7 @@ const NewsDescription = ({ news }) => {
   const idToSend = newsId;
   const userId = Number(localStorage.getItem("userId"));
   const [comments, setComments] = useState([]);
-
+  console.log(idToSend);
   if (!news) return <div><Loading/></div>;
 
   const [likes, setLikes] = useState(news.likeCount || 0);
@@ -32,6 +32,7 @@ const NewsDescription = ({ news }) => {
   const [isCommentBoxOpen, setIsCommentBoxOpen] = useState(false);
   const [commentText, setCommentText] = useState("");
   const commentTextRef = useRef(null);
+  const [visibleCount, setVisibleCount] = useState(2);
 
   const handleLike = async () => {
     if (userLiked) return;
@@ -74,18 +75,19 @@ const NewsDescription = ({ news }) => {
     }
   };
 
-const handleFavorite = async () => {
-  try {
-    if (isFavorite) {
-      await removeFavorite(idToSend);
-    } else {
-      await addFavorite(idToSend);
+
+  const handleFavorite = async () => {
+    try {
+      if (isFavorite) {
+        await removeFavorite(idToSend);
+      } else {
+        await addFavorite(idToSend);
+      }
+      setIsFavorite(!isFavorite);
+    } catch (error) {
+      console.error("خطا در عملیات علاقمندی:", error);
     }
-    setIsFavorite(!isFavorite);
-  } catch (error) {
-    console.error("خطا در عملیات علاقمندی:", error);
-  }
-};
+  };
 
   useEffect(() => {
     if (news) {
@@ -103,11 +105,9 @@ const handleFavorite = async () => {
     }
   }, [isCommentBoxOpen]);
 
-  const [visibleCount, setVisibleCount] = useState(2);
-
   const { data: commentData, isLoading: isCommentLoading } = useQuery({
-    queryKey: ["news-comment", NewsId],
-    queryFn: () => getComments(NewsId),
+    queryKey: ["news-comment", newsId],
+    queryFn: () => getComments(newsId),
   });
 
   return (
@@ -120,11 +120,11 @@ const handleFavorite = async () => {
         />
         <div className="w-60 px-2 mt-2 h-12 flex justify-between bg-rootBg gap-2 items-center flex-row-reverse absolute -bottom-1 -left-1 rounded-xl">
           <div className="w-19.25 flex justify-between items-center">
-            <img src={dislike} alt="" onClick={handleLike} className="cursor-pointer" />
+            <img src={like} alt="" onClick={handleLike} className="cursor-pointer" />
             <p className="text-xl font-bold text-textC">{likes}</p>
           </div>
           <div className="w-19.25 flex justify-between items-center">
-            <img src={like} alt="" onClick={handleDislike} className="cursor-pointer" />
+            <img src={dislike} alt="" onClick={handleDislike} className="cursor-pointer" />
             <p className="text-xl font-bold text-textC">{dislikes}</p>
           </div>
           <div className="w-19.25 flex justify-between items-center">
@@ -207,7 +207,7 @@ const handleFavorite = async () => {
         )}
 
         {isCommentLoading ? (
-          <Loading/>
+          <Loading />
         ) : (
           <div className="flex flex-col gap-4">
             {commentData?.data?.slice(0, visibleCount).map((item) => (
@@ -220,6 +220,11 @@ const handleFavorite = async () => {
               >
                 {t("description.more")}
               </button>
+            )}
+            {commentData?.data?.length === 0 && (
+              <p className="text-center text-textC py-4">
+                {t("description.noComments") }
+              </p>
             )}
           </div>
         )}

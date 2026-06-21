@@ -31,6 +31,7 @@ import SecuritySetting from "../../components/templates/user-panel/securitysetti
 import HomeAddress from "../../components/templates/user-panel/profile/home-address/HomeAddress";
 import EditLink from "../../components/templates/user-panel/profile/link/EditLink";
 import MyFavorites from "../../components/templates/user-panel/my-favorites/MyFavorites";
+import MyComments from "../../components/templates/user-panel/my-comments/MyComments";
 
 const router = createBrowserRouter([
   {
@@ -108,6 +109,7 @@ const router = createBrowserRouter([
           { path: "my-course", element: <MyCourse /> },
           { path: "my-reservation", element: <MyCourseReserve /> },
           { path: "my-favorites", element: <MyFavorites /> },
+          { path: "my-comments", element: <MyComments /> },
           { path: "Security", element: <SecuritySetting /> },
           {
             path: "profile",

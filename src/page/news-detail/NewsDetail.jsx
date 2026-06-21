@@ -26,7 +26,11 @@ const NewsDetail = () => {
   });
 
   if (isLoading || isLoading)
-    return <div className="h-300 m-auto flex justify-center items-center"><Loading/></div>;
+    return (
+      <div className="h-150 m-auto flex justify-center items-center">
+        <Loading />
+      </div>
+    );
   if (error) return <div className="text-danger-600">خطایی رخ داده است.</div>;
 
   const newsData = data?.data.detailsNewsDto;
@@ -37,6 +41,7 @@ const NewsDetail = () => {
         <NewsDescription news={newsData} />
         <NewsSidebar news={newsData} />
       </div>
+
       {topnewsData?.data?.length > 0 && (
   <div className="w-11/12 mx-auto py-10">
     <SectionTitle width="w-75" title={t("similar")} />

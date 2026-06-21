@@ -10,6 +10,7 @@ import { LiaUserEditSolid } from "react-icons/lia";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { IoLogOutOutline } from "react-icons/io5";
 import { Toaster } from "react-hot-toast";
+import { FaRegCommentDots } from "react-icons/fa";
 
 const UserPanelLayout = () => {
   const location = useLocation();
@@ -67,6 +68,15 @@ const UserPanelLayout = () => {
             >
               <LuBookMarked size={24} />
               <h3 className="text-lg">علاقه‌مندی های من</h3>
+            </li>
+            <li
+              onClick={() => {
+                navigate("/user-panel/my-comments");
+              }}
+              className={`flex cursor-pointer items-center gap-4 p-4 ${location.pathname == "/user-panel/my-comments" ? "bg-primary-500 text-white" : "text-textC"} rounded-[38px]`}
+            >
+              <FaRegCommentDots size={24} />
+              <h3 className="text-lg">دیدگاه های من</h3>
             </li>
             <li
               onClick={() => {

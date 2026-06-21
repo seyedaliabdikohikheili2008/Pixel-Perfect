@@ -10,6 +10,9 @@ import Button from "../../../atoms/Butoon/Button";
 import { RxCross1 } from "react-icons/rx";
 import Loading from "../../../atoms/loading/Loading";
 import NotFound from "../../../atoms/not-found/NotFound";
+import { useRemoveCourseFavorite } from "../../../../core/hooks/queries/user-panel/favorites/course/useRemoveCourseFavorite";
+import toast from "react-hot-toast";
+import { useRemoveNewsFavorite } from "../../../../core/hooks/queries/user-panel/favorites/news/useRemoveNewsFavorite";
 
 const MyFavorites = () => {
   const [favoriteFlag, setfavoriteFlag] = useState("course");
@@ -34,12 +37,14 @@ const MyFavorites = () => {
     data: MyFavoriteCourse = undefined,
     isError: MyFavoriteCourseErr,
     isLoading: MyFavoriteCourseLoading,
+    refetch: MyFavoriteCourseRefetch,
   } = useMyFavoriteCourse();
 
   const {
     data: MyFavoriteNews = undefined,
     isError: MyFavoriteNewsErr,
     isLoading: MyFavoriteNewsLoading,
+    refetch: MyFavoriteNewsRefetch,
   } = useMyFavoriteNews();
 
   const [search, setsearch] = useState("");
@@ -68,8 +73,6 @@ const MyFavorites = () => {
         ? Search(MyFavoriteNews.data.myFavoriteNews, search, "news.title")
         : [];
 
-  console.log(searchFavorites);
-
   const [page, setpage] = useState(1);
 
   const getItemsByPage = (array = [], page, itemsPerPage = 4) => {
@@ -82,6 +85,42 @@ const MyFavorites = () => {
   const data = useMemo(() => {
     return getItemsByPage(searchFavorites, page);
   }, [searchFavorites, page]);
+
+  const { mutate: removeCourse, isPending: removeCoursePending } =
+    useRemoveCourseFavorite();
+  const { mutate: removeNews, isPending: removeNewsPending } =
+    useRemoveNewsFavorite();
+
+  const handleRemoveFavorite = (id) => {
+    if (favoriteFlag == "course") {
+      const formData = new FormData();
+      formData.append("CourseFavoriteId", id);
+      removeCourse(formData, {
+        onSuccess: (res) => {
+          toast.success("با موفقیت از علاقه مندی حذف شد");
+          MyFavoriteCourseRefetch();
+        },
+        onError: (err) => {
+          console.log(err?.response?.data);
+        },
+      });
+    } else {
+      removeNews(
+        {
+          deleteEntityId: String(id),
+        },
+        {
+          onSuccess: (res) => {
+            toast.success("با موفقیت از علاقه مندی حذف شد");
+            MyFavoriteNewsRefetch();
+          },
+          onError: (err) => {
+            console.log(err?.response?.data);
+          },
+        },
+      );
+    }
+  };
 
   return (
     <>
@@ -189,7 +228,12 @@ const MyFavorites = () => {
                             children={"شروع یاد گیری"}
                             buttonClassName="h-10 text-sm text-nowrap"
                           />
-                          <div className="flex p-2 border border-neutral-300 rounded-full">
+                          <div
+                            onClick={() => {
+                              handleRemoveFavorite(item.id);
+                            }}
+                            className="flex cursor-pointer p-2 border border-neutral-300 rounded-full"
+                          >
                             <RxCross1 color="#FF5454" size={20} />
                           </div>
                         </div>
@@ -224,7 +268,12 @@ const MyFavorites = () => {
                             children={"مشاهده مقاله"}
                             buttonClassName="h-10 text-sm text-nowrap"
                           />
-                          <div className="flex p-2 border border-neutral-300 rounded-full">
+                          <div
+                            onClick={() => {
+                              handleRemoveFavorite(item.id);
+                            }}
+                            className="flex cursor-pointer p-2 border border-neutral-300 rounded-full"
+                          >
                             <RxCross1 color="#FF5454" size={20} />
                           </div>
                         </div>

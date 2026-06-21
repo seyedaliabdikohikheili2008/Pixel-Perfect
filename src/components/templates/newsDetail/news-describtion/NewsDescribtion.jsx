@@ -27,7 +27,7 @@ const NewsDescription = ({ news }) => {
   const [dislikes, setDislikes] = useState(news.disLikeCount || 0);
   const [userLiked, setUserLiked] = useState(news.userIsLiked || false);
   const [userDisliked, setUserDisliked] = useState(news.userIsDisLike || false);
-  const [isFavorite, setIsFavorite] = useState(news.userIsFavorite || false);
+  const [isFavorite, setIsFavorite] = useState(news.isCurrentUserFavorite || false);
   const [isCommentBoxOpen, setIsCommentBoxOpen] = useState(false);
   const [commentText, setCommentText] = useState("");
   const commentTextRef = useRef(null);
@@ -94,7 +94,7 @@ const NewsDescription = ({ news }) => {
       setDislikes(news.currentDissLikeCount || 0);
       setUserLiked(news.currentUserIsLike || false);
       setUserDisliked(news.currentUserIsDissLike || false);
-      setIsFavorite(news.userIsFavorite || false);
+      setIsFavorite(news.isCurrentUserFavorite || false);
     }
   }, [news]);
 

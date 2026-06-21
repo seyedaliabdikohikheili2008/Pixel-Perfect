@@ -12,7 +12,7 @@ import Loading from "../../components/atoms/loading/Loading";
 
 const CourseDetail = () => {
   const { id } = useParams();
-const { t } = useTranslation("courseDetail");
+  const { t } = useTranslation("courseDetail");
   const { data, isLoading, error } = useQuery({
     queryKey: ["course-detail", id],
     queryFn: () => getCourseDetail(id),
@@ -25,7 +25,12 @@ const { t } = useTranslation("courseDetail");
     queryFn: () => TopCourse(4),
   });
 
-  if (isLoading || isLoading) return <div className="m-auto h-500 flex items-center"><Loading/></div>;
+  if (isLoading || isLoading)
+    return (
+      <div className="m-auto h-150 flex items-center">
+        <Loading />
+      </div>
+    );
   if (error) return <div>خطایی رخ داده است.</div>;
 
   const courseData = data?.data;
@@ -36,19 +41,18 @@ const { t } = useTranslation("courseDetail");
         <CourseSideBar course={courseData} />
       </div>
 
-      
-        <div className="w-11/12 mx-auto py-10">
-          <SectionTitle width="w-75" title={t("similar")} />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4  gap-6 mt-8">
-    {isTopLoading ? (
-      <Loading/>
-    ) : (
-      topCoursesData?.data?.map((detail) => (
-        <CourseCard key={detail.CourseId} detail={detail}/>
-      ))
-    )}
-  </div>
+      <div className="w-11/12 mx-auto py-10">
+        <SectionTitle width="w-75" title={t("similar")} />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4  gap-6 mt-8">
+          {isTopLoading ? (
+            <Loading />
+          ) : (
+            topCoursesData?.data?.map((detail) => (
+              <CourseCard key={detail.CourseId} detail={detail} />
+            ))
+          )}
         </div>
+      </div>
     </>
   );
 };

@@ -75,7 +75,6 @@ const NewsDescription = ({ news }) => {
   };
 
 const handleFavorite = async () => {
-  console.log("idToSend:", idToSend);
   try {
     if (isFavorite) {
       await removeFavorite(idToSend);

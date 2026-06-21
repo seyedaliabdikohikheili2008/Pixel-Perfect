@@ -12,7 +12,6 @@ import Loading from "../../components/atoms/loading/Loading";
 const NewsDetail = () => {
   const { newsId } = useParams();
   const { t } = useTranslation("newsDetail");
-  console.log("Value of ID from URL:", newsId);
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["news-detail", newsId],
@@ -31,7 +30,7 @@ const NewsDetail = () => {
   if (error) return <div className="text-danger-600">خطایی رخ داده است.</div>;
 
   const newsData = data?.data.detailsNewsDto;
-  
+
   return (
     <>
       <div className="w-11/12 flex-col flex gap-10 xl:flex-row md:flex-col justify-between m-auto py-10">

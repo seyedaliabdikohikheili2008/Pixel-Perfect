@@ -61,21 +61,12 @@ const UserPanelLayout = () => {
             </li>
             <li
               onClick={() => {
-                navigate("/user-panel/my-favorite-course");
+                navigate("/user-panel/my-favorites");
               }}
-              className={`flex cursor-pointer items-center gap-4 p-4 ${location.pathname == "/user-panel/my-favorite-course" ? "bg-primary-500 text-white" : "text-textC"} rounded-[38px]`}
+              className={`flex cursor-pointer items-center gap-4 p-4 ${location.pathname == "/user-panel/my-favorites" ? "bg-primary-500 text-white" : "text-textC"} rounded-[38px]`}
             >
               <LuBookMarked size={24} />
-              <h3 className="text-lg">علاقه‌مندی دوره</h3>
-            </li>
-            <li
-              onClick={() => {
-                navigate("/user-panel/my-favorite-news");
-              }}
-              className={`flex cursor-pointer items-center gap-4 p-4 ${location.pathname == "/user-panel/my-favorite-news" ? "bg-primary-500 text-white" : "text-textC"} rounded-[38px]`}
-            >
-              <MdOutlineBook size={24} />
-              <h3 className="text-lg">علاقه‌مندی مقالات</h3>
+              <h3 className="text-lg">علاقه‌مندی های من</h3>
             </li>
             <li
               onClick={() => {

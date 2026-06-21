@@ -12,6 +12,7 @@ import { AddComment } from "../../../../core/services/news-detail/Comments/AddCo
 import { useTranslation } from "react-i18next";
 import { addFavorite } from "../../../../core/services/news-detail/addFavorite/addFavorite"; 
 import { removeFavorite } from "../../../../core/services/news-detail/removeFavorite/removeFavorite";
+import Loading from "../../../atoms/loading/Loading";
 
 const NewsDescription = ({ news }) => {
   const { t } = useTranslation("newsDetail");
@@ -21,7 +22,7 @@ const NewsDescription = ({ news }) => {
   const userId = Number(localStorage.getItem("userId"));
   const [comments, setComments] = useState([]);
 
-  if (!news) return <div>در حال بارگذاری اطلاعات...</div>;
+  if (!news) return <div><Loading/></div>;
 
   const [likes, setLikes] = useState(news.likeCount || 0);
   const [dislikes, setDislikes] = useState(news.disLikeCount || 0);
@@ -206,7 +207,7 @@ const handleFavorite = async () => {
         )}
 
         {isCommentLoading ? (
-          <p>در حال بارگذاری...</p>
+          <Loading/>
         ) : (
           <div className="flex flex-col gap-4">
             {commentData?.data?.slice(0, visibleCount).map((item) => (

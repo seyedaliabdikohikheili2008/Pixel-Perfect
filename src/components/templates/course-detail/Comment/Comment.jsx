@@ -7,6 +7,7 @@ import replyIcon from "../../../../assets/images/icons/course-detail/reply.png";
 import { getReplyComments } from "../../../../core/services/news-detail/Comments/ReplyComment/ReplyComment";
 import { AddReplyComment } from "../../../../core/services/news-detail/Comments/AddReplyComment/AddReplyComment";
 import { postNewsCommentLike } from "../../../../core/services/news-detail/addCommentLike/addCommentLike";
+import Loading from "../../../atoms/loading/Loading";
 const Comment = ({ item }) => {
   const [isReplyBoxOpen, setIsReplyBoxOpen] = useState(false);
   const [replyText, setReplyText] = useState("");
@@ -21,7 +22,7 @@ const Comment = ({ item }) => {
     queryFn: () => getReplyComments(item.id),
     enabled: !!item.id,
   });
-
+   isCommentReplyLoading ? <Loading/>:""
   const handleSendReply = async () => {
 
     setIsLoading(true);
@@ -121,7 +122,7 @@ const handleLike = async () => {
                 onClick={handleSendReply}
                 disabled={isLoading}
               >
-                {isLoading ? "در حال ثبت..." : "ثبت پاسخ"}
+                {isLoading ? <Loading/> : "ثبت پاسخ"}
               </button>
               <button
                 className="bg-neutral-200 px-4 py-2 rounded-lg"

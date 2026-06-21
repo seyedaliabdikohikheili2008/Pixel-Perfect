@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Formik, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { InputOTP } from "@heroui/react";
@@ -7,50 +7,60 @@ import Timer from "../../atoms/Timer/Timer";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import RegisterStepTwo from "../../../core/api/auth/Register/StepTwo/StepTwo";
+import LoginStepTwo from "../../../core/api/auth/login/stepTwo/stepTwp";
 import toast, { Toaster } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { stepIncrement } from "../../../core/feature/auth/RegisterStepSlice";
+import { login } from "../../../core/feature/auth/IsAuthSlice";
 
-const InputOtp = () => {
-  const savedEmail = localStorage.getItem("registration_email");
+const OtpVerification = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const isLogin = location.pathname.includes("/auth/login");
+  const state = location.state || {};
+
   const { mutate, isPending } = useMutation({
-    mutationFn: RegisterStepTwo,
+    mutationFn: isLogin ? LoginStepTwo : RegisterStepTwo,
     onSuccess: (data) => {
       if (data.message === "کد اشتباه است" || !data.success) {
-        toast.error("رمز شما اشتباه است");
+        toast.error("کد اشتباه است");
         return;
       }
-      // if (location.pathname === "/auth/login/verifying") {
-      //   navigate("/");
-      // }
-      else if (location.pathname == "/auth/register/step-2") {
+
+      if (isLogin) {
+        if (data.token) {
+          localStorage.setItem("token", data.token);
+          dispatch(login());
+          toast.success("خوش اومدی💛");
+          setTimeout(() => navigate("/"), 1500);
+        }
+      } else {
         dispatch(stepIncrement());
         navigate("/auth/register/step-3");
       }
     },
     onError: (error) => {
-      const status = error.response?.status;
-
-      const serverMessage = error.response?.data?.message;
-
-      if (
-        (status === 200 && serverMessage === "کد اشتباه است") ||
-        !error.response?.data?.success
-      ) {
-        toast.error("رمز شما اشتباه است");
-      } else {
-        toast.error("خطایی در اتصال به سرور رخ داد. لطفاً دوباره تلاش کنید.");
-      }
+      toast.error("خطایی رخ داد. دوباره تلاش کن.");
     },
   });
-  const navigate = useNavigate();
-  const location = useLocation();
+
   const postData = (formData) => {
-    mutate({ verifyCode: formData.verifyCode, gmail: savedEmail });
+    if (isLogin) {
+      mutate({
+        verifyCode: formData.verifyCode,
+        tempToken: state.tempToken,
+        phoneOrGmail: state.phoneOrGmail,
+      });
+    } else {
+      mutate({
+        verifyCode: formData.verifyCode,
+        gmail: state.gmail || localStorage.getItem("registration_email"),
+      });
+    }
   };
 
-  const initialValues = { verifyCode: "", gmail: savedEmail };
   const validationSchema = Yup.object({
     verifyCode: Yup.string()
       .length(6, "کد تایید باید ۶ رقم باشد")
@@ -59,7 +69,7 @@ const InputOtp = () => {
 
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={{ verifyCode: "" }}
       validationSchema={validationSchema}
       onSubmit={postData}
     >
@@ -119,4 +129,4 @@ const InputOtp = () => {
   );
 };
 
-export default InputOtp;
+export default OtpVerification;

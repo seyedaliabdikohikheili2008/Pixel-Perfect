@@ -20,41 +20,55 @@ const LoginStepOneForm = () => {
 
   const { mutate, isPending } = useMutation({
     mutationFn: LoginStepOne,
-    onSuccess: (data) => {
-      if (data.success) {
-        localStorage.setItem("token", data.token);
-        dispatch(login());
-        toast.success("خوش اومدی💛");
-        clearTimeout(timeOutRef.current);
-        timeOutRef.current = setTimeout(() => {
-          navigate("/");
-        }, 1500);
-      }
-    },
-    onError: (error) => {
-      const status = error.response?.status;
-      const serverMessage = error.response?.data?.message;
-
-      if (status === 401 && serverMessage === "رمز عبور اشتباه است") {
-        toast.error("رمز عبور اشتباه است");
-      } else if (status === 401 && serverMessage === "کاربر یافت نشد") {
-        toast.error("کاربری با این مشخصات یافت نشد لطفا ثبت نام کنید");
-      } else if (status === 400) {
-        toast.error("درخواست نامعتبر است. لطفاً فیلدها را بررسی کنید.");
-      } else {
-        console.log(error);
-        toast.error("خطایی در اتصال به سرور رخ داد. لطفاً دوباره تلاش کنید.");
-      }
-    },
   });
 
   const postData = (values) => {
-    mutate({
-      phoneOrGmail: values.phoneOrGmail,
-      password: values.password,
-      rememberMe: values.rememberMe,
-    });
+    mutate(
+      {
+        phoneOrGmail: values.phoneOrGmail,
+        password: values.password,
+        rememberMe: values.rememberMe,
+      },
+      {
+        onSuccess: (data) => {
+          if (data.success) {
+            if (data.token) {
+              localStorage.setItem("token", data.token);
+              dispatch(login());
+              toast.success("خوش اومدی💛");
+              clearTimeout(timeOutRef.current);
+              timeOutRef.current = setTimeout(() => {
+                navigate("/");
+              }, 1500);
+            } else if (data.message === "کد ارسال شد") {
+              navigate("verifying", {
+                state: {
+                  phoneOrGmail: values.phoneOrGmail,
+                  gmail: values.phoneOrGmail,
+                },
+              });
+            }
+          }
+        },
+        onError: (error) => {
+          const status = error.response?.status;
+          const serverMessage = error.response?.data?.message;
+
+          if (status === 401 && serverMessage === "رمز عبور اشتباه است") {
+            toast.error("رمز عبور اشتباه است");
+          } else if (status === 401 && serverMessage === "کاربر یافت نشد") {
+            toast.error("کاربری با این مشخصات یافت نشد لطفا ثبت نام کنید");
+          } else if (status === 400) {
+            toast.error("درخواست نامعتبر است. لطفاً فیلدها را بررسی کنید.");
+          } else {
+            console.log(error);
+            toast.error("خطایی در اتصال به سرور رخ داد. لطفاً دوباره تلاش کنید.");
+          }
+        },
+      }
+    );
   };
+
   const validationSchema = Yup.object({
     phoneOrGmail: Yup.string()
       .required("ایمیل الزامی است")

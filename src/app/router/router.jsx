@@ -55,7 +55,7 @@ const router = createBrowserRouter([
         path: "login",
         children: [
           { index: true, element: <LoginStepOne /> },
-          // { path: "verifying", element: <LoginStepTwo /> },
+           { path: "verifying", element: <LoginStepTwo /> },
         ],
       },
       {

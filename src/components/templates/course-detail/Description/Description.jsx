@@ -13,6 +13,7 @@ import { useQuery } from "@tanstack/react-query";
 import { PostCourseComments } from "../../../../core/services/Course-detail/AddComment/AddComment";
 import { useTranslation } from "react-i18next";
 import { addFavorite } from "../../../../core/services/Course-detail/addFavorite/addFavorite";
+import { removeFavorite } from "../../../../core/services/Course-detail/removeFavorite/removeFavorite";
 
 const Description = ({ course }) => {
   const { id } = useParams();
@@ -26,7 +27,7 @@ const Description = ({ course }) => {
   const [userDisliked, setUserDisliked] = useState(
     course.userIsDissLike || false,
   );
-  const [isFavorite, setIsFavorite] = useState(course.userIsFavorite || false);
+  const [isFavorite, setIsFavorite] = useState(course.userFavorite || false);
 
   useEffect(() => {
     if (course) {
@@ -34,7 +35,7 @@ const Description = ({ course }) => {
       setDislikes(course.dissLikeCount || 0);
       setUserLiked(course.userIsLiked || false);
       setUserDisliked(course.userIsDissLike || false);
-      setIsFavorite(course.userIsFavorite || false);
+      setIsFavorite(course.userFavorite || false);
     }
   }, [course]);
 
@@ -96,15 +97,24 @@ const Description = ({ course }) => {
     }
   };
 
-  const handleFavorite = async () => {
-    console.log(id);
-    try {
-      await addFavorite({ courseId: id });
-      setIsFavorite(!isFavorite);
-    } catch (error) {
-      console.error("خطا در عملیات علاقمندی:", error);
+const handleFavorite = async () => {
+  try {
+    if (isFavorite) {
+      await removeFavorite();
+      setIsFavorite(false);
+    } else {
+      await addFavorite(id);
+      setIsFavorite(true);
     }
-  };
+  } catch (error) {
+    console.error("خطا در عملیات علاقمندی:", error);
+      if (error.response?.status === 400) {
+      setIsFavorite(true);
+    }
+  }
+};
+
+
 
   //برای کامنته
   const { data: commentsData } = useQuery({

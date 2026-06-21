@@ -22,7 +22,8 @@ const CourseSideBar = ({course}) => {
       toast.success("دوره با موفقیت رزرو شد!");
       console.log(response);
     } catch (error) {
-      toast.error("خطایی در رزرو رخ داد. لطفا دوباره تلاش کنید.");
+      const errorMessage = error?.response?.data?.message || "خطایی در رزرو رخ داد.";
+      toast.error(errorMessage);
       console.error(error);
     } finally {
       setIsReserving(false);

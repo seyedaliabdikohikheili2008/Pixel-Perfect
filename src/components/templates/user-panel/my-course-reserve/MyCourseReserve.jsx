@@ -1,4 +1,4 @@
-import React, {  useMemo, useRef, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import Input from "../../../atoms/Input/Input";
 import { LiaSearchSolid } from "react-icons/lia";
 import Button from "../../../atoms/Butoon/Button";
@@ -10,12 +10,16 @@ import Search from "../../../../core/utils/search/Search";
 import NotFound from "../../../atoms/not-found/NotFound";
 import Loading from "../../../atoms/loading/Loading";
 import TeacherListPagination from "../../teacher-list/teacher-list-content/TeacherListPagination";
+import { useDeleteCourseReserve } from "../../../../core/hooks/queries/user-panel/course-reserve/useDeleteCourseReserve";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const MyCourseReserve = () => {
   const {
     data: MyCourseReserve = undefined,
     isError: MyCourseReserveErr,
     isLoading: MyCourseReserveLoading,
+    refetch: MyCourseReserveRefetch,
   } = useMyCourseReserve();
 
   const [courseName, setcourseName] = useState("");
@@ -44,10 +48,28 @@ const MyCourseReserve = () => {
     return array.slice(start, end);
   };
   const data = useMemo(() => {
-  return getItemsByPage(searchCourse, page);
-}, [searchCourse, page]);
+    return getItemsByPage(searchCourse, page);
+  }, [searchCourse, page]);
 
-  
+  const { mutate: removeReserve, isPending: removeReservePending } =
+    useDeleteCourseReserve();
+
+  const handleRemoveReserve = (id) => {
+    removeReserve(
+      { id: String(id) },
+      {
+        onSuccess: (res) => {
+          toast.success("رزرو مورد نظر با موفقیت حذف شد");
+          MyCourseReserveRefetch();
+        },
+        onError: (err) => {
+          console.log(err?.response?.data);
+        },
+      },
+    );
+  };
+
+  const navigate = useNavigate();
 
   return (
     <>
@@ -97,10 +119,18 @@ const MyCourseReserve = () => {
                       </div>
                       <div className="flex gap-5">
                         <Button
-                          children={"شروع یادگیری"}
+                          onClick={() => {
+                            navigate(`/course-detail/${item.courseId}`);
+                          }}
+                          children={"مشاهده دوره"}
                           buttonClassName="h-10 text-sm text-nowrap"
                         />
-                        <div className="flex p-2 border border-neutral-300 rounded-full">
+                        <div
+                          onClick={() => {
+                            handleRemoveReserve(item.id);
+                          }}
+                          className="flex cursor-pointer p-2 border border-neutral-300 rounded-full"
+                        >
                           <RxCross1 color="#FF5454" size={20} />
                         </div>
                       </div>

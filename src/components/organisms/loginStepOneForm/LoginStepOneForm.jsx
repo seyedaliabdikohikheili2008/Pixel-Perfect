@@ -169,7 +169,7 @@ const LoginStepOneForm = () => {
                 isPending ? (
                   <Loading size={"text-xl"} circleSize={8} />
                 ) : (
-                  "ارسال کد یکبار مصرف"
+                  "ورود"
                 )
               }
               buttonClassName="w-8/10 font-[18px]"

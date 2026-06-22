@@ -68,7 +68,6 @@ const MyComments = () => {
       : MyNewsComments?.data
         ? Search(MyNewsComments.data.myNewsCommetDtos, search, "describe")
         : [];
-  console.log("list ", searchComment);
   const [page, setpage] = useState(1);
 
   useEffect(() => {

@@ -1,5 +1,6 @@
 import { Pagination } from "@heroui/react";
 import React, { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const TeacherListPagination = ({
   totalCount,
@@ -59,7 +60,7 @@ const TeacherListPagination = ({
 
   return (
     <>
-      <div className="w-full max-w-2xs overflow-x-auto sm:max-w-full">
+      <div className="w-full max-w-2xs overflow-x-auto sm:max-w-full"  >
         <Pagination className="flex justify-center">
           <Pagination.Content className="flex flex-row-reverse items-center bg-neutral-50 h-12 rounded-2xl text-textC font-bold">
             <Pagination.Item className="w-11 h-full flex items-center justify-center">

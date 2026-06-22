@@ -1,11 +1,15 @@
 import React from "react";
 import teacherImg from "../../../../assets/images/landing/best-teacher/Group 3.png";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+
 const BestTeacherCard = ({ detail }) => {
   const { t } = useTranslation("teacherList");
+  const navigate=useNavigate();
+
   return (
     <>
-      <div className="w-74 flex flex-col gap-2">
+      <div className="w-74 flex flex-col gap-2" onClick={()=>{navigate(`/teacher-detail/${detail?.teacherId}`)}}>
         <img className="w-full h-95 object-cover" src={teacherImg} alt="" />
         <div className="w-full text-right text-textC">
           <h2 className="text-3xl font-bold">{detail?.fullName}</h2>

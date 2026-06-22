@@ -14,6 +14,7 @@ import { addFavorite } from "../../../../core/services/news-detail/addFavorite/a
 import { removeFavorite } from "../../../../core/services/news-detail/removeFavorite/removeFavorite";
 import { deleteLike } from "../../../../core/services/news-detail/removeLike/removeLike";
 import Loading from "../../../atoms/loading/Loading";
+import toast from "react-hot-toast";
 
 const NewsDescription = ({ news }) => {
   const { t } = useTranslation("newsDetail");
@@ -77,10 +78,12 @@ const NewsDescription = ({ news }) => {
       try {
         await deleteLike(likeId);
         setLikeId(null);
+        toast.success("لایک حذف شد ✅");
       } catch (error) {
         console.error("خطا در حذف لایک:", error);
         setLikes(prevLikes);
         setUserLiked(prevUserLiked);
+        toast.error("خطا در حذف لایک ❌");
       }
     } else {
       if (userDisliked) {
@@ -100,10 +103,12 @@ const NewsDescription = ({ news }) => {
         if (newLikeId && typeof newLikeId !== "object") {
           setLikeId(newLikeId);
         }
+        toast.success("لایک شد 👍");
       } catch (error) {
         console.error("خطا در ثبت لایک:", error);
         setLikes(prevLikes);
         setUserLiked(prevUserLiked);
+        toast.error("خطا در لایک ❌");
       }
     }
   };
@@ -125,6 +130,7 @@ const NewsDescription = ({ news }) => {
       await ApiClient.post(`News/NewsDissLike/${idToSend}`, {
         NewsId: parseInt(idToSend),
       });
+      toast.success("دیسلایک شد 👎");
     } catch (error) {
       console.error("خطا در ثبت دیسلایک:", error);
       setDislikes((prev) => prev - 1);
@@ -134,6 +140,7 @@ const NewsDescription = ({ news }) => {
         setLikes(prevLikes);
         setUserLiked(prevUserLiked);
       }
+      toast.error("خطا در دیسلایک ❌");
     }
   };
 
@@ -147,6 +154,7 @@ const NewsDescription = ({ news }) => {
         setIsFavorite(false);
         await removeFavorite(favoriteId);
         setFavoriteId(null);
+        toast.success("از علاقه‌مندی‌ها حذف شد 💔");
       } else {
         setIsFavorite(true);
         const res = await addFavorite(idToSend);
@@ -154,10 +162,12 @@ const NewsDescription = ({ news }) => {
         if (newFavId && typeof newFavId !== "object") {
           setFavoriteId(newFavId);
         }
+        toast.success("به علاقه‌مندی‌ها اضافه شد ❤️");
       }
     } catch (error) {
       console.error("خطا در عملیات علاقمندی:", error);
-      setIsFavorite(prevFav); 
+      setIsFavorite(prevFav);
+      toast.error("خطا در عملیات علاقه‌مندی ❌");
     }
   };
 
@@ -248,8 +258,10 @@ const NewsDescription = ({ news }) => {
                     setComments((prev) => [...prev, commentDataLocal]);
                     setIsCommentBoxOpen(false);
                     setCommentText("");
+                    toast.success("کامنت با موفقیت ثبت شد ✅");
                   } catch (error) {
                     console.error("خطا در ثبت کامنت:", error);
+                    toast.error("خطا در ثبت کامنت ❌");
                   }
                 }}
               />

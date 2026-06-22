@@ -9,6 +9,7 @@ import { AddReplyComment } from "../../../../core/services/news-detail/Comments/
 import { postNewsCommentLike } from "../../../../core/services/news-detail/addCommentLike/addCommentLike";
 import { deleteNewsCommentLike } from "../../../../core/services/news-detail/removeCommentLike/removeCommentLike";
 import Loading from "../../../atoms/loading/Loading";
+import toast from "react-hot-toast";
 
 const Comment = ({ item }) => {
   const [isReplyBoxOpen, setIsReplyBoxOpen] = useState(false);
@@ -50,8 +51,10 @@ const Comment = ({ item }) => {
       setReplyText("");
       setIsReplyBoxOpen(false);
       await refetch();
+      toast.success("پاسخ با موفقیت ثبت شد ✅");
     } catch (error) {
       console.error(error);
+      toast.error("خطا در ثبت پاسخ ❌");
     } finally {
       setIsLoading(false);
     }
@@ -67,11 +70,13 @@ const Comment = ({ item }) => {
 
       try {
         await deleteNewsCommentLike(item.id);
-        refetch(); 
+        refetch();
+        toast.success("لایک حذف شد ✅");
       } catch (error) {
         console.error("خطا در حذف لایک کامنت:", error);
         setIsLiked(prevIsLiked);
         setLikeCount(prevLikeCount);
+        toast.error("خطا در حذف لایک ❌");
       }
     } else {
       setIsLiked(true);
@@ -79,11 +84,13 @@ const Comment = ({ item }) => {
 
       try {
         await postNewsCommentLike(item.id);
-        refetch(); 
+        refetch();
+        toast.success("لایک شد 👍");
       } catch (error) {
         console.error("خطا در ثبت لایک کامنت:", error);
         setIsLiked(prevIsLiked);
         setLikeCount(prevLikeCount);
+        toast.error("خطا در لایک ❌");
       }
     }
   };
@@ -115,7 +122,7 @@ const Comment = ({ item }) => {
               src={like}
               alt="like"
               onClick={handleLike}
-              className={`cursor-pointer ${isLiked ? 'opacity-50' : ''}`} // یک افکت کوچیک وقتی لایک شده
+              className={`cursor-pointer ${isLiked ? 'opacity-50' : ''}`}
             />
             <p className="text-textC">{likeCount}</p>
           </div>
@@ -148,7 +155,7 @@ const Comment = ({ item }) => {
                 onClick={handleSendReply}
                 disabled={isLoading}
               >
-                {isLoading ? <Loading /> : "ثبت پاسخ"}
+                {isLoading ? <Loading size={3} circleSize={3}/> : "ثبت پاسخ"}
               </button>
               <button
                 className="bg-neutral-200 px-4 py-2 rounded-lg"

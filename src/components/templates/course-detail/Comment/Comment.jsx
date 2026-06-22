@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import user from "../../../../assets/images/course-dtail/user.png";
 import like from "../../../../assets/images/icons/course-detail/like.png";
@@ -7,11 +7,22 @@ import replyIcon from "../../../../assets/images/icons/course-detail/reply.png";
 import { getReplyComments } from "../../../../core/services/news-detail/Comments/ReplyComment/ReplyComment";
 import { AddReplyComment } from "../../../../core/services/news-detail/Comments/AddReplyComment/AddReplyComment";
 import { postNewsCommentLike } from "../../../../core/services/news-detail/addCommentLike/addCommentLike";
+import { deleteNewsCommentLike } from "../../../../core/services/news-detail/removeCommentLike/removeCommentLike";
 import Loading from "../../../atoms/loading/Loading";
+
 const Comment = ({ item }) => {
   const [isReplyBoxOpen, setIsReplyBoxOpen] = useState(false);
   const [replyText, setReplyText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const [likeCount, setLikeCount] = useState(item.likeCount || 0);
+  const [isLiked, setIsLiked] = useState(item.currentUserLike || false);
+
+
+  useEffect(() => {
+    setLikeCount(item.likeCount || 0);
+    setIsLiked(item.currentUserLike || false);
+  }, [item.likeCount, item.currentUserLike]);
 
   const {
     data: replyData,
@@ -22,9 +33,8 @@ const Comment = ({ item }) => {
     queryFn: () => getReplyComments(item.id),
     enabled: !!item.id,
   });
-   isCommentReplyLoading ? <Loading/>:""
-  const handleSendReply = async () => {
 
+  const handleSendReply = async () => {
     setIsLoading(true);
     try {
       const replyData = {
@@ -46,26 +56,37 @@ const Comment = ({ item }) => {
       setIsLoading(false);
     }
   };
-const handleLike = async () => {
-  try {
-    const response = await postNewsCommentLike(item.id);
-    if (response?.data?.likeCount !== undefined) {
-      item.likeCount = response.data.likeCount;
+
+  const handleLike = async () => {
+    const prevLikeCount = likeCount;
+    const prevIsLiked = isLiked;
+
+    if (isLiked) {
+      setIsLiked(false);
+      setLikeCount((prev) => prev - 1);
+
+      try {
+        await deleteNewsCommentLike(item.id);
+        refetch(); 
+      } catch (error) {
+        console.error("خطا در حذف لایک کامنت:", error);
+        setIsLiked(prevIsLiked);
+        setLikeCount(prevLikeCount);
+      }
     } else {
-      if (item.currentUserLike) {
-        item.likeCount -= 1;
-      } else {
-        item.likeCount += 1;
+      setIsLiked(true);
+      setLikeCount((prev) => prev + 1);
+
+      try {
+        await postNewsCommentLike(item.id);
+        refetch(); 
+      } catch (error) {
+        console.error("خطا در ثبت لایک کامنت:", error);
+        setIsLiked(prevIsLiked);
+        setLikeCount(prevLikeCount);
       }
     }
-    item.currentUserLike = !item.currentUserLike;
-    
-    refetch();
-    
-  } catch (error) {
-    console.error("خطا در لایک:", error);
-  }
-};
+  };
 
   return (
     <div className="w-full rounded-xl shadow-[0_1px_2px_0_rgba(0,0,0,0.25)] bg-background py-5">
@@ -90,8 +111,13 @@ const handleLike = async () => {
 
         <div className="flex items-center justify-end gap-3 px-15 py-3">
           <div className="flex items-center justify-center gap-3">
-            <img src={like} alt="" onClick={handleLike}/>
-            <p className="text-textC">{item.likeCount}</p>
+            <img
+              src={like}
+              alt="like"
+              onClick={handleLike}
+              className={`cursor-pointer ${isLiked ? 'opacity-50' : ''}`} // یک افکت کوچیک وقتی لایک شده
+            />
+            <p className="text-textC">{likeCount}</p>
           </div>
         </div>
 
@@ -122,7 +148,7 @@ const handleLike = async () => {
                 onClick={handleSendReply}
                 disabled={isLoading}
               >
-                {isLoading ? <Loading/> : "ثبت پاسخ"}
+                {isLoading ? <Loading /> : "ثبت پاسخ"}
               </button>
               <button
                 className="bg-neutral-200 px-4 py-2 rounded-lg"
@@ -135,11 +161,17 @@ const handleLike = async () => {
         )}
       </div>
 
+      {isCommentReplyLoading && (
+        <div className="w-full flex justify-center py-3">
+          <Loading />
+        </div>
+      )}
+
       {!isCommentReplyLoading && replyData?.data && (
         <div className="flex flex-col w-9/10 m-auto gap-5 bg-neutral-50 rounded-2xl border-r-4 border-solid border-primary-300 mt-5">
           {replyData.data.map((reply) => (
-            <div className="border-b border-solid border-neutral-500 w-9/10 m-auto p-3">
-              <div key={reply.id} className="flex items-center gap-3">
+            <div key={reply.id} className="border-b border-solid border-neutral-500 w-9/10 m-auto p-3">
+              <div className="flex items-center gap-3">
                 <img src={reply.userPictureAddress || user} alt="user" />
                 <div className="flex flex-col">
                   <h2 className="font-bold text-textC text-right">

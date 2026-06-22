@@ -50,39 +50,39 @@ const CourseComment = ({ comment, CourseId }) => {
     }
   };
 
-const handleLike = async () => {
-  try {
-    if (comment.currentUserLike) {
-      await deleteCommentLike(comment.id);
-    } else {
-      if (comment.currentUserDisLike) {
+  const handleLike = async () => {
+    try {
+      if (comment.currentUserIsLike) {
+        await deleteCommentLike(comment.id);
+      } else {
+        if (comment.currentUserIsDisLike) {
+          await postCommentDisLike(comment.id);
+        }
+        await postCommentLike(comment.id);
+      }
+      queryClient.invalidateQueries({ queryKey: ["courseComments", CourseId] });
+    } catch (error) {
+      console.error("خطا در لایک:", error);
+    }
+  };
+
+  const handleDisLike = async () => {
+    try {
+      if (comment.currentUserIsDisLike) {
+        await postCommentDisLike(comment.id);
+      } else {
+        if (comment.currentUserIsLike) {
+          await deleteCommentLike(comment.id);
+        }
         await postCommentDisLike(comment.id);
       }
-      await postCommentLike(comment.id);
+      queryClient.invalidateQueries({ queryKey: ["courseComments", CourseId] });
+    } catch (error) {
+      console.error("خطا در دیسلایک:", error);
     }
-    queryClient.invalidateQueries({ queryKey: ["courseComments", CourseId] });
-  } catch (error) {
-    console.error("خطا در لایک:", error);
-  }
-};
+  };
 
-const handleDisLike = async () => {
-  try {
-    if (comment.currentUserDisLike) {
-      await postCommentDisLike(comment.id);
-    } else {
-      if (comment.currentUserLike) {
-        await deleteCommentLike(comment.id);
-      }
-      await postCommentDisLike(comment.id);
-    }
-    queryClient.invalidateQueries({ queryKey: ["courseComments", CourseId] });
-  } catch (error) {
-    console.error("خطا در دیسلایک:", error);
-  }
-};
-
-isCommentReplyLoading ? <Loading/> :""
+  isCommentReplyLoading ? <Loading /> : ""
   return (
     <div className="w-full rounded-xl shadow-[0_1px_2px_0_rgba(0,0,0,0.25)] bg-background py-5">
       <div className="flex flex-col gap-5">
@@ -104,18 +104,18 @@ isCommentReplyLoading ? <Loading/> :""
 
         <div className="flex items-center justify-end gap-3 px-15 py-3">
           <div className="flex items-center justify-center gap-3">
-            <img 
-              src={like} 
-              alt="like" 
+            <img
+              src={like}
+              alt="like"
               onClick={handleLike}
               className={`cursor-pointer hover:opacity-70 ${comment.currentUserLike ? "opacity-100 scale-110" : "opacity-50"}`}
             />
             <p className="text-textC">{comment.likeCount}</p>
           </div>
           <div className="flex items-center justify-center gap-3">
-            <img 
-              src={dislike} 
-              alt="dislike" 
+            <img
+              src={dislike}
+              alt="dislike"
               onClick={handleDisLike}
               className={`cursor-pointer hover:opacity-70 ${comment.currentUserDisLike ? "opacity-100 scale-110" : "opacity-50"}`}
             />
@@ -150,7 +150,7 @@ isCommentReplyLoading ? <Loading/> :""
                 onClick={handleSendReply}
                 disabled={isLoading || !replyText.trim()}
               >
-                {isLoading ? <Loading/> : "ثبت پاسخ"}
+                {isLoading ? <Loading /> : "ثبت پاسخ"}
               </button>
               <button
                 className="bg-neutral-200 px-4 py-2 rounded-lg"

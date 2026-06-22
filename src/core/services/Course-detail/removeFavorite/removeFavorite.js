@@ -1,11 +1,13 @@
 import ApiClient from "../../../api/interceptors";
 
 export const removeFavorite = async (userFavoriteId) => {
+
   try {
-    const result = await ApiClient.delete(`News/DeleteFavoriteNews`, {
-      params: {
-        deleteEntityId: userFavoriteId
-      }
+    const formData = new FormData();
+    formData.append("CourseFavoriteId", userFavoriteId);
+
+    const result = await ApiClient.delete(`/Course/DeleteCourseFavorite`, {
+      data: formData
     });
 
     return { data: result.data, status: result.status, headers: result.headers };

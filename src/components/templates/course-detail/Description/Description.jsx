@@ -13,7 +13,8 @@ import { useQuery } from "@tanstack/react-query";
 import { PostCourseComments } from "../../../../core/services/Course-detail/AddComment/AddComment";
 import { useTranslation } from "react-i18next";
 import { addFavorite } from "../../../../core/services/Course-detail/addFavorite/addFavorite";
-import removeCourseFavorite from "../../../../core/services/user-panel/favorites/course/removeCourseFavorite";
+import { removeFavorite } from "../../../../core/services/Course-detail/removeFavorite/removeFavorite";
+import { deleteLike } from "../../../../core/services/Course-detail/removeLike/removeLike";
 
 
 const Description = ({ course }) => {
@@ -21,14 +22,16 @@ const Description = ({ course }) => {
   const { t } = useTranslation("courseDetail");
   const [visibleCount, setVisibleCount] = useState(2);
   const CourseId = id;
-  if (!course) return <div>در حال بارگذاری اطلاعات...</div>;
-  const [likes, setLikes] = useState(course.likeCount || 0);
-  const [dislikes, setDislikes] = useState(course.dissLikeCount || 0);
-  const [userLiked, setUserLiked] = useState(course.userIsLiked || false);
-  const [userDisliked, setUserDisliked] = useState(
-    course.userIsDissLike || false,
-  );
-  const [isFavorite, setIsFavorite] = useState(course.userFavorite || false);
+
+  const [likes, setLikes] = useState(0);
+  const [dislikes, setDislikes] = useState(0);
+  const [userLiked, setUserLiked] = useState(false);
+  const [userDisliked, setUserDisliked] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  
+  const [favoriteId, setFavoriteId] = useState(null);
+  const [likeId, setLikeId] = useState(null);
 
   useEffect(() => {
     if (course) {
@@ -37,34 +40,55 @@ const Description = ({ course }) => {
       setUserLiked(course.userIsLiked || false);
       setUserDisliked(course.userIsDissLike || false);
       setIsFavorite(course.userFavorite || false);
+      setFavoriteId(course.userFavoriteId || null);
+      setLikeId(course.userLikeId || course.courseLikeId || null);
     }
-  }, [course]);
+  }, [course?.id, id]);
+
+  if (!course) return <div>در حال بارگذاری اطلاعات...</div>;
 
   const handleLike = async () => {
-    if (userLiked) return;
-
     const prevLikes = likes;
-    const prevDislikes = dislikes;
     const prevUserLiked = userLiked;
-    const prevUserDisliked = userDisliked;
 
-    if (userDisliked) {
-      setDislikes((prev) => prev - 1);
-      setUserDisliked(false);
-    }
+    if (userLiked) {
+      if (!likeId) {
+        console.error("آیدی لایک برای حذف موجود نیست! (بک‌اند آیدی جدید را نداده است)");
+        return;
+      }
 
-    setLikes((prev) => prev + 1);
-    setUserLiked(true);
+      setLikes((prev) => prev - 1);
+      setUserLiked(false);
 
-    try {
-      await ApiClient.post(`Course/AddCourseLike?CourseId=${id}`);
-    } catch (error) {
-      console.error(error);
+      try {
+        await deleteLike(likeId);
+        setLikeId(null); 
+      } catch (error) {
+        setLikes(prevLikes);
+        setUserLiked(prevUserLiked);
+      }
+    } else {
+      if (userDisliked) {
+        setDislikes((prev) => prev - 1);
+        setUserDisliked(false);
+      }
 
-      setLikes(prevLikes);
-      setDislikes(prevDislikes);
-      setUserLiked(prevUserLiked);
-      setUserDisliked(prevUserDisliked);
+      setLikes((prev) => prev + 1);
+      setUserLiked(true);
+
+      try {
+        const res = await ApiClient.post(`Course/AddCourseLike?CourseId=${id}`);
+        const newId = res.data?.id || res.data?.courseLikeId || res.data || null;
+
+        if (newId && typeof newId !== "object") {
+          setLikeId(newId);
+        } else {
+          console.warn("هشدار: لایک ثبت شد اما بک‌اند آیدی جدید را برنگرداند! حذف مجدد کار نخواهد کرد.");
+        }
+      } catch (error) {
+        setLikes(prevLikes);
+        setUserLiked(prevUserLiked);
+      }
     }
   };
 
@@ -87,10 +111,6 @@ const Description = ({ course }) => {
     try {
       await ApiClient.post(`Course/AddCourseDissLike?CourseId=${id}`);
     } catch (error) {
-      console.log(error.response);
-      console.log(error.response?.data);
-      console.error(error);
-
       setLikes(prevLikes);
       setDislikes(prevDislikes);
       setUserLiked(prevUserLiked);
@@ -99,23 +119,35 @@ const Description = ({ course }) => {
   };
 
   const handleFavorite = async () => {
+    const prevFav = isFavorite;
+
     try {
       if (isFavorite) {
-        await removeCourseFavorite();
+
+        if (!favoriteId) {
+          console.error("آیدی علاقه‌مندی برای حذف موجود نیست!");
+          return;
+        }
+
         setIsFavorite(false);
+        await removeFavorite(favoriteId);
+        setFavoriteId(null);
       } else {
-        await addFavorite(id);
         setIsFavorite(true);
+        const res = await addFavorite(id);
+
+        const newFavId = res?.data?.id || res?.data?.courseFavoriteId || res?.data?.userFavoriteId || res?.data || null;
+        if (newFavId && typeof newFavId !== "object") {
+          setFavoriteId(newFavId);
+        } else {
+          console.warn("هشدار: علاقه‌مندی ثبت شد اما بک‌اند آیدی جدید را برنگرداند!");
+        }
       }
     } catch (error) {
-      console.error("خطا در عملیات علاقمندی:", error);
-      if (error.response?.status === 400) {
-        setIsFavorite(true);
-      }
+      setIsFavorite(prevFav); 
     }
   };
 
-  //برای کامنته
   const { data: commentsData } = useQuery({
     queryKey: ["courseComments", id],
     queryFn: () => getCourseComments(id),
@@ -236,7 +268,6 @@ const Description = ({ course }) => {
                       error.code === "ERR_CANCELED" ||
                       error.message.includes("aborted")
                     ) {
-                      console.log("درخواست لغو شد، نادیده گرفته شد");
                       return;
                     }
                     console.error("خطا در ثبت کامنت:", error);
@@ -276,3 +307,4 @@ const Description = ({ course }) => {
 };
 
 export default Description;
+

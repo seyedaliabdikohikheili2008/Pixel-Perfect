@@ -10,83 +10,31 @@ import { useQuery } from "@tanstack/react-query";
 import { getComments } from "../../../../core/services/news-detail/Comments/Comments";
 import { AddComment } from "../../../../core/services/news-detail/Comments/AddComment/AddComment";
 import { useTranslation } from "react-i18next";
-import { addFavorite } from "../../../../core/services/news-detail/addFavorite/addFavorite"; 
+import { addFavorite } from "../../../../core/services/news-detail/addFavorite/addFavorite";
 import { removeFavorite } from "../../../../core/services/news-detail/removeFavorite/removeFavorite";
+import { deleteLike } from "../../../../core/services/news-detail/removeLike/removeLike";
 import Loading from "../../../atoms/loading/Loading";
 
 const NewsDescription = ({ news }) => {
   const { t } = useTranslation("newsDetail");
-  const { NewsId } = useParams();
   const { newsId } = useParams();
   const idToSend = newsId;
   const userId = Number(localStorage.getItem("userId"));
-  const [comments, setComments] = useState([]);
-  if (!news) return <div><Loading/></div>;
 
-  const [likes, setLikes] = useState(news.likeCount || 0);
-  const [dislikes, setDislikes] = useState(news.disLikeCount || 0);
-  const [userLiked, setUserLiked] = useState(news.userIsLiked || false);
-  const [userDisliked, setUserDisliked] = useState(news.userIsDisLike || false);
-  const [isFavorite, setIsFavorite] = useState(news.isCurrentUserFavorite || false);
+  const [comments, setComments] = useState([]);
+  const [visibleCount, setVisibleCount] = useState(2);
   const [isCommentBoxOpen, setIsCommentBoxOpen] = useState(false);
   const [commentText, setCommentText] = useState("");
   const commentTextRef = useRef(null);
-  const [visibleCount, setVisibleCount] = useState(2);
-  const handleLike = async () => {
-    if (userLiked) return;
-    if (userDisliked) {
-      setDislikes((prev) => prev - 1);
-      setUserDisliked(false);
-    }
-    setLikes((prev) => prev + 1);
-    setUserLiked(true);
-    try {
-      const response = await ApiClient.post(`News/NewsLike/${idToSend}`, {
-        NewsId: parseInt(idToSend),
-      });
-      console.log("لایک با موفقیت ثبت شد:", response);
-    } catch (error) {
-      console.error("خطا در ثبت لایک:", error);
-    }
-  };
 
-  const handleDislike = async () => {
-    if (userDisliked) return;
+  const [likes, setLikes] = useState(0);
+  const [dislikes, setDislikes] = useState(0);
+  const [userLiked, setUserLiked] = useState(false);
+  const [userDisliked, setUserDisliked] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
 
-    if (userLiked) {
-      setLikes((prev) => prev - 1);
-      setUserLiked(false);
-    }
-
-    setDislikes((prev) => prev + 1);
-    setUserDisliked(true);
-
-    try {
-      const response = await ApiClient.post(`News/NewsDissLike/${idToSend}`, {
-        NewsId: parseInt(idToSend),
-      });
-      console.log("دیسلایک با موفقیت ثبت شد:", response);
-    } catch (error) {
-      console.error("خطا در ثبت دیسلایک:", error);
-      setDislikes((prev) => prev - 1);
-      setUserDisliked(false);
-    }
-  };
-
-
-  const handleFavorite = async () => {
-    try {
-      if (isFavorite) {
-        await removeFavorite(idToSend);
-      } else {
-        await addFavorite(idToSend);
-      }
-      setIsFavorite(!isFavorite);
-    } catch (error) {
-      console.error("خطا در عملیات علاقمندی:", error);
-    }
-  };
-
+  const [likeId, setLikeId] = useState(null);
+  const [favoriteId, setFavoriteId] = useState(null);
   useEffect(() => {
     if (news) {
       setLikes(news.currentLikeCount || 0);
@@ -94,8 +42,11 @@ const NewsDescription = ({ news }) => {
       setUserLiked(news.currentUserIsLike || false);
       setUserDisliked(news.currentUserIsDissLike || false);
       setIsFavorite(news.isCurrentUserFavorite || false);
+
+      setFavoriteId(news.userFavoriteId || null);
+      setLikeId(news.likeId || news.userLikeId || null);
     }
-  }, [news]);
+  }, [news, newsId]);
 
   useEffect(() => {
     if (isCommentBoxOpen) {
@@ -108,6 +59,108 @@ const NewsDescription = ({ news }) => {
     queryFn: () => getComments(newsId),
   });
 
+  if (!news) return <div><Loading /></div>;
+
+  const handleLike = async () => {
+    const prevLikes = likes;
+    const prevUserLiked = userLiked;
+
+    if (userLiked) {
+      if (!likeId) {
+        console.warn("آیدی لایک موجود نیست!");
+        return;
+      }
+
+      setLikes((prev) => prev - 1);
+      setUserLiked(false);
+
+      try {
+        await deleteLike(likeId);
+        setLikeId(null);
+      } catch (error) {
+        console.error("خطا در حذف لایک:", error);
+        setLikes(prevLikes);
+        setUserLiked(prevUserLiked);
+      }
+    } else {
+      if (userDisliked) {
+        setDislikes((prev) => prev - 1);
+        setUserDisliked(false);
+      }
+
+      setLikes((prev) => prev + 1);
+      setUserLiked(true);
+
+      try {
+        const response = await ApiClient.post(`News/NewsLike/${idToSend}`, {
+          NewsId: parseInt(idToSend),
+        });
+
+        const newLikeId = response.data?.id || response.data?.likeId || response.data || null;
+        if (newLikeId && typeof newLikeId !== "object") {
+          setLikeId(newLikeId);
+        }
+      } catch (error) {
+        console.error("خطا در ثبت لایک:", error);
+        setLikes(prevLikes);
+        setUserLiked(prevUserLiked);
+      }
+    }
+  };
+
+  const handleDislike = async () => {
+    if (userDisliked) return;
+    const prevLikes = likes;
+    const prevUserLiked = userLiked;
+
+    if (userLiked) {
+      setLikes((prev) => prev - 1);
+      setUserLiked(false);
+    }
+
+    setDislikes((prev) => prev + 1);
+    setUserDisliked(true);
+
+    try {
+      await ApiClient.post(`News/NewsDissLike/${idToSend}`, {
+        NewsId: parseInt(idToSend),
+      });
+    } catch (error) {
+      console.error("خطا در ثبت دیسلایک:", error);
+      setDislikes((prev) => prev - 1);
+      setUserDisliked(false);
+
+      if (userLiked) {
+        setLikes(prevLikes);
+        setUserLiked(prevUserLiked);
+      }
+    }
+  };
+
+  const handleFavorite = async () => {
+    const prevFav = isFavorite;
+
+    try {
+      if (isFavorite) {
+        if (!favoriteId) return;
+
+        setIsFavorite(false);
+        await removeFavorite(favoriteId);
+        setFavoriteId(null);
+      } else {
+        setIsFavorite(true);
+        const res = await addFavorite(idToSend);
+        const newFavId = res?.data?.id || res?.data?.favoriteId || res?.data || null;
+        if (newFavId && typeof newFavId !== "object") {
+          setFavoriteId(newFavId);
+        }
+      }
+    } catch (error) {
+      console.error("خطا در عملیات علاقمندی:", error);
+      setIsFavorite(prevFav); 
+    }
+  };
+
   return (
     <div className="w-full bg-rootBg flex flex-col gap-10 md:w-3/4 m-auto xl:w-2/3">
       <div className="w-full flex flex-col relative mb-10">
@@ -118,12 +171,12 @@ const NewsDescription = ({ news }) => {
         />
         <div className="w-60 px-2 mt-2 h-12 flex justify-between bg-rootBg gap-2 items-center flex-row-reverse absolute -bottom-1 -left-1 rounded-xl">
           <div className="w-19.25 flex justify-between items-center">
-            <img src={like} alt="" onClick={handleLike} className="cursor-pointer" />
-            <p className="text-xl font-bold text-textC">{likes}</p>
-          </div>
-          <div className="w-19.25 flex justify-between items-center">
             <img src={dislike} alt="" onClick={handleDislike} className="cursor-pointer" />
             <p className="text-xl font-bold text-textC">{dislikes}</p>
+          </div>
+          <div className="w-19.25 flex justify-between items-center">
+            <img src={like} alt="" onClick={handleLike} className="cursor-pointer" />
+            <p className="text-xl font-bold text-textC">{likes}</p>
           </div>
           <div className="w-19.25 flex justify-between items-center">
             <button onClick={handleFavorite} className="cursor-pointer text-2xl">
@@ -184,15 +237,15 @@ const NewsDescription = ({ news }) => {
                 children={t("description.send")}
                 onClick={async () => {
                   try {
-                    const commentData = {
+                    const commentDataLocal = {
                       newsId: idToSend,
                       userIpAddress: "0.0.0.0",
                       title: "s.th",
                       describe: commentText,
                       userId: userId,
                     };
-                    await AddComment(commentData);
-                    setComments((prev) => [...prev, commentData]);
+                    await AddComment(commentDataLocal);
+                    setComments((prev) => [...prev, commentDataLocal]);
                     setIsCommentBoxOpen(false);
                     setCommentText("");
                   } catch (error) {
@@ -209,7 +262,7 @@ const NewsDescription = ({ news }) => {
         ) : (
           <div className="flex flex-col gap-4">
             {commentData?.data?.slice(0, visibleCount).map((item) => (
-              <Comment key={item.newsId} item={item} />
+              <Comment key={item.id || item.newsId} item={item} />
             ))}
             {commentData?.data?.length > visibleCount && (
               <button
@@ -221,7 +274,7 @@ const NewsDescription = ({ news }) => {
             )}
             {commentData?.data?.length === 0 && (
               <p className="text-center text-textC py-4">
-                {t("description.noComments") }
+                {t("description.noComments")}
               </p>
             )}
           </div>

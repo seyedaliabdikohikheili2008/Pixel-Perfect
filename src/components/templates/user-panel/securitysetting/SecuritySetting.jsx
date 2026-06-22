@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ChangePassword from "./changePassword/ChangePassword";
 import Input from "../../../atoms/Input/Input";
 import Button from "../../../atoms/Butoon/Button";
 import { updateTwoFactorAuth } from "../../../../core/services/user-panel/dashboard/putEditSecurity";
 import toast from "react-hot-toast";
 import Loading from "../../../atoms/loading/Loading";
+import { getUserSecuritySettings } from "../../../../core/services/user-panel/dashboard/getUserSecuritySettings";
 
 const SecuritySetting = () => {
   const [twoFactorEnabled, setTwoFactorEnabled] = useState(false);
@@ -63,6 +64,26 @@ const SecuritySetting = () => {
       setLoading(false);
     }
   };
+useEffect(() => {
+  const fetchSecurityStatus = async () => {
+    try {
+      const response = await getUserSecuritySettings();
+      const data = response.data;
+      
+      setTwoFactorEnabled(data.twoStepAuth || false);
+      setRecoveryEmail(data.recoveryEmail || "");
+      setTelegramUsername(data.userTelegrams?.telegramId || "");
+      
+      if (data.twoStepAuth) {
+        setShowForm(true);
+      }
+    } catch (error) {
+      console.error("خطا در دریافت تنظیمات امنیتی:", error);
+    }
+  };
+
+  fetchSecurityStatus();
+}, []);
 
   return (
     <div className="m-auto w-11/12 flex flex-col gap-5">
@@ -129,7 +150,7 @@ const SecuritySetting = () => {
                   type="text"
                   value={telegramUsername}
                   onChange={(e) => setTelegramUsername(e.target.value)}
-                  placeholder="@username"
+                  placeholder="username"
                   boxClassname="text-right border-t-2 border-solid border-gray-500 text-sm transition-all duration-200"
                   dir="ltr"
                 />

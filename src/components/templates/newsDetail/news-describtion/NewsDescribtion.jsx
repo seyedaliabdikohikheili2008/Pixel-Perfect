@@ -32,7 +32,6 @@ const NewsDescription = ({ news }) => {
   const [commentText, setCommentText] = useState("");
   const commentTextRef = useRef(null);
   const [visibleCount, setVisibleCount] = useState(2);
-
   const handleLike = async () => {
     if (userLiked) return;
     if (userDisliked) {

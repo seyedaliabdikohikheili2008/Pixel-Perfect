@@ -13,7 +13,8 @@ import { useQuery } from "@tanstack/react-query";
 import { PostCourseComments } from "../../../../core/services/Course-detail/AddComment/AddComment";
 import { useTranslation } from "react-i18next";
 import { addFavorite } from "../../../../core/services/Course-detail/addFavorite/addFavorite";
-import { removeFavorite } from "../../../../core/services/Course-detail/removeFavorite/removeFavorite";
+import removeCourseFavorite from "../../../../core/services/user-panel/favorites/course/removeCourseFavorite";
+
 
 const Description = ({ course }) => {
   const { id } = useParams();
@@ -100,7 +101,7 @@ const Description = ({ course }) => {
   const handleFavorite = async () => {
     try {
       if (isFavorite) {
-        await removeFavorite();
+        await removeCourseFavorite();
         setIsFavorite(false);
       } else {
         await addFavorite(id);

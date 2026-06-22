@@ -32,6 +32,7 @@ import HomeAddress from "../../components/templates/user-panel/profile/home-addr
 import EditLink from "../../components/templates/user-panel/profile/link/EditLink";
 import MyFavorites from "../../components/templates/user-panel/my-favorites/MyFavorites";
 import MyComments from "../../components/templates/user-panel/my-comments/MyComments";
+import TeacherDetails from "../../page/teacher-details/TeacherDetails";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,7 @@ const router = createBrowserRouter([
       { path: "Instructors", element: <TeacherListPage /> },
       { path: "news-detail/:newsId", element: <NewsDetail /> },
       { path: "contactUs", element: <ContactUsPage /> },
+      {path:"teacher-detail",element:<TeacherDetails/>}
     ],
   },
   {

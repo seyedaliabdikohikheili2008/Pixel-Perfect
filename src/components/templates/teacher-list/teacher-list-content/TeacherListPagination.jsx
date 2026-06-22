@@ -1,10 +1,18 @@
 import { Pagination } from "@heroui/react";
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
-const TeacherListPagination = ({ totalCount, setPage }) => {
-  const page = 1;
-  const rows = 9;
+const TeacherListPagination = ({
+  totalCount,
+  setPage,
+  rows = 9,
+  render = null,
+}) => {
+  const [page, setcurrentPage] = useState(1);
   const totalPages = Math.max(0, Math.ceil(totalCount / rows));
+
+  useEffect(() => {
+    setcurrentPage(1);
+  }, [render]);
 
   useEffect(() => {
     setPage(page);
@@ -16,12 +24,12 @@ const TeacherListPagination = ({ totalCount, setPage }) => {
 
   const handleChange = (p) => {
     if (page != p) {
-      page = p;
+      setcurrentPage(p);
     }
   };
 
   const pageNumbers = useMemo(() => {
-    const pages = [];
+    let pages = [];
 
     if (totalPages < 1) return [0];
 

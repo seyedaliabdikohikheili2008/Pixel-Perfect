@@ -75,7 +75,7 @@ const CourseSideBar = ({course}) => {
             <Button 
               onClick={handleReserveClick}
               disabled={isReserving}
-              children={isReserving ? "در حال رزر" : t("sidebar.button")}
+              children={isReserving ? "در حال رزرو..." : t("sidebar.button")}
             />
             <div className="flex items-center gap-2 justify-center">
                 <p className="font-bold text-xl md:text-2xl text-primary-300">{course.cost}</p>

@@ -119,7 +119,7 @@ const OtpVerification = () => {
             buttonClassName="w-8/10 font-lg font-bold"
             type="submit"
           >
-            تایید رمز یکبار مصرف
+            {isPending ? "در حال تایید..." : "تایید رمز یکبار مصرف"}
           </Button>
           <Toaster />
           <Timer className="dark:text-white text-textC" />

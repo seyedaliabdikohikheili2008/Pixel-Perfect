@@ -2,8 +2,16 @@ import { Label, Radio, RadioGroup } from "@heroui/react";
 import React from "react";
 import { LiaSearchSolid } from "react-icons/lia";
 import Input from "../../../atoms/Input/Input";
+import { useMyCourseComments } from "../../../../core/hooks/queries/user-panel/comments/course/useMyCourseComments";
 
 const MyComments = () => {
+  const {
+    data: MyCourseComments = undefined,
+    isError: MyCourseCommentsErr,
+    isLoading: MyCourseCommentsLoading,
+    refetch: MyCourseCommentsRefetch,
+  } = useMyCourseComments();
+
   return (
     <>
       <div className="w-full max-h-full flex-1 flex flex-col items-start gap-5">

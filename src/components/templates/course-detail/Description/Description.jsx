@@ -97,24 +97,22 @@ const Description = ({ course }) => {
     }
   };
 
-const handleFavorite = async () => {
-  try {
-    if (isFavorite) {
-      await removeFavorite();
-      setIsFavorite(false);
-    } else {
-      await addFavorite(id);
-      setIsFavorite(true);
-    }
-  } catch (error) {
-    console.error("خطا در عملیات علاقمندی:", error);
+  const handleFavorite = async () => {
+    try {
+      if (isFavorite) {
+        await removeFavorite();
+        setIsFavorite(false);
+      } else {
+        await addFavorite(id);
+        setIsFavorite(true);
+      }
+    } catch (error) {
+      console.error("خطا در عملیات علاقمندی:", error);
       if (error.response?.status === 400) {
-      setIsFavorite(true);
+        setIsFavorite(true);
+      }
     }
-  }
-};
-
-
+  };
 
   //برای کامنته
   const { data: commentsData } = useQuery({
@@ -133,7 +131,6 @@ const handleFavorite = async () => {
   }, [isCommentBoxOpen]);
 
   const comments = commentsData?.data || [];
-  console.log("courseId که به کامنت میدم:", id);
 
   return (
     <div className="w-full bg-rootBg flex flex-col gap-10 md:w-3/4 m-auto xl:w-2/3">
@@ -253,16 +250,19 @@ const handleFavorite = async () => {
             هنوز نظری ثبت نشده
           </p>
         ) : (
-          comments.slice(0, visibleCount).map((comment) => (
-            <CourseComment
-              key={comment.id}
-              comment={comment}
-              CourseId={CourseId}
-            />
-          ))
+          comments
+            .slice(0, visibleCount)
+            .map((comment) => (
+              <CourseComment
+                key={comment.id}
+                comment={comment}
+                CourseId={CourseId}
+              />
+            ))
         )}
         {comments.length > 2 && (
-          <button  onClick={() => setVisibleCount((prev) => prev + 10)}
+          <button
+            onClick={() => setVisibleCount((prev) => prev + 10)}
             className=" w-1/2 m-auto md:w-1/5 flex items-center justify-center cursor-pointer 
     px-4 py-2 focus:outline-none rounded-xl text-nowrap dark:text-primary-500 text-primary-800 border border-solid dark:border-primary-500 border-primary-800 ltr"
           >

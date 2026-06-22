@@ -15,7 +15,7 @@ import { useTranslation } from "react-i18next";
 import { addFavorite } from "../../../../core/services/Course-detail/addFavorite/addFavorite";
 import { removeFavorite } from "../../../../core/services/Course-detail/removeFavorite/removeFavorite";
 import { deleteLike } from "../../../../core/services/Course-detail/removeLike/removeLike";
-
+import toast from "react-hot-toast";
 
 const Description = ({ course }) => {
   const { id } = useParams();
@@ -62,10 +62,12 @@ const Description = ({ course }) => {
 
       try {
         await deleteLike(likeId);
-        setLikeId(null); 
+        setLikeId(null);
+        toast.success("لایک حذف شد ✅");
       } catch (error) {
         setLikes(prevLikes);
         setUserLiked(prevUserLiked);
+        toast.error("خطا در حذف لایک ❌");
       }
     } else {
       if (userDisliked) {
@@ -85,9 +87,15 @@ const Description = ({ course }) => {
         } else {
           console.warn("هشدار: لایک ثبت شد اما بک‌اند آیدی جدید را برنگرداند! حذف مجدد کار نخواهد کرد.");
         }
+        toast.success("لایک شد 👍");
       } catch (error) {
         setLikes(prevLikes);
         setUserLiked(prevUserLiked);
+        if (userDisliked) {
+          setDislikes((prev) => prev + 1);
+          setUserDisliked(true);
+        }
+        toast.error("خطا در لایک کردن ❌");
       }
     }
   };
@@ -110,11 +118,13 @@ const Description = ({ course }) => {
 
     try {
       await ApiClient.post(`Course/AddCourseDissLike?CourseId=${id}`);
+      toast.success("دیسلایک شد 👎");
     } catch (error) {
       setLikes(prevLikes);
       setDislikes(prevDislikes);
       setUserLiked(prevUserLiked);
       setUserDisliked(prevUserDisliked);
+      toast.error("خطا در دیسلایک ❌");
     }
   };
 
@@ -132,6 +142,7 @@ const Description = ({ course }) => {
         setIsFavorite(false);
         await removeFavorite(favoriteId);
         setFavoriteId(null);
+        toast.success("از علاقه‌مندی‌ها حذف شد 💔");
       } else {
         setIsFavorite(true);
         const res = await addFavorite(id);
@@ -142,9 +153,11 @@ const Description = ({ course }) => {
         } else {
           console.warn("هشدار: علاقه‌مندی ثبت شد اما بک‌اند آیدی جدید را برنگرداند!");
         }
+        toast.success("به علاقه‌مندی‌ها اضافه شد ❤️");
       }
     } catch (error) {
-      setIsFavorite(prevFav); 
+      setIsFavorite(prevFav);
+      toast.error("خطا در عملیات علاقه‌مندی ❌");
     }
   };
 
@@ -263,6 +276,7 @@ const Description = ({ course }) => {
                     await PostCourseComments(formData);
                     setIsCommentBoxOpen(false);
                     setCommentText("");
+                    toast.success("کامنت با موفقیت ثبت شد ✅");
                   } catch (error) {
                     if (
                       error.code === "ERR_CANCELED" ||
@@ -271,6 +285,7 @@ const Description = ({ course }) => {
                       return;
                     }
                     console.error("خطا در ثبت کامنت:", error);
+                    toast.error("خطا در ثبت کامنت ❌");
                   }
                 }}
               />
@@ -307,4 +322,3 @@ const Description = ({ course }) => {
 };
 
 export default Description;
-

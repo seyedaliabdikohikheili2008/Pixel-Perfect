@@ -10,6 +10,7 @@ import { postCommentLike } from "../../../../core/services/Course-detail/addComm
 import { postCommentDisLike } from "../../../../core/services/Course-detail/addCommentDislike/addCommentDislike";
 import { deleteCommentLike } from "../../../../core/services/Course-detail/removeCommentLike/removeCommentLike";
 import Loading from "../../../atoms/loading/Loading";
+import toast from "react-hot-toast";
 
 const CourseComment = ({ comment, CourseId }) => {
   const [isReplyBoxOpen, setIsReplyBoxOpen] = useState(false);
@@ -43,8 +44,10 @@ const CourseComment = ({ comment, CourseId }) => {
       setReplyText("");
       setIsReplyBoxOpen(false);
       await refetch();
+      toast.success("پاسخ با موفقیت ثبت شد ✅");
     } catch (error) {
       console.error(error);
+      toast.error("خطا در ثبت پاسخ ❌");
     } finally {
       setIsLoading(false);
     }
@@ -54,15 +57,18 @@ const CourseComment = ({ comment, CourseId }) => {
     try {
       if (comment.currentUserIsLike) {
         await deleteCommentLike(comment.id);
+        toast.success("لایک حذف شد ✅");
       } else {
         if (comment.currentUserIsDisLike) {
           await postCommentDisLike(comment.id);
         }
         await postCommentLike(comment.id);
+        toast.success("لایک شد 👍");
       }
       queryClient.invalidateQueries({ queryKey: ["courseComments", CourseId] });
     } catch (error) {
       console.error("خطا در لایک:", error);
+      toast.error("خطا در لایک ❌");
     }
   };
 
@@ -70,15 +76,18 @@ const CourseComment = ({ comment, CourseId }) => {
     try {
       if (comment.currentUserIsDisLike) {
         await postCommentDisLike(comment.id);
+        toast.success("دیسلایک حذف شد ✅");
       } else {
         if (comment.currentUserIsLike) {
           await deleteCommentLike(comment.id);
         }
         await postCommentDisLike(comment.id);
+        toast.success("دیسلایک شد 👎");
       }
       queryClient.invalidateQueries({ queryKey: ["courseComments", CourseId] });
     } catch (error) {
       console.error("خطا در دیسلایک:", error);
+      toast.error("خطا در دیسلایک ❌");
     }
   };
 
@@ -150,7 +159,7 @@ const CourseComment = ({ comment, CourseId }) => {
                 onClick={handleSendReply}
                 disabled={isLoading || !replyText.trim()}
               >
-                {isLoading ? <Loading /> : "ثبت پاسخ"}
+                {isLoading ? <Loading size={3} circleSize={3}/> : "ثبت پاسخ"}
               </button>
               <button
                 className="bg-neutral-200 px-4 py-2 rounded-lg"

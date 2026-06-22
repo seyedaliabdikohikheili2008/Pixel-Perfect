@@ -132,7 +132,7 @@ const MyFavorites = () => {
     <>
       <div className="w-full max-h-full flex-1 flex flex-col items-start gap-5">
         <h2 className="text-textC text-3xl font-bold">علاقه مندی های من</h2>
-        <div className="w-full h-130.25 p-5 flex flex-col gap-4 shadow-[0px_50px_100px_0px_#48484829] rounded-3xl bg-background">
+        <div className="w-full min-h-137 p-5 flex flex-col gap-4 shadow-[0px_50px_100px_0px_#48484829] rounded-3xl bg-background">
           <div className="flex justify-between gap-5 ">
             <div className="flex flex-col gap-2">
               <h5 className="text-base text-textC flex gap-2 items-center">
@@ -200,7 +200,7 @@ const MyFavorites = () => {
               </RadioGroup>
             </div>
           </div>
-          <div className="w-full flex-1 overflow-y-auto flex flex-col md:divide-none divide-dashed divide-neutral-400 divide-y-1 gap-7">
+          <div className="w-full flex-1 flex flex-col md:divide-none divide-dashed divide-neutral-400 divide-y-1 gap-7">
             {favoriteFlag == "course"
               ? MyFavoriteCourse
                 ? data?.map((item, index) => {
@@ -215,7 +215,7 @@ const MyFavorites = () => {
                       >
                         <img
                           className="sm:w-25 w-40 h-30 sm:h-15 rounded-2xl overflow-hidden object-cover"
-                          src={item?.course.imageAddress || img}
+                          src={item?.course.imageAddress}
                           alt=""
                         />
                         <h3 className="text-text text-base w-40 line-clamp-1 text-textC">
@@ -261,7 +261,7 @@ const MyFavorites = () => {
                       >
                         <img
                           className="sm:w-25 w-40 h-30 sm:h-15 rounded-2xl overflow-hidden object-cover"
-                          src={item?.news.currentImageAddress || img}
+                          src={item?.news.currentImageAddress}
                           alt=""
                         />
                         <h3 className="text-text text-base w-50 text-textC line-clamp-1">

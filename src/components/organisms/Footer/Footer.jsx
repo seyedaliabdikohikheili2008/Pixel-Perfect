@@ -20,57 +20,57 @@ const Footer = () => {
 
           <div className="hidden min-w-2/4 lg:flex gap-8">
             <div className=" hidden md:h-71.25 text-neutral-600 md:flex flex-col gap-2 ">
-              <h1 className="font-sans font-semibold text-textC text-right leading-5">
+              <h1 className="font-sans font-semibold text-textC flex justify-start leading-5">
                 {t("sectionOneTitle")}
               </h1>
               <div className="w-7.5 h-1 bg-primary-500"></div>
-              <p className="font-medium text-[16px] text-right leading-7">
+              <p className="font-medium text-[16px] flex justify-start leading-7">
                 {t("sectionOneLi1")}
               </p>
-              <p className="font-medium text-[16px] text-right leading-7">
+              <p className="font-medium text-[16px] flex justify-start leading-7">
                 {t("sectionOneLi2")}
               </p>
-              <p className="font-medium text-[16px] text-right leading-7">
+              <p className="font-medium text-[16px] flex justify-start leading-7">
                 {t("sectionOneLi3")}
               </p>
-              <p className="font-medium text-[16px] text-right leading-7">
+              <p className="font-medium text-[16px] flex justify-start leading-7">
                 {t("sectionOneLi4")}
               </p>
-              <p className="font-medium text-[16px] text-right leading-7">
+              <p className="font-medium text-[16px] flex justify-start leading-7">
                 {t("sectionOneLi5")}
               </p>
-              <p className="font-medium text-[16px] text-right leading-7">
+              <p className="font-medium text-[16px] flex justify-start leading-7">
                 {t("sectionOneLi6")}
               </p>
             </div>
 
             <div className=" hidden md:h-71.25 text-neutral-600 md:flex flex-col gap-2 ">
-              <h1 className="font-sans font-semibold text-textC text-right leading-5 dark:text-white">
+              <h1 className="font-sans font-semibold text-textC flex justify-start leading-5 dark:text-white">
                 {t("sectionTwoTitle")}
               </h1>
               <div className="w-7.5 h-1 bg-primary-500"></div>
-              <p className="font-medium text-[16px] text-right leading-7">
+              <p className="font-medium text-[16px] flex justify-start leading-7">
                 {t("sectionTwoLi1")}
               </p>
-              <p className="font-medium text-[16px] text-right leading-7">
+              <p className="font-medium text-[16px] flex justify-start leading-7">
                 {t("sectionTwoLi2")}
               </p>
-              <p className="font-medium text-[16px] text-right leading-7">
+              <p className="font-medium text-[16px] flex justify-start leading-7">
                 {t("sectionTwoLi3")}
               </p>
-              <p className="font-medium text-[16px] text-right leading-7">
+              <p className="font-medium text-[16px] flex justify-start leading-7">
                 {t("sectionTwoLi4")}
               </p>
-              <p className="font-medium text-[16px] text-right leading-7">
+              <p className="font-medium text-[16px] flex justify-start leading-7">
                 {t("sectionTwoLi5")}
               </p>
             </div>
             <div className="h-31.75 text-neutral-600 flex flex-col gap-2 ">
-              <h1 className="font-sans font-semibold text-textC text-right leading-5 dark:text-white">
+              <h1 className="font-sans font-semibold text-textC flex justify-start leading-5 dark:text-white">
                 {t("sectionThreeTitle")}
               </h1>
               <div className="w-7.5 h-1 bg-primary-500"></div>
-              <p className="font-normal text-[16px] text-right leading-7">
+              <p className="font-normal text-[16px] flex justify-start leading-7">
                 {t("sectionThreeLi1")}
               </p>
             </div>

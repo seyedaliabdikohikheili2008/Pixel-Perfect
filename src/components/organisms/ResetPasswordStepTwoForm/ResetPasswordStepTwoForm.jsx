@@ -11,19 +11,23 @@ import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { resetStepReset } from "../../../core/feature/auth/ResetPasswordStepSlice";
+
 const ResetPasswordStepTwoForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const savedEmail = localStorage.getItem("registration_email");
+
   const { mutate, isPending } = useMutation({
     mutationFn: ResetPasswordStepTwo,
     onSuccess: (data) => {
-      dispatch(resetStepReset());
-      navigate("/auth/login");
+      toast.success("رمز عبور با موفقیت تغییر کرد");
+      navigate("/auth/login", { replace: true });
+      setTimeout(() => {
+        dispatch(resetStepReset());
+      }, 100);
     },
     onError: (error) => {
       const status = error.response?.status;
-
       const serverMessage = error.response?.data?.message;
 
       if (status === 404 && serverMessage === "کاربر یافت نشد") {
@@ -39,23 +43,25 @@ const ResetPasswordStepTwoForm = () => {
       gmail: savedEmail,
       email: savedEmail,
       newPassword: values.newPassword,
-      resetValue: "000000",
+      resetValue: values.resetValue,
       baseUrl: "/",
     });
   };
+
   const validationSchema = Yup.object({
+    resetValue: Yup.string().required("وارد کردن کد الزامی است"), // اضافه شد تا اعتبار سنجی کامل باشد
     newPassword: Yup.string()
       .required("رمز اجباری است")
       .min(6, "لطفا از 6 کاراکتر بیشتر وارد کنید!")
       .max(20, "رمز عبور نباید بیشتر از 20 کاراکتر باشد"),
-    confrimPassword: Yup.string()
+    confirmPassword: Yup.string()
       .required("تکرار رمز اجباری است")
       .oneOf([Yup.ref("newPassword")], "رمزها یکسان نیستند"),
   });
 
   return (
     <>
-      <h1 className="font-bold font-sans text-textC  text-3xl">
+      <h1 className="font-bold font-sans text-textC text-3xl">
         فراموشی رمز عبور
       </h1>
       <p className="font-normal text-xl text-textC">
@@ -65,7 +71,7 @@ const ResetPasswordStepTwoForm = () => {
         initialValues={{
           newPassword: "",
           resetValue: "",
-          confrimPassword: "",
+          confirmPassword: "",
         }}
         onSubmit={postData}
         validationSchema={validationSchema}
@@ -74,11 +80,33 @@ const ResetPasswordStepTwoForm = () => {
           <Form className="w-full flex flex-col items-center gap-6">
             <div className="w-8/10 flex flex-col justify-end">
               <div
-                className={` focus:ring-indigo-500 w-full bg-neutral-50  rounded-xl flex flex-col justify-end focus:border-indigo-500  ${
-                  errors.newPassword && touched.newPassword
-                    ? " border border-red-500"
-                    : ""
-                }`}
+                className={` focus:ring-indigo-500 w-full bg-neutral-50 rounded-xl flex flex-col justify-end focus:border-indigo-500 ${errors.resetValue && touched.resetValue
+                  ? " border border-red-500"
+                  : ""
+                  }`}
+              >
+                <Input
+                  icon={password}
+                  placeholder={"کد ورود را وارد کنید"}
+                  iconClassname={"mx-3.5"}
+                  name="resetValue"
+                  value={values.resetValue}
+                  onChange={handleChange}
+                />
+              </div>
+              <ErrorMessage
+                className="text-danger-500 text-right"
+                name="resetValue"
+                component={"span"}
+              />
+            </div>
+
+            <div className="w-8/10 flex flex-col justify-end">
+              <div
+                className={` focus:ring-indigo-500 w-full bg-neutral-50 rounded-xl flex flex-col justify-end focus:border-indigo-500 ${errors.newPassword && touched.newPassword
+                  ? " border border-red-500"
+                  : ""
+                  }`}
               >
                 <Input
                   icon={password}
@@ -95,33 +123,35 @@ const ResetPasswordStepTwoForm = () => {
                 component={"span"}
               />
             </div>
+
             <div className="w-8/10 flex flex-col justify-end">
               <div
-                className={` focus:ring-indigo-500 w-full bg-neutral-50  rounded-xl flex flex-col justify-end focus:border-indigo-500  ${
-                  errors.confrimPassword && touched.confrimPassword
-                    ? " border border-red-500"
-                    : ""
-                }`}
+                className={` focus:ring-indigo-500 w-full bg-neutral-50 rounded-xl flex flex-col justify-end focus:border-indigo-500 ${errors.confirmPassword && touched.confirmPassword
+                  ? " border border-red-500"
+                  : ""
+                  }`}
               >
                 <Input
                   icon={password}
                   placeholder={"تکرار رمز عبور"}
                   iconClassname={"mx-3.5"}
-                  name="confrimPassword"
-                  value={values.confrimPassword}
+                  name="confirmPassword"
+                  value={values.confirmPassword}
                   onChange={handleChange}
                 />
               </div>
               <ErrorMessage
                 className="text-danger-500 text-right"
-                name="confrimPassword"
+                name="confirmPassword"
                 component={"span"}
               />
             </div>
+
             <Button
-              children={"ثبت رمز عبور جدید"}
+              children={isPending ? "در حال پردازش..." : "ثبت رمز عبور جدید"} // جلوگیری از سابمیت چندباره
               buttonClassName="w-8/10 font-lg font-bold"
               type="submit"
+              disabled={isPending}
             />
           </Form>
         )}

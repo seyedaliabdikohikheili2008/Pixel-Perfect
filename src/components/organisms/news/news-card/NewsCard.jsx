@@ -18,7 +18,7 @@ const NewsCard = ({ detail, cardView2 = false }) => {
         <FallbackImage
           src={detail?.currentImageAddress}
           alt="news-image"
-          className={"z-0 object-cover w-full h-full object-center"}
+          className={"z-0 object-cover blur-xs w-full h-full object-center"}
         />
         <div className="w-full h-full absolute shadow-[inset_0px_-100px_120px_0px_#202020] top-0 right-0 z-10"></div>
         <div className="w-10/12 flex flex-col gap-3 absolute z-10 bottom-5 left-1/2 -translate-x-1/2">

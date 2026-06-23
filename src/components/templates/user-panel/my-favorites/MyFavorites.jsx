@@ -14,6 +14,7 @@ import { useRemoveCourseFavorite } from "../../../../core/hooks/queries/user-pan
 import toast from "react-hot-toast";
 import { useRemoveNewsFavorite } from "../../../../core/hooks/queries/user-panel/favorites/news/useRemoveNewsFavorite";
 import { useNavigate } from "react-router-dom";
+import FallbackImage from "../../../atoms/image/FallbackImage";
 
 const MyFavorites = () => {
   const navigate = useNavigate();
@@ -213,10 +214,10 @@ const MyFavorites = () => {
                         key={index}
                         className="w-full flex flex-wrap pb-3 md:flex-nowrap justify-between gap-7 md:gap-3 items-center"
                       >
-                        <img
+                        <FallbackImage
+                          src={item?.course?.imageAddress}
+                          alt="favorite-image"
                           className="sm:w-25 w-40 h-30 sm:h-15 rounded-2xl overflow-hidden object-cover"
-                          src={item?.course.imageAddress}
-                          alt=""
                         />
                         <h3 className="text-text text-base w-40 line-clamp-1 text-textC">
                           {item?.course.title}
@@ -259,10 +260,10 @@ const MyFavorites = () => {
                         key={index}
                         className="w-full flex flex-wrap pb-3 md:flex-nowrap justify-between gap-7 md:gap-3 items-center"
                       >
-                        <img
+                        <FallbackImage
+                          src={item?.news?.currentImageAddress}
+                          alt="favorite-image"
                           className="sm:w-25 w-40 h-30 sm:h-15 rounded-2xl overflow-hidden object-cover"
-                          src={item?.news.currentImageAddress}
-                          alt=""
                         />
                         <h3 className="text-text text-base w-50 text-textC line-clamp-1">
                           {item?.news.title}

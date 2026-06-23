@@ -13,6 +13,7 @@ import TeacherListPagination from "../../teacher-list/teacher-list-content/Teach
 import { useDeleteCourseReserve } from "../../../../core/hooks/queries/user-panel/course-reserve/useDeleteCourseReserve";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import FallbackImage from "../../../atoms/image/FallbackImage";
 
 const MyCourseReserve = () => {
   const {
@@ -102,10 +103,10 @@ const MyCourseReserve = () => {
                       key={index}
                       className="w-full flex flex-wrap pb-3 md:flex-nowrap justify-between gap-7 md:gap-3 items-center"
                     >
-                      <img
+                      <FallbackImage
+                        src={item?.image}
+                        alt="course-image"
                         className="sm:w-25 w-40 h-30 sm:h-15 rounded-2xl overflow-hidden object-cover"
-                        src={item?.image || img}
-                        alt=""
                       />
                       <h3 className="text-text text-base w-40 line-clamp-1 text-textC">
                         {item?.courseName}

@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import js from "../../../../assets/images/course-dtail/js.jpg";
 import like from "../../../../assets/images/icons/course-detail/like.png";
+import darklike from "../../../../assets/images/icons/course-detail/darklike.png";
 import dislike from "../../../../assets/images/icons/course-detail/dislike.png";
+import darkdislike from "../../../../assets/images/icons/course-detail/darkdislike.png";
 import Comment from "../Comment/Comment";
 import Button from "../../../atoms/Butoon/Button";
 import comment from "../../../../assets/images/icons/course-detail/comment.svg";
@@ -16,12 +18,14 @@ import { addFavorite } from "../../../../core/services/Course-detail/addFavorite
 import { removeFavorite } from "../../../../core/services/Course-detail/removeFavorite/removeFavorite";
 import { deleteLike } from "../../../../core/services/Course-detail/removeLike/removeLike";
 import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
 
 const Description = ({ course }) => {
   const { id } = useParams();
   const { t } = useTranslation("courseDetail");
   const [visibleCount, setVisibleCount] = useState(2);
   const CourseId = id;
+  const mode = useSelector((state) => state.DarkFlag.value);
 
   const [likes, setLikes] = useState(0);
   const [dislikes, setDislikes] = useState(0);
@@ -189,7 +193,7 @@ const Description = ({ course }) => {
         <div className="w-60 px-2 mt-2 h-12 flex justify-between bg-rootBg gap-2 items-center flex-row-reverse absolute -bottom-1 -left-1 rounded-xl">
           <div className="w-19.25 flex justify-between items-center">
             <img
-              src={dislike}
+              src={mode == "light" ? dislike : darkdislike}
               alt=""
               onClick={handleDislike}
               className="cursor-pointer"
@@ -198,7 +202,7 @@ const Description = ({ course }) => {
           </div>
           <div className="w-19.25 flex justify-between items-center">
             <img
-              src={like}
+              src={mode == "light" ? like : darklike}
               alt=""
               onClick={handleLike}
               className="cursor-pointer"

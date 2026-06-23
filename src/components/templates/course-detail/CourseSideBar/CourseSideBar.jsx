@@ -1,18 +1,24 @@
 import React, { useState } from "react";
 import usermultipate from "../../../../assets/images/icons/course-detail/usermultipate.svg";
+import darkusermultipate from "../../../../assets/images/icons/course-detail/darkusermultipate.png";
 import situation from "../../../../assets/images/icons/course-detail/situation .svg";
+import darksituation from "../../../../assets/images/icons/course-detail/darksituation.png";
 import end from "../../../../assets/images/icons/course-detail/end.svg";
+import darkend from "../../../../assets/images/icons/course-detail/darlend.png";
 import start from "../../../../assets/images/icons/course-detail/start.svg";
+import darkstart from "../../../../assets/images/icons/course-detail/darkstart.png";
 import Button from "../../../atoms/Butoon/Button";
 import Profile from "../../../atoms/profile/Profile";
 import Acceptance from "../../../atoms/acceptance/Acceptance";
 import { useTranslation } from "react-i18next";
 import { Reserve } from "../../../../core/services/Course-detail/reserve/reserve";
 import toast, { Toaster } from "react-hot-toast";
+import { useSelector } from "react-redux";
 
 const CourseSideBar = ({course}) => {
   const { t } = useTranslation("courseDetail");
   const [isReserving, setIsReserving] = useState(false);
+  const mode = useSelector((state) => state.DarkFlag.value);
 
   const handleReserveClick = async () => {
     console.log("course.id:", course.courseId);
@@ -40,7 +46,7 @@ const CourseSideBar = ({course}) => {
         <div className="w-11/12 m-auto">
           <div className="flex justify-between items-center border-b p-2.5 border-solid border-neutral-100">
             <div className="flex justify-center items-center gap-2">
-              <img src={usermultipate} alt="usermultipate" />
+              <img src={mode == "light" ? usermultipate: darkusermultipate} alt="usermultipate" />
               <p className="text-md text-neutral-300">{t("sidebar.Students")}</p>
             </div>
             <p className="font-bold text-[16px] text-textC">{course.studentCount}</p>
@@ -48,14 +54,14 @@ const CourseSideBar = ({course}) => {
 
           <div className="flex justify-between items-center border-b p-2.5 border-solid border-neutral-100">
             <div className="flex justify-center items-center gap-2">
-              <img src={situation} alt="situation" />
+              <img src={mode == "light" ?situation : darksituation} alt="situation" />
               <p className="text-md text-neutral-300">{t("sidebar.status")}</p>
             </div>
             <p className="font-normal text-[16px] text-textC">{course.courseStatusName}</p>
           </div>
           <div className="flex justify-between items-center border-b p-2.5 border-solid border-neutral-100">
             <div className="flex justify-center items-center gap-2">
-              <img src={start} alt="start" />
+              <img src={mode == "light" ? start: darkstart} alt="start" />
               <p className="text-md text-neutral-300">{t("sidebar.start")}</p>
             </div>
             <p className="font-normal text-[16px] text-textC">
@@ -64,7 +70,7 @@ const CourseSideBar = ({course}) => {
           </div>
           <div className="flex justify-between items-center border-b p-2.5 border-solid border-neutral-100">
             <div className="flex justify-center items-center gap-2">
-              <img src={end} alt="end" />
+              <img src={mode == "light" ? end: darkend} alt="end" />
               <p className="text-md text-neutral-300">{t("sidebar.end")}</p>
             </div>
             <p className="font-normal text-[16px] text-textC">

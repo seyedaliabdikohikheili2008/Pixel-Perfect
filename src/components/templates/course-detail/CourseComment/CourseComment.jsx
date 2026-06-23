@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import user from "../../../../assets/images/course-dtail/user.png";
 import like from "../../../../assets/images/icons/course-detail/like.png";
+import darklike from "../../../../assets/images/icons/course-detail/darklike.png";
 import dislike from "../../../../assets/images/icons/course-detail/dislike.png";
+import darkdislike from "../../../../assets/images/icons/course-detail/darkdislike.png";
 import replyIcon from "../../../../assets/images/icons/course-detail/reply.png";
 import { GetReplyComment } from "../../../../core/services/Course-detail/GetReplyComment/GetReplyComment";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -11,13 +13,14 @@ import { postCommentDisLike } from "../../../../core/services/Course-detail/addC
 import { deleteCommentLike } from "../../../../core/services/Course-detail/removeCommentLike/removeCommentLike";
 import Loading from "../../../atoms/loading/Loading";
 import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
 
 const CourseComment = ({ comment, CourseId }) => {
   const [isReplyBoxOpen, setIsReplyBoxOpen] = useState(false);
   const [replyText, setReplyText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const queryClient = useQueryClient();
-
+  const mode = useSelector((state) => state.DarkFlag.value);
   const {
     data: replyData,
     isLoading: isCommentReplyLoading,
@@ -91,12 +94,12 @@ const CourseComment = ({ comment, CourseId }) => {
     }
   };
 
-  isCommentReplyLoading ? <Loading /> : ""
+  isCommentReplyLoading ? <Loading /> : "";
   return (
     <div className="w-full rounded-xl shadow-[0_1px_2px_0_rgba(0,0,0,0.25)] bg-background py-5">
       <div className="flex flex-col gap-5">
         <div className="flex items-center w-9/10 m-auto gap-3 p-5 border-b border-solid border-neutral-100">
-          <img src={comment.pictureAddress || user} alt="" />
+          <img src={comment.pictureAddress || user} alt="" className="w-14" />
           <div className="flex flex-col gap-2">
             <h1 className="font-bold text-xl text-right text-textC">
               {comment.author || "کاربر سایت"}
@@ -114,7 +117,7 @@ const CourseComment = ({ comment, CourseId }) => {
         <div className="flex items-center justify-end gap-3 px-15 py-3">
           <div className="flex items-center justify-center gap-3">
             <img
-              src={like}
+              src={mode == "light" ? like : darklike}
               alt="like"
               onClick={handleLike}
               className={`cursor-pointer hover:opacity-70 ${comment.currentUserLike ? "opacity-100 scale-110" : "opacity-50"}`}
@@ -123,7 +126,7 @@ const CourseComment = ({ comment, CourseId }) => {
           </div>
           <div className="flex items-center justify-center gap-3">
             <img
-              src={dislike}
+              src={mode == "light" ? dislike : darkdislike}
               alt="dislike"
               onClick={handleDisLike}
               className={`cursor-pointer hover:opacity-70 ${comment.currentUserDisLike ? "opacity-100 scale-110" : "opacity-50"}`}
@@ -159,7 +162,7 @@ const CourseComment = ({ comment, CourseId }) => {
                 onClick={handleSendReply}
                 disabled={isLoading || !replyText.trim()}
               >
-                {isLoading ? <Loading size={3} circleSize={3}/> : "ثبت پاسخ"}
+                {isLoading ? <Loading size={3} circleSize={3} /> : "ثبت پاسخ"}
               </button>
               <button
                 className="bg-neutral-200 px-4 py-2 rounded-lg"

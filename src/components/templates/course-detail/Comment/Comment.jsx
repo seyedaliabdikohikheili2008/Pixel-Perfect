@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import user from "../../../../assets/images/course-dtail/user.png";
 import like from "../../../../assets/images/icons/course-detail/like.png";
+import darklike from "../../../../assets/images/icons/course-detail/darklike.png";
 import dislike from "../../../../assets/images/icons/course-detail/dislike.png";
 import replyIcon from "../../../../assets/images/icons/course-detail/reply.png";
 import { getReplyComments } from "../../../../core/services/news-detail/Comments/ReplyComment/ReplyComment";
@@ -10,11 +11,13 @@ import { postNewsCommentLike } from "../../../../core/services/news-detail/addCo
 import { deleteNewsCommentLike } from "../../../../core/services/news-detail/removeCommentLike/removeCommentLike";
 import Loading from "../../../atoms/loading/Loading";
 import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
 
 const Comment = ({ item }) => {
   const [isReplyBoxOpen, setIsReplyBoxOpen] = useState(false);
   const [replyText, setReplyText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const mode = useSelector((state) => state.DarkFlag.value);
 
   const [likeCount, setLikeCount] = useState(item.likeCount || 0);
   const [isLiked, setIsLiked] = useState(item.currentUserLike || false);
@@ -119,7 +122,7 @@ const Comment = ({ item }) => {
         <div className="flex items-center justify-end gap-3 px-15 py-3">
           <div className="flex items-center justify-center gap-3">
             <img
-              src={like}
+              src={mode == "light" ? like : darklike}
               alt="like"
               onClick={handleLike}
               className={`cursor-pointer ${isLiked ? 'opacity-50' : ''}`}

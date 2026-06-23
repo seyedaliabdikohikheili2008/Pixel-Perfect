@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import like from "../../../../assets/images/icons/course-detail/like.png";
+import darklike from "../../../../assets/images/icons/course-detail/darklike.png";
 import dislike from "../../../../assets/images/icons/course-detail/dislike.png";
+import darkdislike from "../../../../assets/images/icons/course-detail/darkdislike.png";
 import Comment from "../../../templates/course-detail/Comment/Comment";
 import Button from "../../../atoms/Butoon/Button";
 import comment from "../../../../assets/images/icons/course-detail/comment.svg";
@@ -15,12 +17,14 @@ import { removeFavorite } from "../../../../core/services/news-detail/removeFavo
 import { deleteLike } from "../../../../core/services/news-detail/removeLike/removeLike";
 import Loading from "../../../atoms/loading/Loading";
 import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
 
 const NewsDescription = ({ news }) => {
   const { t } = useTranslation("newsDetail");
   const { newsId } = useParams();
   const idToSend = newsId;
   const userId = Number(localStorage.getItem("userId"));
+  const mode = useSelector((state) => state.DarkFlag.value);
 
   const [comments, setComments] = useState([]);
   const [visibleCount, setVisibleCount] = useState(2);
@@ -181,11 +185,11 @@ const NewsDescription = ({ news }) => {
         />
         <div className="w-60 px-2 mt-2 h-12 flex justify-between bg-rootBg gap-2 items-center flex-row-reverse absolute -bottom-1 -left-1 rounded-xl">
           <div className="w-19.25 flex justify-between items-center">
-            <img src={dislike} alt="" onClick={handleDislike} className="cursor-pointer" />
+            <img src={mode == "light" ? dislike : darkdislike} alt="" onClick={handleDislike} className="cursor-pointer" />
             <p className="text-xl font-bold text-textC">{dislikes}</p>
           </div>
           <div className="w-19.25 flex justify-between items-center">
-            <img src={like} alt="" onClick={handleLike} className="cursor-pointer" />
+            <img src={mode == "light" ? like : darklike} alt="" onClick={handleLike} className="cursor-pointer" />
             <p className="text-xl font-bold text-textC">{likes}</p>
           </div>
           <div className="w-19.25 flex justify-between items-center">

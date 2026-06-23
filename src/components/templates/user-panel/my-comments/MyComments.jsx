@@ -337,7 +337,29 @@ const MyComments = () => {
                     </div>
                   );
                 })}
+              {commentFlag == "course" ? (
+                MyCourseCommentsLoading ? (
+                  <Loading size={"text-3xl"} circleSize={"8"} />
+                ) : (
+                  ""
+                )
+              ) : MyNewsCommentsLoading ? (
+                <Loading size={"text-3xl"} circleSize={"8"} />
+              ) : (
+                ""
+              )}
             </div>
+            {commentFlag == "course" ? (
+              searchComment.length == 0 && !MyCourseCommentsLoading ? (
+                <NotFound size={"text-xl"} />
+              ) : (
+                ""
+              )
+            ) : searchComment.length == 0 && !MyNewsCommentsLoading ? (
+              <NotFound size={"text-xl"} />
+            ) : (
+              ""
+            )}
           </div>
           <div className="w-full flex items-center justify-center">
             <TeacherListPagination

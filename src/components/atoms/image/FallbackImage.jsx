@@ -1,10 +1,10 @@
 import React from "react";
 import defaultImage from "../../../assets/images/course-dtail/js.jpg";
 
-const FallbackImage = ({ src, alt, className }) => {
+const FallbackImage = ({ src, alt = "", className = "" }) => {
   return (
     <img
-      src={src}
+      src={src || defaultImage}
       alt={alt}
       onError={(e) => {
         e.target.onerror = null;

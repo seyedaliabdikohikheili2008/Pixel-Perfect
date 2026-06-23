@@ -5,9 +5,12 @@ import teacher from "../../../../assets/images/icons/landing/teaching.png";
 import student from "../../../../assets/images/icons/landing/student-card.png";
 import { useTranslation } from "react-i18next";
 import { FaRegStar, FaStar } from "react-icons/fa";
+import FallbackImage from "../../../atoms/image/FallbackImage";
+import { useNavigate } from "react-router-dom";
 
 const LBestCourseCard = ({ detail }) => {
   const { t } = useTranslation("landing");
+  const navigate = useNavigate();
 
   const renderStars = (count) => {
     const arr = Array.from({ length: 5 });
@@ -24,12 +27,17 @@ const LBestCourseCard = ({ detail }) => {
   };
   return (
     <>
-      <div className="w-90 relative flex flex-col items-center">
+      <div
+        onClick={() => {
+          navigate(`/course-detail/${detail?.courseId}`);
+        }}
+        className="w-90 relative flex flex-col items-center"
+      >
         <div className="w-full h-50">
-          <img
-            className="rounded-2xl w-full max-h-50 overflow-hidden"
-            src={detail?.imageAddress || Img}
-            alt="course-image"
+          <FallbackImage
+            src={detail?.imageAddress}
+            alt={"best-course"}
+            className={"rounded-2xl w-full max-h-50 overflow-hidden"}
           />
         </div>
         <div className="w-11/12 -translate-y-15 flex p-4 flex-col gap-5 bg-rootBg rounded-2xl">

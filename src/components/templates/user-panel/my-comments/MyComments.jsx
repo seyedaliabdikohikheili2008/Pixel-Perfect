@@ -74,7 +74,7 @@ const MyComments = () => {
     setpage(1);
   }, [commentFlag]);
 
-  const getItemsByPage = (array = [], page, itemsPerPage = 4) => {
+  const getItemsByPage = (array = [], page, itemsPerPage = 3) => {
     const start = (page - 1) * itemsPerPage;
     const end = start + itemsPerPage;
 
@@ -173,136 +173,180 @@ const MyComments = () => {
               </RadioGroup>
             </div>
           </div>
-          <div className="w-full flex-1 flex flex-col md:divide-none divide-dashed divide-neutral-400 divide-y-1 gap-7">
-            {commentFlag == "course"
-              ? MyCourseComments
-                ? data?.map((item, index) => {
-                    let insert = new Date(item?.insertDate);
-                    insert = insert.toLocaleString("fa-IR");
-                    return (
-                      <div
-                        key={index}
-                        className="w-full flex flex-wrap pb-3 justify-between gap-7 md:gap-3 items-center"
-                      >
-                        <h3 className="text-text text-base w-40 line-clamp-1 text-textC">
-                          {item?.courseTitle}
-                        </h3>
-                        <h3
-                          className={`${item?.accept ? "bg-saccess-50 border-saccess-700 text-saccess-700" : "bg-danger-50 border-danger-500 text-danger-500"} py-2 rounded-2xl border text-text text-base w-40 line-clamp-1`}
-                        >
-                          {item?.accept ? "تایید شد" : "تایید نشده"}
-                        </h3>
-                        <div className="w-40 relative group">
-                          <div className="w-40 text-textC line-clamp-1">
-                            {item?.describe}
-                          </div>
-                          <div className="absolute w-40 right-1/2 translate-x-1/2 bottom-4 mb-2 px-2 py-1 text-sm text-textC bg-neutral-50 rounded opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-opacity duration-200 z-50">
-                            {item?.describe}
-                          </div>
-                        </div>
-                        <div className="flex flex-col sm:flex-row gap-5">
-                          <p className="text-textC w-30 sm:w-auto text-sm">
-                            {insert}
+          <div className="w-full flex flex-col gap-4">
+            {commentFlag === "course" && (
+              <div className="hidden md:grid grid-cols-12 px-4 py-3 text-xs font-semibold text-neutral-500 bg-neutral-50 rounded-xl border border-neutral-200">
+                <div className="col-span-3">عنوان</div>
+                <div className="col-span-2">وضعیت</div>
+                <div className="col-span-3">توضیحات</div>
+                <div className="col-span-2">تاریخ</div>
+                <div className="col-span-2 text-left pl-10">عملیات</div>
+              </div>
+            )}
+            {commentFlag !== "course" && (
+              <div className="hidden md:grid grid-cols-12 px-4 py-3 text-xs font-semibold text-neutral-500 bg-neutral-50 rounded-xl border border-neutral-200">
+                <div className="col-span-3">عنوان</div>
+                <div className="col-span-5">توضیحات</div>
+                <div className="col-span-3">تاریخ</div>
+                <div className="col-span-1 text-left">عملیات</div>
+              </div>
+            )}
+            <div className="flex flex-col gap-3">
+              {commentFlag === "course" &&
+                data?.map((item, index) => {
+                  const insert = new Date(item?.insertDate).toLocaleString(
+                    "fa-IR",
+                  );
+                  return (
+                    <div
+                      key={index}
+                      className="border border-neutral-200 rounded-2xl p-4 bg-background hover:shadow-md transition"
+                    >
+                      <div className="hidden md:grid grid-cols-12 items-center gap-4">
+                        <div className="col-span-3">
+                          <p className="text-sm font-medium text-textC line-clamp-1">
+                            {item?.courseTitle}
                           </p>
                         </div>
-                        <div className="flex gap-5">
+                        <div className="col-span-2">
+                          <span
+                            className={`px-3 py-1 rounded-full text-xs border ${
+                              item?.accept
+                                ? "bg-saccess-50 border-saccess-700 text-saccess-700"
+                                : "bg-danger-50 border-danger-500 text-danger-500"
+                            }`}
+                          >
+                            {item?.accept ? "تایید شد" : "تایید نشده"}
+                          </span>
+                        </div>
+                        <div className="col-span-3 relative group">
+                          <p className="text-sm text-textC line-clamp-1 cursor-help">
+                            {item?.describe}
+                          </p>
+                          <div className="absolute z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition bg-white border border-neutral-200 shadow-lg rounded-lg p-2 text-xs w-64 right-1/2 translate-x-1/2 bottom-8">
+                            {item?.describe}
+                          </div>
+                        </div>
+                        <div className="col-span-2 text-xs text-neutral-600">
+                          {insert}
+                        </div>
+                        <div className="col-span-2 flex justify-end gap-3">
                           <Button
-                            onClick={() => {
-                              navigate(`/course-detail/${item.courseId}`);
-                            }}
-                            children={"مشاهده دوره"}
-                            buttonClassName="h-10 text-sm text-nowrap"
+                            onClick={() =>
+                              navigate(`/course-detail/${item.courseId}`)
+                            }
+                            children={"دوره"}
+                            buttonClassName="h-9 text-sm"
                           />
                           <div
-                            onClick={() => {
-                              handleDeleteComment(item.commentId);
-                            }}
-                            className="flex cursor-pointer p-2 border border-neutral-300 rounded-full"
+                            onClick={() => handleDeleteComment(item.commentId)}
+                            className="p-2 border border-neutral-300 rounded-full hover:bg-red-50 cursor-pointer transition"
                           >
-                            <RxCross1 color="#FF5454" size={20} />
+                            <RxCross1 color="#FF5454" size={18} />
                           </div>
                         </div>
                       </div>
-                    );
-                  })
-                : ""
-              : MyNewsComments
-                ? data.map((item, index) => {
-                    let insert = new Date(item?.inserDate);
-                    insert = insert.toLocaleString("fa-IR");
-                    return (
-                      <div
-                        key={index}
-                        className="w-full flex flex-wrap pb-3 md:flex-nowrap justify-between gap-7 md:gap-3 items-center"
-                      >
-                        <h3 className="text-text text-base w-40 line-clamp-1 text-textC">
-                          {item?.title}
-                        </h3>
-                        <div className="w-40 relative group">
-                          <div className="w-40 text-textC line-clamp-1">
-                            {item?.describe}
-                          </div>
-                          <div className="absolute w-40 right-1/2 translate-x-1/2 bottom-4 mb-2 px-2 py-1 text-sm text-textC bg-neutral-50 rounded opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-opacity duration-200 z-50">
-                            {item?.describe}
+                      <div className="md:hidden flex flex-col gap-3">
+                        <p className="text-sm font-medium text-textC">
+                          {item?.courseTitle}
+                        </p>
+                        <span
+                          className={` inline-flex w-full justify-center px-3 py-1 rounded-full text-xs border ${item?.accept ? "bg-saccess-50 border-saccess-700 text-saccess-700" : "bg-danger-50 border-danger-500 text-danger-500"}`}
+                        >
+                          {item?.accept ? "تایید شد" : "تایید نشده"}
+                        </span>
+                        <div className="bg-neutral-50 border border-neutral-200 rounded-xl text-textC p-3 text-xs">
+                          {item?.describe}
+                        </div>
+                        <div className="text-xs text-neutral-500">{insert}</div>
+                        <div className="flex gap-3">
+                          <Button
+                            onClick={() =>
+                              navigate(`/course-detail/${item.courseId}`)
+                            }
+                            children={"مشاهده دوره"}
+                            buttonClassName="h-9 text-sm flex-1"
+                          />
+                          <div
+                            onClick={() => handleDeleteComment(item.commentId)}
+                            className="p-3 border border-neutral-300 rounded-xl hover:bg-red-50 cursor-pointer transition"
+                          >
+                            <RxCross1 color="#FF5454" size={18} />
                           </div>
                         </div>
-                        <div className="flex flex-col sm:flex-row gap-5">
-                          <p className="text-textC w-30 sm:w-auto text-sm">
-                            {insert}
+                      </div>
+                    </div>
+                  );
+                })}
+              {commentFlag !== "course" &&
+                data?.map((item, index) => {
+                  const insert = new Date(item?.inserDate).toLocaleString(
+                    "fa-IR",
+                  );
+                  return (
+                    <div
+                      key={index}
+                      className="border border-neutral-200 rounded-2xl p-4 bg-background hover:shadow-md transition"
+                    >
+                      <div className="hidden md:grid grid-cols-12 items-center gap-4">
+                        <div className="col-span-3">
+                          <p className="text-sm font-medium text-textC line-clamp-1">
+                            {item?.title}
                           </p>
                         </div>
-                        <div className="flex gap-5">
+                        <div className="col-span-5 relative group">
+                          <p className="text-sm text-textC line-clamp-1 cursor-help">
+                            {item?.describe}
+                          </p>
+                          <div className="absolute z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition bg-white border border-neutral-200 shadow-lg rounded-lg p-2 text-xs w-64 right-1/2 translate-x-1/2 bottom-8">
+                            {item?.describe}
+                          </div>
+                        </div>
+                        <div className="col-span-3 text-xs text-neutral-600">
+                          {insert}
+                        </div>
+                        <div className="col-span-1 flex justify-end">
                           <Button
-                            onClick={() => {
-                              navigate(`/news-detail/${item.newsId}`);
-                            }}
-                            children={"مشاهده مقاله"}
-                            buttonClassName="h-10 text-sm text-nowrap"
+                            onClick={() =>
+                              navigate(`/news-detail/${item.newsId}`)
+                            }
+                            children={"مقاله"}
+                            buttonClassName="h-9 text-sm whitespace-nowrap"
                           />
-                          {/* <div
-                            onClick={() => {
-                              handleRemoveFavorite(item.id);
-                            }}
-                            className="flex cursor-pointer p-2 border border-neutral-300 rounded-full"
-                          >
-                            <RxCross1 color="#FF5454" size={20} />
-                          </div> */}
                         </div>
                       </div>
-                    );
-                  })
-                : ""}
-
-            {commentFlag == "course" ? (
-              MyCourseCommentsLoading ? (
-                <Loading size={"text-3xl"} circleSize={"8"} />
-              ) : (
-                ""
-              )
-            ) : MyNewsCommentsLoading ? (
-              <Loading size={"text-3xl"} circleSize={"8"} />
-            ) : (
-              ""
-            )}
-
-            {commentFlag == "course" ? (
-              searchComment.length == 0 && !MyCourseCommentsLoading ? (
-                <NotFound size={"text-xl"} />
-              ) : (
-                ""
-              )
-            ) : searchComment.length == 0 && !MyNewsCommentsLoading ? (
-              <NotFound size={"text-xl"} />
-            ) : (
-              ""
-            )}
+                      <div className="md:hidden flex flex-col gap-3">
+                        <p className="text-sm font-medium text-textC">
+                          {item?.title}
+                        </p>
+                        <div className="bg-neutral-50 border border-neutral-200 rounded-xl p-3 text-xs text-textC">
+                          {item?.describe}
+                        </div>
+                        <span className="text-xs text-neutral-500">
+                          <span className="text-neutral-400">تاریخ:</span>{" "}
+                          {insert}
+                        </span>
+                        <Button
+                          onClick={() =>
+                            navigate(`/news-detail/${item.newsId}`)
+                          }
+                          children={"مشاهده مقاله"}
+                          buttonClassName="h-9 text-sm w-full"
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
+            </div>
           </div>
-          <TeacherListPagination
-            totalCount={searchComment?.length}
-            setPage={setpage}
-            render={commentFlag}
-            rows={4}
-          />
+          <div className="w-full flex items-center justify-center">
+            <TeacherListPagination
+              totalCount={searchComment?.length}
+              setPage={setpage}
+              render={commentFlag}
+              rows={3}
+            />
+          </div>
         </div>
       </div>
     </>

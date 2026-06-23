@@ -91,65 +91,117 @@ const MyCourseReserve = () => {
               />
             </div>
           </div>
-          <div className="w-full flex-1 flex flex-col md:divide-none divide-dashed divide-neutral-400 divide-y-1 gap-7">
-            {MyCourseReserve
-              ? data.map((item, index) => {
-                  let start = new Date(item?.startDate);
-                  start = start.toLocaleString("fa-IR");
-                  let end = new Date(item?.endDate);
-                  end = end.toLocaleString("fa-IR");
+          <div className="w-full flex flex-col gap-4">
+            <div className="hidden md:grid grid-cols-12 w-full px-4 py-3 text-xs font-semibold text-neutral-500 bg-neutral-50 rounded-xl border border-neutral-200">
+              <div className="col-span-2">تصویر</div>
+              <div className="col-span-3">نام دوره</div>
+              <div className="col-span-3">تاریخ‌ها</div>
+              <div className="col-span-4 text-left pl-10">عملیات</div>
+            </div>
+            <div className="flex flex-col gap-3">
+              {MyCourseReserve &&
+                data.map((item, index) => {
+                  const start = new Date(item?.startDate).toLocaleString(
+                    "fa-IR",
+                  );
+                  const end = new Date(item?.endDate).toLocaleString("fa-IR");
+
                   return (
                     <div
                       key={index}
-                      className="w-full flex flex-wrap pb-3 md:flex-nowrap justify-between gap-7 md:gap-3 items-center"
+                      className=" w-full border border-neutral-200 rounded-2xl  p-4  bg-background  hover:shadow-md  transition "
                     >
-                      <FallbackImage
-                        src={item?.image}
-                        alt="course-image"
-                        className="sm:w-25 w-40 h-30 sm:h-15 rounded-2xl overflow-hidden object-cover"
-                      />
-                      <h3 className="text-text text-base w-40 line-clamp-1 text-textC">
-                        {item?.courseName}
-                      </h3>
-                      <div className="flex flex-col sm:flex-row gap-5">
-                        <p className="text-textC w-30 sm:w-auto text-sm">
-                          {start}
-                        </p>
-                        <p className="text-textC w-30 sm:w-auto text-sm">
-                          {end}
-                        </p>
+                      <div className="hidden md:grid grid-cols-12 items-center gap-4">
+                        <div className="col-span-2">
+                          <FallbackImage
+                            src={item?.image}
+                            alt="course-image"
+                            className="w-20 h-14 rounded-xl object-cover"
+                          />
+                        </div>
+                        <div className="col-span-3">
+                          <p className="text-sm font-medium text-textC line-clamp-1">
+                            {item?.courseName}
+                          </p>
+                        </div>
+                        <div className="col-span-3 text-xs text-neutral-600 flex flex-col gap-1">
+                          <span>
+                            <span className="text-neutral-400">شروع:</span>{" "}
+                            {start}
+                          </span>
+                          <span>
+                            <span className="text-neutral-400">پایان:</span>{" "}
+                            {end}
+                          </span>
+                        </div>
+                        <div className="col-span-4 flex justify-end items-center gap-3">
+                          <Button
+                            onClick={() =>
+                              navigate(`/course-detail/${item.courseId}`)
+                            }
+                            children={"مشاهده دوره"}
+                            buttonClassName="h-10 text-sm"
+                          />
+                          <div
+                            onClick={() => handleRemoveReserve(item.id)}
+                            className="p-2 border border-neutral-300 rounded-full hover:bg-red-50 cursor-pointer transition"
+                          >
+                            <RxCross1 color="#FF5454" size={18} />
+                          </div>
+                        </div>
                       </div>
-                      <div className="flex gap-5">
-                        <Button
-                          onClick={() => {
-                            navigate(`/course-detail/${item.courseId}`);
-                          }}
-                          children={"مشاهده دوره"}
-                          buttonClassName="h-10 text-sm text-nowrap"
-                        />
-                        <div
-                          onClick={() => {
-                            handleRemoveReserve(item.id);
-                          }}
-                          className="flex cursor-pointer p-2 border border-neutral-300 rounded-full"
-                        >
-                          <RxCross1 color="#FF5454" size={20} />
+                      <div className="md:hidden flex flex-col gap-3">
+                        <div className="flex items-center gap-3">
+                          <FallbackImage
+                            src={item?.image}
+                            alt="course-image"
+                            className="w-20 h-16 rounded-xl object-cover"
+                          />
+                          <div className="flex flex-col">
+                            <span className="text-sm font-medium text-textC line-clamp-1">
+                              {item?.courseName}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="grid grid-cols-2 gap-3 text-xs bg-neutral-50 p-3 rounded-xl border border-neutral-200">
+                          <div className="flex flex-col">
+                            <span className="text-neutral-400">شروع</span>
+                            <span className="text-textC">{start}</span>
+                          </div>
+                          <div className="flex flex-col">
+                            <span className="text-neutral-400">پایان</span>
+                            <span className="text-textC">{end}</span>
+                          </div>
+                        </div>
+                        <div className="flex gap-3">
+                          <Button
+                            onClick={() =>
+                              navigate(`/course-detail/${item.courseId}`)
+                            }
+                            children={"مشاهده دوره"}
+                            buttonClassName="h-10 text-sm flex-1"
+                          />
+                          <div
+                            onClick={() => handleRemoveReserve(item.id)}
+                            className="p-3 border border-neutral-300 rounded-xl hover:bg-red-50 cursor-pointer transition"
+                          >
+                            <RxCross1 color="#FF5454" size={18} />
+                          </div>
                         </div>
                       </div>
                     </div>
                   );
-                })
-              : ""}
-
-            {MyCourseReserveLoading ? (
-              <Loading size={"text-3xl"} circleSize={"8"} />
-            ) : (
-              ""
+                })}
+            </div>
+            {MyCourseReserveLoading && (
+              <div className="py-6 flex justify-center">
+                <Loading size={"text-3xl"} circleSize={"8"} />
+              </div>
             )}
-            {searchCourse.length == 0 && !MyCourseReserveLoading ? (
-              <NotFound size={"text-xl"} />
-            ) : (
-              ""
+            {!MyCourseReserveLoading && searchCourse.length === 0 && (
+              <div className="py-6 flex justify-center">
+                <NotFound size={"text-xl"} />
+              </div>
             )}
           </div>
           <div className="w-full flex items-center justify-center">

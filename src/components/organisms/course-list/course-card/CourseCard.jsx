@@ -7,6 +7,7 @@ import student from "../../../../assets/images/icons/landing/student-card.png";
 import { FaRegStar, FaStar } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import FallbackImage from "../../../atoms/image/FallbackImage";
 
 const CourseCard = ({ cardView2, detail }) => {
   const { t } = useTranslation("courses");
@@ -24,17 +25,19 @@ const CourseCard = ({ cardView2, detail }) => {
     });
     return arr;
   };
-const navigate =useNavigate();
+  const navigate = useNavigate();
 
   return (
     <>
       <div
-        className={`${cardView2 ? "w-full  flex-row items-center p-4 gap-5 shadow-2xl h-75 bg-background rounded-4xl" : "w-70 flex-col "} mx-auto flex `} key={detail?.CourseId} onClick={()=>navigate (`/course-detail/${detail?.courseId}`)}
+        className={`${cardView2 ? "w-full  flex-row items-center p-4 gap-5 shadow-2xl h-75 bg-background rounded-4xl" : "w-70 flex-col "} mx-auto flex `}
+        key={detail?.CourseId}
+        onClick={() => navigate(`/course-detail/${detail?.courseId}`)}
       >
-        <img
+        <FallbackImage
+          src={detail?.imageAddress}
+          alt="course-image"
           className={`${cardView2 ? "w-2/5 h-5/6 rounded-[100px]" : "w-full h-60 rounded-t-[20px]"}  overflow-hidden object-cover object-center`}
-          src={detail?.imageAddress || Img}
-          alt=""
         />
         <div
           className={`${cardView2 ? "w-3/5 h-full" : "w-full h-55.5  bg-background shadow-2xl -translate-y-10"} flex flex-col justify-between px-3 py-6 rounded-2xl`}

@@ -19,6 +19,7 @@ import { removeFavorite } from "../../../../core/services/Course-detail/removeFa
 import { deleteLike } from "../../../../core/services/Course-detail/removeLike/removeLike";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
+import FallbackImage from "../../../atoms/image/FallbackImage";
 
 const Description = ({ course }) => {
   const { id } = useParams();
@@ -33,7 +34,6 @@ const Description = ({ course }) => {
   const [userDisliked, setUserDisliked] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
 
-  
   const [favoriteId, setFavoriteId] = useState(null);
   const [likeId, setLikeId] = useState(null);
 
@@ -57,7 +57,9 @@ const Description = ({ course }) => {
 
     if (userLiked) {
       if (!likeId) {
-        console.error("آیدی لایک برای حذف موجود نیست! (بک‌اند آیدی جدید را نداده است)");
+        console.error(
+          "آیدی لایک برای حذف موجود نیست! (بک‌اند آیدی جدید را نداده است)",
+        );
         return;
       }
 
@@ -84,12 +86,15 @@ const Description = ({ course }) => {
 
       try {
         const res = await ApiClient.post(`Course/AddCourseLike?CourseId=${id}`);
-        const newId = res.data?.id || res.data?.courseLikeId || res.data || null;
+        const newId =
+          res.data?.id || res.data?.courseLikeId || res.data || null;
 
         if (newId && typeof newId !== "object") {
           setLikeId(newId);
         } else {
-          console.warn("هشدار: لایک ثبت شد اما بک‌اند آیدی جدید را برنگرداند! حذف مجدد کار نخواهد کرد.");
+          console.warn(
+            "هشدار: لایک ثبت شد اما بک‌اند آیدی جدید را برنگرداند! حذف مجدد کار نخواهد کرد.",
+          );
         }
         toast.success("لایک شد 👍");
       } catch (error) {
@@ -137,7 +142,6 @@ const Description = ({ course }) => {
 
     try {
       if (isFavorite) {
-
         if (!favoriteId) {
           console.error("آیدی علاقه‌مندی برای حذف موجود نیست!");
           return;
@@ -151,11 +155,18 @@ const Description = ({ course }) => {
         setIsFavorite(true);
         const res = await addFavorite(id);
 
-        const newFavId = res?.data?.id || res?.data?.courseFavoriteId || res?.data?.userFavoriteId || res?.data || null;
+        const newFavId =
+          res?.data?.id ||
+          res?.data?.courseFavoriteId ||
+          res?.data?.userFavoriteId ||
+          res?.data ||
+          null;
         if (newFavId && typeof newFavId !== "object") {
           setFavoriteId(newFavId);
         } else {
-          console.warn("هشدار: علاقه‌مندی ثبت شد اما بک‌اند آیدی جدید را برنگرداند!");
+          console.warn(
+            "هشدار: علاقه‌مندی ثبت شد اما بک‌اند آیدی جدید را برنگرداند!",
+          );
         }
         toast.success("به علاقه‌مندی‌ها اضافه شد ❤️");
       }
@@ -185,10 +196,10 @@ const Description = ({ course }) => {
   return (
     <div className="w-full bg-rootBg flex flex-col gap-10 md:w-3/4 m-auto xl:w-2/3">
       <div className="w-full flex flex-col relative mb-10 ">
-        <img
-          src={course.imageAddress || js}
-          alt={course.title}
-          className="w-full rounded-xl "
+        <FallbackImage
+          src={course?.imageAddress}
+          alt={course?.title}
+          className="w-full rounded-xl"
         />
         <div className="w-60 px-2 mt-2 h-12 flex justify-between bg-rootBg gap-2 items-center flex-row-reverse absolute -bottom-1 -left-1 rounded-xl">
           <div className="w-19.25 flex justify-between items-center">

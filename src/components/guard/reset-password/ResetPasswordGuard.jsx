@@ -1,11 +1,17 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
-const ResetPasswordGuard = ({ requiredStep }) => {
-  const currentStep = useSelector((state) => state.ResetPasswordStep.step);
+const ResetPasswordGuard = () => {
+  useEffect(() => {
+    return () => {
+      localStorage.removeItem("registration_email");
+    };
+  }, []);
 
-  if (currentStep < requiredStep) {
-    return <Navigate to={`/auth/reset/step-${currentStep}`} replace />;
+  const email = localStorage.getItem("registration_email");
+  if (!email) {
+    return <Navigate to={`/auth/reset/step-1`} replace />;
   }
 
   return <Outlet />;

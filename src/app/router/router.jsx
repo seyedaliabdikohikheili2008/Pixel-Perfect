@@ -46,7 +46,7 @@ const router = createBrowserRouter([
       { path: "Instructors", element: <TeacherListPage /> },
       { path: "news-detail/:newsId", element: <NewsDetail /> },
       { path: "contactUs", element: <ContactUsPage /> },
-      {path:"teacher-detail/:id",element:<TeacherDetails/>}
+      { path: "teacher-detail/:id", element: <TeacherDetails /> },
     ],
   },
   {
@@ -57,7 +57,7 @@ const router = createBrowserRouter([
         path: "login",
         children: [
           { index: true, element: <LoginStepOne /> },
-           { path: "verifying", element: <LoginStepTwo /> },
+          { path: "verifying", element: <LoginStepTwo /> },
         ],
       },
       {
@@ -90,10 +90,10 @@ const router = createBrowserRouter([
       },
 
       {
-        element: <ResetPasswordGuard requiredStep={2} />,
+        element: <ResetPasswordGuard />,
         children: [
           {
-            path: "reset/step-2",
+            path: "reset/step-2/:code",
             element: <ResetPasswordStepTwoPage />,
           },
         ],

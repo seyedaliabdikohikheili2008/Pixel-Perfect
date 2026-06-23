@@ -5,7 +5,6 @@ import { Outlet, useNavigate } from "react-router-dom";
 import DarkModeButton from "../../../components/atoms/DarkModeButton/DarkModeButton";
 import { useDispatch } from "react-redux";
 import { resetStep } from "../../../core/feature/auth/RegisterStepSlice";
-import { resetStepReset } from "../../../core/feature/auth/ResetPasswordStepSlice";
 const AuthLayout = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -28,7 +27,6 @@ const AuthLayout = () => {
                 onClick={() => {
                   navigate("/");
                   dispatch(resetStep());
-                  dispatch(resetStepReset());
                 }}
               >
                 <Logo variant="vertical" className="h-52.25" />

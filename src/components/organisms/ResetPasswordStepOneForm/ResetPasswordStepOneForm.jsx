@@ -8,16 +8,13 @@ import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import ResetPasswordStepOne from "../../../core/api/auth/ResetPassword/StepOne/StepOne";
 import toast, { Toaster } from "react-hot-toast";
-import { useDispatch } from "react-redux";
-import { resetStepIncrement } from "../../../core/feature/auth/ResetPasswordStepSlice";
 const ResetPAsswordStepOneForm = () => {
-  const dispatch = useDispatch();
 
   const { mutate, isPending } = useMutation({
     mutationFn: ResetPasswordStepOne,
     onSuccess: (data) => {
-      dispatch(resetStepIncrement());
-      navigate("/auth/reset/step-2");
+      toast.success("ایمیل بازیابی ارسال شد");
+      setTimeout(() => navigate("/"), 1500);
     },
     onError: (error) => {
       const status = error.response?.status;
@@ -39,7 +36,10 @@ const ResetPAsswordStepOneForm = () => {
   const navigate = useNavigate();
   const postData = (values) => {
     localStorage.setItem("registration_email", values.email);
-    mutate({ email: values.email, baseUrl: "new-password" });
+    mutate({
+      email: values.email,
+      baseUrl: "http://localhost:5173/auth/reset/step-2",
+    });
   };
   return (
     <>

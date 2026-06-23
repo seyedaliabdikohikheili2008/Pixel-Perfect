@@ -26,6 +26,8 @@ ApiClient.interceptors.request.use(
 
 let isShowingToast = false;
 
+let isShowingToastLogin = false;
+
 ApiClient.interceptors.response.use(
   (res) => {
     return res;
@@ -39,18 +41,21 @@ ApiClient.interceptors.response.use(
       if (!isShowingToast) {
         isShowingToast = true;
 
-        toast.error("ایتدا پروفایل خود را تکمیل کنید");
+        toast.error("ابتدا پروفایل خود را تکمیل کنید");
 
         setTimeout(() => {
           isShowingToast = false;
         }, 2000);
       }
-      if (
-        err.response?.data.message !=
-        "شما به این روت دسترسی ندارید درصورت ریکوست مجدد بن میشوید"
-      ) {
-        localStorage.removeItem("token");
-        store.dispatch(logout());
+    } else if (err.response?.status === 401) {
+      if (!isShowingToastLogin) {
+        isShowingToastLogin = true;
+
+        toast.error("ابتدا لاگین کنید");
+
+        setTimeout(() => {
+          isShowingToastLogin = false;
+        }, 2000);
       }
     }
     return Promise.reject(err);

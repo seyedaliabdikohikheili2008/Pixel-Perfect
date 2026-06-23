@@ -18,12 +18,14 @@ const Header = ({ variant }) => {
   const navigate = useNavigate();
   const [showHeader, setShowHeader] = useState(true);
 
-  const {
-    data: ProfileInfo = undefined,
-    isError: ProfileInfoErr,
-    isLoading: ProfileInfoLoading,
-    error: ProfileInfoError,
-  } = useProfileInfo();
+  if (isAuthenticated()) {
+    const {
+      data: ProfileInfo = undefined,
+      isError: ProfileInfoErr,
+      isLoading: ProfileInfoLoading,
+      error: ProfileInfoError,
+    } = useProfileInfo();
+  }
 
   useEffect(() => {
     let lastScrollY = window.scrollY;

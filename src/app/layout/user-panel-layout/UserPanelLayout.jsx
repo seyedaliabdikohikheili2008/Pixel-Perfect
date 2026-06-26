@@ -21,18 +21,31 @@ const UserPanelLayout = () => {
     <>
       <Toaster />
       <div className="w-full min-h-178 relative overflow-x-hidden bg-dashboardBg flex items-start gap-5 p-4">
-        <div
-          className={`lg:w-73 w-11/12 absolute ${menuFlag ? "flex" : "hidden"} top-24 lg:top-0 left-1/2 lg:left-0 -translate-x-1/2 lg:translate-x-0 lg:relative bg-background lg:flex flex-col gap-10 z-40 items-center h-177 py-6 rounded-3xl shadow-[0px_50px_100px_0px_#48484829]`}
-        >
-          <img
-            onClick={() => {
-              navigate("/");
-            }}
-            className="w-60"
-            src={logo}
-            alt=""
+        {menuFlag && (
+          <div
+            onClick={() => setmenuFlag(false)}
+            className="fixed inset-0 bg-black/40 backdrop-blur-[2px] z-40 lg:hidden"
           />
-          <ul className="w-11/12 h-90">
+        )}
+        <div
+          className={`fixed lg:relative top-0 right-0 h-screen lg:h-177 w-72 lg:w-73 bg-background z-50 flex flex-col gap-10 py-6 rounded-l-3xl lg:rounded-3xl shadow-[0px_50px_100px_0px_#48484829] transition-transform duration-300 overflow-y-auto ${menuFlag ? "translate-x-0" : "translate-x-full"} lg:translate-x-0`}
+        >
+          <div className="w-full px-5 flex justify-between items-center lg:block">
+            <img
+              onClick={() => navigate("/")}
+              className="w-44 cursor-pointer"
+              src={logo}
+              alt=""
+            />
+
+            <button
+              onClick={() => setmenuFlag(false)}
+              className="lg:hidden text-2xl text-danger-500"
+            >
+              ✕
+            </button>
+          </div>
+          <ul className="w-11/12">
             <li
               onClick={() => {
                 navigate("/user-panel");
@@ -102,7 +115,7 @@ const UserPanelLayout = () => {
               localStorage.removeItem("token");
               navigate("/");
             }}
-            className="absolute cursor-pointer bottom-5 gap-4 text-danger-500 text-lg rounded-[38px] items-center justify-center w-50 py-3 flex border border-neutral-200"
+            className="w-11/12 mt-10 mx-auto cursor-pointer gap-4 text-danger-500 text-lg rounded-[38px] items-center justify-center py-3 flex border border-neutral-200"
           >
             <IoLogOutOutline size={24} />
             <h3>خروج از حساب</h3>

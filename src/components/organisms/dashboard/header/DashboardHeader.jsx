@@ -17,32 +17,34 @@ const DashboardHeader = ({ setmenuFlag }) => {
 
   return (
     <>
-      <div className="w-full shrink-0 h-20 flex items-center justify-between px-4 bg-background shadow-[0px_50px_100px_0px_#48484829] rounded-3xl">
-        <div className="flex items-center gap-3">
+      <div className="w-full shrink-0 h-20 max-[500px]:h-16 flex items-center justify-between px-4 max-[500px]:px-3 bg-background shadow-[0px_50px_100px_0px_#48484829] rounded-3xl">
+        <div className="flex items-center gap-3 max-[500px]:gap-2 min-w-0">
           <img
-            className="w-16 h-16 rounded-full overflow-hidden object-cover"
+            className="w-16 h-16 max-[500px]:w-12 max-[500px]:h-12 rounded-full object-cover shrink-0"
             src={ProfileInfo?.data?.currentPictureAddress || profile}
             alt=""
           />
-          <div className="flex flex-col items-start">
-            <h4 className="text-textC text-xl font-bold">
+
+          <div className="flex flex-col min-w-0">
+            <h4 className="text-textC text-xl max-[500px]:text-sm font-bold truncate">
               {ProfileInfo?.data?.fName + " " + ProfileInfo?.data?.lName ||
                 "بدون نام"}
             </h4>
-            <h5 className="text-neutral-300 text-base font-bold">
+
+            <h5 className="text-neutral-300 text-base max-[500px]:text-xs truncate">
               {ProfileInfo?.data?.userName}
             </h5>
           </div>
         </div>
-        <div className="flex gap-3">
+
+        <div className="flex items-center gap-2 max-[500px]:gap-1 shrink-0">
           <img
-            className="w-10 h-10 lg:hidden"
+            className="w-10 h-10 lg:hidden cursor-pointer"
             src={mode === "light" ? menuIcon : menuIconDark}
             alt=""
-            onClick={() => {
-              setmenuFlag((prev) => !prev);
-            }}
+            onClick={() => setmenuFlag((prev) => !prev)}
           />
+
           <DarkModeButton />
         </div>
       </div>

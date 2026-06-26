@@ -106,7 +106,7 @@ const MyComments = () => {
       <div className="w-full max-h-full flex-1 flex flex-col items-start gap-5">
         <h2 className="text-textC text-3xl font-bold">دیدگاه های من</h2>
         <div className="w-full min-h-137 p-5 flex flex-col gap-4 shadow-[0px_50px_100px_0px_#48484829] rounded-3xl bg-background">
-          <div className="flex justify-between gap-5 ">
+          <div className="flex flex-col sm:flex-row justify-between gap-5 ">
             <div className="flex flex-col gap-2">
               <h5 className="text-base text-textC flex gap-2 items-center">
                 <LiaSearchSolid size={22} />
@@ -119,58 +119,29 @@ const MyComments = () => {
               />
             </div>
             <div>
-              <RadioGroup
-                value={radioValue}
-                name="course-or-news"
-                className={"flex w-full gap-3 justify-between flex-wrap"}
-              >
-                <Radio
-                  value="course"
-                  id="course"
-                  onClick={() => {
-                    handleRadio("course");
-                  }}
-                  className={"flex gap-1 text-base text-textC"}
+              <div className="flex flex-row w-full md:w-fit rounded-xl bg-neutral-100 p-1">
+                <button
+                  onClick={() => handleRadio("course")}
+                  className={`flex-1 md:flex-none px-5 py-2 rounded-lg text-sm font-medium transition-all ${
+                    radioValue === "course"
+                      ? "bg-white text-primary-500 shadow"
+                      : "text-neutral-500 hover:text-textC"
+                  }`}
                 >
-                  <Radio.Control className="w-5 h-5 bg-primary-50 flex items-center justify-center border border-neutral-400 rounded-md">
-                    <Radio.Indicator className="w-2 h-2 flex items-center justify-center">
-                      {({ isSelected }) =>
-                        isSelected ? (
-                          <span className="text-sm font-bold text-center leading-none text-primary-400">
-                            ✓
-                          </span>
-                        ) : null
-                      }
-                    </Radio.Indicator>
-                  </Radio.Control>
-                  <Radio.Content>
-                    <Label>دوره ها</Label>
-                  </Radio.Content>
-                </Radio>
-                <Radio
-                  value="news"
-                  id="news"
-                  onClick={() => {
-                    handleRadio("news");
-                  }}
-                  className={"flex gap-1 text-base text-textC"}
+                  🎓 دوره‌ها
+                </button>
+
+                <button
+                  onClick={() => handleRadio("news")}
+                  className={`flex-1 md:flex-none px-5 py-2 rounded-lg text-sm font-medium transition-all ${
+                    radioValue === "news"
+                      ? "bg-white text-primary-500 shadow"
+                      : "text-neutral-500 hover:text-textC"
+                  }`}
                 >
-                  <Radio.Control className="w-5 h-5 bg-primary-50 flex items-center justify-center border border-neutral-400 rounded-md">
-                    <Radio.Indicator className="w-2 h-2 flex items-center justify-center">
-                      {({ isSelected }) =>
-                        isSelected ? (
-                          <span className="text-sm font-bold text-center leading-none text-primary-400">
-                            ✓
-                          </span>
-                        ) : null
-                      }
-                    </Radio.Indicator>
-                  </Radio.Control>
-                  <Radio.Content>
-                    <Label>مقالات</Label>
-                  </Radio.Content>
-                </Radio>
-              </RadioGroup>
+                  📰 مقالات
+                </button>
+              </div>
             </div>
           </div>
           <div className="w-full flex flex-col gap-4">

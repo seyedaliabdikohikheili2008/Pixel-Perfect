@@ -48,7 +48,7 @@ const CourseCard = ({ cardView2, detail }) => {
             {detail?.title}
           </h2>
           <p
-            className={`${cardView2 ? "line-clamp-4" : "line-clamp-2"} text-sm font-normal text-textC text-right`}
+            className={`${cardView2 ? "line-clamp-4" : "hidden"} text-sm font-normal text-textC text-right`}
           >
             {detail?.describe}
           </p>

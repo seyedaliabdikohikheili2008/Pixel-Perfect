@@ -184,6 +184,7 @@ const CoursesFilter = () => {
                     onChangeEnd={(value) => {
                       handleSliderChange(value);
                     }}
+                    
                   >
                     <Slider.Track className="h-2 bg-neutral-100 rounded-full">
                       {({ state }) => {

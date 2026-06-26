@@ -4,12 +4,13 @@ import filter from "../../../../../assets/images/icons/courses/filter.png";
 import { Accordion, Label, Radio, RadioGroup, Slider } from "@heroui/react";
 import { isFulfilled } from "@reduxjs/toolkit";
 import { FaChevronDown } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import FilterSection from "../../../../molecules/filter-section/FilterSection";
 import { useAllNewsCategory } from "../../../../../core/hooks/queries/news/useAllNewsCategory";
 import { useTranslation } from "react-i18next";
 import NotFound from "../../../../atoms/not-found/NotFound";
 import Search from "../../../../../core/utils/search/Search";
+import { ToggleCourseFilter } from "../../../../../core/feature/courses/CoursesFilterMenu";
 const NewsListFilter = () => {
   const MenuStatus = useSelector((state) => state.CourseFilterMenu.value);
 
@@ -37,10 +38,18 @@ const NewsListFilter = () => {
     ? Search(NewsCategoryList.data, CategoryName, "categoryName")
     : [];
 
+  const dispatch = useDispatch();
+
   return (
     <>
       <div
-        className={`${MenuStatus ? "block w-11/12 md:w-75" : "hidden w-75"} absolute top-15 left-1/2 -translate-x-1/2 md:translate-x-0 md:top-0 z-40 md:left-0 md:relative md:block  shrink-0 h-fit overflow-hidden bg-background rounded-2xl shadow-[0px_50px_100px_0px_#48484829]`}
+        onClick={() => {
+          dispatch(ToggleCourseFilter());
+        }}
+        className={`fixed inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-300 z-40 lg:hidden ${MenuStatus ? "opacity-100 visible" : "opacity-0 invisible"}`}
+      ></div>
+      <div
+        className={`${MenuStatus ? "block w-full fixed bottom-0 md:w-75" : "hidden w-75"} max-h-11/12 overflow-y-auto z-60 md:z-10 md:relative md:block shrink-0 md:h-fit overflow-hidden bg-background rounded-t-2xl md:rounded-2xl shadow-[0px_50px_100px_0px_#48484829]`}
       >
         <div className="w-11/12 flex flex-col gap-2 items-center mx-auto my-2">
           <Input

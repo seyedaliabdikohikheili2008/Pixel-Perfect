@@ -128,7 +128,7 @@ const CoursesFilter = () => {
         className={`fixed inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-300 z-40 lg:hidden ${MenuStatus ? "opacity-100 visible" : "opacity-0 invisible"}`}
       ></div>
       <div
-        className={`${MenuStatus ? "block w-full fixed bottom-0 md:w-75" : "hidden w-75"} max-h-11/12 overflow-y-auto md:translate-x-0 md:top-0 z-60 md:z-10 md:left-0 md:relative md:block  shrink-0 md:h-fit overflow-hidden bg-background rounded-t-2xl md:rounded-2xl shadow-[0px_50px_100px_0px_#48484829]`}
+        className={`${MenuStatus ? "block w-full fixed bottom-0 md:w-75" : "hidden w-75"} max-h-11/12 overflow-y-auto z-60 md:z-10 md:relative md:block  shrink-0 md:h-fit overflow-hidden bg-background rounded-t-2xl md:rounded-2xl shadow-[0px_50px_100px_0px_#48484829]`}
       >
         <div className="w-11/12 flex flex-col gap-2 items-center mx-auto my-2">
           <Input

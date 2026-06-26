@@ -11,7 +11,7 @@ const CoursesHeroSection = () => {
       <div className="flex lg:flex-row flex-col-reverse items-center gap-3 w-5/6 my-12 mx-auto">
         <div className="w-11/12 lg:w-1/2">
           <SectionTitle
-            width="w-110"
+            width="w-90 sm:w-110"
             desc={t("HeroSection.describe")}
             title={t("HeroSection.title")}
           />

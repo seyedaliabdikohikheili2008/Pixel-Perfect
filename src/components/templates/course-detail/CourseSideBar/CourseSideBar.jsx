@@ -90,7 +90,7 @@ const CourseSideBar = ({course}) => {
           </div>
         </div> 
       </div>
-      <Profile/>
+      <Profile courseData={course}/>
       <Acceptance courseData={course}/>
     </div>
   );

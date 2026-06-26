@@ -99,7 +99,7 @@ const CourseComment = ({ comment, CourseId }) => {
     <div className="w-full rounded-xl shadow-[0_1px_2px_0_rgba(0,0,0,0.25)] bg-background py-5">
       <div className="flex flex-col gap-5">
         <div className="flex items-center w-9/10 m-auto gap-3 p-5 border-b border-solid border-neutral-100">
-          <img src={comment.pictureAddress || user} alt="" className="w-14" />
+          <img src={comment.pictureAddress || user} alt="" className="w-14 h-14 rounded-full" />
           <div className="flex flex-col gap-2">
             <h1 className="font-bold text-xl text-right text-textC">
               {comment.author || "کاربر سایت"}

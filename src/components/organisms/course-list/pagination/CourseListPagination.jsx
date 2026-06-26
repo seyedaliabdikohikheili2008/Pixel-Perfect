@@ -6,7 +6,7 @@ const CourseListPagination = ({ totalCount }) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const page = Number(searchParams.get("PageNumber") || 1);
-  const rows = Number(searchParams.get("RowsOfPage") || 9);
+  const rows = Number(searchParams.get("RowsOfPage") || 4);
 
   const totalPages = Math.max(0, Math.ceil(totalCount / rows));
 

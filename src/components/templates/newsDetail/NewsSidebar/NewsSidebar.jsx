@@ -34,7 +34,7 @@ const NewsSideBar = ({ news }) => {
           </div>
         </div>
       </div>
-      <Profile />
+      <Profile data={news}/>
       <Acceptance data={news}/>
     </div>
   );

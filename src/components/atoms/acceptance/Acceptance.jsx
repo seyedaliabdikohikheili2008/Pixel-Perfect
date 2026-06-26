@@ -12,9 +12,9 @@ const { t } = useTranslation("courseDetail");
         <h1 className="font-bold text-[18px] text-right text-textC px-5">{t("sidebar.acceptance")}</h1>
         
         <div className="flex items-center justify-between px-5">
-          <StarRating rating={rating} />
+          <StarRating rating={Number(rating).toFixed(2)} />
           <span className="font-normal text-[16px] text-[#848484] text-lg">
-            {rating} {t("sidebar.rate")}
+            {Number(rating).toFixed(2)} {t("sidebar.rate")} 
           </span>
         </div>
       </div>

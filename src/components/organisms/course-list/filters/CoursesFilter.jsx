@@ -4,7 +4,7 @@ import filter from "../../../../assets/images/icons/courses/filter.png";
 import { Accordion, Label, Radio, RadioGroup, Slider } from "@heroui/react";
 import { isFulfilled } from "@reduxjs/toolkit";
 import { FaChevronDown } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useAllTechnologies } from "../../../../core/hooks/queries/technologies/useAllTechnologies";
 import { useAllTeacher } from "../../../../core/hooks/queries/teacher/useAllTeacher";
 import FilterSection from "../../../molecules/filter-section/FilterSection";
@@ -15,6 +15,7 @@ import { useTranslation } from "react-i18next";
 import search from "../../../../assets/images/icons/courses/search.png";
 import Search from "../../../../core/utils/search/Search";
 import NotFound from "../../../atoms/not-found/NotFound";
+import { ToggleCourseFilter } from "../../../../core/feature/courses/CoursesFilterMenu";
 
 const CoursesFilter = () => {
   const MenuStatus = useSelector((state) => state.CourseFilterMenu.value);
@@ -44,8 +45,8 @@ const CoursesFilter = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const CostDown = searchParams.get("CostDown") || 0;
-  const CostUp = searchParams.get("CostUp") || 10000000;
+  const CostDown = Number(searchParams.get("CostDown") ?? 0);
+  const CostUp = Number(searchParams.get("CostUp") ?? 10000000);
 
   const radioValue = useMemo(() => {
     if (searchParams.get("CostDown") >= 1) {
@@ -73,7 +74,7 @@ const CoursesFilter = () => {
         newParams.set("CostUp", String(1));
         newParams.set("CostDown", String(0));
       } else if (value == "money") {
-        newParams.set("CostDown", String(1));
+        newParams.set("CostDown", String(1000));
         newParams.set("CostUp", String(10000000));
       } else {
         newParams.set("CostDown", String(0));
@@ -116,11 +117,18 @@ const CoursesFilter = () => {
     : [];
 
   const { t } = useTranslation("courses");
+  const dispatch = useDispatch();
 
   return (
     <>
       <div
-        className={`${MenuStatus ? "block w-11/12 md:w-75" : "hidden w-75"} absolute top-15 left-1/2 -translate-x-1/2 md:translate-x-0 md:top-0 z-20 md:left-0 md:relative md:block  shrink-0 h-fit overflow-hidden bg-background rounded-2xl shadow-[0px_50px_100px_0px_#48484829]`}
+        onClick={() => {
+          dispatch(ToggleCourseFilter());
+        }}
+        className={`fixed inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-300 z-40 lg:hidden ${MenuStatus ? "opacity-100 visible" : "opacity-0 invisible"}`}
+      ></div>
+      <div
+        className={`${MenuStatus ? "block w-full fixed bottom-0 md:w-75" : "hidden w-75"} max-h-11/12 overflow-y-auto md:translate-x-0 md:top-0 z-60 md:z-10 md:left-0 md:relative md:block  shrink-0 md:h-fit overflow-hidden bg-background rounded-t-2xl md:rounded-2xl shadow-[0px_50px_100px_0px_#48484829]`}
       >
         <div className="w-11/12 flex flex-col gap-2 items-center mx-auto my-2">
           <Input
@@ -177,14 +185,13 @@ const CoursesFilter = () => {
                   <Slider
                     aria-label="price-range"
                     formatOptions={{ useGrouping: true, style: "decimal" }}
-                    defaultValue={[CostDown, CostUp]}
+                    value={[CostDown, CostUp]}
                     minValue={0}
                     maxValue={10000000}
                     step={1000}
                     onChangeEnd={(value) => {
                       handleSliderChange(value);
                     }}
-                    
                   >
                     <Slider.Track className="h-2 bg-neutral-100 rounded-full">
                       {({ state }) => {
@@ -193,13 +200,16 @@ const CoursesFilter = () => {
 
                         const left = (state.values[0] / max) * 100;
                         const right = (state.values[1] / max) * 100;
+
+                        const start = 100 - right;
+                        const width = right - left;
                         return (
                           <>
                             <div
                               className="absolute h-full bg-primary-300 rounded-full"
                               style={{
-                                right: `${left}%`,
-                                width: `${right - left}%`,
+                                right: `${start}%`,
+                                width: `${width}%`,
                               }}
                             />
                             {state.values.map((_, i) => (
@@ -323,7 +333,11 @@ const CoursesFilter = () => {
                       ""
                     )}
                   </div>
-                  {searchTeacher.length == 0 ? <NotFound size={"text-sm"} /> : ""}
+                  {searchTeacher.length == 0 ? (
+                    <NotFound size={"text-sm"} />
+                  ) : (
+                    ""
+                  )}
                 </Accordion.Body>
               </Accordion.Panel>
             </Accordion.Item>

@@ -80,7 +80,7 @@ const ProfileImage = () => {
           return (
             <div
               key={index}
-              className="w-50 h-50 p-1 border-4 border-primary-500 rounded-2xl relative"
+              className="w-40 h-40 sm:w-50 sm:h-50 p-1 border-4 border-primary-500 rounded-2xl relative"
             >
               <img
                 className="w-full h-full border-2 border-primary-500 rounded-2xl overflow-hidden object-center object-cover"
@@ -119,7 +119,7 @@ const ProfileImage = () => {
           onClick={() => {
             inputRef.current.click();
           }}
-          className="w-50 h-50 cursor-pointer flex flex-col gap-3 items-center justify-center text-textC text-base font-bold border-4 border-dashed border-primary-500 rounded-2xl"
+          className="w-40 h-40 sm:w-50 sm:h-50 cursor-pointer flex flex-col gap-3 items-center justify-center text-textC text-base font-bold border-4 border-dashed border-primary-500 rounded-2xl"
         >
           <LuImagePlus className="text-primary-500" size={32} />
           اضافه کردن عکس

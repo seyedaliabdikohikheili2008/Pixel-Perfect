@@ -50,38 +50,49 @@ const ProfileLayout = () => {
       </div>
       <div className="flex flex-col gap-6">
         <div className="bg-neutral-50 py-5 px-8 rounded-3xl">
-          <ul className="text-neutral-500 flex items-center justify-start gap-6 text-xs md:text-sm font-medium">
+          <ul className="grid grid-cols-2 gap-2 text-xs font-medium text-neutral-500 sm:flex sm:items-center sm:justify-start sm:gap-6 sm:text-sm">
             <li
-              onClick={() => {
-                navigate("/user-panel/profile");
-              }}
-              className={`${location.pathname == "/user-panel/profile" ? "bg-primary-300 rounded-full text-white" : ""} p-2 cursor-pointer text-nowrap`}
+              onClick={() => navigate("/user-panel/profile")}
+              className={`cursor-pointer rounded-xl p-3 text-center transition ${
+                location.pathname === "/user-panel/profile"
+                  ? "bg-primary-300 text-white"
+                  : "bg-neutral-50 hover:bg-neutral-100"
+              }`}
             >
               اطلاعات شخصی
             </li>
+
             <li
-              onClick={() => {
-                navigate("/user-panel/profile/image");
-              }}
-              className={`${location.pathname == "/user-panel/profile/image" ? "bg-primary-300 rounded-full text-white" : ""} p-2 cursor-pointer text-nowrap`}
+              onClick={() => navigate("/user-panel/profile/image")}
+              className={`cursor-pointer rounded-xl p-3 text-center transition ${
+                location.pathname === "/user-panel/profile/image"
+                  ? "bg-primary-300 text-white"
+                  : "bg-neutral-50 hover:bg-neutral-100"
+              }`}
             >
               عکس پروفایل
             </li>
+
             <li
-              onClick={() => {
-                navigate("/user-panel/profile/home-address");
-              }}
-              className={`${location.pathname == "/user-panel/profile/home-address" ? "bg-primary-300 rounded-full text-white" : ""} p-2 cursor-pointer text-nowrap`}
+              onClick={() => navigate("/user-panel/profile/home-address")}
+              className={`cursor-pointer rounded-xl p-3 text-center transition ${
+                location.pathname === "/user-panel/profile/home-address"
+                  ? "bg-primary-300 text-white"
+                  : "bg-neutral-50 hover:bg-neutral-100"
+              }`}
             >
               آدرس سکونت
             </li>
+
             <li
-              onClick={() => {
-                navigate("/user-panel/profile/link");
-              }}
-              className={`${location.pathname == "/user-panel/profile/link" ? "bg-primary-300 rounded-full text-white" : ""} p-2 cursor-pointer text-nowrap`}
+              onClick={() => navigate("/user-panel/profile/link")}
+              className={`cursor-pointer rounded-xl p-3 text-center transition ${
+                location.pathname === "/user-panel/profile/link"
+                  ? "bg-primary-300 text-white"
+                  : "bg-neutral-50 hover:bg-neutral-100"
+              }`}
             >
-              لینک ها
+              لینک‌ها
             </li>
           </ul>
         </div>

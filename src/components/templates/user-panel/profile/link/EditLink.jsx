@@ -52,7 +52,7 @@ const EditLink = () => {
               <div className="w-1/2 flex flex-col items-start gap-3 px-4">
                 <h3 className="text-textC text-base">تلگرام</h3>
                 <Input
-                  boxClassname={"w-100"}
+                  boxClassname={"w-50 sm:w-100"}
                   placeholder={"لینک تلگرام خود را وارد کنید"}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -64,7 +64,7 @@ const EditLink = () => {
               <div className="w-1/2 flex flex-col items-start gap-3 px-4">
                 <h3 className="text-textC text-base">لینکدین</h3>
                 <Input
-                  boxClassname={"w-100"}
+                  boxClassname={"w-50 sm:w-100"}
                   placeholder={"لینک لینکدین خود را وارد کنید"}
                   onChange={handleChange}
                   onBlur={handleBlur}

@@ -14,7 +14,7 @@ const TeacherList = () => {
 
   const [page, setpage] = useState(1);
 
-  const getItemsByPage = (array = [], page, itemsPerPage = 8) => {
+  const getItemsByPage = (array = [], page, itemsPerPage = 4) => {
     const start = (page - 1) * itemsPerPage;
     const end = start + itemsPerPage;
 
@@ -41,7 +41,7 @@ const TeacherList = () => {
         <TeacherListPagination
           totalCount={TeacherList?.data.length}
           setPage={setpage}
-          rows={8}
+          rows={4}
         />
       )}
     </>

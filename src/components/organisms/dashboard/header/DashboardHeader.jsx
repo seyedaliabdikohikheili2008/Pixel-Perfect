@@ -5,6 +5,7 @@ import { useProfileInfo } from "../../../../core/hooks/queries/user-panel/dashbo
 import menuIcon from "../../../../assets/images/icons/header/umenuIcon.png";
 import menuIconDark from "../../../../assets/images/icons/header/umenuIconDark.png";
 import { useSelector } from "react-redux";
+import TranslateButton from "../../../molecules/translate-button/TranslateButton";
 
 const DashboardHeader = ({ setmenuFlag }) => {
   const {
@@ -25,7 +26,7 @@ const DashboardHeader = ({ setmenuFlag }) => {
             alt=""
           />
 
-          <div className="flex flex-col min-w-0">
+          <div className="sm:flex flex-col hidden  min-w-0">
             <h4 className="text-textC text-xl max-[500px]:text-sm font-bold truncate">
               {ProfileInfo?.data?.fName + " " + ProfileInfo?.data?.lName ||
                 "بدون نام"}
@@ -38,14 +39,14 @@ const DashboardHeader = ({ setmenuFlag }) => {
         </div>
 
         <div className="flex items-center gap-2 max-[500px]:gap-1 shrink-0">
+          <TranslateButton size="w-10 h-10" />
+          <DarkModeButton />
           <img
             className="w-10 h-10 lg:hidden cursor-pointer"
             src={mode === "light" ? menuIcon : menuIconDark}
             alt=""
             onClick={() => setmenuFlag((prev) => !prev)}
           />
-
-          <DarkModeButton />
         </div>
       </div>
     </>

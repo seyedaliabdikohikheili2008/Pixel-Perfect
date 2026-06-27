@@ -24,11 +24,11 @@ const UserPanelLayout = () => {
         {menuFlag && (
           <div
             onClick={() => setmenuFlag(false)}
-            className="fixed inset-0 bg-black/40 backdrop-blur-[2px] z-40 lg:hidden"
+            className="fixed inset-0 bg-black/40 backdrop-blur-[2px] z-60 lg:hidden"
           ></div>
         )}
         <div
-          className={`fixed lg:relative top-0 right-0 h-screen lg:h-177 w-72 lg:w-73 bg-background z-50 flex flex-col gap-10 py-6 rounded-l-3xl lg:rounded-3xl shadow-[0px_50px_100px_0px_#48484829] transition-transform duration-300 overflow-y-auto ${menuFlag ? "translate-x-0" : "translate-x-full"} lg:translate-x-0`}
+          className={`fixed lg:relative top-0 right-0 h-screen lg:h-177 w-72 lg:w-73 bg-background z-60 flex flex-col gap-10 py-6 rounded-l-3xl lg:rounded-3xl shadow-[0px_50px_100px_0px_#48484829] transition-transform duration-300 overflow-y-auto ${menuFlag ? "translate-x-0" : "translate-x-full"} lg:translate-x-0`}
         >
           <div className="w-full px-5 flex justify-between items-center lg:block">
             <img

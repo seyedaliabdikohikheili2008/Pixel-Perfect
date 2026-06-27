@@ -8,7 +8,7 @@ const MainLyout = () => {
   return (
     <>
       <Header variant={"linear"} />
-      <TranslateButton />
+      <TranslateButton position={"fixed bottom-8 right-5"} />
       <Outlet />
       <Footer />
     </>

@@ -12,9 +12,11 @@ import toast, { Toaster } from "react-hot-toast";
 import Loading from "../../atoms/loading/Loading";
 import { useDispatch } from "react-redux";
 import { login } from "../../../core/feature/auth/IsAuthSlice";
+import { useTranslation } from "react-i18next";
 
 const LoginStepOneForm = () => {
   const timeOutRef = useRef(null);
+  const { t } = useTranslation("auth");
 
   const dispatch = useDispatch();
 
@@ -80,10 +82,10 @@ const LoginStepOneForm = () => {
   return (
     <>
       <h1 className="font-bold font-sans text-textC  text-3xl rounded-xl">
-        ورود به حساب کاربری
+        {t("login1.title")}
       </h1>
       <p className="font-normal text-xl text-textC  ">
-        لطفا شماره موبایل یا ایمیل خود را وارد کنید
+        {t("login1.describe")}
       </p>
       <Formik
         initialValues={{
@@ -106,7 +108,7 @@ const LoginStepOneForm = () => {
               >
                 <Input
                   icon={user}
-                  placeholder={"ایمیل خود را وارد کنید"}
+                  placeholder={t("login1.email")}
                   iconClassname={"mx-3.5"}
                   name="phoneOrGmail"
                   value={values.phoneOrGmail}
@@ -131,7 +133,7 @@ const LoginStepOneForm = () => {
                 <Input
                   type="password"
                   icon={password}
-                  placeholder={"رمز عبور را وارد کنید"}
+                  placeholder={t("login1.password")}
                   iconClassname={"mx-3.5"}
                   name="password"
                   value={values.password}
@@ -153,14 +155,14 @@ const LoginStepOneForm = () => {
                   checked={values.rememberMe}
                   onChange={handleChange}
                 />
-                <label className="cursor-pointer">مرا بخاطر بسپار</label>
+                <label className="cursor-pointer">{t("login1.remember")}</label>
               </div>
               <div>
                 <p
                   className="font-normal text-[16px] cursor-pointer text-textC "
                   onClick={() => navigate("/auth/reset/step-1")}
                 >
-                  فراموشی رمز عبور
+                  {t("login1.forget")}
                 </p>
               </div>
             </div>
@@ -169,7 +171,7 @@ const LoginStepOneForm = () => {
                 isPending ? (
                   <Loading size={"text-xl"} circleSize={8} />
                 ) : (
-                  "ورود"
+                  `${t("login1.button")}`
                 )
               }
               buttonClassName="w-8/10 font-[18px]"
@@ -181,12 +183,12 @@ const LoginStepOneForm = () => {
       </Formik>
       <Toaster />
       <div className="flex items-center gap-1">
-        <p className="text-textC cursor-pointer ">حساب کاربری ندارید؟</p>
+        <p className="text-textC cursor-pointer ">{t("login1.question")}</p>
         <p
           className="text-textb cursor-pointer"
           onClick={() => navigate("/auth/register/step-1")}
         >
-          ثبت نام
+         {t("login1.answer")}
         </p>
       </div>
     </>

@@ -8,8 +8,9 @@ import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import ResetPasswordStepOne from "../../../core/api/auth/ResetPassword/StepOne/StepOne";
 import toast, { Toaster } from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 const ResetPAsswordStepOneForm = () => {
-
+  const { t } = useTranslation("auth");
   const { mutate, isPending } = useMutation({
     mutationFn: ResetPasswordStepOne,
     onSuccess: (data) => {
@@ -45,10 +46,10 @@ const ResetPAsswordStepOneForm = () => {
     <>
       <Toaster />
       <h1 className="font-bold font-sans text-textC  text-3xl">
-        فراموشی رمز عبور
+        {t("forget1.title")}
       </h1>
       <p className="font-normal text-xl text-textC">
-        ایمیل خود را برای تغییر رمز درخواست وارد کنید
+        {t("forget1.describe")}
       </p>
       <Formik
         initialValues={{
@@ -67,7 +68,7 @@ const ResetPAsswordStepOneForm = () => {
               >
                 <Input
                   icon={phone}
-                  placeholder={"ایمیل یا شماره تماس"}
+                  placeholder={t("forget1.email")}
                   iconClassname={"mx-3.5"}
                   name="email"
                   value={values.email}
@@ -82,7 +83,7 @@ const ResetPAsswordStepOneForm = () => {
               />
             </div>
             <Button
-              children={"ارسال کد یکبار مصرف"}
+              children={t("forget1.button")}
               buttonClassName="w-8/10 font-[18px]"
               type="submit"
             />
@@ -91,9 +92,9 @@ const ResetPAsswordStepOneForm = () => {
       </Formik>
 
       <div className="flex items-center gap-1">
-        <p className="text-textC">حساب کاربری دارید؟</p>
+        <p className="text-textC">{t("forget1.question")}</p>
         <p className="text-textb " onClick={() => navigate("/auth/login")}>
-          وارد شوید
+          {t("forget1.answer")}
         </p>
       </div>
     </>

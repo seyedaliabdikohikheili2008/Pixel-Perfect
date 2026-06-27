@@ -12,11 +12,13 @@ import toast, { Toaster } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { stepIncrement } from "../../../core/feature/auth/RegisterStepSlice";
 import { login } from "../../../core/feature/auth/IsAuthSlice";
+import { useTranslation } from "react-i18next";
 
 const OtpVerification = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { t } = useTranslation("auth");
 
   const isLogin = location.pathname.includes("/auth/login");
   const state = location.state || {};
@@ -119,7 +121,7 @@ const OtpVerification = () => {
             buttonClassName="w-8/10 font-lg font-bold"
             type="submit"
           >
-            {isPending ? "در حال تایید..." : "تایید رمز یکبار مصرف"}
+            {isPending ? "در حال تایید..." : `${t("login2.button")}`}
           </Button>
           <Toaster />
           <Timer className="dark:text-white text-textC" />

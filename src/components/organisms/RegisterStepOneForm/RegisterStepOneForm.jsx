@@ -10,8 +10,10 @@ import RegisterStepOne from "../../../core/api/auth/Register/stepOne/StepOne";
 import toast, { Toaster } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { stepIncrement } from "../../../core/feature/auth/RegisterStepSlice";
+import { useTranslation } from "react-i18next";
 const RegisterStepOneForm = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation("auth");
   const { mutate, isPending } = useMutation({
     mutationFn: RegisterStepOne,
     onSuccess: (data) => {
@@ -45,10 +47,10 @@ const RegisterStepOneForm = () => {
   return (
     <>
       <h1 className="font-bold font-sans text-textC  text-3xl">
-        ایجاد حساب کاربری
+        {t("register1.title")}
       </h1>
       <p className="font-normal text-xl text-textC">
-        لطفا ایمیل خود را وارد کنید
+        {t("register1.describe")}
       </p>
       <Formik
         initialValues={{
@@ -67,7 +69,7 @@ const RegisterStepOneForm = () => {
               >
                 <Input
                   icon={phone}
-                  placeholder={"لطفا ایمیل خود را وارد کنید"}
+                  placeholder={t("register1.email")}
                   iconClassname={"mx-3.5"}
                   name="gmail"
                   value={values.gmail}
@@ -84,7 +86,7 @@ const RegisterStepOneForm = () => {
 
             <Button
               disabled={isPending}
-              children={"ارسال کد یکبار مصرف"}
+              children={t("register1.button")}
               buttonClassName="w-8/10 font-[18px]"
               type="submit"
             />
@@ -93,12 +95,12 @@ const RegisterStepOneForm = () => {
       </Formik>
       <Toaster />
       <div className="flex items-center gap-1">
-        <p className="text-textC cursor-pointer">حساب کاربری دارید؟</p>
+        <p className="text-textC cursor-pointer">{t("register1.question")}</p>
         <p
           className="text-textb cursor-pointer "
           onClick={() => navigate("/auth/login")}
         >
-          وارد شوید
+          {t("register1.answer")}
         </p>
       </div>
     </>

@@ -2,7 +2,7 @@ import i18next from "i18next";
 import React, { useEffect } from "react";
 import { MdGTranslate } from "react-icons/md";
 
-const TranslateButton = () => {
+const TranslateButton = ({ position }) => {
   useEffect(() => {
     if (localStorage.getItem("language") == "en") {
       i18next.changeLanguage("en");
@@ -31,7 +31,7 @@ const TranslateButton = () => {
         onClick={() => {
           setLanguage();
         }}
-        className="w-12 h-12 rounded-full z-50 fixed bottom-8 right-5 shadow-[0px_50px_100px_0px_#484848] flex items-center justify-center cursor-pointer bg-primary-500 group"
+        className={`w-12 h-12 rounded-full z-50  ${position} shadow-[0px_50px_100px_0px_#484848] flex items-center justify-center cursor-pointer bg-primary-500 group`}
       >
         <MdGTranslate className="text-textC text-2xl" />
         <div

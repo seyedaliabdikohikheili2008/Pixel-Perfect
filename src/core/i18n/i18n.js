@@ -10,6 +10,7 @@ import enTeachers from "./locales/en/teacehr-list/enTeacherList.json"
 import enCourseDetail from "./locales/en/course-detail/enCourseDetail.json"
 import enNewsDetail from "./locales/en/newsDetail/enNewsDetail.json"
 import enTeacherDetail from "./locales/en/teacher-details/enTeacherDetail.json"
+import enAuth from "./locales/en/auth/enAuth.json"
 
 
 import faHeader from "./locales/fa/header/faHeader.json"
@@ -20,6 +21,7 @@ import faTeachers from "./locales/fa/teacher-list/faTeacherList.json"
 import faCourseDetail from "./locales/fa/course-detail/faCourseDetail.json"
 import faNewsDetail from "./locales/fa/newsDetail/faNewsDetail.json"
 import faTeacherDetails from "./locales/fa/teacher-details/faTeacherDetails.json"
+import faAuth from "./locales/fa/auth/faAuth.json"
 
 i18next.use(initReactI18next).init({
     resources:{
@@ -31,7 +33,8 @@ i18next.use(initReactI18next).init({
             teacherList: enTeachers,
             courseDetail:enCourseDetail,
             newsDetail:enNewsDetail,
-            teacherDetail:enTeacherDetail
+            teacherDetail:enTeacherDetail,
+            auth:enAuth
         },
         fa:{
             header: faHeader,
@@ -41,7 +44,8 @@ i18next.use(initReactI18next).init({
             teacherList: faTeachers,
             courseDetail:faCourseDetail,
             newsDetail:faNewsDetail,
-            teacherDetail:faTeacherDetails
+            teacherDetail:faTeacherDetails,
+            auth:faAuth
         }
     },
     lng:"fa",

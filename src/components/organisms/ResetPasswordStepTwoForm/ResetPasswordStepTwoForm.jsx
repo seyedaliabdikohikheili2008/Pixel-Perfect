@@ -9,11 +9,13 @@ import { useNavigate, useParams } from "react-router-dom";
 import ResetPasswordStepTwo from "../../../core/api/auth/ResetPassword/StepTwo/StepTwo";
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 
 const ResetPasswordStepTwoForm = () => {
   const { code } = useParams();
   const navigate = useNavigate();
   const savedEmail = localStorage.getItem("registration_email");
+  const { t } = useTranslation("auth");
 
   const { mutate, isPending } = useMutation({
     mutationFn: ResetPasswordStepTwo,
@@ -55,10 +57,10 @@ const ResetPasswordStepTwoForm = () => {
   return (
     <>
       <h1 className="font-bold font-sans text-textC text-3xl">
-        فراموشی رمز عبور
+        {t("forget2.title")}
       </h1>
       <p className="font-normal text-xl text-textC">
-        رمز عبور جدید برای خود تعیین کنید
+        {t("forget2.describe")}
       </p>
       <Formik
         initialValues={{
@@ -81,7 +83,7 @@ const ResetPasswordStepTwoForm = () => {
               >
                 <Input
                   icon={password}
-                  placeholder={"رمز عبور خود را وارد کنید"}
+                  placeholder={t("forget2.password")}
                   iconClassname={"mx-3.5"}
                   name="newPassword"
                   value={values.newPassword}
@@ -104,7 +106,7 @@ const ResetPasswordStepTwoForm = () => {
               >
                 <Input
                   icon={password}
-                  placeholder={"تکرار رمز عبور"}
+                  placeholder={t("forget2.repeat")}
                   iconClassname={"mx-3.5"}
                   name="confirmPassword"
                   value={values.confirmPassword}
@@ -118,7 +120,7 @@ const ResetPasswordStepTwoForm = () => {
               />
             </div>
             <Button
-              children={isPending ? "در حال پردازش..." : "ثبت رمز عبور جدید"} // جلوگیری از سابمیت چندباره
+              children={isPending ? "در حال پردازش..." : `${t("forget2.button")}`} 
               buttonClassName="w-8/10 font-lg font-bold"
               type="submit"
               disabled={isPending}

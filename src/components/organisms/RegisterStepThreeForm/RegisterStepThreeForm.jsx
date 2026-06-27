@@ -11,8 +11,10 @@ import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { resetStep } from "../../../core/feature/auth/RegisterStepSlice";
+import { useTranslation } from "react-i18next";
 const RegisterStepThreeForm = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation("auth");
   const validationSchema = Yup.object({
     email: Yup.string()
       .required("ایمیل الزامی است")
@@ -66,10 +68,10 @@ const RegisterStepThreeForm = () => {
   return (
     <>
       <h1 className="font-bold font-sans text-textC  text-3xl">
-        ایجاد حساب کاربری
+        {t("register3.title")}
       </h1>
       <p className="font-normal text-xl text-textC">
-        لطفا ایمیل خود را وارد کنید
+        {t("register3.describe")}
       </p>
       <Formik
         initialValues={{
@@ -90,7 +92,7 @@ const RegisterStepThreeForm = () => {
               >
                 <Input
                   icon={email}
-                  placeholder={"لطفا ایمیل خود را وارد کنید"}
+                  placeholder={t("register3.email")}
                   iconClassname={"mx-3.5"}
                   name="email"
                   value={values.email}
@@ -115,7 +117,7 @@ const RegisterStepThreeForm = () => {
                 <Input
                   type="password"
                   icon={password}
-                  placeholder={"رمز عبور خود را وارد کنید"}
+                  placeholder={t("register3.password")}
                   iconClassname={"mx-3.5"}
                   name="password"
                   value={values.password}
@@ -139,7 +141,7 @@ const RegisterStepThreeForm = () => {
                 <Input
                   type="password"
                   icon={password}
-                  placeholder={"تکرار رمز عبور"}
+                  placeholder={t("register3.repeat")}
                   iconClassname={"mx-3.5"}
                   name="password2"
                   value={values.password2}
@@ -153,7 +155,7 @@ const RegisterStepThreeForm = () => {
               />
             </div>
             <Button
-              children={"ثبت نام"}
+              children={t("register3.button")}
               buttonClassName="w-8/10 font-lg font-bold"
               type="submit"
             />
@@ -162,14 +164,14 @@ const RegisterStepThreeForm = () => {
       </Formik>
 
       <div className="flex items-center gap-1 cursor-pointer">
-        <p className="text-textC ">حساب کاربری دارید؟</p>
+        <p className="text-textC ">{t("register3.question")}</p>
         <p
           className="text-textb "
           onClick={() => {
             (navigate("/auth/login"), dispatch(resetStep()));
           }}
         >
-          وارد شوید
+          {t("register3.answer")}
         </p>
       </div>
     </>

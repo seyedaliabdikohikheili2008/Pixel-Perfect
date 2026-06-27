@@ -5,6 +5,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import DarkModeButton from "../../../components/atoms/DarkModeButton/DarkModeButton";
 import { useDispatch } from "react-redux";
 import { resetStep } from "../../../core/feature/auth/RegisterStepSlice";
+import TranslateButton from "../../../components/molecules/translate-button/TranslateButton";
 const AuthLayout = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -20,8 +21,9 @@ const AuthLayout = () => {
         <div className="pt-11">
           <div className="w-full">
             <div className="relative w-full md:w-1/2 lg:w-[44%] xl:w-1/3 mx-auto bg-background flex flex-col items-center gap-6 py-8 rounded-xl shadow-2xl">
-              <div className="absolute top-6 left-6 z-50">
+              <div className="absolute top-6 left-6 z-50 flex items-center">
                 <DarkModeButton />
+                <TranslateButton position={"absolute  left-15 z-50"}/>
               </div>
               <div
                 onClick={() => {

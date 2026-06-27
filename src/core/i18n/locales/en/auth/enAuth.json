@@ -1,0 +1,57 @@
+{
+    "login1":{
+        "title":"Login to user account",
+        "describe":"Please enter your mobile number or email.",
+        "email":"Enter your email.",
+        "password":"Enter your password.",
+        "forget":"Forgot password",
+        "remember":"remember me",
+        "button":"login",
+        "question":"Don't have an account?",
+        "answer":"register"
+    },
+      "login2":{
+        "title":"Login to user account",
+        "describe":"Enter the one-time password.",
+        "button":"One-time password verification"
+    },
+    "register1":{
+        "title":"Create an account",
+        "describe":"Please enter your email.",
+        "email":"Enter your email.",
+        "button":"Send one-time code",
+        "question":"Do you have an account?",
+        "answer":"log in"
+    },
+     "register2":{
+        "title":"Create an account",
+        "describe":"Enter the one-time password.",
+        "button":"One-time password verification"
+    },
+     "register3":{
+        "title":"Create an account",
+        "describe":"Please enter your mobile number or email.",
+        "email":"Email or contact number",
+        "password":"Enter your password.",
+        "repeat":"Repeat password",
+        "button":"Register",
+        "question":"Do you have an account?",
+        "answer":"log in"
+    },
+     "forget1":{
+        "title":"Forgot password",
+        "describe":"Enter your email to request a password change.",
+        "email":"Email or contact number",
+        "button":"Send one-time code",
+        "question":"Do you have an account?",
+        "answer":"log in"
+    },
+       "forget2":{
+        "title":"Forgot password",
+        "describe":"Set a new password for yourself.",
+        "password":"Enter your password.",
+        "repeat":"Repeat password",
+        "button":"Register a new password"
+    }
+
+}

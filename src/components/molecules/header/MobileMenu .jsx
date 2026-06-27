@@ -51,7 +51,7 @@ const MobileMenu = ({ flag, setFlag }) => {
             <RxCross2 size={28} />
           </button>
         </div>
-        <ul className="p-5 flex flex-col gap-6">
+        <ul className="p-5 flex  flex-col gap-6">
           {menuItems.map((item) => (
             <li
               key={item.path}
@@ -59,9 +59,9 @@ const MobileMenu = ({ flag, setFlag }) => {
                 navigate(item.path);
                 setFlag(false);
               }}
-              className="cursor-pointer"
+              className="cursor-pointer flex gap-2 justify-between"
             >
-              <h3 className="text-xl text-textC">{item.title}</h3>
+              <h3 className="text-xl text-textC text-nowrap">{item.title}</h3>
 
               <p className="text-neutral-500 mt-1">{item.subTitle}</p>
             </li>

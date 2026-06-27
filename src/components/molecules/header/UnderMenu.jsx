@@ -8,7 +8,7 @@ const UnderMenu = () => {
 
   return (
     <div className="hidden lg:flex w-100">
-      <ul className="w-full flex items-center justify-between">
+      <ul className="w-full flex items-center gap-3 text-nowrap justify-between">
         <li onClick={() => navigate("/")} className="cursor-pointer">
           <h3 className="font-bold text-base text-textC">{t("home")}</h3>
         </li>

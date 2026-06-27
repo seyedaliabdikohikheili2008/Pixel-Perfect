@@ -222,7 +222,7 @@ const MyComments = () => {
                           {item?.courseTitle}
                         </p>
                         <span
-                          className={` inline-flex w-full justify-center px-3 py-1 rounded-full text-xs border ${item?.accept ? "bg-saccess-50 border-saccess-700 text-saccess-700" : "bg-danger-50 border-danger-500 text-danger-500"}`}
+                          className={`inline-flex w-full justify-center px-3 py-1 rounded-full text-xs border ${item?.accept ? "bg-saccess-50 border-saccess-700 text-saccess-700" : "bg-danger-50 border-danger-500 text-danger-500"}`}
                         >
                           {item?.accept ? "تایید شد" : "تایید نشده"}
                         </span>

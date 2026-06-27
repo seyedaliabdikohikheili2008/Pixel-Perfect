@@ -59,7 +59,7 @@ const CourseCard = ({ cardView2, detail }) => {
             <Button
               children={detail?.teacherName}
               iconSrc={teaching}
-              buttonClassName="h-8 rounded-lg"
+              buttonClassName="h-8 rounded-lg text-sm py-5"
             />
           </div>
           <div className="flex items-center justify-between">

@@ -40,10 +40,10 @@ const MobileMenu = ({ flag, setFlag }) => {
     <>
       <div
         onClick={() => setFlag(false)}
-        className={`fixed inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-300 z-40 lg:hidden ${flag ? "opacity-100 visible" : "opacity-0 invisible"}`}
+        className={`fixed inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-300 z-60 lg:hidden ${flag ? "opacity-100 visible" : "opacity-0 invisible"}`}
       ></div>
       <div
-        className={`fixed top-0 right-0 h-screen w-72 bg-background shadow-2xl z-50 lg:hidden transition-transform duration-300 ${flag ? "translate-x-0" : "translate-x-full"} overflow-y-auto`}
+        className={`fixed top-0 right-0 h-screen w-72 bg-background shadow-2xl z-60 lg:hidden transition-transform duration-300 ${flag ? "translate-x-0" : "translate-x-full"} overflow-y-auto`}
       >
         <div className="flex items-center justify-between p-5 border-b border-neutral-200">
           <Logo variant="linear" Exception />

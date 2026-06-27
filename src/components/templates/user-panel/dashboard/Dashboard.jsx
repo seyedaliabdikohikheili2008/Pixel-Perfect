@@ -7,8 +7,11 @@ import { useMyCourse } from "../../../../core/hooks/queries/user-panel/dashboard
 import { useMyCourseReserve } from "../../../../core/hooks/queries/user-panel/dashboard/useMyCourseReserve";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Dashboard = () => {
+  const { t } = useTranslation("userPanel");
+
   const params = {
     PageNumber: 1,
     RowsOfPage: 5,
@@ -54,12 +57,16 @@ const Dashboard = () => {
       <Toaster />
       <div className="w-full flex flex-col items-center gap-7 pb-7">
         <div className="w-full justify-between flex flex-col gap-7 md:gap-0 md:flex-row items-center">
-          <h1 className="text-textC text-3xl font-bold">سلام، روز بخیر</h1>
+          <h1 className="text-textC text-3xl font-bold">
+            {t("dashboard.hello")}
+          </h1>
           <div className="flex gap-3">
             <div className="bg-background p-5 rounded-xl flex gap-3">
               <div className="w-16 h-16 bg-[#03DE82] rounded-xl"></div>
               <div className="flex flex-col gap-1">
-                <h4 className="text-xl text-neutral-400">دوره های من</h4>
+                <h4 className="text-xl text-neutral-400">
+                  {t("dashboard.myCourses")}
+                </h4>
                 <h5 className="text-primary-400 text-3xl">
                   {MyCourse ? MyCourse?.data?.totalCount : 0}
                 </h5>
@@ -68,7 +75,9 @@ const Dashboard = () => {
             <div className="bg-background p-5 rounded-xl flex gap-3">
               <div className="w-16 h-16 bg-[#FFCC3E] rounded-xl"></div>
               <div className="flex flex-col gap-1">
-                <h4 className="text-xl text-neutral-400">رزرو شده</h4>
+                <h4 className="text-xl text-neutral-400">
+                  {t("dashboard.reserved")}
+                </h4>
                 <h5 className="text-primary-400 text-3xl">
                   {MyCourseReserve ? MyCourseReserve.data?.length : 0}
                 </h5>
@@ -79,7 +88,7 @@ const Dashboard = () => {
         <div className="w-full flex flex-col items-center sm:flex-row flex-wrap gap-4">
           <div className="w-full flex-1 flex flex-col gap-4 items-center py-5 bg-background rounded-3xl">
             <h5 className="w-11/12 flex justify-start text-xl text-textC font-bold">
-              جدید ترین اخبار و مقالات
+              {t("dashboard.news")}
             </h5>
             <div className="w-11/12 flex flex-col flex-1 gap-2 justify-between divide-dashed divide-y-2 divide-neutral-300">
               {latestNewsListLoading ? (
@@ -114,7 +123,9 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="w-63 min-h-63 flex flex-col items-center justify-center gap-3 bg-background rounded-3xl">
-            <h5 className="text-xl text-textC">پروفایل تکمیل شده</h5>
+            <h5 className="text-xl text-textC">
+              {t("dashboard.profileCompleted")}
+            </h5>
             <CircularProgress
               percentage={
                 Number(ProfileInfo?.data?.profileCompletionPercentage) || 0

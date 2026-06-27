@@ -9,9 +9,11 @@ import { useProfileInfo } from "../../../../../core/hooks/queries/user-panel/das
 import { useDeleteProfileImage } from "../../../../../core/hooks/queries/user-panel/profile/useDeleteProfileImage";
 import { useSelectProfileImage } from "../../../../../core/hooks/queries/user-panel/profile/useSelectProfileImage";
 import { BsThreeDots } from "react-icons/bs";
+import { useTranslation } from "react-i18next";
 
 const ProfileImage = () => {
   const inputRef = useRef(null);
+  const { t } = useTranslation("userPanel");
 
   const { mutate: addImage, isPending: addImagePending } = useAddProfileImage();
   const { mutate: deleteImage, isPending: deleteImagePending } =
@@ -24,11 +26,11 @@ const ProfileImage = () => {
     if (!file) return;
 
     const formData = new FormData();
-    formData.append("formFile", file); // اسم کلید مهمه
+    formData.append("formFile", file);
 
     addImage(formData, {
       onSuccess: (res) => {
-        toast.success("عکس با موفقیت آپلود شد");
+        toast.success(t("profileImage.upload"));
         ProfileInfoRefetch();
       },
       onError: (err) => {
@@ -42,7 +44,7 @@ const ProfileImage = () => {
     formData.append("DeleteEntityId", id);
     deleteImage(formData, {
       onSuccess: (res) => {
-        toast.success("عکس با موفقیت پاک شد");
+        toast.success(t("profileImage.delete"));
         ProfileInfoRefetch();
       },
       onError: (err) => {
@@ -56,7 +58,7 @@ const ProfileImage = () => {
     formData.append("ImageId", id);
     selectImage(formData, {
       onSuccess: (res) => {
-        toast.success("عکس با موفقیت انتخاب شد");
+        toast.success(t("profileImage.select"));
         ProfileInfoRefetch();
       },
       onError: (err) => {
@@ -122,7 +124,7 @@ const ProfileImage = () => {
           className="w-40 h-40 sm:w-50 sm:h-50 cursor-pointer flex flex-col gap-3 items-center justify-center text-textC text-base font-bold border-4 border-dashed border-primary-500 rounded-2xl"
         >
           <LuImagePlus className="text-primary-500" size={32} />
-          اضافه کردن عکس
+          {t("profileImage.add")}
         </div>
 
         <input

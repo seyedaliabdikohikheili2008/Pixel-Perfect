@@ -5,8 +5,10 @@ import Button from "../../../../atoms/Butoon/Button";
 import { useProfileInfo } from "../../../../../core/hooks/queries/user-panel/dashboard/useProfileInfo";
 import { useUpdateProfileInfo } from "../../../../../core/hooks/queries/user-panel/profile/useUpdateProfileInfo";
 import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 
 const PersonalInformationForm = () => {
+  const { t } = useTranslation("userPanel");
   const {
     data: ProfileInfo = undefined,
     isError: ProfileInfoErr,
@@ -47,7 +49,7 @@ const PersonalInformationForm = () => {
 
           updateProfile(formData, {
             onSuccess: () => {
-              toast.success("مشخصات آپدیت شد");
+              toast.success(t("personal.success"));
             },
             onError: (err) => {
               console.log(err?.response?.data);
@@ -59,10 +61,10 @@ const PersonalInformationForm = () => {
         {({ values, handleChange, handleBlur }) => (
           <Form className="w-full flex flex-wrap gap-y-7">
             <div className="w-1/2 flex flex-col items-start gap-3 px-4">
-              <h3 className="text-textC text-base">نام</h3>
+              <h3 className="text-textC text-base">{t("personal.firstName")}</h3>
               <Input
                 boxClassname={"w-full"}
-                placeholder={"نام خود را وارد کنید"}
+                placeholder={t("personal.enterFirstName")}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.FName}
@@ -70,10 +72,10 @@ const PersonalInformationForm = () => {
               />
             </div>
             <div className="w-1/2 flex flex-col items-start gap-3 px-4">
-              <h3 className="text-textC text-base">نام خانوادگی</h3>
+              <h3 className="text-textC text-base">{t("personal.lastName")}</h3>
               <Input
                 boxClassname={"w-full"}
-                placeholder={"نام خانوادگی خود را وارد کنید"}
+                placeholder={t("personal.enterlastName")}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.LName}
@@ -81,10 +83,10 @@ const PersonalInformationForm = () => {
               />
             </div>
             <div className="w-full flex flex-col items-start gap-3 px-4">
-              <h3 className="text-textC text-base">درباره من</h3>
+              <h3 className="text-textC text-base">{t("personal.aboutMe")}</h3>
               <textarea
                 className="w-full bg-neutral-50 rounded-xl resize-none p-2"
-                placeholder="یک متن درباره خود را وارد کنید"
+                placeholder={t("personal.aboutYourself")}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.UserAbout}
@@ -92,10 +94,10 @@ const PersonalInformationForm = () => {
               />
             </div>
             <div className="w-1/2 flex flex-col items-start gap-3 px-4">
-              <h3 className="text-textC text-base">کد ملی</h3>
+              <h3 className="text-textC text-base">{t("personal.nationalID")}</h3>
               <Input
                 boxClassname={"w-full"}
-                placeholder={"کد ملی خود را وارد کنید"}
+                placeholder={t("personal.enterNationalID")}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.NationalCode}
@@ -103,10 +105,10 @@ const PersonalInformationForm = () => {
               />
             </div>
             <div className="w-1/2 flex flex-col items-start gap-3 px-4">
-              <h3 className="text-textC text-base">تاریخ تولد</h3>
+              <h3 className="text-textC text-base">{t("personal.dateBirth")}</h3>
               <Input
                 boxClassname={"w-full"}
-                placeholder={"تاریخ تولد خود را وارد کنید"}
+                placeholder={t("personal.enterBirth")}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 type="date"
@@ -115,10 +117,10 @@ const PersonalInformationForm = () => {
               />
             </div>
             <div className="w-full flex flex-col items-start gap-3 px-4">
-              <h3 className="text-textC text-base">آدرس سکونت</h3>
+              <h3 className="text-textC text-base">{t("personal.address")}</h3>
               <textarea
                 className="w-full bg-neutral-50 rounded-xl resize-none p-2"
-                placeholder="آدرس سکونت خود را وارد کنید"
+                placeholder={t("personal.enterAddress")}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.HomeAdderess}
@@ -126,7 +128,7 @@ const PersonalInformationForm = () => {
               />
             </div>
             <div className="flex gap-5 w-full px-4">
-              <h3 className="text-textC text-base">جنسیت</h3>
+              <h3 className="text-textC text-base">{t("personal.gender")}</h3>
               <div className="flex items-center gap-2">
                 <input
                   className="w-5 h-5"
@@ -138,7 +140,7 @@ const PersonalInformationForm = () => {
                   onChange={handleChange}
                 />
                 <label className="text-textC text-base" htmlFor="woman">
-                  زن
+                 {t("personal.female")}
                 </label>
               </div>
               <div className="flex items-center gap-2">
@@ -152,14 +154,14 @@ const PersonalInformationForm = () => {
                   onChange={handleChange}
                 />
                 <label className="text-textC text-base" htmlFor="man">
-                  مرد
+                 {t("personal.male")}
                 </label>
               </div>
             </div>
             <Button
               buttonClassName="mx-4"
               type={"submit"}
-              children={`${isPending ? "در حال ارسال..." : "اعمال تغییرات"}`}
+              children={`${isPending ? t("changePassword.submiting") : t("changePassword.save")}`}
               disabled={isPending}
             />
           </Form>

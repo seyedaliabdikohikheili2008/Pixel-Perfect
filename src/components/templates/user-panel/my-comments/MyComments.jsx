@@ -13,8 +13,10 @@ import toast from "react-hot-toast";
 import Loading from "../../../atoms/loading/Loading";
 import NotFound from "../../../atoms/not-found/NotFound";
 import TeacherListPagination from "../../teacher-list/teacher-list-content/TeacherListPagination";
+import { useTranslation } from "react-i18next";
 
 const MyComments = () => {
+  const { t } = useTranslation("userPanel");
   const navigate = useNavigate();
   const {
     data: MyCourseComments = undefined,
@@ -63,10 +65,10 @@ const MyComments = () => {
   const searchComment =
     commentFlag == "course"
       ? MyCourseComments?.data
-        ? Search(MyCourseComments.data.myCommentsDtos, search, "describe")
+        ? Search(MyCourseComments.data?.myCommentsDtos, search, "describe")
         : []
       : MyNewsComments?.data
-        ? Search(MyNewsComments.data.myNewsCommetDtos, search, "describe")
+        ? Search(MyNewsComments.data?.myNewsCommetDtos, search, "describe")
         : [];
   const [page, setpage] = useState(1);
 
@@ -92,7 +94,7 @@ const MyComments = () => {
       { CourseCommandId: String(id) },
       {
         onSuccess: (res) => {
-          toast.success("کامنت مورد نظر با موفقیت حذف شد");
+          toast.success(t("myComments.delete"));
           MyCourseCommentsRefetch();
         },
         onError: (err) => {
@@ -104,18 +106,20 @@ const MyComments = () => {
   return (
     <>
       <div className="w-full max-h-full flex-1 flex flex-col items-start gap-5">
-        <h2 className="text-textC text-3xl font-bold">دیدگاه های من</h2>
+        <h2 className="text-textC text-3xl font-bold">
+          {t("layout.myComments")}
+        </h2>
         <div className="w-full min-h-137 p-5 flex flex-col gap-4 shadow-[0px_50px_100px_0px_#48484829] rounded-3xl bg-background">
           <div className="flex flex-col sm:flex-row justify-between gap-5 ">
             <div className="flex flex-col gap-2">
               <h5 className="text-base text-textC flex gap-2 items-center">
                 <LiaSearchSolid size={22} />
-                جستوجو دیدگاه ها
+                {t("myComments.searchComments")}
               </h5>
               <Input
                 onChange={handleChange}
                 boxClassname={"w-62"}
-                placeholder={"جستوجو کنید"}
+                placeholder={t("myFavorite.search")}
               />
             </div>
             <div>
@@ -128,7 +132,7 @@ const MyComments = () => {
                       : "text-neutral-500 hover:text-textC"
                   }`}
                 >
-                  🎓 دوره‌ها
+                  🎓 {t("myFavorite.courses")}
                 </button>
 
                 <button
@@ -139,7 +143,7 @@ const MyComments = () => {
                       : "text-neutral-500 hover:text-textC"
                   }`}
                 >
-                  📰 مقالات
+                  📰 {t("myFavorite.articles")}
                 </button>
               </div>
             </div>
@@ -147,19 +151,23 @@ const MyComments = () => {
           <div className="w-full flex flex-col gap-4">
             {commentFlag === "course" && (
               <div className="hidden md:grid grid-cols-12 px-4 py-3 text-xs font-semibold text-neutral-500 bg-neutral-50 rounded-xl border border-neutral-200">
-                <div className="col-span-3">عنوان</div>
-                <div className="col-span-2">وضعیت</div>
-                <div className="col-span-3">توضیحات</div>
-                <div className="col-span-2">تاریخ</div>
-                <div className="col-span-2 text-left pl-10">عملیات</div>
+                <div className="col-span-3">{t("myFavorite.title")}</div>
+                <div className="col-span-2">{t("myCourses.status")}</div>
+                <div className="col-span-3">{t("myCourses.description")}</div>
+                <div className="col-span-2">{t("myReserve.dates")}</div>
+                <div className="col-span-2 text-left pl-10">
+                  {t("myCourses.actions")}
+                </div>
               </div>
             )}
             {commentFlag !== "course" && (
               <div className="hidden md:grid grid-cols-12 px-4 py-3 text-xs font-semibold text-neutral-500 bg-neutral-50 rounded-xl border border-neutral-200">
-                <div className="col-span-3">عنوان</div>
-                <div className="col-span-5">توضیحات</div>
-                <div className="col-span-3">تاریخ</div>
-                <div className="col-span-1 text-left">عملیات</div>
+                <div className="col-span-3">{t("myFavorite.title")}</div>
+                <div className="col-span-5">{t("myCourses.description")}</div>
+                <div className="col-span-3">{t("myReserve.dates")}</div>
+                <div className="col-span-1 text-left">
+                  {t("myCourses.actions")}
+                </div>
               </div>
             )}
             <div className="flex flex-col gap-3">
@@ -187,7 +195,9 @@ const MyComments = () => {
                                 : "bg-danger-50 border-danger-500 text-danger-500"
                             }`}
                           >
-                            {item?.accept ? "تایید شد" : "تایید نشده"}
+                            {item?.accept
+                              ? t("myComments.approved")
+                              : t("myComments.notApproved")}
                           </span>
                         </div>
                         <div className="col-span-3 relative group">
@@ -206,7 +216,7 @@ const MyComments = () => {
                             onClick={() =>
                               navigate(`/course-detail/${item.courseId}`)
                             }
-                            children={"دوره"}
+                            children={t("myComments.course")}
                             buttonClassName="h-9 text-sm"
                           />
                           <div
@@ -224,7 +234,9 @@ const MyComments = () => {
                         <span
                           className={`inline-flex w-full justify-center px-3 py-1 rounded-full text-xs border ${item?.accept ? "bg-saccess-50 border-saccess-700 text-saccess-700" : "bg-danger-50 border-danger-500 text-danger-500"}`}
                         >
-                          {item?.accept ? "تایید شد" : "تایید نشده"}
+                          {item?.accept
+                            ? t("myComments.approved")
+                            : t("myComments.notApproved")}
                         </span>
                         <div className="bg-neutral-50 border border-neutral-200 rounded-xl text-textC p-3 text-xs">
                           {item?.describe}
@@ -235,7 +247,7 @@ const MyComments = () => {
                             onClick={() =>
                               navigate(`/course-detail/${item.courseId}`)
                             }
-                            children={"مشاهده دوره"}
+                            children={t("myCourses.viewCourse")}
                             buttonClassName="h-9 text-sm flex-1"
                           />
                           <div
@@ -281,7 +293,7 @@ const MyComments = () => {
                             onClick={() =>
                               navigate(`/news-detail/${item.newsId}`)
                             }
-                            children={"مقاله"}
+                            children={t("myComments.article")}
                             buttonClassName="h-9 text-sm whitespace-nowrap"
                           />
                         </div>
@@ -294,14 +306,14 @@ const MyComments = () => {
                           {item?.describe}
                         </div>
                         <span className="text-xs text-neutral-500">
-                          <span className="text-neutral-400">تاریخ:</span>{" "}
+                          <span className="text-neutral-400">{t("myReserve.dates")}:</span>{" "}
                           {insert}
                         </span>
                         <Button
                           onClick={() =>
                             navigate(`/news-detail/${item.newsId}`)
                           }
-                          children={"مشاهده مقاله"}
+                          children={t("myFavorite.viewArticle")}
                           buttonClassName="h-9 text-sm w-full"
                         />
                       </div>

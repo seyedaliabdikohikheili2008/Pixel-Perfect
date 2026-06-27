@@ -1,0 +1,127 @@
+{
+    "layout":{
+        "dashboard":"Dashboard",
+        "myCourse":"My Courses",
+        "myReservations":"My Reservations",
+        "myFavorites":"My Favorites",
+        "myComments":"My Comments",
+        "securitySettings":"Security Settings",
+        "profile":"Profile",
+        "logOut":"Log Out"
+    },
+    "dashboard":{
+        "hello":"Hello, Good Day",
+        "myCourses":"My Courses",
+        "reserved":"Reserved",
+        "news":"Latest News & Articles",
+        "profileCompleted":"Profile Completed"
+    },
+    "myCourses":{
+        "image":"Image",
+        "courseName":"Course Name",
+        "description":"Description",
+        "status":"Status",
+        "actions":"Actions",
+        "viewCourse":"View Course"
+    },
+    "myReserve":{
+        "myReservations":"My Reservations",
+        "searchCourses":"Search Courses",
+        "dates":"Dates",
+        "start":"Start",
+        "end":"End",
+        "delete":"Reservation deleted successfully."
+    },
+    "myFavorite":{
+        "remove":"Removed from favorites successfully.",
+        "searchFavorites":"Search Favorites",
+        "search":"Search",
+        "courses":"Courses",
+        "articles":"Articles",
+        "viewArticle":"View Article",
+        "title":"Title"    
+    },
+    "myComments":{
+        "delete":"Comment deleted successfully.",
+        "searchComments":"Search Comments",
+        "approved":"Approved",
+        "notApproved":"Not Approved",
+        "course":"Course",
+        "article":"Article"
+    },
+    "securitySettings":{
+        "cancel":"Cancel",
+        "enable":"Enable",
+        "telegramUsername":"Telegram Username",
+        "recoveryEmail":"Recovery Email",
+        "checkBox":"Enable Two-Factor Authentication",
+        "title":"Two-Factor Authentication",
+        "changePassword":"Change Password",
+        "errorOne":"Failed to disable two-factor authentication.",
+        "errorTwo":"Please fill in the Email and/or Telegram fields.",
+        "errorThree":"Failed to enable two-factor authentication.",
+        "errorFour":"Failed to load security settings"
+    },
+    "changePassword":{
+        "save":"Save Changes",
+        "submiting":"Submitting...",
+        "confirm":"Confirm",
+        "confirmPassword":"Confirm Password",
+        "newPass":"Enter your new password",
+        "newPassword":"New Password",
+        "currentPass":"Enter your current password",
+        "currentPassword":"Current Password",
+        "errorOne":"Something went wrong. Please try again.",
+        "success":"Password changed successfully.",
+        "confirmationRequired":"Password confirmation is required.",
+        "doNotMatch":"Passwords do not match.",
+        "mustCharacters":"Password must not exceed 20 characters.",
+        "leastCharacters":"Password must be at least 6 characters long.",
+        "passwordRequired":"Password is required."
+    },
+    "profileLayout":{
+        "links":"Links",
+        "address":"Address",
+        "personal":"Personal Information",
+        "aboutMe":"About Me",
+        "profilePicture":"Profile Picture",
+        "unnamed":"Unnamed"
+    },
+    "profileImage":{
+        "add":"Add Photo",
+        "select":"Photo selected successfully.",
+        "upload":"Photo uploaded successfully.",
+        "delete":"Photo removed successfully."
+    },
+    "personal":{
+        "male":"Male",
+        "female":"Female",
+        "gender":"Gender",
+        "enterAddress":"Enter your address",
+        "address":"Address",
+        "enterBirth":"Enter your date of birth",
+        "dateBirth":"Date of Birth",
+        "enterNationalID":"Enter your national ID",
+        "nationalID":"National ID",
+        "aboutYourself":"Tell us about yourself",
+        "aboutMe":"About Me",
+        "enterlastName":"Enter your last name",
+        "lastName":"Last Name",
+        "enterFirstName":"Enter your first name",
+        "firstName":"First Name",
+        "success":"Profile updated successfully."
+    },
+    "homeAddress":{
+        "confirmLocation":"Confirm Location",
+        "select":"Select your home location on the map.",
+        "dateBirth":"Please enter your date of birth first.",
+        "success":"Location updated successfully.",
+        "pleaseSelect":"Please select your location."
+    },
+    "link":{
+        "enterLinkedIn":"Enter your LinkedIn profile URL",
+        "linkedIn":"LinkedIn",
+        "enterTelegram":"Enter your Telegram profile URL",
+        "telegram":"Telegram"
+    }
+}

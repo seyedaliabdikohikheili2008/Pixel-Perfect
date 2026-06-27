@@ -3,10 +3,12 @@ import profile from "../../../../assets/images/course-dtail/user.png";
 import { MdOutlineEmail } from "react-icons/md";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useProfileInfo } from "../../../../core/hooks/queries/user-panel/dashboard/useProfileInfo";
+import { useTranslation } from "react-i18next";
 
 const ProfileLayout = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { t } = useTranslation("userPanel");
 
   const {
     data: ProfileInfo = undefined,
@@ -30,7 +32,7 @@ const ProfileLayout = () => {
           <div className="flex items-center gap-3">
             <h2 className="text-textC text-nowrap text-3xl font-bold">
               {ProfileInfo?.data?.fName + " " + ProfileInfo?.data?.lName ||
-                "بدون نام"}
+                t("profileLayout.unnamed")}
             </h2>
             <p className="text-[#787878] text-base">( دانشجو )</p>
           </div>
@@ -41,7 +43,7 @@ const ProfileLayout = () => {
         </div>
         {ProfileInfo?.data?.userAbout ? (
           <div className="w-90 flex flex-col gap-3 items-start text-base text-textC">
-            <h5 className="text-[#787878]">درباره من</h5>
+            <h5 className="text-[#787878]">{t("profileLayout.aboutMe")}</h5>
             <p className="text-justify">{ProfileInfo?.data?.userAbout}</p>
           </div>
         ) : (
@@ -59,7 +61,7 @@ const ProfileLayout = () => {
                   : "bg-neutral-50 hover:bg-neutral-100"
               }`}
             >
-              اطلاعات شخصی
+              {t("profileLayout.personal")}
             </li>
 
             <li
@@ -70,7 +72,7 @@ const ProfileLayout = () => {
                   : "bg-neutral-50 hover:bg-neutral-100"
               }`}
             >
-              عکس پروفایل
+              {t("profileLayout.profilePicture")}
             </li>
 
             <li
@@ -81,7 +83,7 @@ const ProfileLayout = () => {
                   : "bg-neutral-50 hover:bg-neutral-100"
               }`}
             >
-              آدرس سکونت
+              {t("profileLayout.address")}
             </li>
 
             <li
@@ -92,7 +94,7 @@ const ProfileLayout = () => {
                   : "bg-neutral-50 hover:bg-neutral-100"
               }`}
             >
-              لینک‌ها
+              {t("profileLayout.links")}
             </li>
           </ul>
         </div>

@@ -14,8 +14,10 @@ import toast from "react-hot-toast";
 import { useRemoveNewsFavorite } from "../../../../core/hooks/queries/user-panel/favorites/news/useRemoveNewsFavorite";
 import { useNavigate } from "react-router-dom";
 import FallbackImage from "../../../atoms/image/FallbackImage";
+import { useTranslation } from "react-i18next";
 
 const MyFavorites = () => {
+  const { t } = useTranslation("userPanel");
   const navigate = useNavigate();
   const [favoriteFlag, setfavoriteFlag] = useState("course");
 
@@ -103,7 +105,7 @@ const MyFavorites = () => {
       formData.append("CourseFavoriteId", id);
       removeCourse(formData, {
         onSuccess: (res) => {
-          toast.success("با موفقیت از علاقه مندی حذف شد");
+          toast.success(t("myFavorite.remove"));
           MyFavoriteCourseRefetch();
         },
         onError: (err) => {
@@ -117,7 +119,7 @@ const MyFavorites = () => {
         },
         {
           onSuccess: (res) => {
-            toast.success("با موفقیت از علاقه مندی حذف شد");
+            toast.success(t("myFavorite.remove"));
             MyFavoriteNewsRefetch();
           },
           onError: (err) => {
@@ -131,18 +133,20 @@ const MyFavorites = () => {
   return (
     <>
       <div className="w-full max-h-full flex-1 flex flex-col items-start gap-5">
-        <h2 className="text-textC text-3xl font-bold">علاقه مندی های من</h2>
+        <h2 className="text-textC text-3xl font-bold">
+          {t("layout.myFavorites")}
+        </h2>
         <div className="w-full min-h-137 p-5 flex flex-col gap-4 shadow-[0px_50px_100px_0px_#48484829] rounded-3xl bg-background">
           <div className="flex flex-col sm:flex-row justify-between gap-5 ">
             <div className="flex flex-col gap-2">
               <h5 className="text-base text-textC flex gap-2 items-center">
                 <LiaSearchSolid size={22} />
-                جستوجو علاقه مندی ها
+                {t("myFavorite.searchFavorites")}
               </h5>
               <Input
                 onChange={handleChange}
                 boxClassname={"w-62"}
-                placeholder={"جستوجو کنید"}
+                placeholder={t("myFavorite.search")}
               />
             </div>
             <div>
@@ -155,7 +159,7 @@ const MyFavorites = () => {
                       : "text-neutral-500 hover:text-textC"
                   }`}
                 >
-                  🎓 دوره‌ها
+                  🎓 {t("myFavorite.courses")}
                 </button>
 
                 <button
@@ -166,17 +170,21 @@ const MyFavorites = () => {
                       : "text-neutral-500 hover:text-textC"
                   }`}
                 >
-                  📰 مقالات
+                  📰 {t("myFavorite.articles")}
                 </button>
               </div>
             </div>
           </div>
           <div className="w-full flex flex-col gap-4">
             <div className="hidden md:grid grid-cols-12 w-full px-4 py-3 text-xs font-semibold text-neutral-500 bg-neutral-50 rounded-xl border border-neutral-200">
-              <div className="col-span-2">تصویر</div>
-              <div className="col-span-3">عنوان</div>
-              <div className="col-span-3">تاریخ</div>
-              <div className="col-span-4 text-left pl-10">عملیات</div>
+              <div className="col-span-2 flex justify-start px-4">
+                {t("myCourses.image")}
+              </div>
+              <div className="col-span-3">{t("myFavorite.title")}</div>
+              <div className="col-span-3">{t("myReserve.dates")}</div>
+              <div className="col-span-4 flex justify-end px-4">
+                {t("myCourses.actions")}
+              </div>
             </div>
             <div className="flex flex-col gap-3">
               {favoriteFlag === "course" &&
@@ -207,11 +215,15 @@ const MyFavorites = () => {
                         </div>
                         <div className="col-span-3 text-xs text-neutral-600 flex flex-col gap-1">
                           <span>
-                            <span className="text-neutral-400">شروع:</span>{" "}
+                            <span className="text-neutral-400">
+                              {t("myReserve.start")}:
+                            </span>{" "}
                             {start}
                           </span>
                           <span>
-                            <span className="text-neutral-400">پایان:</span>{" "}
+                            <span className="text-neutral-400">
+                              {t("myReserve.end")}:
+                            </span>{" "}
                             {end}
                           </span>
                         </div>
@@ -220,7 +232,7 @@ const MyFavorites = () => {
                             onClick={() =>
                               navigate(`/course-detail/${item.courseId}`)
                             }
-                            children={"مشاهده دوره"}
+                            children={t("myCourses.viewCourse")}
                             buttonClassName="h-10 text-sm"
                           />
                           <div
@@ -244,11 +256,15 @@ const MyFavorites = () => {
                         </div>
                         <div className="grid grid-cols-2 gap-3 text-xs bg-neutral-50 border border-neutral-200 rounded-xl p-3">
                           <div className="flex flex-col">
-                            <span className="text-neutral-400">شروع</span>
+                            <span className="text-neutral-400">
+                              {t("myReserve.start")}
+                            </span>
                             <span className="text-textC">{start}</span>
                           </div>
                           <div className="flex flex-col">
-                            <span className="text-neutral-400">پایان</span>
+                            <span className="text-neutral-400">
+                              {t("myReserve.end")}
+                            </span>
                             <span className="text-textC">{end}</span>
                           </div>
                         </div>
@@ -257,7 +273,7 @@ const MyFavorites = () => {
                             onClick={() =>
                               navigate(`/course-detail/${item.courseId}`)
                             }
-                            children={"مشاهده دوره"}
+                            children={t("myCourses.viewCourse")}
                             buttonClassName="h-10 text-sm flex-1"
                           />
                           <div
@@ -302,7 +318,7 @@ const MyFavorites = () => {
                             onClick={() =>
                               navigate(`/news-detail/${item.newsId}`)
                             }
-                            children={"مشاهده مقاله"}
+                            children={t("myFavorite.viewArticle")}
                             buttonClassName="h-10 text-sm"
                           />
                           <div
@@ -332,7 +348,7 @@ const MyFavorites = () => {
                             onClick={() =>
                               navigate(`/news-detail/${item.newsId}`)
                             }
-                            children={"مشاهده مقاله"}
+                            children={t("myFavorite.viewArticle")}
                             buttonClassName="h-10 text-sm flex-1"
                           />
                           <div

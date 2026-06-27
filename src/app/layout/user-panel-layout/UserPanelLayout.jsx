@@ -11,11 +11,14 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { IoLogOutOutline } from "react-icons/io5";
 import { Toaster } from "react-hot-toast";
 import { FaRegCommentDots } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 const UserPanelLayout = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [menuFlag, setmenuFlag] = useState(false);
+
+  const { t } = useTranslation("userPanel");
 
   return (
     <>
@@ -53,7 +56,7 @@ const UserPanelLayout = () => {
               className={`flex cursor-pointer items-center gap-4 p-4 ${location.pathname == "/user-panel" ? "bg-primary-500 text-white" : "text-textC"} rounded-[38px]`}
             >
               <RxDashboard size={24} />
-              <h3 className="text-lg">داشبورد</h3>
+              <h3 className="text-lg">{t("layout.dashboard")}</h3>
             </li>
             <li
               onClick={() => {
@@ -62,7 +65,7 @@ const UserPanelLayout = () => {
               className={`flex cursor-pointer items-center gap-4 p-4 ${location.pathname == "/user-panel/my-course" ? "bg-primary-500 text-white" : "text-textC"} rounded-[38px]`}
             >
               <LuBookText size={24} />
-              <h3 className="text-lg">دوره من</h3>
+              <h3 className="text-lg">{t("layout.myCourse")}</h3>
             </li>
             <li
               onClick={() => {
@@ -71,7 +74,7 @@ const UserPanelLayout = () => {
               className={`flex cursor-pointer items-center gap-4 p-4 ${location.pathname == "/user-panel/my-reservation" ? "bg-primary-500 text-white" : "text-textC"} rounded-[38px]`}
             >
               <TbClockHour10 size={24} />
-              <h3 className="text-lg">رزرو من</h3>
+              <h3 className="text-lg">{t("layout.myReservations")}</h3>
             </li>
             <li
               onClick={() => {
@@ -80,7 +83,7 @@ const UserPanelLayout = () => {
               className={`flex cursor-pointer items-center gap-4 p-4 ${location.pathname == "/user-panel/my-favorites" ? "bg-primary-500 text-white" : "text-textC"} rounded-[38px]`}
             >
               <LuBookMarked size={24} />
-              <h3 className="text-lg">علاقه‌مندی های من</h3>
+              <h3 className="text-lg">{t("layout.myFavorites")}</h3>
             </li>
             <li
               onClick={() => {
@@ -89,7 +92,7 @@ const UserPanelLayout = () => {
               className={`flex cursor-pointer items-center gap-4 p-4 ${location.pathname == "/user-panel/my-comments" ? "bg-primary-500 text-white" : "text-textC"} rounded-[38px]`}
             >
               <FaRegCommentDots size={24} />
-              <h3 className="text-lg">دیدگاه های من</h3>
+              <h3 className="text-lg">{t("layout.myComments")}</h3>
             </li>
             <li
               onClick={() => {
@@ -98,7 +101,7 @@ const UserPanelLayout = () => {
               className={`flex cursor-pointer items-center gap-4 p-4 ${location.pathname == "/user-panel/Security" ? "bg-primary-500 text-white" : "text-textC"} rounded-[38px]`}
             >
               <LuShield size={24} />
-              <h3 className="text-lg">تنظیمات امنیتی</h3>
+              <h3 className="text-lg">{t("layout.securitySettings")}</h3>
             </li>
             <li
               onClick={() => {
@@ -107,7 +110,7 @@ const UserPanelLayout = () => {
               className={`flex cursor-pointer items-center gap-4 p-4 ${location.pathname.startsWith("/user-panel/profile") ? "bg-primary-500 text-white" : "text-textC"} rounded-[38px]`}
             >
               <LiaUserEditSolid size={24} />
-              <h3 className="text-lg">پروفایل</h3>
+              <h3 className="text-lg">{t("layout.profile")}</h3>
             </li>
           </ul>
           <div
@@ -118,7 +121,7 @@ const UserPanelLayout = () => {
             className="w-11/12 mt-10 mx-auto cursor-pointer gap-4 text-danger-500 text-lg rounded-[38px] items-center justify-center py-3 flex border border-neutral-200"
           >
             <IoLogOutOutline size={24} />
-            <h3>خروج از حساب</h3>
+            <h3>{t("layout.logOut")}</h3>
           </div>
         </div>
         <div className="flex-1 w-11/12 flex flex-col gap-5 justify-start">

@@ -12,9 +12,11 @@ import { useMyCourse } from "../../../../core/hooks/queries/user-panel/dashboard
 import { useSearchParams } from "react-router-dom";
 import CourseListPagination from "../../../organisms/course-list/pagination/CourseListPagination";
 import FallbackImage from "../../../atoms/image/FallbackImage";
+import { useTranslation } from "react-i18next";
 
 const MyCourse = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const { t } = useTranslation("userPanel");
 
   const params = useMemo(() => {
     const obj = Object.fromEntries([...searchParams]);
@@ -46,16 +48,21 @@ const MyCourse = () => {
   return (
     <>
       <div className="w-full max-h-full flex-1 flex flex-col items-start gap-5">
-        <h2 className="text-textC text-3xl font-bold">دوره های من</h2>
+        <h2 className="text-textC text-3xl font-bold">
+          {t("dashboard.myCourses")}
+        </h2>
         <div className="w-full min-h-137 p-5 flex flex-col gap-4 shadow-[0px_50px_100px_0px_#48484829] rounded-3xl bg-background">
           <div className="w-full flex flex-col gap-4">
-            {/* Table Header */}
             <div className="hidden md:grid grid-cols-10 w-full px-4 py-3 text-xs font-semibold text-neutral-500 bg-neutral-50 rounded-xl border border-neutral-200">
-              <div className="col-span-2">تصویر</div>
-              <div className="col-span-2">نام دوره</div>
-              <div className="col-span-2">توضیحات</div>
-              <div className="col-span-2">وضعیت</div>
-              <div className="col-span-2 text-left pl-10">عملیات</div>
+              <div className="col-span-2 flex justify-start px-4">
+                {t("myCourses.image")}
+              </div>
+              <div className="col-span-2">{t("myCourses.courseName")}</div>
+              <div className="col-span-2">{t("myCourses.description")}</div>
+              <div className="col-span-2">{t("myCourses.status")}</div>
+              <div className="col-span-2 flex justify-end px-4">
+                {t("myCourses.actions")}
+              </div>
             </div>
 
             <div className="flex flex-col gap-3">
@@ -100,7 +107,7 @@ const MyCourse = () => {
                         }
                         buttonClassName="h-10 text-sm text-nowrap"
                       >
-                        مشاهده دوره
+                        {t("myCourses.viewCourse")}
                       </Button>
                     </div>
                   </div>
@@ -140,7 +147,7 @@ const MyCourse = () => {
                         }
                         buttonClassName="h-10 flex-1 text-sm"
                       >
-                        مشاهده دوره
+                        {t("myCourses.viewCourse")}
                       </Button>
                     </div>
                   </div>

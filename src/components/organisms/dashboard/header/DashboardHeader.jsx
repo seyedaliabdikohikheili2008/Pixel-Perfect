@@ -26,7 +26,7 @@ const DashboardHeader = ({ setmenuFlag }) => {
             alt=""
           />
 
-          <div className="sm:flex flex-col hidden  min-w-0">
+          <div className="sm:flex flex-col items-start hidden  min-w-0">
             <h4 className="text-textC text-xl max-[500px]:text-sm font-bold truncate">
               {ProfileInfo?.data?.fName + " " + ProfileInfo?.data?.lName ||
                 "بدون نام"}

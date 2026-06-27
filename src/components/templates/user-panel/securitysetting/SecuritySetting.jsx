@@ -6,8 +6,10 @@ import { updateTwoFactorAuth } from "../../../../core/services/user-panel/dashbo
 import toast from "react-hot-toast";
 import Loading from "../../../atoms/loading/Loading";
 import { getUserSecuritySettings } from "../../../../core/services/user-panel/dashboard/getUserSecuritySettings";
+import { useTranslation } from "react-i18next";
 
 const SecuritySetting = () => {
+  const { t } = useTranslation("userPanel");
   const [twoFactorEnabled, setTwoFactorEnabled] = useState(false);
   const [recoveryEmail, setRecoveryEmail] = useState("");
   const [telegramUsername, setTelegramUsername] = useState("");
@@ -33,9 +35,8 @@ const SecuritySetting = () => {
         setTelegramUsername("");
         setShowForm(false);
       } catch (error) {
-        console.error("خطا در غیرفعال سازی:", error);
         setTwoFactorEnabled(true);
-        toast("خطا در غیرفعال سازی تایید دو مرحله‌ای");
+        toast(t("securitySettings.errorOne"));
       } finally {
         setLoading(false);
       }
@@ -43,8 +44,8 @@ const SecuritySetting = () => {
   };
 
   const handleSubmitTwoFactor = async () => {
-    if (!recoveryEmail && !telegramUsername) {
-      toast("حداقل یکی از فیلدهای ایمیل یا تلگرام را پر کنید");
+    if (!recoveryEmail || !telegramUsername) {
+      toast(t("securitySettings.errorTwo"));
       return;
     }
 
@@ -58,43 +59,42 @@ const SecuritySetting = () => {
       setTwoFactorEnabled(true);
       setShowForm(false);
     } catch (error) {
-      console.error("خطا در فعال سازی:", error);
-      toast("خطا در فعال سازی تایید دو مرحله‌ای");
+      toast(t("securitySettings.errorThree"));
     } finally {
       setLoading(false);
     }
   };
-useEffect(() => {
-  const fetchSecurityStatus = async () => {
-    try {
-      const response = await getUserSecuritySettings();
-      const data = response.data;
-      
-      setTwoFactorEnabled(data.twoStepAuth || false);
-      setRecoveryEmail(data.recoveryEmail || "");
-      setTelegramUsername(data.userTelegrams?.telegramId || "");
-      
-      if (data.twoStepAuth) {
-        setShowForm(true);
-      }
-    } catch (error) {
-      console.error("خطا در دریافت تنظیمات امنیتی:", error);
-    }
-  };
+  useEffect(() => {
+    const fetchSecurityStatus = async () => {
+      try {
+        const response = await getUserSecuritySettings();
+        const data = response.data;
 
-  fetchSecurityStatus();
-}, []);
+        setTwoFactorEnabled(data.twoStepAuth || false);
+        setRecoveryEmail(data.recoveryEmail || "");
+        setTelegramUsername(data.userTelegrams?.telegramId || "");
+
+        if (data.twoStepAuth) {
+          setShowForm(true);
+        }
+      } catch (error) {
+        toast(t("securitySettings.errorFour"));
+      }
+    };
+
+    fetchSecurityStatus();
+  }, []);
 
   return (
     <div className="m-auto w-11/12 flex flex-col gap-5">
       <h2 className="text-textC text-3xl font-bold text-right">
-        تنظیمات امنیتی
+        {t("layout.securitySettings")}
       </h2>
 
       <div className="flex flex-col gap-6">
         <div className="flex items-center gap-6">
           <h3 className="font-normal text-right text-textC text-nowrap">
-            تغییر رمز عبور
+            {t("securitySettings.changePassword")}
           </h3>
           <div className="w-full h-px bg-gray-300 my-3"></div>
         </div>
@@ -104,7 +104,7 @@ useEffect(() => {
       <div className="mt-10 flex flex-col gap-6">
         <div className="flex items-center gap-6">
           <h3 className="font-normal text-right text-textC text-nowrap">
-            تایید دو مرحله ای
+            {t("securitySettings.title")}
           </h3>
           <div className="w-full h-px bg-gray-300 my-3"></div>
         </div>
@@ -120,7 +120,7 @@ useEffect(() => {
             disabled={loading}
           />
           <label className="text-textC" htmlFor="twoFactor">
-            مایل به ورود دو مرحله‌ای هستم
+            {t("securitySettings.checkBox")}
           </label>
         </div>
 
@@ -128,11 +128,11 @@ useEffect(() => {
           <div className="bg-background rounded-2xl shadow-[0_1px_2px_0_rgba(0,0,0,0.25)] p-4 flex flex-col gap-4 w-full max-w-md mx-auto">
             <div className="flex flex-col gap-3">
               <div className="  flex flex-col justify-start gap-1 ">
-                <label className="text-neutral-400 text-sm text-right px-3">
-                  ایمیل بازیابی
+                <label className="text-neutral-400 text-sm flex justify-start px-3">
+                  {t("securitySettings.recoveryEmail")}
                 </label>
                 <Input
-                  label="ایمیل بازیابی"
+                  label={t("securitySettings.recoveryEmail")}
                   type="email"
                   value={recoveryEmail}
                   onChange={(e) => setRecoveryEmail(e.target.value)}
@@ -142,11 +142,11 @@ useEffect(() => {
                 />
               </div>
               <div className=" flex flex-col justify-start gap-1 ">
-                <label className="text-neutral-400 text-sm text-right px-3">
-                  نام کاربری تلگرام
+                <label className="text-neutral-400 text-sm flex justify-start px-3">
+                  {t("securitySettings.telegramUsername")}
                 </label>
                 <Input
-                  label="نام کاربری تلگرام"
+                  label={t("securitySettings.telegramUsername")}
                   type="text"
                   value={telegramUsername}
                   onChange={(e) => setTelegramUsername(e.target.value)}
@@ -166,7 +166,7 @@ useEffect(() => {
                 }}
                 disabled={loading}
               >
-                انصراف
+                {t("securitySettings.cancel")}
               </Button>
 
               <Button
@@ -175,7 +175,11 @@ useEffect(() => {
                 disabled={loading}
                 loading={loading}
               >
-                {loading ? <Loading size={3} circleSize={3} /> : "فعالسازی"}
+                {loading ? (
+                  <Loading size={3} circleSize={3} />
+                ) : (
+                  t("securitySettings.enable")
+                )}
               </Button>
             </div>
           </div>

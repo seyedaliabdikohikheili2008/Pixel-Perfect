@@ -6,8 +6,10 @@ import Button from "../../../../atoms/Butoon/Button";
 import { useProfileInfo } from "../../../../../core/hooks/queries/user-panel/dashboard/useProfileInfo";
 import { useUpdateProfileInfo } from "../../../../../core/hooks/queries/user-panel/profile/useUpdateProfileInfo";
 import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 
 const EditLink = () => {
+  const { t } = useTranslation("userPanel");
   const {
     data: ProfileInfo = undefined,
     isError: ProfileInfoErr,
@@ -38,7 +40,7 @@ const EditLink = () => {
 
             updateProfile(formData, {
               onSuccess: () => {
-                toast.success("مشخصات آپدیت شد");
+                toast.success(t("personal.success"));
               },
               onError: (err) => {
                 console.log(err?.response?.data);
@@ -50,10 +52,10 @@ const EditLink = () => {
           {({ values, handleChange, handleBlur }) => (
             <Form className="w-full flex flex-col p-4 gap-y-7">
               <div className="w-1/2 flex flex-col items-start gap-3 px-4">
-                <h3 className="text-textC text-base">تلگرام</h3>
+                <h3 className="text-textC text-base">{t("link.telegram")}</h3>
                 <Input
                   boxClassname={"w-50 sm:w-100"}
-                  placeholder={"لینک تلگرام خود را وارد کنید"}
+                  placeholder={t("link.enterTelegram")}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.TelegramLink}
@@ -62,10 +64,10 @@ const EditLink = () => {
                 />
               </div>
               <div className="w-1/2 flex flex-col items-start gap-3 px-4">
-                <h3 className="text-textC text-base">لینکدین</h3>
+                <h3 className="text-textC text-base">{t("link.linkedIn")}</h3>
                 <Input
                   boxClassname={"w-50 sm:w-100"}
-                  placeholder={"لینک لینکدین خود را وارد کنید"}
+                  placeholder={t("link.enterLinkedIn")}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.LinkdinProfile}
@@ -74,8 +76,8 @@ const EditLink = () => {
                 />
               </div>
               <Button
-                children={`${isPending ? "درحال ارسال..." : "اعمال تغییرات"}`}
-                buttonClassName="w-fit"
+                children={`${isPending ? t("changePassword.submiting") : t("changePassword.save")}`}
+                buttonClassName="w-fit mx-4"
               />
             </Form>
           )}

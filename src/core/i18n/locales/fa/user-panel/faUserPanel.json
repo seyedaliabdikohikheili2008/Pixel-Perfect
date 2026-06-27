@@ -1,0 +1,127 @@
+{
+    "layout":{
+        "dashboard":"داشبورد",
+        "myCourse":"دوره من",
+        "myReservations":"رزرو من",
+        "myFavorites":"علاقه‌مندی های من",
+        "myComments":"دیدگاه های من",
+        "securitySettings":"تنظیمات امنیتی",
+        "profile":"پروفایل",
+        "logOut":"خروج از حساب"
+    },
+    "dashboard":{
+        "hello":"سلام، روز بخیر",
+        "myCourses":"دوره های من",
+        "reserved":"رزرو شده",
+        "news":"جدید ترین اخبار و مقالات",
+        "profileCompleted":"پروفایل تکمیل شده"
+    },
+    "myCourses":{
+        "image":"تصویر",
+        "courseName":"نام دوره",
+        "description":"توضیحات",
+        "status":"وضعیت",
+        "actions":"عملیات",
+        "viewCourse":"مشاهده دوره"
+    },
+    "myReserve":{
+        "myReservations":"رزرو من",
+        "searchCourses":"جستوجو دوره",
+        "dates":"تاریخ‌ها",
+        "start":"شروع",
+        "end":"پایان",
+        "delete":"رزرو مورد نظر با موفقیت حذف شد"
+    },
+    "myFavorite":{
+        "remove":"با موفقیت از علاقه مندی حذف شد",
+        "searchFavorites":"جستوجو علاقه مندی ها",
+        "search":"جستوجو کنید",
+        "courses":"دوره‌ها",
+        "articles":"مقالات",
+        "viewArticle":"مشاهده مقاله",
+        "title":"عنوان"
+    },
+    "myComments":{
+        "delete":"کامنت مورد نظر با موفقیت حذف شد",
+        "searchComments":"جستوجو دیدگاه ها",
+        "approved":"تایید شد",
+        "notApproved":"تایید نشده",
+        "course":"دوره",
+        "article":"مقاله"
+    },
+    "securitySettings":{
+        "cancel":"انصراف",
+        "enable":"فعالسازی",
+        "telegramUsername":"نام کاربری تلگرام",
+        "recoveryEmail":"ایمیل بازیابی",
+        "checkBox":"مایل به ورود دو مرحله‌ای هستم",
+        "title":"تایید دو مرحله ای",
+        "changePassword":"تغییر رمز عبور",
+        "errorOne":"خطا در غیرفعال سازی تایید دو مرحله‌ای",
+        "errorTwo":"فیلدهای ایمیل یا تلگرام را پر کنید",
+        "errorThree":"خطا در فعال سازی تایید دو مرحله‌ای",
+        "errorFour":"خطا در دریافت تنظیمات امنیتی"
+    },
+    "changePassword":{
+        "save":"ذخیره تغییرات",
+        "submiting":"در حال ارسال...",
+        "confirm":"تکرار مجدد",
+        "confirmPassword":"تکرار رمز عبور",
+        "newPass":"رمز عبور جدید خود را وارد کنید",
+        "newPassword":"رمز عبور جدید",
+        "currentPass":"رمز عبور فعلی خود را وارد کنید",
+        "currentPassword":"رمز عبور فعلی",
+        "errorOne":"خطایی رخ داد، لطفاً دوباره تلاش کنید.",
+        "success":"رمز عبور با موفقیت تغییر یافت",
+        "confirmationRequired":"تکرار رمز الزامی است",
+        "doNotMatch":"رمز عبور و تکرار آن یکسان نیستند",
+        "mustCharacters":"رمز عبور نباید بیشتر از 20 کاراکتر باشد",
+        "leastCharacters":"لطفا از 6 کاراکتر بیشتر وارد کنید!",
+        "passwordRequired":"رمز اجباری است"
+    },
+    "profileLayout":{
+        "links":"لینک‌ها",
+        "address":"آدرس سکونت",
+        "personal":"اطلاعات شخصی",
+        "aboutMe":"درباره من",
+        "profilePicture":"عکس پروفایل",
+        "unnamed":"بدون نام"
+    },
+    "profileImage":{
+        "add":"اضافه کردن عکس",
+        "select":"عکس با موفقیت انتخاب شد",
+        "upload":"عکس با موفقیت آپلود شد",
+        "delete":"عکس با موفقیت پاک شد"
+    },
+    "personal":{
+        "male":"مرد",
+        "female":"زن",
+        "gender":"جنسیت",
+        "enterAddress":"آدرس سکونت خود را وارد کنید",
+        "address":"آدرس سکونت",
+        "enterBirth":"تاریخ تولد خود را وارد کنید",
+        "dateBirth":"تاریخ تولد",
+        "enterNationalID":"کد ملی خود را وارد کنید",
+        "nationalID":"کد ملی",
+        "aboutYourself":"یک متن درباره خود را وارد کنید",
+        "aboutMe":"درباره من",
+        "enterlastName":"نام خانوادگی خود را وارد کنید",
+        "lastName":"نام خانوادگی",
+        "enterFirstName":"نام خود را وارد کنید",
+        "firstName":"نام",
+        "success":"مشخصات آپدیت شد"
+    },
+    "homeAddress":{
+        "confirmLocation":"تایید موقعیت مکانی",
+        "select":"داخل نقشه موقعیت مکانی محل سکونت خود را انتخاب کنید",
+        "dateBirth":"ابتدا تاریخ تولد خود را وارد کنید",
+        "success":"موقعیت مکانی آپدیت شد",
+        "pleaseSelect":"لطفا موقعیت خود را انتخاب کنید"
+    },
+    "link":{
+        "enterLinkedIn":"لینک لینکدین خود را وارد کنید",
+        "linkedIn":"لینکدین",
+        "enterTelegram":"لینک تلگرام خود را وارد کنید",
+        "telegram":"تلگرام"
+    }
+}

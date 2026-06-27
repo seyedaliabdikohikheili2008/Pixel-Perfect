@@ -2,14 +2,14 @@ import React, { useEffect, useRef, useState } from "react";
 import { MapComponent, MapTypes } from "@neshan-maps-platform/mapbox-gl-react";
 import nmp_mapboxgl from "@neshan-maps-platform/mapbox-gl";
 import "@neshan-maps-platform/mapbox-gl/dist/NeshanMapboxGl.css";
-
 import Button from "../../../../atoms/Butoon/Button";
 import { useProfileInfo } from "../../../../../core/hooks/queries/user-panel/dashboard/useProfileInfo";
 import { useUpdateProfileInfo } from "../../../../../core/hooks/queries/user-panel/profile/useUpdateProfileInfo";
-
 import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 
 const HomeAddress = () => {
+  const { t } = useTranslation("userPanel");
   const { data: ProfileInfo } = useProfileInfo();
 
   const { mutate: updateProfile, isPending } = useUpdateProfileInfo();
@@ -22,7 +22,6 @@ const HomeAddress = () => {
   const mapRef = useRef(null);
   const markerRef = useRef(null);
 
-  // گرفتن موقعیت ذخیره شده کاربر
   useEffect(() => {
     if (ProfileInfo?.data?.latitude && ProfileInfo?.data?.longitude) {
       setLocation({
@@ -32,7 +31,6 @@ const HomeAddress = () => {
     }
   }, [ProfileInfo]);
 
-  // بروزرسانی مارکر و مرکز نقشه هنگام تغییر location
   useEffect(() => {
     if (!mapRef.current) return;
     if (!location.latitude || !location.longitude) return;
@@ -51,11 +49,9 @@ const HomeAddress = () => {
     }
   }, [location]);
 
-  // زمانی که نقشه ساخته شد
   const mapSetter = (map) => {
     mapRef.current = map;
 
-    // اگر مختصات قبلاً وجود داشت
     if (location.latitude && location.longitude) {
       markerRef.current = new nmp_mapboxgl.Marker()
         .setLngLat([location.longitude, location.latitude])
@@ -67,7 +63,6 @@ const HomeAddress = () => {
       });
     }
 
-    // انتخاب موقعیت با کلیک روی نقشه
     map.on("click", (e) => {
       const { lng, lat } = e.lngLat;
 
@@ -80,7 +75,7 @@ const HomeAddress = () => {
 
   const handleSubmit = () => {
     if (!location.latitude || !location.longitude) {
-      toast.error("لطفا موقعیت خود را انتخاب کنید");
+      toast.error(t("homeAddress.pleaseSelect"));
       return;
     }
 
@@ -95,10 +90,10 @@ const HomeAddress = () => {
 
     updateProfile(formData, {
       onSuccess: () => {
-        toast.success("موقعیت مکانی آپدیت شد");
+        toast.success(t("homeAddress.success"));
       },
       onError: (err) => {
-        toast.error("ابتدا تاریخ تولد خود را وارد کنید");
+        toast.error(t("homeAddress.dateBirth"));
         console.log(err?.response?.data);
       },
     });
@@ -107,7 +102,7 @@ const HomeAddress = () => {
   return (
     <div className="w-full flex flex-col gap-6 items-start">
       <h2 className="text-lg flex flex-wrap gap-5 items-center text-primary-500 font-bold">
-        داخل نقشه موقعیت مکانی محل سکونت خود را انتخاب کنید
+        {t("homeAddress.select")}
         <Button
           onClick={() => {
             if (!isPending) {
@@ -115,7 +110,9 @@ const HomeAddress = () => {
             }
           }}
         >
-          {isPending ? "درحال ارسال..." : "تایید موقعیت مکانی"}
+          {isPending
+            ? t("changePassword.submiting")
+            : t("homeAddress.confirmLocation")}
         </Button>
       </h2>
 

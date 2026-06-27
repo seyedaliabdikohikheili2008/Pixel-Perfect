@@ -11,6 +11,8 @@ import enCourseDetail from "./locales/en/course-detail/enCourseDetail.json"
 import enNewsDetail from "./locales/en/newsDetail/enNewsDetail.json"
 import enTeacherDetail from "./locales/en/teacher-details/enTeacherDetail.json"
 import enAuth from "./locales/en/auth/enAuth.json"
+import enContactUs from "./locales/en/contactUS/enContactUs.json"
+
 
 
 import faHeader from "./locales/fa/header/faHeader.json"
@@ -22,6 +24,8 @@ import faCourseDetail from "./locales/fa/course-detail/faCourseDetail.json"
 import faNewsDetail from "./locales/fa/newsDetail/faNewsDetail.json"
 import faTeacherDetails from "./locales/fa/teacher-details/faTeacherDetails.json"
 import faAuth from "./locales/fa/auth/faAuth.json"
+import faContactUs from "./locales/fa/contactUS/faContactUs.json"
+
 
 i18next.use(initReactI18next).init({
     resources:{
@@ -34,7 +38,8 @@ i18next.use(initReactI18next).init({
             courseDetail:enCourseDetail,
             newsDetail:enNewsDetail,
             teacherDetail:enTeacherDetail,
-            auth:enAuth
+            auth:enAuth,
+            contactUs:enContactUs
         },
         fa:{
             header: faHeader,
@@ -45,7 +50,8 @@ i18next.use(initReactI18next).init({
             courseDetail:faCourseDetail,
             newsDetail:faNewsDetail,
             teacherDetail:faTeacherDetails,
-            auth:faAuth
+            auth:faAuth,
+            contactUs:faContactUs
         }
     },
     lng:"fa",

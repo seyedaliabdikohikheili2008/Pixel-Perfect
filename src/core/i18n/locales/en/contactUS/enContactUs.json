@@ -1,0 +1,24 @@
+{
+  "contact": {
+    "title": "contact us",
+    "describe": "Stay connected with Bahr Academy by receiving support."
+  },
+  "explanation": {
+    "title": "Bahr Academy is always by your side.",
+    "describe": "Introduction to a technological stack of coding languages ​​with an action-oriented perspective to stimulate creative mindset during the learning process Introduction to a technological stack of coding languages ​​with an action-oriented perspective to stimulate creative mindset during the learning process Introduction to a technological stack of coding languages ​​with an action-oriented perspective to stimulate creative mindset during the learning process Introduction to a technological stack of coding languages ​​with an action-oriented perspective to stimulate creative mindset during the learning process="
+  },
+  "message": {
+    "title": "Send us a message.",
+    "describe": "Your email address will not be published. Required fields are marked *",
+    "text": "Message text",
+    "name": "Name*",
+    "email": "Email*",
+    "site": "Website*"
+  },
+  "side": {
+    "address": "Site address",
+    "phone": "Number",
+    "telegram": "Telegram address",
+    "instagram": "Instagram address"
+  }
+}

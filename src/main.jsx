@@ -7,7 +7,6 @@ import { store } from "./core/store/Store.js";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "./core/i18n/i18n.js";
 import { Toaster } from "react-hot-toast";
-import "leaflet/dist/leaflet.css";
 import "@neshan-maps-platform/mapbox-gl-react/dist/style.css";
 
 const queryClient = new QueryClient();

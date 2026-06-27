@@ -75,8 +75,7 @@ const CourseListToping = ({
           icon={search}
           onChange={handleChange}
           placeholder={t("Toping.search")}
-          iconClassname={"pr-2"}
-          boxClassname={"w-1/2 flex-1 gap-2"}
+          boxClassname={"w-1/2 px-3 flex-1 gap-2"}
         />
         <div className="[@media(max-width:1280px)]:hidden flex relative items-center gap-2 w-45 bg-neutral-50 rounded-2xl justify-evenly p-2">
           <img

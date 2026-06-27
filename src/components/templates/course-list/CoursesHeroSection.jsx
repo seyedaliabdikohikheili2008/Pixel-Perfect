@@ -8,15 +8,16 @@ const CoursesHeroSection = () => {
   const { t } = useTranslation("courses");
   return (
     <>
-      <div className="flex lg:flex-row flex-col-reverse items-center gap-3 w-5/6 my-12 mx-auto">
+      <div className="flex lg:flex-row flex-col-reverse justify-between items-center gap-5 w-5/6 my-12 mx-auto">
         <div className="w-11/12 lg:w-1/2">
           <SectionTitle
-            width="w-90 sm:w-110"
+            width="w-80 sm:w-130"
+            titleclassName="text-wrap"
             desc={t("HeroSection.describe")}
             title={t("HeroSection.title")}
           />
         </div>
-        <div className="w-11/12 lg:w-1/2 relative">
+        <div className="w-11/12 lg:w-5/12 relative">
           <img src={heroImg} alt="" />
           <div className="hidden lg:w-18 xl:w-22 lg:h-18 xl:h-22 absolute -bottom-1 -left-3 bg-primary-300 rounded-3xl lg:flex justify-center items-center">
             <img className="w-5 h-5 xl:w-7.5 xl:h-7.5" src={icon} alt="" />

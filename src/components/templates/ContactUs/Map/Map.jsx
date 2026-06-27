@@ -13,10 +13,11 @@ import nmp_mapboxgl from "@neshan-maps-platform/mapbox-gl";
 import "@neshan-maps-platform/mapbox-gl/dist/NeshanMapboxGl.css";
 import { Button } from "@heroui/react";
 import { FaRoute } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 const Map = () => {
   const mode = useSelector((state) => state.DarkFlag.value);
-
+  const { t } = useTranslation("contactUs");
   const position = {
     latitude: 36.59729612973962,
     longitude: 53.06460213556759,
@@ -50,7 +51,7 @@ const Map = () => {
         <div className="flex items-center bg-background p-1.5 rounded-lg gap-3">
           <img src={mode === "light" ? web : darkweb} alt="" />
           <div className="text-right">
-            <p className="font-bold text-lg text-textC">آدرس سایت</p>
+            <p className="font-bold text-lg text-textC">{t("side.address")}</p>
             <p className="font-bold text-sm text-neutral-300">WWW.BaHr-AC.iR</p>
           </div>
         </div>
@@ -58,7 +59,7 @@ const Map = () => {
         <div className="flex items-center bg-background p-1.5 rounded-lg gap-3">
           <img src={mode === "light" ? telephon : darktelephon} alt="" />
           <div className="text-right">
-            <p className="font-bold text-lg text-textC">شماره</p>
+            <p className="font-bold text-lg text-textC">{t("side.phone")}</p>
             <p className="font-bold text-sm text-neutral-300">0933-296-5018</p>
           </div>
         </div>
@@ -66,7 +67,7 @@ const Map = () => {
         <div className="flex items-center bg-background p-1.5 rounded-lg gap-3">
           <img src={mode === "light" ? telegram : darktelegram} alt="" />
           <div className="text-right">
-            <p className="font-bold text-lg text-textC">آدرس تلگرام</p>
+            <p className="font-bold text-lg text-textC">{t("side.telegram")}</p>
             <p className="font-bold text-sm text-neutral-300">
               https://t.me/Bahr_AC
             </p>
@@ -76,7 +77,7 @@ const Map = () => {
         <div className="flex items-center bg-background p-1.5 rounded-lg gap-3">
           <img src={mode === "light" ? instagram : darkinstagram} alt="" />
           <div className="text-right">
-            <p className="font-bold text-lg text-textC">آدرس اینستاگرام</p>
+            <p className="font-bold text-lg text-textC">{t("side.instagram")}</p>
             <p className="font-bold text-[12px] text-neutral-300">
               https://instagram.com/bahr_ac
             </p>

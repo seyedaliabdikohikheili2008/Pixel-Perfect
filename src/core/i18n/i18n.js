@@ -1,7 +1,5 @@
 import i18next from "i18next";
 import { initReactI18next } from "react-i18next";
-
-
 import enHeader from "./locales/en/header/enHeader.json"
 import enlanding from "./locales/en/landing/enLanding.json"
 import enFooter from "./locales/en/footer/enFooter.json"
@@ -12,6 +10,7 @@ import enNewsDetail from "./locales/en/newsDetail/enNewsDetail.json"
 import enTeacherDetail from "./locales/en/teacher-details/enTeacherDetail.json"
 import enAuth from "./locales/en/auth/enAuth.json"
 import enUserPanel from "./locales/en/user-panel/enUserPanel.json"
+import enContactUs from "./locales/en/contactUS/enContactUs.json"
 
 
 import faHeader from "./locales/fa/header/faHeader.json"
@@ -24,6 +23,9 @@ import faNewsDetail from "./locales/fa/newsDetail/faNewsDetail.json"
 import faTeacherDetails from "./locales/fa/teacher-details/faTeacherDetails.json"
 import faAuth from "./locales/fa/auth/faAuth.json"
 import faUserPanel from "./locales/fa/user-panel/faUserPanel.json"
+import faContactUs from "./locales/fa/contactUS/faContactUs.json"
+
+
 
 i18next.use(initReactI18next).init({
     resources:{
@@ -37,7 +39,8 @@ i18next.use(initReactI18next).init({
             newsDetail:enNewsDetail,
             teacherDetail:enTeacherDetail,
             auth:enAuth,
-            userPanel:enUserPanel
+            userPanel:enUserPanel,
+            contactUs:enContactUs
         },
         fa:{
             header: faHeader,
@@ -49,7 +52,8 @@ i18next.use(initReactI18next).init({
             newsDetail:faNewsDetail,
             teacherDetail:faTeacherDetails,
             auth:faAuth,
-            userPanel:faUserPanel
+            userPanel:faUserPanel,
+            contactUs:faContactUs
         }
     },
     lng:"fa",

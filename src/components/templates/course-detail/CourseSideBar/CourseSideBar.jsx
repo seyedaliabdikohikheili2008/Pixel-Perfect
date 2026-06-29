@@ -15,6 +15,7 @@ import { AddRate } from "../../../../core/services/Course-detail/addRate/addRate
 import toast, { Toaster } from "react-hot-toast";
 import { useSelector } from "react-redux";
 import StarRating from "../../../atoms/acceptance/starrating/StarRating";
+import { Reserve } from "../../../../core/services/Course-detail/reserve/reserve";
 
 const CourseSideBar = ({ course }) => {
   const { t } = useTranslation("courseDetail");
@@ -37,7 +38,7 @@ const CourseSideBar = ({ course }) => {
     console.log("course.id:", course.courseId);
     setIsReserving(true);
     try {
-      const response = await AddRate(course.courseId);
+      const response = await Reserve (course.courseId);
       toast.success("دوره با موفقیت رزرو شد!");
       console.log(response);
     } catch (error) {

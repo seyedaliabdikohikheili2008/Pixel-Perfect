@@ -3,7 +3,7 @@ import { store } from "../store/Store";
 import toast from "react-hot-toast";
 import { logout } from "../feature/auth/IsAuthSlice";
 
-const API_BASE_URL = "http://188.121.104.25:3001";
+const API_BASE_URL = "http://162.19.253.202:3001/";
 
 const ApiClient = axios.create({
   baseURL: API_BASE_URL,
